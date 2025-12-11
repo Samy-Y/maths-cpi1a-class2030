@@ -1,0 +1,1005 @@
+\documentclass[12pt, a4paper]{report}
+
+% --- PACKAGES ESSENTIELS ---
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Police plus nette et moderne
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % Importe amsthm pour les environnements
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{outlines}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{placeins}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{ragged2e}
+\usepackage{fancyhdr} % Ajout pour les en-têtes et pieds de page
+
+% Configuration de fancyhdr
+\pagestyle{fancy}
+\fancyhf{} % Efface les champs par défaut
+\fancyhead[L]{\nouppercase{\rightmark}} % Section actuelle à gauche
+\fancyfoot[L]{\href{https://forms.office.com/r/iXb9s8eSML}{Signaler une erreur}} % Lien cliquable à gauche
+\fancyfoot[C]{\thepage} % Numéro de page au centre
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Appliquer le style fancy sur les pages normales
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[L]{\href{https://forms.office.com/r/iXb9s8eSML}{Signaler une erreur}}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.4pt}%
+}
+
+% Clear any pending floats before document end
+\AtEndDocument{\clearpage}
+
+% --- PACKAGES POUR LE STYLE ---
+\usepackage[x11names, dvipsnames]{xcolor}
+\usepackage{framed}
+\usepackage{tikz}
+\usepackage{tikz}
+\usepackage[
+    unicode=true,
+    pdfusetitle,
+    colorlinks=true,
+    linkcolor=MidnightBlue,
+    urlcolor=Firebrick4,
+    citecolor=Green4
+]{hyperref}
+\usetikzlibrary{calc,arrows.meta}
+
+% --- CONFIGURATION DE LA MISE EN PAGE ---
+\geometry{
+    a4paper,
+    top=25mm,
+    bottom=25mm,
+    left=20mm,
+    right=20mm,
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% --- DÉFINITION D'UNE PALETTE DE COULEURS ---
+\definecolor{mainBlue}{HTML}{003366}
+\definecolor{accentBlue}{HTML}{005b96}
+\definecolor{boxBg}{HTML}{E8F0F7}
+\definecolor{boxFrame}{HTML}{005b96}
+\definecolor{remarkBg}{HTML}{F0F8FF}
+
+% Colors for different environments
+\definecolor{definitionColor}{HTML}{3498DB}    % Blue for definitions
+\definecolor{theoremColor}{HTML}{9B59B6}       % Purple for theorems
+\definecolor{propertyColor}{HTML}{1ABC9C}      % Turquoise for properties
+\definecolor{propositionColor}{HTML}{D81B60}   % Pink for propositions
+\definecolor{consequenceColor}{HTML}{2ECC71}   % Green for consequences
+\definecolor{remarkColor}{HTML}{E74C3C}        % Red for remarks
+\definecolor{exampleColor}{HTML}{F39C12}       % Orange for examples
+\definecolor{exerciseColor}{HTML}{95A5A6}      % Gray for exercises
+\definecolor{proofColor}{HTML}{34495E}         % Dark gray for proofs
+\definecolor{applicationColor}{HTML}{FF6B35}   % Orange-red for applications
+
+% Background colors (lighter versions of heading colors)
+\definecolor{definitionBg}{HTML}{EAF4F9}       % Light blue background
+\definecolor{theoremBg}{HTML}{F5EEF8}          % Light purple background
+\definecolor{propertyBg}{HTML}{E8F8F5}         % Light turquoise background
+\definecolor{propositionBg}{HTML}{FBE4EC}      % Light pink background
+\definecolor{consequenceBg}{HTML}{EAF9F1}      % Light green background
+\definecolor{remarkBg}{HTML}{FDEDEC}           % Light red background
+\definecolor{exampleBg}{HTML}{FEF5E7}          % Light orange background
+\definecolor{exerciseBg}{HTML}{F4F6F7}         % Light gray background
+\definecolor{proofBg}{HTML}{EBEDEF}            % Light gray background
+\definecolor{applicationBg}{HTML}{FFF4F1}      % Light orange background
+
+% --- PERSONNALISATION DES TITRES ---
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\Huge\bfseries\color{mainBlue}\raggedright}
+  {Partie\ \thechapter}
+  {5pt}
+  {\Huge\sffamily\color{mainBlue}\raggedright}
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+\titleformat{\section}{\normalfont\sffamily\Large\bfseries\color{accentBlue}\raggedright}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\sffamily\large\bfseries\color{accentBlue}\raggedright}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalfont\sffamily\normalsize\bfseries\color{accentBlue}\raggedright}
+{\thesubsubsection}{1em}{}
+
+% --- DÉFINITION DES STYLES D'ENVIRONNEMENTS ---
+% Définition des styles de boîtes tcolorbox
+\tcbset{
+  coursebox/.style={
+    colback=boxBg,
+    colframe=boxFrame,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  },
+  remarkbox/.style={
+    colback=remarkBg,
+    colframe=MidnightBlue!50,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  },
+  proofbox/.style={
+    colback=proofBg,
+    colframe=Gray,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  }
+}
+
+% Déclaration des environnements théorème avec amsthm
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Théorème}
+\newtheorem{property}{Propriété}
+\newtheorem{remark}{Remarque}
+\newtheorem{example}{Exemple}
+\newtheorem{exercise}{Exercice}
+\newtheorem{consequence}{Conséquence}
+\newtheorem{application}{Application}
+\newtheorem{synthesis}{Résumé}
+% Définition de l'environnement importantbox amélioré
+\newenvironment{importantbox}[1][]{%
+  \begin{tcolorbox}[
+    colback=yellow!10,
+    colframe=orange!70!red,
+    colbacktitle=orange!70!red,
+    coltitle=white,
+    title=\sffamily\textbf{Formule importante},
+    fonttitle=\bfseries,
+    arc=3pt,
+    boxrule=1.5pt,
+    enhanced,
+    drop fuzzy shadow,
+    center title,
+    #1
+  ]%
+  \centering\large\bfseries
+}{\end{tcolorbox}}
+% Nouvel environnement pour les formules clés
+\newenvironment{keyformula}[1][]{%
+  \begin{tcolorbox}[
+    colback=blue!5,
+    colframe=blue!70,
+    colbacktitle=blue!70,
+    coltitle=white,
+    title=\sffamily\textbf{Formule clé},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    center title,
+    enhanced,
+    drop fuzzy shadow,
+    #1
+  ]%
+  \centering\large
+}{\end{tcolorbox}}
+  \centering\large
+% Environnement pour les méthodes importantes
+\newenvironment{methodbox}[1][]{%
+  \begin{tcolorbox}[
+    colback=green!8,
+    colframe=green!60!black,
+    colbacktitle=green!60!black,
+    coltitle=white,
+    title=\sffamily\textbf{Méthode},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    enhanced,
+    #1
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+  \normalfont
+% Environnement pour les points d'attention
+\newenvironment{attention}[1][]{%
+  \begin{tcolorbox}[
+    colback=red!8,
+    colframe=red!70,
+    colbacktitle=red!70,
+    coltitle=white,
+    title=\sffamily\textbf{$\triangle$ Attention},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    enhanced,
+    #1
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Style pour les listes élégantes
+\usepackage{enumitem}
+\newlist{elegantlist}{itemize}{3}
+\setlist[elegantlist,1]{
+  label=\textcolor{accentBlue}{$\blacktriangleright$},
+  leftmargin=1.5em,
+  itemsep=0.3em
+}
+\setlist[elegantlist,2]{
+  label=\textcolor{accentBlue}{$\circ$},
+  leftmargin=2em,
+  itemsep=0.2em
+}
+\setlist[elegantlist,3]{
+  label=\textcolor{accentBlue}{$-$},
+  leftmargin=2.5em,
+  itemsep=0.1em
+}
+
+% Redéfinition des environnements existants avec tcolorbox
+\renewenvironment{definition}[1][]{%
+  \refstepcounter{definition}%
+  \begin{tcolorbox}[colback=definitionBg, colframe=definitionColor, 
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Définition \thechapter.\thesection.\thedefinition%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=definitionColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{proposition}[1][]{%
+  \refstepcounter{proposition}%
+  \begin{tcolorbox}[colback=propositionBg, colframe=propositionColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Proposition \thechapter.\thesection.\theproposition%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=propositionColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{theorem}[1][]{%
+  \refstepcounter{theorem}%
+  \begin{tcolorbox}[colback=theoremBg, colframe=theoremColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Théorème \thechapter.\thesection.\thetheorem%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=theoremColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{property}[1][]{%
+  \refstepcounter{property}%
+  \begin{tcolorbox}[colback=propertyBg, colframe=propertyColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Propriété \thechapter.\thesection.\theproperty%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=propertyColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{remark}[1][]{%
+  \refstepcounter{remark}%
+  \begin{tcolorbox}[colback=remarkBg, colframe=remarkColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Remarque \thechapter.\thesection.\theremark%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=remarkColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{example}[1][]{%
+  \refstepcounter{example}%
+  \begin{tcolorbox}[colback=exampleBg, colframe=exampleColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Exemple \thechapter.\thesection.\theexample%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=exampleColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{exercise}[1][]{%
+  \refstepcounter{exercise}%
+  \begin{tcolorbox}[colback=exerciseBg, colframe=exerciseColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Exercice \thechapter.\thesection.\theexercise%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=exerciseColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{consequence}[1][]{%
+  \refstepcounter{consequence}%
+  \begin{tcolorbox}[colback=consequenceBg, colframe=consequenceColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Conséquence \thechapter.\thesection.\theconsequence%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=consequenceColor]%
+  \itshape
+}{\end{tcolorbox}}
+
+\renewenvironment{proof}[1][]{%
+  \begin{tcolorbox}[colback=proofBg, colframe=proofColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Preuve%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=proofColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{importantbox}[1][]{%
+  \begin{tcolorbox}[coursebox, title=, #1]%
+  \centering\large
+}{\end{tcolorbox}}
+
+\renewenvironment{application}[1][]{%
+  \refstepcounter{application}%
+  \begin{tcolorbox}[colback=applicationBg, colframe=applicationColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Application \thechapter.\thesection.\theapplication%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=applicationColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{synthesis}[1][]{
+    \refstepcounter{synthesis}%
+  \begin{tcolorbox}[colback=yellow!10, colframe=orange!70!red,
+  sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+  before=\par\bigskip, after=\par\bigskip,
+  title=\sffamily\textbf{Résumé \thechapter.\thesection.\thesynthesis%
+  \ifx&#1&\else\ \textit{(#1)}\fi%
+  }, fonttitle=\bfseries\color{white}, colbacktitle=orange!70!red]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\newcommand{\doubleheadrightarrow}{%
+    \tikz[overlay,remember picture,baseline]{%
+        \draw[->,very thick,mainBlue] (0,0) -- (0.5em,0.5em);
+        \draw[->,very thick,accentBlue] (0.25em,0.25em) -- (0.75em,0.75em);
+    }%
+}
+
+% --- DÉBUT DU DOCUMENT ---
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+    \vspace*{5cm}
+
+    {\sffamily\Huge\bfseries Chapitre V : Équations différentielles\par}
+    \vspace{1.5cm}
+
+    {\Large Rédigé par Samy Youssoufine\par}
+    \vspace{1cm}
+
+    {\large \today\par}
+    
+    % L'image n'est pas une figure flottante, elle restera sur la même page
+    \includegraphics[width=0.8\textwidth]{./assets/logo.png}\par
+
+    \vspace{1cm}
+    \vfill
+\end{titlepage}
+
+\cleardoublepage
+\tableofcontents
+\clearpage
+
+\chapter{Equations différentielles de premier ordre}
+
+\begin{definition}
+    Soient $I$ un intervalle de $\mathbb{R}$ tel que l'intérieur de $I$, noté $\stackrel{\circ}{I}$, soit non vide, et $\mathbb{K}=\mathbb{R}$ ou $\mathbb{C}$. On appelle \textbf{équation différentielle de premier ordre} toute équation de type :
+    \begin{keyformula}
+    $(L): x'(t)=a(t)\cdot x(t) + b(t)$
+    \end{keyformula}
+    d'inconnue $x : \begin{cases}I \to \mathbb{K}\\ t \mapsto x(t) \end{cases}$ dérivable sur $I$. Les fonctions $a$ et $b$ sont des fonctions continues de $\begin{cases}I \to \mathbb{K}\\ t \mapsto a(t) \end{cases}$ et $\begin{cases}I \to \mathbb{K}\\ t \mapsto b(t) \end{cases}$ respectivement.
+\end{definition}
+
+\begin{remark}[Intérieur d'un intervalle]
+    Soit $I$ un intervalle de $\mathbb{R}$. L'intérieur de $I$, noté $\stackrel{\circ}{I}$, est l'ensemble des points de $I$ qui admettent un voisinage entièrement contenu dans $I$. Autrement dit, $x \in \stackrel{\circ}{I}$ si et seulement s'il existe un intervalle ouvert $J$ tel que $x \in J \subseteq I$. Par exemple, si $I = [a, b]$, alors $\stackrel{\circ}{I} = ]a, b[$.
+\end{remark}
+
+\begin{remark}[Pourquoi $\mathbb{K}$ et pas $\mathbb{R}$ ?]
+    Malgré le fait que les fonctions à valeurs dans $\mathbb{C}$ n'aient pas été vues en terminale, le cours d'équations différentielles peut être étendu aux fonctions à valeurs complexes, ce qui sera utile en physique. L'analyse complexe sera abordée plus tard dans des chapitres dédiés.
+\end{remark}
+
+\section{Propriétés des fonctions à valeurs complexes}
+
+\begin{definition}[Fonction continue à valeurs complexes]
+    Soit $f : I \to \mathbb{C}$ où I est un intervalle de $\mathbb{R}$. On dit que $f$ est une fonction \textbf{continue} si et seulement si les fonctions $\Re(f)$ et $\Im(f)$ sont continues.\\On a donc : $f:\begin{cases}I\to \mathbb{C}\\t\mapsto f(t)=f_1(t)+i\cdot f_2(t)\end{cases}$.
+
+    Si $f$ est dérivable sur $I$, alors $f' : \begin{cases}I\to \mathbb{C}\\t\mapsto f'(t)=f_1'(t)+i\cdot f_2'(t)\end{cases}$.
+\end{definition}
+
+\begin{property}[Opérations sur les fonctions dérivables]
+    Soient $f,g : I \to \mathbb{C}$ dérivables sur $I$.
+    \begin{enumerate}
+        \item $\forall \lambda \in \mathbb{C}, f + \lambda \cdot g$ est dérivable sur $I$ et $(f + \lambda \cdot g)' = f' + \lambda \cdot g'$.
+        \item $f \cdot g$ est dérivable sur $I$ et $(f \cdot g)' = f' \cdot g + f \cdot g'$.
+        \item Si $\forall t \in I, g(t) \neq 0$, alors $\frac{f}{g}$ est dérivable sur $I$ et $\left(\frac{f}{g}\right)' = \frac{f' \cdot g - f \cdot g'}{g^2}$.
+    \end{enumerate}
+\end{property}
+
+\begin{remark}[Différence entre fonction qui ne s'annule pas et fonction non-nulle]
+    Il est important de noter la distinction entre une fonction qui ne s'annule pas et une fonction non-nulle. Une fonction $g : I \to \mathbb{C}$ est dite \textbf{non-nulle} si $\exists t \in I$ tel que $g(t) \neq 0$. En revanche, une fonction qui \textbf{ne s'annule pas} satisfait la condition plus stricte que $\forall t \in I, g(t) \neq 0$. Cette deuxième condition conduit à la première.
+\end{remark}
+
+\begin{property}
+    Soit $f : I \to \mathbb{C}$ dérivable sur $I$. Alors, $e^f$ est aussi dérivable sur $I$ et $(e^f)' = f' \cdot e^f$.
+    \begin{proof}
+        On a $f=f_1 + i \cdot f_2$, donc $e^f = e^{f_1} \cdot e^{i \cdot f_2}$, donc $e^f = e^{f_1} \cdot (\cos(f_2) + i \cdot \sin(f_2))$. Comme $f_1$ et $f_2$ sont dérivables sur $I$, $e^{f_1}$, $\cos(f_2)$ et $\sin(f_2)$ sont aussi dérivables sur $I$. Donc $e^{f_1} \cdot \cos(f_2)$ et $e^{f_1} \cdot \sin(f_2)$ sont dérivables. Par conséquent, $e^f$ est dérivable sur $I$ et on a :
+        $$(e^f)' = (e^{f_1}\cdot \cos(f_2))'+i(e^{f_1}\cdot \sin(f_2))$$
+        $$=\dots=(f_1'+if_2')e^{f_1}(\cos(f_2)+i\sin(f_2))$$
+        $$=f' \cdot e^f$$
+    \end{proof}
+\end{property}
+
+\begin{remark}
+    Certaines propriétés des fonctions dérivables à valeurs dans $\mathbb{R}$ ne sont pas valables dans $\mathbb{C}$. Par exemple, si $f:I\to\mathbb{C}^*$, alors on ne peut pas toujours dire que $ln(|f|)'=\frac{f'}{f}$. Prenons $f:x\mapsto x+i$. On a $\forall x \in \mathbb{R}: |f(x)|=\sqrt{x^2+1}$, donc $ln(|f(x)|)=\frac{1}{2}ln(x^2+1)$, donc $(ln(|f(x)|))'=\frac{x}{x^2+1}$. Cependant, $\frac{f'(x)}{f(x)}=\frac{1}{x+i}$, et on remarque que $\frac{x}{x^2+1} \neq \frac{1}{x+i}$.
+\end{remark}
+
+\section{Résolution de $(L)$}
+
+\subsection{Résolution de l'équation homogène $(H)$ associée}
+
+\begin{remark}
+    Dans certains livres, l'équation $(L)$ considérée est de la forme $x'(t) + a(t) \cdot x(t) = b(t)$. Ce n'est pas l'équation considérée dans ce cours, mais les deux formes sont équivalentes.
+\end{remark}
+
+\begin{definition}
+    On appelle \textbf{équation homogène associée} à $(L)$ l'équation :
+    $$(H): x'(t) = a(t) \cdot x(t)$$ (i.e. $b \equiv 0$, la fonction nulle).
+\end{definition}
+
+\begin{property}
+    Les solutions de $(H)$ sont les fonctions $x_H : \begin{cases}I \to \mathbb{K}\\ t \mapsto \lambda \cdot e^{A(t)}\end{cases}$, avec $A$ une primitive de $a$ sur $I$ et $\lambda \in \mathbb{K}$.
+
+    \begin{remark}[Pourquoi $A$ existe ?]
+        Puisque $a$ est continue sur $I$, alors $A$ existe et est unique à une constante près.
+    \end{remark}
+
+    \begin{proof}
+        Comme $a$ est continue sur $I$, elle admet une primitive $A$ sur $I$.
+        On a : $x'=a\cdot x \iff e^{-A} \cdot x' = a \cdot e^{-A} \cdot x \iff (e^{-A} \cdot x)' = 0$ (sachant que $a\neq 0$ et $A'(t)=a(t)$).
+        Donc $e^{-A} \cdot x = \lambda$ avec $\lambda \in \mathbb{K}$, donc $x = \lambda \cdot e^{A}$.
+        D'où $S_{(H)}=\{t\mapsto \lambda \cdot e^{A(t)} | \lambda \in \mathbb{K}\}$.
+    \end{proof}
+    
+\end{property}
+
+\begin{example}
+    Résoudre les équations différentielles suivantes :
+    \begin{enumerate}
+        \item $(H): (1+t^2) \cdot x'(t) = t \cdot x(t)$.
+        \item $(H): x'(t) = -e^{-i\cdot t} \cdot x(t)$.
+    \end{enumerate}
+    \textbf{Solution :}
+    \begin{enumerate}
+        \item On a $a(t) = \frac{t}{1+t^2}$. Une primitive de $a$ est $A(t) = \frac{1}{2} \cdot ln(1+t^2)$. Donc les solutions de $(H)$ sont $x_H(t) = \lambda \cdot e^{\frac{1}{2} \cdot ln(1+t^2)} = \lambda \cdot \sqrt{1+t^2}$, avec $\lambda \in \mathbb{R}$.
+        \item On a $a(t) = -e^{-i\cdot t}$. Une primitive de $a$ est $A(t) = \frac{1}{i} \cdot e^{-i\cdot t}$. Donc les solutions de $(H)$ sont $x_H(t) = \lambda \cdot e^{\frac{1}{i} \cdot e^{-i\cdot t}}$, avec $\lambda \in \mathbb{C}$.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    Pour construire une primitive de $a$, il suffit de choisir un point $t_0 \in I$ et de définir $A(t) = \int_{t_0}^{t} a(u) du$. Il ne s'agit pas d'un passe-partout.
+\end{remark}
+
+\subsection{Résolution de l'équation complète $(L)$ (avec second membre non nul)}
+
+\begin{property}
+    Si $x_p$ est une solution particulière de $(L)$, alors les solutions de $(L)$ sont données par :
+    \begin{keyformula}
+        $S_{(L)} = \{x_H + x_p | x_H \in S_{(H)}\}$
+    \end{keyformula}
+    où $x_H$ est la solution générale de l'équation homogène $(H)$.
+
+    \begin{proof}
+        On a : $x'=ax+b \iff (x-x_p)'=a(x-x_p)' \iff x-x_p=x_H \iff x=x_H+x_p$.
+    \end{proof}
+\end{property}
+
+\begin{example}
+    $$(L) : x'(t) = 2t \cdot x(t) + 1 - 2t^2$$
+    \textbf{Solution :} L'équation homogène associée est $(H) : x'(t) = 2t \cdot x(t)$. Une primitive de $a(t) = 2t$ est $A(t) = t^2$. Donc les solutions de $(H)$ sont $x_H(t) = \lambda \cdot e^{t^2}$, avec $\lambda \in \mathbb{R}$.
+    On remarque que $x(t)=t$ est une solution particulière de $(L)$ car $x'(t)=1$, et $2t\cdot x(t)+1-2t^2=2t^2+1-2t^2=1$. Donc les solutions de $(L)$ sont :
+    $$\boxed{S_{(L)} = \{t \mapsto \lambda \cdot e^{t^2} + t | \lambda \in \mathbb{R}\}}$$
+\end{example}
+
+\subsection{Recherche d'une solution particulière}
+ 
+{Cas particulier : $a(t)=\alpha \in \mathbb{K}$ et $b(t)=P(t)\cdot e^{\omega t}$, avec $P$ un polynôme à coefficients dans $\mathbb{K}$.}
+
+\begin{theorem}
+    On a $\begin{cases}a(t)=\alpha \in \mathbb{K}\\ b(t)=P(t)\cdot e^{\omega t}\end{cases}$, avec $P$ un polynôme à coefficients dans $\mathbb{K}$ et $\omega \in \mathbb{K}$.
+
+    On cherche alors une solution particulière de la forme $x_p(t) = Q(t)e^{\omega t}$, où $Q$ est un polynôme à coefficients dans $\mathbb{K}$.
+
+    \begin{enumerate}
+        \item Si $\omega=\alpha$, alors $Q'(t)=P(t)$, on calcule alors $Q(t)$ par intégration et on trouve que le degré de $Q$ est égal au degré de $P$ plus 1.
+        \item Dans le cas contraire, on essaie de trouver $Q(t)$ en identifiant les polynômes. Le degré de $Q$ est alors égal au degré de $P$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    \begin{enumerate}
+        \item $(L_1) : x'(t)=2x(t)+(t^2+2t+3)e^t$
+        \item $(L_2) : x'(t)=2x(t)+(t^2+t-1)e^{2t}$
+    \end{enumerate}
+    \textbf{Solution : }
+    \begin{enumerate}
+        \item On a : $x_H:t\mapsto \lambda e^{2t}$. On cherche la solution particulière de la forme $x_p(t)=Q(t)e^t$. On a $\alpha=2$ et $\omega=1$, donc $\omega \neq \alpha$. On remplace dans $(L_1)$ : $(2at+b)+(at^2+bt+c)=2(at^2+bt+c)+t^2+2t+3$. En réarrangeant, on trouve \\$-at^2+(2a-b)t+(b-c)=t^2+2t+3$. En identifiant les coefficients, on trouve : $\begin{cases}-a=1\\2a-b=2\\b-c=3\end{cases} \iff \begin{cases}a=-1\\b=-4\\c=-7\end{cases}$. Donc $x_p(t)=(-t^2-4t-7)e^t$. Finalement, les solutions de $(L_1)$ sont :
+        $$\boxed{S_{(L_1)} = \{t \mapsto \lambda e^{2t} + (-t^2-4t-7)e^t | \lambda \in \mathbb{R}\}}$$
+        \item On a : $x_H:t\mapsto \lambda e^{2t}$. On cherche la solution particulière de la forme $x_p(t)=Q(t)e^{2t}$. On a $\alpha=2$ et $\omega=2$, donc $\omega = \alpha$. On remplace dans $(L_2)$ : $Q'(t)e^{2t} + 2Q(t)e^{2t} = 2Q(t)e^{2t} + (t^2+t-1)e^{2t}$. En simplifiant, on trouve $Q'(t) = t^2 + t - 1$. En intégrant, on trouve $Q(t) = \frac{t^3}{3} + \frac{t^2}{2} - t + C$. On peut choisir $C=0$ pour une solution particulière. Donc $x_p(t) = \left(\frac{t^3}{3} + \frac{t^2}{2} - t\right)e^{2t}$. Finalement, les solutions de $(L_2)$ sont :
+        $$\boxed{S_{(L_2)} = \{t \mapsto \lambda e^{2t} + \left(\frac{t^3}{3} + \frac{t^2}{2} - t\right)e^{2t} | \lambda \in \mathbb{R}\}}$$
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    \begin{enumerate}
+		\item Résoudre $(L):x'(t)=2x(t)+te^{i t}$.
+		\item En déduire la solution de $(L):x'(t)=2x(t)+t\sin(t)$.
+		\item Résoudre $(L):x'(t)=x(t)+\cos(t)$.
+	\end{enumerate}
+	\textbf{Solution : }
+	\begin{enumerate}
+		\item (non réalisé \dots)
+		\item (non réalisé \dots)
+		\item On cherche d'abord les solutions de l'équation $(L_1):x'(t)=x(t)+e^{i t}$, parce qu'on souhaite trouver une solution particulière de la forme $x_p(t)=a\cdot e^{i t}$. On a $x_H:t\mapsto \lambda e^{t}$. On remplace dans $(L)$ pour obtenir : $a\cdot i \cdot e^{i t} = a \cdot e^{i t} + e^{i t}$. En simplifiant, on trouve $a(i-1)=1$, donc $a=\frac{1}{i-1}=\frac{-1-i}{2}$. Donc une solution particulière de $(L_1)$ est $x_p(t)=\frac{-1-i}{2}e^{i t}$. En prenant la partie réelle, on trouve une solution particulière de $(L)$ : $x_p(t)=\frac{-1}{2}\cos(t)+\frac{1}{2}\sin(t)$. Finalement, les solutions de $(L)$ sont : $$S_{(L)} = \{t \mapsto \lambda e^{t} + \frac{-1}{2}\cos(t)+\frac{1}{2}\sin(t) | \lambda \in \mathbb{R}\}$$
+	\end{enumerate}
+	\begin{remark}
+		Pour la dernière équation, nous pouvons aussi procéder par superposition des solutions. Cette méthode consiste à résoudre séparément les équations $x'(t)=x(t)$ et $x'(t)=\cos(t)$, puis à additionner les solutions obtenues.
+	\end{remark}
+\end{exercise}
+
+\subsubsection{Méthode de variation de la constante (M.V.C.)}
+
+\begin{theorem}
+	Soit $(L): x'(t) = a(t) \cdot x(t) + b(t)$ une équation différentielle de premier ordre, avec $a$ et $b$ continues sur un intervalle $I$. Soit $x_H$ la solution générale de l'équation homogène associée $(H): x'(t) = a(t) \cdot x(t)$, qui s'écrit $x_H(t) = \lambda \cdot e^{A(t)}$, où $A$ est une primitive de $a$ sur $I$ et $\lambda \in \mathbb{K}$.
+
+	On cherche une solution particulière de $(L)$ de la forme $x_p(t) = \lambda(t) \cdot e^{A(t)}$.
+
+	En dérivant $x_p(t)$, on obtient :
+	$$x_p'(t) = \lambda'(t) \cdot e^{A(t)} + \lambda(t) \cdot a(t) \cdot e^{A(t)}$$
+
+	En remplaçant dans $(L)$, on trouve :
+	$$\lambda'(t) \cdot e^{A(t)} + \lambda(t) \cdot a(t) \cdot e^{A(t)} = a(t) \cdot \lambda(t) \cdot e^{A(t)} + b(t)$$
+	Ce qui simplifie à :
+	$$\lambda'(t) \cdot e^{A(t)} = b(t)$$
+	Donc :
+	$$\lambda'(t) = b(t) \cdot e^{-A(t)}$$
+	En intégrant, on obtient :
+	$$\lambda(t) = \int b(u) \cdot e^{-A(u)} du + C$$
+	(dans le cours, on choisit les bornes $t_0$ et $t$ pour l'intégrale et on omet d'écrire $\lambda(t_0)$, mais ici on laisse une constante d'intégration $C$).\\
+	Donc une solution particulière de $(L)$ est donnée par :
+	$$x_p(t) = \left(\int b(u) \cdot e^{-A(u)} du + C\right) \cdot e^{A(t)}$$
+\end{theorem}
+
+\begin{property}
+	Soit $I$ un intervalle de $\mathbb{R}$ et $t_0 \in I$ et $I^\circ\not=\emptyset$. Les solutions de l'équation $(L):x'(t)=a(t)x(t)+b(t)$ où $a,b:I\to\mathbb{K}$ sont continues, $x:I\to\mathbb{K}$ dérivable sont $S_{(L)}=\{t\mapsto \lambda e^{A(t)} + x_p(t) | \lambda \in \mathbb{K}\}$, où $A$ est une primitive de $a$ (donc $A(t)=\int_{t_0}^{t} a(u) du$) sur $I$ et $x_p$ est la fonction définie par $x_p(t)=e^{A(t)}\int_{t_0}^{t} b(u)e^{-A(u)}du$.
+	\begin{proof}
+		Soit $A:t\mapsto\int_{t_0}^{t} a(u) du$.\\
+		On a $x'=ax+b \iff e^{-A}x' = ae^{-A}x + b e^{-A} \iff (e^{-A}x)' = b e^{-A}$.\\
+		En intégrant, on obtient :
+		$$e^{-A(t)}x(t) = \lambda + \int_{t_0}^{t} b(u)e^{-A(u)} du$$
+		D'où : $x(t) = \underbrace{\lambda e^{A(t)}}_{x_H(t)} + \underbrace{e^{A(t)}\int_{t_0}^{t} b(u)e^{-A(u)} du}_{x_p(t)}$.
+	\end{proof}
+\end{property}
+
+\begin{example}
+	\begin{enumerate}
+		\item $(L): x'(t) = \frac{t}{1+t^2}x(t) + t$
+		\item $(L): (e^t-1)x'(t)=e^t x(t) + 1$, $I=]0, +\infty[$
+	\end{enumerate}
+	\textbf{Solution : }
+	\begin{enumerate}
+		\item On cherche une solution particulière de $(L)$ sous la forme $x_p=\lambda(t)\cdot \sqrt{1+t^2}$ où $\lambda : \mathbb{R}\to \mathbb{K}$ une fonction dérivable.\\En remplaçant dans l'équation différentielle, on trouve : $\lambda'(t)\cdot \sqrt{1+t^2} + \lambda(t)\cdot \frac{t}{\sqrt{1+t^2}}$
+		\item On réecrit l'équation différentielle sous la forme : $x'(t)=\frac{e^t}{e^t-1}x(t)+\frac{1}{e^t-1}$.\\On a $a(t)=\frac{e^t}{e^t-1}$ et $b(t)=\frac{1}{e^t-1}$. Une primitive de $a$ est $A(t)=ln|e^t-1|$. Donc $e^{A(t)}=|e^t-1|=e^t-1$ (car $t>0$).\\Une solution de l'équation homogène associée est $x_H(t)=\lambda (e^t-1)$.\\On cherche une solution particulière de $(L)$ sous la forme $x_p(t)=\lambda (e^t-1)$. En remplaçant dans l'équation différentielle, on trouve : $\lambda'(t)(e^t-1)+\lambda(t)e^t=\frac{e^t}{e^t-1}\lambda(t)(e^t-1)+\frac{1}{e^t-1}$. En simplifiant, on obtient : $\lambda'(t)(e^t-1)=\frac{1}{e^t-1}$. Donc $\lambda'(t)=\frac{1}{(e^t-1)^2}$. Pour intégrer, on ajoute et retranche progressivement $e^t$. En intégrant, on trouve : $\lambda(t)=-\frac{e^t}{e^t-1}$. Donc $x_p(t)=-ln(1-e^{-t})(e^t-1)-1$.\\Finalement, les solutions de $(L)$ sont : $\boxed{S_{(L)} = \{t \mapsto (e^t-1)(\lambda -ln(1-e^{-t}))-1 | \lambda \in \mathbb{K}\}}$
+	\end{enumerate}
+\end{example}
+\todo{CONTINUER 1. (DANS L'INCAPACITÉ DE RECOPIER A TEMPS...)}
+
+\begin{property}[Problème de Cauchy]
+	Soit $I$ un intervalle de $\mathbb{R}$ et $t_0 \in I$ et $I^\circ\not=\emptyset$. Soient $a,b:I\to\mathbb{K}$ des fonctions continues. Alors, pour tout $(t_0,x_0)\in I\times\mathbb{K}$, il existe une unique solution $x:I\to\mathbb{K}$ dérivable de l'équation $(L):x'(t)=a(t)x(t)+b(t)$ telle que $x(t_0)=x_0$.
+	Autrement écrit : $$\exists ! x, \begin{cases}x'(t)=a(t)x(t)+b(t)\\ x(t_0)=x_0\end{cases}$$
+	\begin{proof}
+		Les solutions de $(L)$ sont $S_{(L)}=\{t\mapsto \lambda e^{A(t)} + x_p(t) | \lambda \in \mathbb{K}\}$, où $A$ est une primitive de $a$ sur $I$ et $x_p$ est la fonction définie par $x_p(t)=e^{A(t)}\int_{t_0}^{t} b(u)e^{-A(u)}du$.\\
+		On cherche $\lambda$ tel que $x(t_0)=x_0$. On a $x(t_0)=\lambda e^{A(t_0)} + x_p(t_0)$. Or, $x_p(t_0)=e^{A(t_0)}\int_{t_0}^{t_0} b(u)e^{-A(u)}du=0$. Donc $x(t_0)=\lambda e^{A(t_0)}$. Donc $\lambda=\frac{x_0}{e^{A(t_0)}}$.\\Or $e^{A(t_0)}=1$ car $A(t_0)=\int_{t_0}^{t_0} a(u) du=0$. Donc $\lambda=x_0$.\\
+		Finalement, la solution de $(L)$ telle que $x(t_0)=x_0$ est $x:t\mapsto x_0 e^{A(t)} + x_p(t)$.
+	\end{proof}
+	\begin{remark}
+		En pratique, nous ne nous intéressons pas aux bornes inférieures des intégrales utilisées. Nous avons donc pu utiliser le même $t_0$ pour les intégrales et le point d'initialisation du problème de Cauchy, sans perte de généralité.
+	\end{remark}
+\end{property}
+
+\begin{example}
+	Résoudre $\begin{cases}
+	x'(t)=2x(t)+t\\
+	x(0)=1
+	\end{cases}$
+
+	\textbf{Solution :}\\
+	La solution du système homogène associée est $x_H(t)=\lambda e^{2t}$.\\
+	On cherche une solution particulière de $(L)$ sous la forme $x_p(t)=at+b$. En remplaçant dans l'équation différentielle, on obtient : $a=2(at+b)+t$. En identifiant les coefficients, on trouve : $\begin{cases}a=2a+1\\b=\frac{a}{2}\end{cases} \iff \begin{cases}a=-1\\b=-\frac{1}{2}\end{cases}$. Donc $x_p(t)=\lambda e^{2t}-\frac{1}{4}(2t+1)$.\\
+	Or $x(0)=1$, donc $x(0)=\lambda e^{0}+x_p(0)=\lambda -\frac{1}{4}$. Donc $\lambda=\frac{5}{4}$.\\
+	Finalement, la solution de $(L)$ est $x(t)=\frac{5}{4}e^{2t}-\frac{1}{4}(2t+1)$.
+\end{example}
+
+\chapter{Equations différentielles linéaires de second ordre à coefficients constants}
+
+\begin{definition}
+	On appelle une équation différentielle linéaire de second ordre à coefficients constants toute équation dy type : $(L):ax''(t)+bx'(t)+cx(t)=f(t)$, où $(a,b,c)\in \mathbb{K}^*\times\mathbb{K}^2$ d'inconnue $x : \begin{cases}I \to \mathbb{K}\\ t \mapsto x(t) \end{cases}$ dérivable sur $I$, et $f : \begin{cases}I \to \mathbb{K}\\ t \mapsto f(t) \end{cases}$ une fonction continue sur $I$.
+
+	L'équation homogène associée est $(H): ax''(t)+bx'(t)+cx(t)=0$.
+\end{definition}
+
+\section{Résolution de l'équation homogène $(H)$}
+
+\begin{outline}
+	\1 \textbf{Résolution de l'équation homogène $(H)$}
+	\2 On cherche la solution de $(H)$ sous la forme $x_H(t)=e^{rt}$, avec $r\in\mathbb{K}$. Donc : $ar^2e^{rt}+bre^{rt}+ce^{rt}=0 \iff ar^2+br+c=0$ (car $e^{rt}\neq 0$). Donc $r$ est une racine du polynôme caractéristique $P(X)=aX^2+bX+c$, sachant que cette équation admet toujours deux racines dans $\mathbb{C}$ (éventuellement confondues).
+	\2 Soit $r$ solution de ce polynôme caractéristique.\\On pose $y(t)=x(t)\cdot e^{-rt}$, i.e. $x(t)=y(t)\cdot e^{rt}$.\\Donc $x'(t)=y'(t)e^{rt}+ry(t)e^{rt}$.\\Et $x''(t)=y''(t)e^{rt}+2ry'(t)e^{rt}+r^2y(t)e^{rt}$.\\En remplaçant dans $(H)$, on trouve : $ay''(t)+ (2ar+ b)y'(t) = 0$.
+	\2 Donc : $\begin{cases}z=y'\\az'=-(ar+b)z\end{cases}$. On a posé $z$ pour simplifier les notations et aboutir à deux équations différentielles de premier ordre.
+	\2 Si $ar+b=\Delta=0 \iff r=-\frac{b}{a}$, alors $z'=0$, donc $y''(t)=0$, donc $y(t)=\lambda t + \mu$. Donc $y'(t)=\lambda \iff y(t)=\lambda t + \mu$.\\Donc $x(t)=(\lambda t + \mu)e^{rt}$.
+	\2 Sinon ($\Delta\not=0$):
+	\3 Si $\Delta<0$ et $\mathbb{K}=\mathbb{R}$, alors $P$ n'admet pas de racines réelles. On note $z=r+is$ et $\bar{z}=r-is$ les deux racines complexes de $P$. Donc $\exists \alpha,\beta \in \mathbb{C}$ tels que $x(t)=\alpha e^{zt}+\beta e^{\bar{z}t}$.\\Or, $\forall t \in \mathbb{R}, x(t) \in \mathbb{R}$, alors $x(t)=\bar{x(t)}$ pour tout $t\in\mathbb{R}$.\\Cela équivaut à dire que : $\alpha e^{zt}+\beta e^{\bar{z}t}=\bar{\alpha} e^{\bar{z}t}+\bar{\beta} e^{zt}$.\\Par identification des coefficients, on trouve que $\alpha=\bar{\beta}$.\\Donc $x(t)=\alpha e^{zt}+\bar{\alpha} e^{\bar{z}t}$.\\On trouve alors que $x(t)=2\Re(\alpha e^{rt}\cdot e^{ist})$.\\Si $\alpha=a+ib$, alors $x(t)=2e^{rt}(a\cos(st)-b\sin(st))$.\\Finalement, les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto e^{rt}(A\cos(st)+B\sin(st)) | A,B\in\mathbb{R}\}}$$
+	\4 On écrit aussi $\exists A,B \in \mathbb{R}, x_H:t\mapsto e^{rt}(A\cos(st)+B\sin(st))$.
+\end{outline}
+
+\begin{synthesis}
+	Soit $(H): ax''(t)+bx'(t)+cx(t)=0$ avec $(a,b,c)\in\mathbb{K}^*\times\mathbb{K}^2$. L'équation caractéristique associée est $(E_c):aX^2+bX+c=0$.
+	\begin{enumerate}
+		\item \textbf{Dans le premier cas ($\Delta=0$)}, $(E_c)$ admet une racine double (solution unique) $r_0=-\frac{b}{2a}$.\\Les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto (\alpha t + \beta)e^{r_0 t} | \alpha,\beta \in \mathbb{K}\}}$$
+		\item \textbf{Dans le second cas}, $(E_c)$ admet deux racines $\mathbf{\in \mathbb{K}}$ distinctes $r_1$ et $r_2$.\\Les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto \alpha e^{r_1 t} + \beta e^{r_2 t} | \alpha,\beta \in \mathbb{K}\}}$$
+		\item \textbf{Dans le troisième cas ($\Delta<0$ et $\mathbb{K}=\mathbb{R}$)}, $(E_c)$ n'admet pas de racines réelles. On note $r+is$ et $r-is$ les deux racines complexes de $P$.\\Les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto e^{rt}(A\cos(st)+B\sin(st)) | A,B\in\mathbb{R}\}}$$
+	\end{enumerate}
+\end{synthesis}
+
+\begin{example}
+	Résoudre les équations différentielles suivantes 
+	\begin{enumerate}
+		\item $x''+\omega^2 x=0$.
+		\item $y''-2y'+y=0$.
+	\end{enumerate}
+	\textbf{Solution (1) : }
+	\begin{enumerate}
+		\item Si la résolution est dans $\mathbb{C}$, alors l'équation caractéristique admet deux solutions qui sont $i\omega$ et $-i\omega$. Donc les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto \alpha e^{i\omega t} + \beta e^{-i\omega t} | \alpha,\beta \in \mathbb{C}\}}$$
+		\item Si la résolution est dans $\mathbb{R}$, alors l'équation caractéristique n'admet pas de solutions réelles. Donc les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto A\cos(\omega t) + B\sin(\omega t) | A,B \in \mathbb{R}\}}$$\\On peut encore réecrire les solutions de $(H)$ sous la forme $\boxed{t\mapsto C\cos(\omega t + \varphi)}$, avec $C=\sqrt{A^2+B^2}$ et $\varphi$ tel que $\cos(\varphi)=\frac{A}{C}$ et $\sin(\varphi)=\frac{B}{C}$. On a toujours deux constantes à déterminer. 
+	\end{enumerate}
+	\textbf{Solution (2) : }\\
+	L'équation caractéristique admet une solution unique $r_0=1$. Donc les solutions de $(H)$ sont : $$\boxed{S_{(H)}=\{t\mapsto (\alpha t + \beta)e^{t} | \alpha,\beta \in \mathbb{R}\}}$$
+\end{example}
+
+\begin{property}
+	Soit $(H):ax''+bx'+cx=0$ avec $(a,b,c)\in\mathbb{K}^*\times\mathbb{K}^2$.\\Alors $\exists \varphi,\psi : I \to \mathbb{K}$ de classe $\mathcal{C}^{\infty}$ telles que $S_{(H)}=\{t\mapsto \alpha \varphi(t) + \beta \psi(t) | \alpha,\beta \in \mathbb{K}\}$, avec $\forall t \in I, \omega(t)=\begin{vmatrix}\varphi(t) & \psi(t) \\ \varphi'(t) & \psi'(t)\end{vmatrix} \neq 0$.
+	
+	$\omega$ est appelée le \textbf{wronskien} de $\varphi$ et $\psi$ et $(\varphi,\psi)$ est appelé \textbf{système fondamental de solutions de $(H)$}.
+		
+	\begin{proof}
+		\begin{enumerate}
+			\item \textbf{Cas 1 où $\Delta=0$} :\\On a $x_H:t\mapsto (\alpha t + \beta)e^{r_0 t}$.\\On pose $\varphi:t\mapsto e^{r_0 t}$ et $\psi:t\mapsto t e^{r_0 t}$. On a $\omega(t)=\begin{vmatrix}e^{r_0 t} & t e^{r_0 t} \\ r_0 e^{r_0 t} & (1 + r_0 t) e^{r_0 t}\end{vmatrix}=e^{2 r_0 t} \neq 0$.
+			\item \textbf{Cas 2 où $(E_c)$ admet deux solutions $r_1\not= r_2 \in \mathbb{K}$} :\\On a $x_H:t\mapsto \alpha e^{r_1 t} + \beta e^{r_2 t}$.\\On pose $\varphi:t\mapsto e^{r_1 t}$ et $\psi:t\mapsto e^{r_2 t}$.\\On a $\omega(t)=\begin{vmatrix}e^{r_1 t} & e^{r_2 t} \\ r_1 e^{r_1 t} & r_2 e^{r_2 t}\end{vmatrix}\\=(r_2 - r_1) e^{(r_1 + r_2) t} \neq 0$ (sachant que $r_1 \neq r_2$).
+			\item \textbf{Cas 3 où $\Delta<0$ et $\mathbb{K}=\mathbb{R}$} :\\On a $x_H:t\mapsto e^{r t}(A\cos(s t) + B\sin(s t))$.\\On pose $\varphi:t\mapsto e^{r t}\cos(s t)$ et $\psi:t\mapsto e^{r t}\sin(s t)$.\\On a $\omega(t)=\begin{vmatrix}e^{r t}\cos(s t) & e^{r t}\sin(s t) \\ e^{r t}(r \cos(s t) - s \sin(s t)) & e^{r t}(r \sin(s t) + s \cos(s t))\end{vmatrix}=s \cdot e^{2 r t} \neq 0$ (car $s \neq 0$).
+		\end{enumerate}
+	\end{proof}
+\end{property}
+
+\section{Recherche d'une solution particulière}
+
+\begin{importantbox}
+    $\mathbf{(L): ax''(t)+bx'(t)+cx(t)=f(t)}$
+    
+    $S_{(H)}=\{t\mapsto \alpha \varphi(t) + \beta \psi(t) | \alpha,\beta \in \mathbb{K}\}$, où $(\varphi,\psi)$ est un système fondamental de solutions de $(H)$.
+\end{importantbox}
+
+\subsection{Méthode de variation des constantes}
+
+\begin{theorem}
+	On cherche une solution particulière de $(L)$ de la forme :
+	
+	$$h:\begin{cases}I \to \mathbb{K}\\ t\mapsto\lambda(t)\varphi(t)+\mu(t)\psi(t)\end{cases}$$
+	
+	où $\begin{cases}\lambda,\mu : I \to \mathbb{K} \text{ sont des fonctions dérivables et}\\h'=\lambda\varphi'+\mu\psi' \quad(\leftarrow\text{ condition supplémentaire pour simplifier})
+	\end{cases}$
+	
+	On a : $h'=\lambda'\varphi+\lambda\varphi'+\mu'\psi+\mu\psi'$. Or $h'=\lambda\varphi'+\mu\psi'$. Donc $\lambda'\varphi+\mu'\psi=0$ (1).
+
+	En dérivant $h'$ : $h''=\lambda''\varphi+\lambda'\varphi'+\lambda'\varphi'+\lambda\varphi''+\mu''\psi+\mu'\psi'+\mu'\psi'+\mu\psi''$.\\Or $h''=\lambda'\varphi'+\mu'\psi'+\lambda\varphi''+\mu\psi''$. Donc $\lambda'\varphi'+\mu'\psi'=\frac{f}{a}$ (2) \textit{(MÉTHODE 1)}.
+
+	On sait aussi que $(\varphi,\psi)$ est un système fondamental de solutions de $(H)$, donc $\begin{cases}a\varphi''+b\varphi'+c\varphi=0\\a\psi''+b\psi'+c\psi=0\end{cases}$. On a donc (MÉTHODE 2).
+
+	On a donc le système suivant à résoudre :
+	\begin{keyformula}
+		$(*) : \begin{cases}\lambda'\varphi+\mu'\psi=0\\\lambda'\varphi'+\mu'\psi'=\frac{f}{a}\end{cases}$
+	\end{keyformula}
+
+	Le déterminant de $(*)$ est le wronskien $\omega(t)=\begin{vmatrix}\varphi(t) & \psi(t) \\ \varphi'(t) & \psi'(t)\end{vmatrix} \neq 0$. Donc le système $(*)$ admet une unique solution $(\lambda',\mu')$ qui dépend uniquement de $\varphi,\varphi',\psi,\psi'$ (des fonctions continues).
+
+\end{theorem}
+
+\begin{remark}
+	Dans la pratique, on va directement utiliser le système linéaire $(*)$, sans passer par les étapes intermédiaires.
+\end{remark}
+
+\begin{example}
+	$$(L):x''(t)+x'-2x=\frac{e^t}{e^t +1}$$
+	\textbf{Solution : }\\
+	L'équation homogène associée est $(H):x''(t)+x'-2x=0$. L'équation caractéristique associée est $(E_c):r^2+r-2=0$, qui admet pour solutions $r_1=1$ et $r_2=-2$. Donc les solutions de $(H)$ sont : $S_{(H)}=\{t\mapsto \alpha e^{t} + \beta e^{-2t} | \alpha,\beta \in \mathbb{R}\}$.\\
+	On pose $\varphi:t\mapsto e^{t}$ et $\psi:t\mapsto e^{-2t}$. On a $\omega(t)=\begin{vmatrix}e^{t} & e^{-2t} \\ e^{t} & -2e^{-2t}\end{vmatrix}=-3e^{-t} \neq 0$.\\
+	On cherche une solution particulière de $(L)$ sous la forme $h(t)=\lambda(t)e^{t}+\mu(t)e^{-2t}$. On a le système suivant à résoudre :
+	$$(*) : \begin{cases}\lambda'e^{t}+\mu'e^{-2t}=0\\\lambda'e^{t}-2\mu'e^{-2t}=\frac{e^t}{e^t +1}\end{cases}$$
+	En résolvant, on trouve : $\begin{cases}\lambda'=\frac{1}{3(e^t +1)}\\\mu'=-\frac{e^{3t}}{3(e^t +1)}\end{cases}$.\\
+	En intégrant, on trouve : $\lambda(t)=\frac{t}{3}-\frac{1}{3}\ln(e^t +1)+C_1$.\\
+	Pour intégrer $\mu'$, on réalise les opérations suivantes : $\mu'=-\frac{1}{3}\left[\frac{e^{3t}+1}{e^t+1}-\frac{1}{e^t +1}\right]\\=-\frac{1}{3}\left[\frac{(e^{t}+1)(e^{2t}-e^t+1)}{e^t+1}-\frac{1}{e^t +1}\right]\\=-\frac{1}{3}\left(e^{2t}-e^t+1-\frac{e^t}{e^t+1}\right)$.
+
+\end{example}
+
+\begin{remark}
+  Posons $(L):ax''(t)+bx'(t)+cx(t)=f(t)$ avec $(a,b,c)\in\mathbb{K}^*\times\mathbb{K}^2$.
+  
+  Si $x_p$ est une solution particulière de $(L)$, alors $S_{(L)}= \{t\mapsto x_H(t)+x_p(t) | x_H \in S_{(H)}\}$.
+\end{remark}
+
+\begin{remark}
+    Il existe une méthode (un peu complexe) pour trouver une solution particulière.
+    \begin{itemize}
+      \item \textbf{Si l'équation caractéristique admet des racines réelles distinctes $r_1$ et $r_2$}, on posera $(L):x''+\frac{b}{a}x'+\frac{c}{a}=\frac{f}{a}$ avec $\frac{b}{a}=-(r_1+r_2)$ et $\frac{c}{a}=r_1\cdot r_2$ (avec $r_1=r_2$ si racine double).\\Donc $(L):x''-(r_1+r_2)x'+r_1 r_2 x=\frac{f}{a}$.\\Donc $(L):(x''-r_1 x')-r_2(x'-r_1 x)=\frac{f}{a}$.\\En posant $y=x'-r_1 x$, on a : $\begin{cases}y'-r_2 y=\frac{f}{a}\\x'-r_1 x=y\end{cases}$\\On résout ce système de deux équations différentielles de premier ordre pour ensuite trouver $x$.
+
+      On obtient $y_p(t)=\underbrace{e^{r_2t}\int \frac{f(u)}{a}e^{-r_2u}du}_{F(t)}$
+
+      On aura ensuite $x'-r_1x=F(t)$, ce qui implique que $x_p(t)=e^{r_1t}\int^t F(s)e^{-r_1s}ds$
+
+      On obtient alors $x_p=e^{r_1t}\int^t \left(e^{-r_1s}\int^s\frac{f(u)}{a}du\right)ds$
+
+      \textbf{Nous ne disposons pas des connaissances techniques nécessaires pour calculer (facilement !) ce genre d'intégrales.} Pour les rares qui vont s'y intéresser, allez vous renseigner sur le théorème de Fubini, entre autres.
+
+      \item \textbf{Dans le cas où $(E_c)$ n'admet pas de racines} (i.e. : $\mathbb{K}=\mathbb{R}$ et $\Delta_{(E_c)}<0$, alors on cherche une solution particulière de $(L)$ en employant la méthode précédente dans $\mathbb{K}=\mathbb{C}$, puis on utilise uniquement la partie réelle de cette dernière.
+    \end{itemize}
+\end{remark}
+
+\subsection{Cas particuliers}
+
+\subsubsection{Un premier cas particulier, $f:t\mapsto P(t)e^{\omega t}$}
+
+\begin{keyformula}
+    $f:t\mapsto P(t)e^{\omega t}$
+
+    $P$ est un polynôme est $\omega \in \mathbb{K}$.
+
+    Nous allons chercher une solution particulière de la forme $x_p:t\mapsto Q(t)e^{\omega t}$ avec $Q$ un polynôme.
+\end{keyformula}
+
+\begin{application}
+    En remplaçant dans $(L)$:
+    $$\begin{cases}
+        x_p'(t)=(Q'(t)+\omega Q(t))e^{\omega t}\\
+        x_p''(t)=(Q''(t)+2\omega Q'(t) + \omega^2Q(t))
+    \end{cases}$$
+
+    On trouve ensuite : $aQ''(t)+(2a\omega + b)Q'(t) +(a\omega^2+b\omega +c)Q(t)=P(t)$
+
+    \begin{itemize}
+        \item[$\rightarrow$] \textbf{Dans le cas où $\omega$ n'est pas une solution de l'équation caractéristique $(E_c)$} (i.e. $a\omega^2+b\omega+c\not=0$).
+        \item[$\rightarrow$] \textbf{Dans le cas contraire...}
+        \begin{itemize}
+            \item[•] \textbf{Dans le cas où $2a\omega +b \not=0$} (on sait que $\omega$ est une racine simple de l'équation caractéristique)\\
+            Alors $d^\circ Q =d^\circ P+1$, on pose $Q(0)=0$ et on cherche $Q$ par identification des polynômes.
+            \item[•] \textbf{Dans le cas contraire...}\\
+            Alors $d^\circ Q=d^\circ P +2$ avec $Q''(t)=\frac1a P(t)$. On intègre alors deux fois (sans oublier le terme $\frac1a$...).
+        \end{itemize}
+    \end{itemize}
+\end{application}
+
+\begin{example}
+    \begin{enumerate}
+        \item $x''-x=te^{2t}$
+        \item $x''-x=te^t$
+    \end{enumerate}
+    \textbf{Solutions :}
+    \begin{enumerate}
+        \item On pose $P:t\mapsto t$, $\omega=2$.\\On a alors : $x''(t)-x(t)=P(t)e^{\omega t}$.\\On cherche alors une solution particulière de la forme\\$x_p:t\mapsto Q(t)e^{\omega t}$ et $x_p:t\mapsto (at+b)e^{2t}$.\\On a : $\omega^2-1=3\neq0$, on trouve alors la solution particulière, puis on cherche la solution homogène pour enfin aboutir à cet ensemble de solutions : $$\boxed{S=\{t\mapsto \alpha e^t + \beta e^{-t} + (\frac13 t - \frac49)e^{2t} ~~|~~\alpha,\beta \in \mathbb{K}}$$
+        \item On a $x''(t)-x(t)=te^t$. On pose $P(t)=t$ et $\omega=1$.\\On a alors $x''(t)-x(t)=P(t)e^{\omega t}$. On a $\omega^2-1=0$. Donc $\omega$ est une racine simple de $(E_c)$. On cherche une solution particulière de la forme $x_p(t)=(at^2+bt)e^t$.\\En remplaçant dans l'équation d'origine, on trouve $a=-b=\frac14$, et on obtient ainsi $$\boxed{S=\{t\mapsto \beta e^{-t} + (\frac14 b^2 -\frac14t+\alpha)e^t ~~|~~ \alpha,\beta \in \mathbb{K}\}}$$
+    \end{enumerate}
+\end{example}
+
+\subsubsection{Un autre cas particulier, où $f:t\mapsto P_1(t)\cos(\omega t)+P_2(t)\sin(\omega t)$}
+
+\begin{keyformula}
+    $f:t\mapsto P_1(t)\cos(\omega t) + P_2(t)\sin(\omega t)$
+
+    où $\omega \in \mathbb{R}$ et $P_1,P_2\in\mathbb{R}_n[X]$
+\end{keyformula}
+
+\begin{remark}
+    On note $\mathbb{K}_n[X]$ l'ensemble des polynômes à coefficients dans $\mathbb{K}$ et de degré $d^\circ \le n$. Cette notion sera abordée de manière plus détaillée dans le chapitre 12 sur les polynômes.
+\end{remark}
+
+\begin{application}
+    \textit{Avant de commencer, il est important de noter que si on pose $P(t)=P_1(t)-iP_2(t)$, alors $\Re(P(t)e^{i\omega t})=f(t)$. Cela va simplifier beaucoup de calculs par la suite.} 
+    
+    \vspace{0.5cm}
+    
+    On cherche d'abord une solution particulière de l'équation différentielle $(L_1):ax''+bx'+cx=P(t)e^{i\omega t}$ et on considère uniquement sa partie réelle.
+
+    \begin{itemize}
+        \item \textbf{Si $i\omega$ n'est pas une racine de $(E_c)$, alors $\tilde{x_p}:t\mapsto B(t)e^{i\omega t}$}, $B\in\mathbb{C}_n[X]$. On pose $B(t)=Q_1(t)-iQ_2(t)$;$Q_1,Q_2\in\mathbb{R}_n[X]$.\\Donc $x_p=\Re(\tilde{x_p}):t\mapsto Q_1(t)\cos(\omega t)+Q_2(t)\sin(\omega t)$ avec $Q_1,Q_2\in\mathbb{R}_n[X]$
+        \item \textbf{Dans le cas contraire...}\\On cherche une solution particulière de la forme $x_p:t\mapsto Q_1(t)\cos(\omega t) +Q_2(t)\sin(\omega t)$, avec $\begin{cases}
+            Q_1, Q_2 \in \mathbb{R}_{1H}[X]\\
+            Q_1(0)=Q_2(0)=0
+        \end{cases}$
+    \end{itemize}
+
+\end{application}
+
+\begin{example}
+        $$(\mathbb{K=R})~;~(L):x''+x=t\sin(t)$$
+\end{example}
+
+\begin{remark}[Décomposition en somme d'une fonction paire et d'une fonction impaire]
+    Toute fonction \(f\) définie sur un ensemble symétrique par rapport à l'origine peut être écrite de manière unique comme la somme d'une fonction paire \(u\) et d'une fonction impaire \(v\).
+    \begin{itemize}
+        \item Fonction paire (\(u\)) : \(u(x)=\frac{f(x)+f(-x)}{2}\)
+        \item Fonction impaire (\(v\)) : \(v(x)=\frac{f(x)-f(-x)}{2}\)
+    \end{itemize}
+    \textbf{Exemple simple :} $\forall x \in \mathbb{R} : e^x = \underbrace{\frac{e^x+e^{-x}}{2}}_{\cosh(x)}+\underbrace{\frac{e^x-e^{-x}}{2}}_{\sinh(x)}$
+\end{remark}
+
+\begin{remark}[Nouveau sous-cas particulier !]
+    Si $f:t\mapsto (P_1(t)\cos(\omega t)+P_2\sin(\omega t))e^{\alpha t}$ avec $P_1,P_2 \in \mathbb{R}_n[X]$ et $a,\omega \in \mathbb{R}$... (On utilise $P(t)=P_1(t)-iP_2(t)$ et on a $\Re(P(t)e^{(\alpha + i\omega)t}=f(t)$)
+    \begin{itemize}
+        \item \textbf{Si $a+i\omega$ n'est pas une racine de $(E_c)$}, alors $x_p:t\mapsto (Q_1(t)\cos(\omega t)+Q_2(t)\sin(\omega t))e^{at}$, avec $Q_1,Q_2 \in \mathbb{R}_n[X]$.
+        \item \textbf{Si $a+i\omega$ est une racine simple de $(E_c)$}, alors $x_p:t\mapsto (Q_1(t)\cos(\omega t) + Q_2(t) \sin(\omega t))e^{at}$ avec
+    \end{itemize}
+\end{remark}
+
+\begin{property}[Superposition des solutions]
+  Soit $(L) : ax''(t)+bx'(t)+cx(t)=\sum_{i=1}^r f_i(t)$ avec $r\ge 2\quad;\quad \forall 1\le i \le r : f_i : I \to \mathbb{K}$ continue et $(a,b,c)\in\mathbb{K}^*\times\mathbb{K}^2$.
+
+  Pour trouver une solution particulière de $(L)$, on cherche une solution particulière de chaque $(L_i):ax''(t)+bx'(t)+cx(t)=f_i(t)$, notée $\tilde{x}_{(i)}$.
+
+  Et dans ce cas, une solution particulière de $(L)$ est $x_p:t\mapsto \sum_{i=1}^r \tilde{x}_{(i)}(t)$.
+
+\end{property}
+
+\begin{example}
+  Résoudre $x''+2x'-3x=e^{-t}+\sin(t)+t^2$.\\
+  \textbf{Solution : }\\
+  On cherche une solution particulière de chaque équation suivante :
+  \begin{enumerate}
+    \item $(L_1):x''+2x'-3x=e^{-t}$
+    \item $(L_2):x''+2x'-3x=\sin(t)$
+    \item $(L_3):x''+2x'-3x=t^2$
+  \end{enumerate}
+  Pour $(L_1)$, on cherche une solution particulière de la forme $\tilde{x_(1)}:t\mapsto \lambda e^{-t}$. En remplaçant dans $(L_1)$, on trouve : $\lambda e^{-t}-2\lambda e^{-t}-3\lambda e^{-t}=e^{-t} \iff -4\lambda=1 \iff \lambda=-\frac{1}{4}$. Donc $\tilde{x}_{(1)}:t\mapsto -\frac{1}{4}e^{-t}$.\\
+  Pour $(L_2)$, on cherche une solution particulière de la forme $\tilde{x_(2)}:t\mapsto a\cos(t)+b\sin(t)$. En remplaçant dans $(L_2)$, on trouve :
+  $$(-a\cos(t)-b\sin(t))+2(-a\sin(t)+b\cos(t))-3(a\cos(t)+b\sin(t))=\sin(t)$$
+  En identifiant les coefficients, on trouve le système suivant : $\begin{cases}4b+2a+1=0\\4a-2b=0\end{cases} \iff \begin{cases}a=-\frac{1}{10}\\b=-\frac{1}{5}\end{cases}$.\\
+  Donc $\tilde{x}_{(2)}:t\mapsto -\frac{1}{10}\cos(t)-\frac{1}{5}\sin(t)$.\\
+  Pour $(L_3)$, on cherche une solution particulière de la forme $\tilde{x_(3)}:t\mapsto at^2+bt+c$. En remplaçant dans $(L_3)$, on trouve : $2a+2(2at+b)-3(at^2+bt+c)=t^2$.\\
+  En identifiant les coefficients, on trouve le système suivant : $\begin{cases}-3a=1\\4a-3b=0\\2a+2b-3c=0\end{cases} \iff \begin{cases}a=-\frac{1}{3}\\b=-\frac{4}{9}\\c=-\frac{14}{27}\end{cases}$.\\
+  Donc $\tilde{x}_{(3)}:t\mapsto -\frac{1}{3}t^2-\frac{4}{9}t-\frac{14}{27}$.\\On combine ensuite les solutions trouvées pour trouver une solution particulière de l'équation d'origine...
+\end{example}
+
+\begin{remark}[Résolution de $(L):ax''+bx'+cx=f$ dans le cas où $\underset{E_c}{\Delta} = 0$]
+  Soit $\omega$ la racine double de $(E_c)$. On pose $y(t)=x(t)e^{-\omega t}$. Donc $x(t)=y(t)e^{\omega t}$.\\
+  Donc : $x'(t)=y'(t)e^{\omega t}+\omega y(t)e^{\omega t}$.\\
+  Donc : $x''(t)=y''(t)e^{\omega t}+2\omega y'(t)e^{\omega t}+\omega^2 y(t)e^{\omega t}$.\\
+  (On factorise par $e^{\omega t}$ dans la suite).\\
+  En remplaçant dans $(L)$, on trouve :\\
+  $\left[ay''(t)+(2a\omega + b)y'(t)+\left(\omega^2 a + 2\omega b + c\right)y(t)\right]e^{\omega t}=f(t)$.\\
+  Or on a $\omega^2 a + 2\omega b + c=0$ et $2a\omega + b=0$. Donc on obtient : $ay''(t)=f(t)e^{-\omega t}$.\\
+  Donc $y''(t)=\frac{f(t)}{a}e^{-\omega t}$.\\
+  En intégrant deux fois, on obtient $y(t)$, puis $x(t)=y(t)e^{\omega t}$.\\
+  En intégrant deux fois, nous allons aussi obtenir deux constantes à déterminer, que nous noterons $\alpha$ et $\beta$ (comme d'habitude dans les équations différentielles de second ordre).
+\end{remark}
+
+\begin{theorem}[Problème de Cauchy]
+  Soit $(PC) : \begin{cases}ax''(t)+bx'(t)+cx(t)=f(t)\\x(t_0)=x_0\\x'(t_0)=y_0\end{cases}$ avec $(a,b,c)\in\mathbb{K}^*\times\mathbb{K}^2$, $f : I \to \mathbb{K}$ continue, $t_0 \in I$ et $(x_0,y_0) \in \mathbb{K}^2$.
+  Alors, il existe une unique solution $x : I \to \mathbb{K}$ dérivable de $(PC)$.
+  Autrement écrit : $$\exists ! x, \begin{cases}ax''(t)+bx'(t)+cx(t)=f(t)\\x(t_0)=x_0\\x'(t_0)=y_0\end{cases}$$
+  \begin{proof}
+    Les solutions de $(PC)$ sont de la forme $x:t\mapsto \alpha \varphi(t) + \beta \psi(t) + x_p(t)$, où $(\varphi,\psi)$ est un système fondamental de solutions de l'équation homogène associée et $x_p$ est une solution particulière de $(L)$, et $x(t_0)=x_0$ et $x'(t_0)=y_0$.\\
+    On cherche $\alpha$ et $\beta$. On trouve le système suivant :
+    $$\begin{cases}\alpha \varphi(t_0) + \beta \psi(t_0) = x_0 - x_p(t_0)\\\alpha \varphi'(t_0) + \beta \psi'(t_0) = y_0 - x_p'(t_0)\end{cases}$$
+    Le déterminant de ce système est le wronskien $\omega(t_0)=\begin{vmatrix}\varphi(t_0) & \psi(t_0) \\ \varphi'(t_0) & \psi'(t_0)\end{vmatrix} \neq 0$. Donc le système admet une unique solution $(\alpha,\beta)$ qui dépend uniquement de $\varphi,\varphi',\psi,\psi'$ (des fonctions continues).
+  \end{proof}
+  
+\end{theorem}
+
+\begin{example}
+  Résoudre le problème de Cauchy suivant :
+  $$(PC):\begin{cases}
+  x''-x=t\\
+  x(0)=x'(0)=0
+  \end{cases}$$
+  \textbf{Solution : }\\
+  L'équation homogène associée est $(H):x''-x=0$. L'équation caractéristique associée est $(E_c):r^2-1=0$, qui admet pour solutions $r_1=1$ et $r_2=-1$. Donc les solutions de $(H)$ sont : $S_{(H)}=\{t\mapsto \alpha e^{t} + \beta e^{-t} | \alpha,\beta \in \mathbb{R}\}$.\\
+  On remarque facilement que $t\mapsto -t$ est une solution particulière de $(L)$. Donc $x_p:t\mapsto -t$.\\
+  On pose $\varphi:t\mapsto e^{t}$ et $\psi:t\mapsto e^{-t}$. On a $\omega(t)=\begin{vmatrix}e^{t} & e^{-t} \\ e^{t} & -e^{-t}\end{vmatrix}=-2 \neq 0$.\\
+  Les solutions de $(PC)$ sont de la forme $x:t\mapsto \alpha e^{t} + \beta e^{-t} - t$.\\
+  On cherche $\alpha$ et $\beta$. On trouve le système suivant :
+  $$\begin{cases}\alpha e^{0} + \beta e^{0} = 0 - (-0)\\\alpha e^{0} - \beta e^{0} = 0 - (-1)\end{cases}$$
+  Donc $\begin{cases}\alpha + \beta = 0\\\alpha - \beta = 1\end{cases} \iff \begin{cases}\alpha = \frac{1}{2}\\\beta = -\frac{1}{2}\end{cases}$.\\
+  Finalement, la solution de $(PC)$ est : $$\boxed{x:t\mapsto \frac{1}{2}e^{t} - \frac{1}{2}e^{-t} - t}$$
+\end{example}
+
+Fin du Chapitre.
+
+$\downarrow\downarrow\downarrow\downarrow~~$ \textbf{Résumés dans les pages suivantes} $~~\downarrow\downarrow\downarrow\downarrow$
+
+\newpage
+
+\begin{synthesis}[Équations différentielles linéaires du 1\ier{} ordre]
+    \textbf{Forme générale :} $(L): x'(t) = a(t)x(t) + b(t)$ sur un intervalle $I$.
+
+    \begin{enumerate}
+        \item \textbf{Solution de l'équation homogène $(H) : x' = a(t)x$}
+        $$x_H(t) = \lambda e^{A(t)}, \quad \text{avec } \lambda \in \mathbb{K} \text{ et } A'(t)=a(t)$$
+        
+        \item \textbf{Recherche d'une solution particulière $x_p$}
+        \begin{itemize}
+            \item \textbf{Cas simple :} Si $b(t)$ est de la forme $P(t)e^{\omega t}$, chercher $x_p$ sous la forme $Q(t)e^{\omega t}$.
+            \item \textbf{Méthode de la Variation de la Constante (MVC) :}
+            On pose $x_p(t) = \lambda(t) e^{A(t)}$. On obtient $\lambda'(t) = b(t)e^{-A(t)}$.
+            $$x_p(t) = e^{A(t)} \int_{t_0}^t b(u)e^{-A(u)} du$$
+        \end{itemize}
+
+        \item \textbf{Solution générale de $(L)$}
+        $$S_{(L)} = \{ x_H + x_p \mid x_H \in S_{(H)} \}$$
+        
+        \item \textbf{Principe de superposition :} Si $b(t) = b_1(t) + b_2(t)$, alors $x_p = x_{p1} + x_{p2}$.
+    \end{enumerate}
+\end{synthesis}
+
+\begin{synthesis}[Équations différentielles linéaires du 2\nd{} ordre à coeff. constants]
+    \textbf{Forme générale :} $(L): ax''(t) + bx'(t) + cx(t) = f(t)$ avec $a \neq 0$.
+
+    \begin{enumerate}
+        \item \textbf{Résolution de l'homogène $(H)$ via $ar^2+br+c=0$ ($\Delta$)}
+        \begin{itemize}
+            \item $\Delta > 0$ (2 racines réelles $r_1, r_2$) : $x_H(t) = \lambda e^{r_1 t} + \mu e^{r_2 t}$
+            \item $\Delta = 0$ (1 racine double $r_0$) : $x_H(t) = (\lambda t + \mu) e^{r_0 t}$
+            \item $\Delta < 0$ (racines $r \pm i\omega$) : $x_H(t) = e^{rt} (A \cos(\omega t) + B \sin(\omega t))$
+        \end{itemize}
+
+        \item \textbf{Recherche d'une solution particulière $x_p$}
+        \begin{itemize}
+            \item \textbf{Second membre $P(t)e^{mt}$ :} On cherche $Q(t)e^{mt}$.
+            \begin{itemize}
+                \item Si $m$ n'est pas racine de $(E_c)$ : $\deg Q = \deg P$.
+                \item Si $m$ est racine simple : $\deg Q = \deg P + 1$.
+                \item Si $m$ est racine double : $\deg Q = \deg P + 2$.
+            \end{itemize}
+            \item \textbf{Second membre trigonométrique :} Passer en complexe ($e^{i\omega t}$), résoudre, puis prendre la partie réelle.
+        \end{itemize}
+
+        \item \textbf{Variation des constantes (Cas général)}
+        Si $x_H(t) = \lambda \varphi(t) + \mu \psi(t)$, on cherche $x_p(t) = \lambda(t)\varphi(t) + \mu(t)\psi(t)$ en résolvant le système :
+        $$ \begin{cases} \lambda'(t)\varphi(t) + \mu'(t)\psi(t) = 0 \\ \lambda'(t)\varphi'(t) + \mu'(t)\psi'(t) = \frac{f(t)}{a} \end{cases} $$
+    \end{enumerate}
+\end{synthesis}
+
+\end{document}

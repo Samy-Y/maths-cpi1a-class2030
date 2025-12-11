@@ -1,0 +1,832 @@
+\documentclass[12pt, a4paper]{report}
+
+% --- PACKAGES ESSENTIELS ---
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Police plus nette et moderne
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % Importe amsthm pour les environnements
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{outlines}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{placeins}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{ragged2e}
+\usepackage{fancyhdr} % Ajout pour les en-têtes et pieds de page
+
+% Configuration de fancyhdr
+\pagestyle{fancy}
+\fancyhf{} % Efface les champs par défaut
+\fancyhead[L]{\nouppercase{\rightmark}} % Section actuelle à gauche
+\fancyfoot[L]{\href{https://forms.office.com/r/iXb9s8eSML}{Signaler une erreur}} % Lien cliquable à gauche
+\fancyfoot[C]{\thepage} % Numéro de page au centre
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Appliquer le style fancy sur les pages normales
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[L]{\href{https://forms.office.com/r/iXb9s8eSML}{Signaler une erreur}}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.4pt}%
+}
+
+% Clear any pending floats before document end
+\AtEndDocument{\clearpage}
+
+% --- PACKAGES POUR LE STYLE ---
+\usepackage[x11names, dvipsnames]{xcolor}
+\usepackage{framed}
+\usepackage{tikz}
+\usepackage{tikz}
+\usepackage[
+    unicode=true,
+    pdfusetitle,
+    colorlinks=true,
+    linkcolor=MidnightBlue,
+    urlcolor=Firebrick4,
+    citecolor=Green4
+]{hyperref}
+\usetikzlibrary{calc,arrows.meta}
+
+% --- CONFIGURATION DE LA MISE EN PAGE ---
+\geometry{
+    a4paper,
+    top=25mm,
+    bottom=25mm,
+    left=20mm,
+    right=20mm,
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% --- DÉFINITION D'UNE PALETTE DE COULEURS ---
+\definecolor{mainBlue}{HTML}{003366}
+\definecolor{accentBlue}{HTML}{005b96}
+\definecolor{boxBg}{HTML}{E8F0F7}
+\definecolor{boxFrame}{HTML}{005b96}
+\definecolor{remarkBg}{HTML}{F0F8FF}
+
+% Colors for different environments
+\definecolor{definitionColor}{HTML}{3498DB}    % Blue for definitions
+\definecolor{theoremColor}{HTML}{9B59B6}       % Purple for theorems
+\definecolor{propertyColor}{HTML}{1ABC9C}      % Turquoise for properties
+\definecolor{propositionColor}{HTML}{D81B60}   % Pink for propositions
+\definecolor{consequenceColor}{HTML}{2ECC71}   % Green for consequences
+\definecolor{remarkColor}{HTML}{E74C3C}        % Red for remarks
+\definecolor{exampleColor}{HTML}{F39C12}       % Orange for examples
+\definecolor{exerciseColor}{HTML}{95A5A6}      % Gray for exercises
+\definecolor{proofColor}{HTML}{34495E}         % Dark gray for proofs
+\definecolor{applicationColor}{HTML}{FF6B35}   % Orange-red for applications
+
+% Background colors (lighter versions of heading colors)
+\definecolor{definitionBg}{HTML}{EAF4F9}       % Light blue background
+\definecolor{theoremBg}{HTML}{F5EEF8}          % Light purple background
+\definecolor{propertyBg}{HTML}{E8F8F5}         % Light turquoise background
+\definecolor{propositionBg}{HTML}{FBE4EC}      % Light pink background
+\definecolor{consequenceBg}{HTML}{EAF9F1}      % Light green background
+\definecolor{remarkBg}{HTML}{FDEDEC}           % Light red background
+\definecolor{exampleBg}{HTML}{FEF5E7}          % Light orange background
+\definecolor{exerciseBg}{HTML}{F4F6F7}         % Light gray background
+\definecolor{proofBg}{HTML}{EBEDEF}            % Light gray background
+\definecolor{applicationBg}{HTML}{FFF4F1}      % Light orange background
+
+% --- PERSONNALISATION DES TITRES ---
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\Huge\bfseries\color{mainBlue}\raggedright}
+  {Partie\ \thechapter}
+  {5pt}
+  {\Huge\sffamily\color{mainBlue}\raggedright}
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+\titleformat{\section}{\normalfont\sffamily\Large\bfseries\color{accentBlue}\raggedright}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\sffamily\large\bfseries\color{accentBlue}\raggedright}{\thesubsection}{1em}{}
+
+% --- DÉFINITION DES STYLES D'ENVIRONNEMENTS ---
+% Définition des styles de boîtes tcolorbox
+\tcbset{
+  coursebox/.style={
+    colback=boxBg,
+    colframe=boxFrame,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  },
+  remarkbox/.style={
+    colback=remarkBg,
+    colframe=MidnightBlue!50,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  },
+  proofbox/.style={
+    colback=proofBg,
+    colframe=Gray,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=4mm,
+    boxsep=5pt,
+    before=\par\bigskip,
+    after=\par\bigskip,
+  }
+}
+
+% Déclaration des environnements théorème avec amsthm
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Théorème}
+\newtheorem{property}{Propriété}
+\newtheorem{remark}{Remarque}
+\newtheorem{example}{Exemple}
+\newtheorem{exercise}{Exercice}
+\newtheorem{consequence}{Conséquence}
+\newtheorem{application}{Application}
+\newtheorem{synthesis}{Résumé}
+% Définition de l'environnement importantbox amélioré
+\newenvironment{importantbox}[1][]{%
+  \begin{tcolorbox}[
+    colback=yellow!10,
+    colframe=orange!70!red,
+    colbacktitle=orange!70!red,
+    coltitle=white,
+    title=\sffamily\textbf{Formule importante},
+    fonttitle=\bfseries,
+    arc=3pt,
+    boxrule=1.5pt,
+    enhanced,
+    drop fuzzy shadow,
+    center title,
+    #1
+  ]%
+  \centering\large\bfseries
+}{\end{tcolorbox}}
+% Nouvel environnement pour les formules clés
+\newenvironment{keyformula}[1][]{%
+  \begin{tcolorbox}[
+    colback=blue!5,
+    colframe=blue!70,
+    colbacktitle=blue!70,
+    coltitle=white,
+    title=\sffamily\textbf{Formule clé},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    center title,
+    enhanced,
+    drop fuzzy shadow,
+    #1
+  ]%
+  \centering\large
+}{\end{tcolorbox}}
+  \centering\large
+% Environnement pour les méthodes importantes
+\newenvironment{methodbox}[1][]{%
+  \begin{tcolorbox}[
+    colback=green!8,
+    colframe=green!60!black,
+    colbacktitle=green!60!black,
+    coltitle=white,
+    title=\sffamily\textbf{Méthode},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    enhanced,
+    #1
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+  \normalfont
+% Environnement pour les points d'attention
+\newenvironment{attention}[1][]{%
+  \begin{tcolorbox}[
+    colback=red!8,
+    colframe=red!70,
+    colbacktitle=red!70,
+    coltitle=white,
+    title=\sffamily\textbf{$\triangle$ Attention},
+    fonttitle=\bfseries,
+    arc=2pt,
+    boxrule=1pt,
+    enhanced,
+    #1
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Style pour les listes élégantes
+\usepackage{enumitem}
+\newlist{elegantlist}{itemize}{3}
+\setlist[elegantlist,1]{
+  label=\textcolor{accentBlue}{$\blacktriangleright$},
+  leftmargin=1.5em,
+  itemsep=0.3em
+}
+\setlist[elegantlist,2]{
+  label=\textcolor{accentBlue}{$\circ$},
+  leftmargin=2em,
+  itemsep=0.2em
+}
+\setlist[elegantlist,3]{
+  label=\textcolor{accentBlue}{$-$},
+  leftmargin=2.5em,
+  itemsep=0.1em
+}
+
+% Redéfinition des environnements existants avec tcolorbox
+\renewenvironment{definition}[1][]{%
+  \refstepcounter{definition}%
+  \begin{tcolorbox}[colback=definitionBg, colframe=definitionColor, 
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Définition \thechapter.\thesection.\thedefinition%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=definitionColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{proposition}[1][]{%
+  \refstepcounter{proposition}%
+  \begin{tcolorbox}[colback=propositionBg, colframe=propositionColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Proposition \thechapter.\thesection.\theproposition%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=propositionColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{theorem}[1][]{%
+  \refstepcounter{theorem}%
+  \begin{tcolorbox}[colback=theoremBg, colframe=theoremColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Théorème \thechapter.\thesection.\thetheorem%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=theoremColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{property}[1][]{%
+  \refstepcounter{property}%
+  \begin{tcolorbox}[colback=propertyBg, colframe=propertyColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Propriété \thechapter.\thesection.\theproperty%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=propertyColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{remark}[1][]{%
+  \refstepcounter{remark}%
+  \begin{tcolorbox}[colback=remarkBg, colframe=remarkColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Remarque \thechapter.\thesection.\theremark%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=remarkColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{example}[1][]{%
+  \refstepcounter{example}%
+  \begin{tcolorbox}[colback=exampleBg, colframe=exampleColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Exemple \thechapter.\thesection.\theexample%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=exampleColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{exercise}[1][]{%
+  \refstepcounter{exercise}%
+  \begin{tcolorbox}[colback=exerciseBg, colframe=exerciseColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Exercice \thechapter.\thesection.\theexercise%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=exerciseColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{consequence}[1][]{%
+  \refstepcounter{consequence}%
+  \begin{tcolorbox}[colback=consequenceBg, colframe=consequenceColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Conséquence \thechapter.\thesection.\theconsequence%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=consequenceColor]%
+  \itshape
+}{\end{tcolorbox}}
+
+\renewenvironment{proof}[1][]{%
+  \begin{tcolorbox}[colback=proofBg, colframe=proofColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Preuve%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=proofColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{importantbox}[1][]{%
+  \begin{tcolorbox}[coursebox, title=, #1]%
+  \centering\large
+}{\end{tcolorbox}}
+
+\renewenvironment{application}[1][]{%
+  \refstepcounter{application}%
+  \begin{tcolorbox}[colback=applicationBg, colframe=applicationColor,
+    sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+    before=\par\bigskip, after=\par\bigskip,
+    title=\sffamily\textbf{Application \thechapter.\thesection.\theapplication%
+    \ifx&#1&\else\ \textit{(#1)}\fi%
+    }, fonttitle=\bfseries\color{white}, colbacktitle=applicationColor]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\renewenvironment{synthesis}[1][]{
+    \refstepcounter{synthesis}%
+  \begin{tcolorbox}[colback=yellow!10, colframe=orange!70!red,
+  sharp corners, boxrule=0.5pt, arc=4mm, boxsep=5pt,
+  before=\par\bigskip, after=\par\bigskip,
+  title=\sffamily\textbf{Résumé \thechapter.\thesection.\thesynthesis%
+  \ifx&#1&\else\ \textit{(#1)}\fi%
+  }, fonttitle=\bfseries\color{white}, colbacktitle=orange!70!red]%
+  \normalfont
+}{\end{tcolorbox}}
+
+\newcommand{\doubleheadrightarrow}{%
+    \tikz[overlay,remember picture,baseline]{%
+        \draw[->,very thick,mainBlue] (0,0) -- (0.5em,0.5em);
+        \draw[->,very thick,accentBlue] (0.25em,0.25em) -- (0.75em,0.75em);
+    }%
+}
+
+% --- DÉBUT DU DOCUMENT ---
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+    \vspace*{5cm}
+
+    {\sffamily\Huge\bfseries Chapitre VI : Limites et continuité\par}
+    \vspace{1.5cm}
+
+    {\Large Rédigé par Samy Youssoufine\par}
+    \vspace{1cm}
+
+    {\large \today\par}
+    
+    % L'image n'est pas une figure flottante, elle restera sur la même page
+    \includegraphics[width=0.8\textwidth]{./assets/logo.png}\par
+
+    \vspace{1cm}
+    \vfill
+\end{titlepage}
+
+\cleardoublepage
+\tableofcontents
+\clearpage
+
+\chapter{Définitions de base}
+
+\section{Adhérence}
+
+\begin{definition}[Adhérence]
+    Soit $\mathrm{I}$ un intervalle de $\mathbb{R}$. On note $\overline{\mathrm{I}}$ l'intervalle fermé contenant $\mathrm{I}$ et ayant les mêmes bornes que $\mathrm{I}$. $\overline{\mathrm{I}}$ est appelé l'adhérence de $\mathrm{I}$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item L'adhérence de l'intervalle ouvert $]0,1[$ est l'intervalle fermé $[0,1]$. On note $\overline{]0,1[} = [0,1]$.
+        \item L'adhérence de l'intervalle $]0,+\infty[$ est l'intervalle $[0,+\infty[$. On note $\overline{]0,+\infty[} = [0,+\infty[$.
+        \item $\overline{]-\infty,1[} = ]-\infty,1]$.
+        \item L'adhérence de l'intervalle $]-\infty,+\infty[$ est lui-même : $\overline{]-\infty,+\infty[} = ]-\infty,+\infty[$.
+        \item L'adhérence de l'intervalle fermé $[a,b]$ est lui-même : $\overline{[a,b]} = [a,b]$. On peut écrire $\mathrm{I}$ fermé $\implies$ $\overline{\mathrm{I}} = \mathrm{I}$.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}
+    On a $x_0 \in \overline{\mathrm{I}} \iff \exists (a_n)_n \in \mathrm{I}^{\mathbb{N}}$ tel que $a_n \to x_0$.
+    \begin{proof}
+        \begin{itemize}
+            \item[$\Rightarrow$] \begin{itemize}
+                \item[•] Si $x_0 \in \mathrm{I}$, on peut définir la suite constante $a_n = x_0$ pour tout $n \in \mathbb{N}$. Alors, $a_n \to x_0$ et $a_n \in \mathrm{I}$ pour tout $n$.
+                \item[•] Dans le cas contraire, $x_0$ est une borne de $\mathrm{I}$. Alors, d'après la caractérisation séquentielle des bornes sup./inf., il existe une suite $(a_n)_n \in \mathrm{I}^{\mathbb{N}}$ telle que $a_n \to x_0$.
+            \end{itemize}
+            \item[$\Leftarrow$] Soient $\alpha = \sup \mathrm{I}$ et $\beta = \inf \mathrm{I}$. On a $ \forall n \in \mathbb{N}, \beta \leq a_n \leq \alpha$. Par passage à la limite, on obtient $\beta \leq x_0 \leq \alpha$, donc $x_0 \in \overline{\mathrm{I}}$. Si les inégalités sont strictes, alors elles deviennent larges par passage à la limite.
+        \end{itemize}
+    \end{proof}
+\end{remark}
+
+\section{Voisinage}
+
+\begin{definition}[Voisinage]
+    Soit $a\in\mathbb{R}$. On appelle voisinage de $a$ tout partie de $\mathbb{R}$ contenant un intervalle de type $]a-r,a+r[$, où $r>0$. On note $\mathcal{V}(a)$ l'ensemble des voisinages de $a$.
+    \begin{remark}
+        \begin{itemize}
+            \item $\mathbb{R}$ est un voisinage de tout réel $a$.
+            \item $\mathcal{V}(a)$ est un ensemble de parties (``ensemble d'ensembles'') de $\mathbb{R}$. On dit qu'un ensemble $V \in \mathcal{V}(a)$ si et seulement si $V$ est un voisinage de $a$.
+        \end{itemize}
+    \end{remark}
+
+    \begin{itemize}
+        \item On appelle voisinage de $+\infty$ toute partie de $\mathbb{R}$ contenant un intervalle de type $]M,+\infty[$, où $M \in \mathbb{R}$. On note $\mathcal{V}(+\infty)$ l'ensemble des voisinages de $+\infty$.
+        \item On appelle voisinage de $-\infty$ toute partie de $\mathbb{R}$ contenant un intervalle de type $]-\infty,M[$, où $M \in \mathbb{R}$. On note $\mathcal{V}(-\infty)$ l'ensemble des voisinages de $-\infty$.
+    \end{itemize}
+
+    \begin{remark}
+        \begin{itemize}
+            \item Soit $a \in \mathbb{R}$. On a $V \in \mathcal{V}(a) \iff \exists r > 0$ telle que $B(a,r) \subseteq V$, où $B(a,r) = \{x\in\mathbb{R} \quad|\quad |x-a|<r\}$ est une ``boule ouverte''.
+            \item Si $a \in \mathbb{C}$, on a $V \in \mathcal{V}(a) \iff \exists r > 0$ telle que $B(a,r) \subseteq V$, où $B(a,r) = \{z\in\mathbb{C} \quad|\quad |z-a|<r\}$ est un disque.
+        \end{itemize}
+    \end{remark}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $[0,+\infty[ \in \mathcal{V}(1)$, mais $[0,+\infty[ \notin \mathcal{V}(0)$.
+        \item $\mathbb{R}^* \in \mathcal{V}(+\infty)$ et $\mathbb{R}^* \in \mathcal{V}(-\infty)$.
+    \end{enumerate}
+\end{example}
+
+\begin{importantbox}
+  Dans le suite de ce chapitre, et sauf mention contraire, $f : \mathrm{I} \to \mathbb{R}$ désignera une fonction définie sur un intervalle $\mathrm{I}$ de $\mathbb{R}$ \textbf{non vide}. On peut noter $f \in \mathbb{R}^\mathrm{I}$. On utilise la notation : $\overline{\mathbb{R}}=\mathbb{R} \cup \{+\infty,-\infty\}$.
+\end{importantbox}
+
+\section{Limite d'une fonction}
+
+\begin{definition}
+  \begin{enumerate}
+    \item \textbf{Limite finie en un point fini} : Soit $a \in \overline{\mathrm{I}}$. On dit que $f \to l$ \textbf{lorsque} $x \to a$ si et seulement si : $$\forall \varepsilon > 0, \exists \delta > 0, \forall x \in \mathrm{I}: |x-a|<\delta \implies |f(x)-l|<\varepsilon.$$
+    \item \textbf{Limite infinie $(+)$ en un point fini} : Soit $a \in \overline{\mathrm{I}}$. On dit que $f \to +\infty$ \textbf{lorsque} $x \to a$ si et seulement si : $$\forall M > 0, \exists \delta > 0, \forall x \in \mathrm{I}: |x-a|<\delta \implies f(x) > M.$$
+    \item \textbf{Limite infinie $(-)$ en un point fini} : Soit $a \in \overline{\mathrm{I}}$. On dit que $f \to -\infty$ \textbf{lorsque} $x \to a$ si et seulement si : $$\forall M < 0, \exists \delta > 0, \forall x \in \mathrm{I}: |x-a|<\delta \implies f(x) < M.$$\\
+    \textbf{Si $\mathrm{I} = [\alpha,+\infty$[}
+    \item On dit que $f \to l$ \textbf{lorsque} $x \to +\infty$ si et seulement si : $$\forall \varepsilon > 0, \exists B \in \mathbb{R}, \forall x \in \mathrm{I}: x > B \implies |f(x)-l|<\varepsilon.$$
+    \item \textbf{Limite infinie $(+)$} : On dit que $f \to +\infty$ \textbf{lorsque} $x \to +\infty$ si et seulement si : $$\forall A > 0, \exists B > 0, \forall x \in \mathrm{I}: x > B \implies f(x) > A.$$
+    \item \textbf{Limite infinie $(-)$} : De même pour $f \to -\infty$ lorsque $x \to +\infty$.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  On peut généraliser les définitions précédentes en une unique définition en utilisant la notion du voisinage.
+  
+  Soient $a \in \overline{\mathrm{I}} \bigcup \{\pm \infty\}$ et $l \in \overline{\mathbb{R}}$.
+  
+  On dit que $f$ tend vers $l$ en $a$ lorsque : $$\boxed{\forall W \in \mathcal{V}(l), \exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}, x \in V \implies f(x) \in W$$\\$$\iff f(\mathrm{I}\bigcap V)\subseteq W}$$
+\end{remark}
+
+\begin{example}
+  Pour $a = -\infty$ et $\mathrm{I}=]-\infty,\beta]$, $l=+\infty$, on a :
+  $$\forall W = ]A,+\infty[ \in \mathcal{V}(+\infty) \quad (A > 0)$$
+  $$\exists V = ]-\infty,B[ \in \mathcal{V}(-\infty) \quad (B > 0)$$
+  $$\forall x \in \mathrm{I}, x \in V \implies f(x) \in W \iff x < B \implies f(x) > A.$$
+  Cela revient (équivalence) à démontrer que $$\forall A > 0, \exists B > 0, \forall x \in \mathrm{I}, x < B \implies f(x) > A.$$
+  Donc $f \to +\infty$ lorsque $x \to -\infty$.
+\end{example}
+
+\begin{property}[Unicité de la limite]
+  Soient $a \in \overline{\mathrm{I}} \bigcup \{\pm \infty\}$ et $f : \mathrm{I} \to \mathbb{R}$. Si $f$ tend vers $l$ en $a$, alors $l$ est unique.
+
+  \begin{definition}
+    $l$ est appelé la \textbf{limite} de $f$ en $a$. On note :
+    $$\lim_{x \to a} f(x) = l$$
+    $$\lim_a f=l$$
+    $$f \underset{a}{\to} l$$
+  \end{definition}
+
+  \begin{proof}
+    Supposons que $a \in \overline{\mathrm{I}}$ et $l \in \mathbb{R}$. Supposons que $f \underset{a}{\to} l$ et $f \underset{a}{\to} l'$.
+
+    On a donc $\forall \varepsilon > 0, \begin{cases}
+    \exists \eta_1 > 0, \forall x \in \mathrm{I}: |x-a|<\eta_1 \implies |f(x)-l|<\frac{\varepsilon}{2}\\
+    \exists \eta_2 > 0, \forall x \in \mathrm{I}: |x-a|<\eta_2 \implies |f(x)-l'|<\frac{\varepsilon}{2}
+    \end{cases}$
+
+    Soit $x \in \mathrm{I}$ tel que $|x-a| < \eta = \min(\eta_1,\eta_2)$. On a donc :
+    \begin{align*}
+      |l-l'| & = |l - f(x) + f(x) - l'| \\
+             & \leq |l - f(x)| + |f(x) - l'| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+    \end{align*}
+    Cela veut donc dire que : $$\forall \varepsilon > 0, |l-l'| < \varepsilon$$
+    Possible uniquement si $l - l' = 0 \iff \boxed{l = l'}$. D'où l'unicité de la limite. CQFD.
+  \end{proof}
+
+\end{property}
+
+\begin{definition}[Limites à gauche et à droite]
+  Soient $a \in \overline{\mathrm{I}}$ et $f \in \mathbb{R}^\mathrm{I}$. On appelle la limite à droite de $f$ en $a$ la limite de la fonction $f$ lorsque $x$ tend vers $a$ par des valeurs supérieures à $a$, ou encore la limite de la restriction de $f$ à $\mathrm{I} \bigcap ]a,+\infty[$ (qu'on peut noter $f_{|\mathrm{I} \bigcap ]a,+\infty[}$) en $a$. On la note :
+  $$\lim_{x \to a^+} f(x)~\text{ou}~\lim_{x \underset{>}{\to} a} f(x)$$
+  On appelle la limite à gauche de $f$ en $a$ la limite de la fonction $f$ lorsque $x$ tend vers $a$ par des valeurs inférieures à $a$, ou encore la limite de la restriction de $f$ à $\mathrm{I} \bigcap ]-\infty,a[$ (qu'on peut noter $f_{|\mathrm{I} \bigcap ]-\infty,a[}$) en $a$. On la note :
+  $$\lim_{x \to a^-} f(x)~\text{ou}~\lim_{x \underset{<}{\to} a} f(x)$$
+  \begin{remark}
+    Il n'est pas incorrect de considérer la limite de la fonction restreinte à $[a,+\infty[$ (resp. $]-\infty,a]$) en $a$ (intervalle fermé). Cela s'explique par le fait que $a$ appartient à l'adhérence de $\mathrm{I} \bigcap ~]a,+\infty[$ (resp. $\mathrm{I} \bigcap ~ ]-\infty,a[$).
+  \end{remark}
+
+  On dit que $f$ admet une limite en $a$ si et seulement si $f$ admet une limite à droite et à gauche en $a$, et que ces deux limites sont égales. On peut noter cette limite par :
+  $$\lim_{x \to a} f(x) = \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x)$$
+\end{definition}
+
+\begin{remark}
+  On peut noter la restriction d'une fonction à un ensemble $A$ par $f_{|A}$.
+\end{remark}
+
+% représentation graphique de la limite à gauche avec uniquement un segment de droite, aucune fonction tracée
+
+% une figure comme ça :
+% overbrace : I en entier
+% ---[----------- -> +inf
+%    a underbrace - I inter ]a,+\infty[
+
+% \begin{figure}
+%   \begin{tikzpicture}[scale=0.5]
+% 	% Paths, nodes and wires:
+% 	\draw (0, 6) -- (0, -2.5);
+% 	\draw (-3, -0) -- (8, -0);
+% 	\draw (2.25, 0.5) -- (2, 0.5) -| (2, -0.5) -- (2.25, -0.5);
+% 	\draw (2, -0) -- (8, -0);
+% 	\node[shape=rectangle, minimum width=2.715cm, minimum height=0.965cm] at (4.625, -0.75){} node[anchor=north west, align=left, text width=2.327cm, inner sep=6pt] at (3.25, -0.25){$I\bigcap~]a,+\infty[$};
+% 	\node[shape=rectangle, minimum width=6.715cm, minimum height=1.215cm] at (3.5, 1){} node[anchor=north west, align=left, text width=6.327cm, inner sep=6pt] at (0.125, 1.625){$\underbrace{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~I~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}{}$};
+% 	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (2, -0.75){} node[anchor=north west, align=left, text width=0.077cm, inner sep=6pt] at (1.75, -0.5){a};
+% \end{tikzpicture}
+%   \caption{Représentation de la restriction}
+% \end{figure}
+
+\begin{definition}[Continuité]
+  Soit $a \in \mathrm{I}$. On dit que $f$ est \textbf{continue en} $a$ lorsque $f$ admet une limite réelle en $a$ et que : $$\lim_{x \to a} f(x) = f(a)$$
+  On peut aussi écrire $\forall \varepsilon > 0, \exists \delta > 0, \forall x \in \mathrm{I}: |x-a|<\delta \implies |f(x)-f(a)|<\varepsilon$.
+\end{definition}
+
+\begin{definition}
+  Soit $a \in \overset{\circ}{\mathrm{I}}$. On dit que $f$ est \textbf{continue à droite en} $a$ lorsque $lim_{x \to a^+} f(x) = f(a)$. On dit que $f$ est \textbf{continue à gauche en} $a$ lorsque $lim_{x \to a^-} f(x) = f(a)$.
+  On dit que $f$ est continue en $a$ si et seulement si $f$ est continue à droite et à gauche en $a$.
+\end{definition}
+
+\begin{definition}
+  On dit que $f$ est \textbf{continue sur} $\mathrm{I}$ si et seulement si $f$ est continue en tout point de $\mathrm{I}$. Autrement dit : $$\forall a \in \mathrm{I}, \lim_{x \to a} f(x) = f(a)$$
+  On note $\mathcal{C}^0(\mathrm{I},\mathbb{R})$ l'ensemble des fonctions continues de $\mathrm{I}$ vers $\mathbb{R}$.
+\end{definition}
+
+\begin{example}
+  \begin{enumerate}
+    \item Les polynômes sont continus sur $\mathbb{R}$.
+    \item Les fonctions $sin$,$cos$, $exp$ sont continues sur $\mathbb{R}$.
+    \item La fonction $f:x\mapsto E(x)$ est continue en tout point de $\mathbb{R}-\mathbb{Z}$.\\\textbf{Démonstration :}
+  \end{enumerate}
+\end{example}
+\todo{A completer}
+
+\begin{exercise}
+  Soit $f : \begin{cases} \mathbb{R} \to \mathbb{R}\\ x \mapsto E(x)\cdot sin(\pi x) \end{cases}$ ; Montrer que $f$ est continue en tout point de $\mathbb{R}$.
+  \textbf{Solution :} \\
+\end{exercise}
+\todo{A completer}
+
+\begin{definition}[Prolongement par continuité]
+  Soient $a \in \overline{\mathrm{I}}$ et $f \in \mathbb{R}^{\mathrm{I}-{a}}$. On dit que $f$ \textbf{admet un prolongement par continuité} ou qu'elle est prolongeable par continuité en $a$ si et seulement si $f$ admet une limite finie en $a$. Dans ce cas, on peut définir une fonction $\tilde{f} : \mathrm{I} \to \mathbb{R}$ par :
+  $$\tilde{f}(x) = \begin{cases} f(x) & \text{si } x \neq a \\ \lim_{x \to a} f(x) & \text{si } x = a \end{cases}$$
+  La fonction $\tilde{f}$ est appelée le \textbf{prolongement par continuité de} $f$ en $a$, et $\tilde{f}$ est continue en $a$.
+\end{definition}
+
+\begin{example}
+  $f : \begin{cases} \mathbb{R}^* \to \mathbb{R}\\ x \mapsto \frac{sin(x)}{x} \end{cases}$ admet un prolongement par continuité en $0$. En effet, $\lim_{x \to 0} \frac{sin(x)}{x} = 1$. On peut donc définir $\tilde{f} : \begin{cases} \mathbb{R} \to \mathbb{R}\\ x \mapsto \begin{cases} \frac{sin(x)}{x} & \text{si } x \neq 0 \\ 1 & \text{si } x = 0 \end{cases} \end{cases}$, qui est continue en $0$.
+\end{example}
+
+\chapter{Propriétés}
+
+\section{Caractérisation séquentielle de la limite}
+
+\begin{theorem}[Caractérisation séquentielle de la limite]
+  Soient $a \in \overline{\mathrm{I}}\bigcup {\pm \infty}$ et $l \in \overline{\mathbb{R}}$. On a :
+  \begin{keyformula}
+    $\lim_{x \to a} f(x) = l \iff \forall (u_n)_n \in \mathrm{I}^{\mathbb{N}}, u_n \to a \implies f(u_n) \to l$
+  \end{keyformula}
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+      \item[$\implies$] $f \underset{a}{\to} l ~~ (a \in \overline{\mathrm{I}}, l \in \mathbb{R})$\\$\forall \varepsilon > 0, \exists \eta > 0, \forall x \in \mathrm{I}, |x-a|<\eta \implies |f(x)-l|<\varepsilon$\\Soit $(u_n)_n \in \mathrm{I}^{\mathbb{N}}$ telle que $u_n \to a$.\\$\exists n_0 \in \mathbb{N}, \forall n \geq n_0, |u_n - a| < \eta$\\Donc, $\forall n \geq n_0, |f(u_n) - l| < \varepsilon$\\$\implies f(u_n) \to l$.
+      \item[$\impliedby$] Supposons que $\lim_{x \to a} f(x) \neq l$.\\$\exists \varepsilon > 0, \forall \eta > 0, \exists x_\eta \in \mathrm{I}, |x_\eta - a| < \eta$ et $|f(x_\eta) - l| \geq \varepsilon$.\\Pour $\eta = \frac{1}{n+1}, \exists (x_n)_n \in \mathrm{I}^{\mathbb{N}}$ telle que $|x_n - a| < \frac{1}{n+1}$ et $|f(x_n) - l| \geq \varepsilon$.\\Donc, $x_n \to a$ mais $f(x_n) \not\to l$. Contradiction. Donc, $\lim_{x \to a} f(x) = l$.
+      \item Raisonnement analogue pour les autres cas de $a$ et $l$. 
+    \end{itemize}
+  \end{proof}
+
+\section{Caractérisation séquentielle de la continuité}
+
+\begin{theorem}[Caractérisation séquentielle de la continuité]
+  Soient $a \in \mathrm{I}$. La fonction $f$ est continue en $a$ si et seulement si :
+  \begin{keyformula}
+    $\forall (u_n)_n \in \mathrm{I}^{\mathbb{N}}, u_n \to a \implies f(u_n) \to f(a)$
+  \end{keyformula}
+  La preuve de ce théorème est analogue à celle du théorème précédent.
+\end{theorem}
+
+\section{Propriétés diverses}
+
+\begin{property}[Bornitude locale]
+  Soit $a \in \overline{\mathrm{I}}\bigcup\{\pm \infty\}$.
+  \begin{importantbox}
+    Si $f$ admet une limite réelle en $a$, alors $f$ est bornée dans un voisinage de $a$.
+  \end{importantbox}
+  \begin{proof}
+    Supposons que $f \underset{a}{\to} l$ avec $l \in \mathbb{R}$.\\$\forall \varepsilon > 0, \exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V, |f(x)-l|<\varepsilon$\\Pour $\varepsilon = 1$, on a $\exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V, |f(x)-l|<1$\\$\implies \forall x \in \mathrm{I}\bigcap~V, l-1 < f(x) < l+1$\\Donc, $f$ est bornée dans le voisinage $V$ de $a$. CQFD.
+  \end{proof}
+\end{property}
+
+\begin{property}[Valeurs absolues]
+  Soient $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$ et $l \in \overline{\mathbb{R}}$.
+  \begin{enumerate}
+    \item $|f| \underset{a}{\to} 0 \iff f \underset{a}{\to} 0$.
+    \item $f \underset{a}{\to} l \implies |f| \underset{a}{\to} |l|$.\\La réciproque de cette dernière est fausse (démonstration triviale par contre-exemple).
+  \end{enumerate}
+  \begin{proof}
+    \begin{enumerate}
+      \item \begin{itemize}
+        \item[$\implies$] Supposons que $|f| \underset{a}{\to} 0$.\\$\forall \varepsilon > 0, \exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V, ||f(x)|-0|<\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap~V, |f(x)|<\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap~V, |f(x)-0|<\varepsilon$\\Donc, $f \underset{a}{\to} 0$.
+        \item[$\impliedby$] Supposons que $f \underset{a}{\to} 0$.\\$\forall \varepsilon > 0, \exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V, |f(x)-0|<\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap~V, |f(x)|<\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap~V, ||f(x)|-0|<\varepsilon$\\Donc, $|f| \underset{a}{\to} 0$.
+      \end{itemize}
+      \item On utilise la propriété stipulant que $||f(x)| - |l|| \leq |f(x) - l|$ (inégalité triangulaire).
+    \end{enumerate}
+  \end{proof}
+\end{property}
+
+\begin{property}[Bornitude et produit]
+  Soient $f,g \in \mathbb{R}^\mathrm{I}$ et $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$.
+  \begin{keyformula}
+    $\begin{cases}
+    g \text{ est bornée au } \mathcal{V}(a)\\
+    f \underset{a}{\to} 0
+    \end{cases}
+    \implies (f\cdot g) \underset{a}{\to} 0$
+  \end{keyformula}
+
+  \begin{proof}
+    $g$ est bornée au $\mathcal{V}(a) \implies \exists M > 0, \exists V_1 \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V_1, |g(x)| \leq M$\\$f \underset{a}{\to} 0 \implies \forall \varepsilon > 0, \exists V_2 \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V_2, |f(x)-0|<\frac{\varepsilon}{M}$\\Soit $V = V_1 \bigcap V_2 \in \mathcal{V}(a)$\\$\forall x \in \mathrm{I}\bigcap~V, |(f\cdot g)(x)-0| = |f(x)\cdot g(x)| = |f(x)|\cdot|g(x)| < \frac{\varepsilon}{M} \cdot M = \varepsilon$\\Donc, $(f\cdot g) \underset{a}{\to} 0$. CQFD.
+  \end{proof}
+\end{property}
+
+\begin{property}
+  Soient $f,g \in \mathbb{R}^\mathrm{I}$ et $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$.
+  \begin{keyformula}
+    $\begin{cases}
+    |f-l| \leq |g| \text{ au } \mathcal{V}(a)\\
+    g \underset{a}{\to} 0
+    \end{cases}
+    \implies f \underset{a}{\to} l$
+  \end{keyformula}
+  \begin{proof}
+    \begin{itemize}
+      \item On a $\exists V_1 \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V_1, |f(x)-l| \leq |g(x)|$.
+      \item $\forall \varepsilon > 0, \exists V_2 \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V_2, |g(x)-0|<\varepsilon$.
+      \item On pose $V= V_1 \bigcap V_2 \in \mathcal{V}(a)$.
+      \item $\forall x \in \mathrm{I}\bigcap~V, |f(x)-l| \leq |g(x)| < \varepsilon$.
+      \item Donc, $f \underset{a}{\to} l$. CQFD.
+    \end{itemize}
+  \end{proof}
+\end{property}
+
+\begin{property}[Bornitude et limite]
+  Soient $f \in \mathbb{R}^\mathrm{I}$ et $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$.
+  \begin{importantbox}
+    Si $lim_{x \to a} f(x)=l$, avec $\alpha < l < \beta$, alors $f$ est comprise entre $\alpha$ et $\beta$ dans un voisinage de $a$. On peut écrire $\exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap V,~ \alpha < f(x) < \beta$.
+  \end{importantbox}
+  \begin{proof}
+    On a (globalement) $\alpha < l - \epsilon < f(x) < l + \epsilon < \beta$.\\
+    Soit $\varepsilon = \min(l-\alpha, \beta - l) > 0$.\\$\exists V \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap V, |f(x)-l|<\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap V, -\varepsilon < f(x)-l < \varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap V, l-\varepsilon < f(x) < l+\varepsilon$\\$\implies \forall x \in \mathrm{I}\bigcap V, \alpha < f(x) < \beta$. CQFD.
+  \end{proof}
+  \begin{consequence}
+    Si $f \underset{a}{\to} l$ avec $l > 0$, alors $\exists V \in \mathcal{V}(a)$ tel que $\forall x \in \mathrm{I}\bigcap V, f(x) > \frac{l}{2} > 0$.
+  \end{consequence}
+\end{property}
+
+\begin{property}
+  Soient $f,g \in \mathbb{R}^\mathrm{I}$, $(l,l') \in \mathbb{R}^2$ et $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$.
+  \begin{enumerate}
+    \item $\begin{cases}f \underset{a}{\to} l\\g \underset{a}{\to} l'\end{cases} \implies \begin{cases}(f+g) \underset{a}{\to} (l+l')\\(f\cdot g) \underset{a}{\to} (l\cdot l')\end{cases}$.
+    \item Si $l\not=0$, alors $\frac1g \underset{a}{\to} \frac1{l'}$. Donc $\frac{f}{g} \underset{a}{\to} \frac{l}{l'}$.
+  \end{enumerate}
+  \begin{proof}
+    À reprendre en tant qu'exercice.
+  \end{proof}
+\end{property}
+
+\begin{consequence}[Opération sur les fonctions continues]
+  Soient $f,g \in \mathbb{R}^\mathrm{I}$ continues sur $\mathrm{I}$.
+  \begin{outline}[enumerate]
+    \1
+    \2 $\forall a \in \mathbb{R}, f+\alpha g$ est continue sur $I$.
+    \2 $fg$ est continue sur $I$.
+    \1 Si $g$ ne s'annule pas sur $\mathrm{I}$, alors $\frac{f}{g}$ est continue sur $\mathrm{I}$. On peut aussi en déduire que $\frac{f}{g}$ est continue sur $\mathrm{I}$.
+  \end{outline}
+\end{consequence}
+
+\section{Théorème d'encadrement}
+\begin{theorem}
+  Soient $f,g,h \in \mathbb{R}^\mathrm{I}$ et $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$.
+  \begin{keyformula}
+    $\begin{cases}
+    f \leq g \leq h \text{ au } \mathcal{V}(a)\\
+    f \underset{a}{\to} l\\
+    h \underset{a}{\to} l
+    \end{cases}
+    \implies g \underset{a}{\to} l$
+  \end{keyformula}
+\end{theorem}
+
+\begin{proof}
+  \begin{itemize}
+    \item On a $(i)$ : $\exists V_1 \in \mathcal{V}(a), \forall x \in \mathrm{I}\bigcap~V_1, f(x) \leq g(x) \leq h(x)$ (première hypothèse).
+    \item On a $(ii)$ : $\forall \varepsilon > 0, \begin{cases}
+    
+    \end{cases}$
+  \end{itemize}
+\end{proof}
+\todo{faut recopier...}
+
+\begin{property}[Limite et inégalité]
+  Soient $a \in \overline{\mathrm{I}}\bigcup~\{\pm \infty\}$ et $f,g \in \mathbb{R}^\mathrm{I}$ telles que $f \le g$ sur un $\mathcal{V}(a)$.
+  \begin{importantbox}
+    \begin{enumerate}
+      \item Si $f \underset{a}{\to} +\infty$, alors $g \underset{a}{\to} +\infty$.
+      \item Si $g \underset{a}{\to} -\infty$, alors $f \underset{a}{\to} -\infty$.
+    \end{enumerate}
+  \end{importantbox}
+\end{property}
+
+\begin{exercise}
+  Soit $f \in \mathbb{R}^+ \to \mathbb{R}$ telle que $lim_{x \to +\infty} = l \in \overline{\mathbb{R}}$. Montrer que $lim_{x \to +\infty} \frac1x \int_{0}^{x} f(t) dt = l$.
+\end{exercise}
+\todo{A faire pour le 21/11}
+
+\section{Composée et continuité}
+
+\begin{property}[Composée de fonctions continues]
+  Soient $\mathrm{I}, \mathrm{J}$ des intervalles de $\mathbb{R}$ tels que $\overset{\circ}{\mathrm{I}}\bigcap\overset{\circ}{\mathrm{J}} \neq \emptyset$, $f \in \mathbb{R}^\mathrm{I}$ et $g \in \mathbb{R}^\mathrm{J}$ continues et tel que $g(J) \subseteq I$. Soient $a \in \mathrm{J}\bigcup~\{\pm \infty\}$ et $b \in \mathrm{I}\bigcup~\{\pm \infty\}$ et $l \in \overline{\mathbb{R}}$.
+  \begin{importantbox}
+    \begin{enumerate}
+      \item Si $f \underset{b}{\to} l$ et $g \underset{a}{\to} b$, alors $(f\circ g) \underset{a}{\to} l$.
+    \end{enumerate}
+  \end{importantbox} 
+  \begin{proof}
+    
+  \end{proof}
+\end{property}
+
+\section{Fonctions $\mathbf{k}$-Lipschitziennes}
+\begin{definition}
+  Soient $\mathrm{I}$ un intervalle de $\mathbb{R}$ tel que $\overset{\circ}{\mathrm{I}} \neq \emptyset$ et $k \in \mathbb{R}^+$. On dit que $f \in \mathbb{R}^\mathrm{I}$ est \textbf{$k$-Lipschitzienne} si et seulement si :
+  $$\forall (x,y) \in \mathrm{I}^2, |f(x)-f(y)| \leq k|x-y|$$
+  Si $k \in [0,1[$, on dit que $f$ est \textbf{$k$-contractante}.
+\end{definition}
+
+\begin{property}
+  Toute fonction $k$-Lipschitzienne est continue sur $\mathrm{I}$.
+  \begin{proof}
+    \begin{itemize}
+      \item Soit $a \in I$.
+      \item On a $\forall x \in \mathrm{I}, |f(x)-f(a)| \leq k|x-a| \to 0$ lorsque $x \to a$.
+      \item Donc, $f$ est continue en $a$. CQFD.
+    \end{itemize}
+  \end{proof}
+\end{property}
+
+\begin{exercise}
+  Soit $A$ une partie non-vide de $\mathbb{R}$.
+  On pose $f : \begin{cases} \mathbb{R} \to \mathbb{R}\\ x \mapsto \inf\{|x-y|, y \in A\}=d(x,A) \end{cases}$.
+  Montrer que $f$ est continue sur $\mathbb{R}$.\\
+  \textbf{Solution :} \\
+  Le but est de montrer que cette fonction est 1-Lipschitzienne.
+  Soient $x,y \in \mathbb{R}$.
+  \begin{align*}
+    \forall a \in A, f(x) = \underset{z\in A}{\inf|x-z|} & \leq |x-a| \\
+    & \leq |x-y+y-a| \\
+    \forall a \in A, f(x) & \leq |x-y| + |y-a| \\
+  \end{align*}
+  $\implies \forall a \in A, f(x) - |x-y| \leq |y-a|$\\
+  $\implies f(x) - |x-y|$ est un minorant de $\{|y-a|, a \in A\}$\\
+  $\implies f(x) - |x-y| \leq \inf\{|y-a|, a \in A\} = f(y)$\\
+  $\implies f(x) - f(y) \leq |x-y|$\\
+  En échangeant $x$ et $y$, on obtient aussi : $f(y) - f(x) \leq |y-x| = |x-y|$
+  En combinant les deux inégalités, on obtient : $|f(x) - f(y)| \leq |x-y|$
+  Donc, $f$ est 1-Lipschitzienne, donc continue sur $\mathbb{R}$.
+\end{exercise}
+
+\end{document}

@@ -1,0 +1,755 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{elegant-cours}[2025/12/10 Style de cours EMINES moderne et élégant]
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                         1. PACKAGES ESSENTIELS                               ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\RequirePackage[french]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% Polices modernes et élégantes
+\RequirePackage{lmodern}
+\RequirePackage{fontawesome5}        % Icônes modernes
+\RequirePackage{microtype}           % Améliore la typographie (espacement, etc.)
+
+\RequirePackage{amsmath, amssymb, amsthm, amsfonts}
+\RequirePackage[margin=2cm]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{todonotes}
+\RequirePackage{outlines}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\RequirePackage{float}
+\RequirePackage{afterpage}
+\RequirePackage{placeins}
+\RequirePackage{titlesec}
+\RequirePackage{caption}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins, breakable, theorems, hooks}
+\RequirePackage{ragged2e}
+\RequirePackage{fancyhdr}
+\RequirePackage{tkz-tab}
+\RequirePackage{enumitem}
+\RequirePackage[x11names, dvipsnames, svgnames]{xcolor}
+\RequirePackage{framed}
+\RequirePackage{tikz}
+\usetikzlibrary{calc, arrows.meta, shadows.blur, decorations.pathmorphing, shapes.geometric, backgrounds}
+\RequirePackage{etoolbox}            % Pour les commandes conditionnelles
+\RequirePackage{xparse}              % Pour des commandes plus flexibles
+
+% Hyperref doit souvent être chargé en dernier
+\RequirePackage[
+    unicode=true,
+    pdfusetitle,
+    colorlinks=true,
+    linkcolor=mainBlue,
+    urlcolor=accentRed,
+    citecolor=accentGreen
+]{hyperref}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                     2. PALETTE DE COULEURS MODERNE                           ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Couleurs principales (palette professionnelle et harmonieuse)
+\definecolor{mainBlue}{HTML}{1E3A5F}       % Bleu profond principal
+\definecolor{accentBlue}{HTML}{3498DB}     % Bleu accent lumineux
+\definecolor{lightBlue}{HTML}{E8F4FD}      % Bleu très clair pour fonds
+\definecolor{accentRed}{HTML}{E74C3C}      % Rouge accent
+\definecolor{accentGreen}{HTML}{27AE60}    % Vert accent
+\definecolor{accentOrange}{HTML}{F39C12}   % Orange accent
+\definecolor{accentPurple}{HTML}{9B59B6}   % Violet accent
+\definecolor{accentTeal}{HTML}{1ABC9C}     % Turquoise accent
+\definecolor{accentPink}{HTML}{E91E63}     % Rose accent
+
+% Couleurs neutres
+\definecolor{darkGray}{HTML}{2C3E50}       % Gris foncé pour texte
+\definecolor{mediumGray}{HTML}{7F8C8D}     % Gris moyen
+\definecolor{lightGray}{HTML}{ECF0F1}      % Gris clair pour fonds
+\definecolor{warmWhite}{HTML}{FDFEFE}      % Blanc chaud
+
+% Anciennes couleurs (conservées pour compatibilité)
+\definecolor{boxBg}{HTML}{E8F0F7}
+\definecolor{boxFrame}{HTML}{005b96}
+\definecolor{remarkBg}{HTML}{F0F8FF}
+
+% Couleurs des environnements (raffinées)
+\definecolor{definitionColor}{HTML}{2980B9}    % Bleu élégant
+\definecolor{theoremColor}{HTML}{8E44AD}       % Violet royal
+\definecolor{propertyColor}{HTML}{16A085}      % Turquoise profond
+\definecolor{propositionColor}{HTML}{C0392B}   % Rouge bordeaux
+\definecolor{consequenceColor}{HTML}{27AE60}   % Vert émeraude
+\definecolor{remarkColor}{HTML}{E67E22}        % Orange chaleureux
+\definecolor{exampleColor}{HTML}{F1C40F}       % Jaune doré
+\definecolor{exerciseColor}{HTML}{34495E}      % Gris ardoise
+\definecolor{proofColor}{HTML}{566573}         % Gris élégant
+\definecolor{applicationColor}{HTML}{D35400}   % Orange brûlé
+
+% Couleurs de fond (très légères, subtiles)
+\definecolor{definitionBg}{HTML}{EBF5FB}
+\definecolor{theoremBg}{HTML}{F5EEF8}
+\definecolor{propertyBg}{HTML}{E8F8F5}
+\definecolor{propositionBg}{HTML}{FDEDEC}
+\definecolor{consequenceBg}{HTML}{EAFAF1}
+\definecolor{remarkBg}{HTML}{FEF5E7}
+\definecolor{exampleBg}{HTML}{FEF9E7}
+\definecolor{exerciseBg}{HTML}{F2F4F4}
+\definecolor{proofBg}{HTML}{FFFFFF}
+\definecolor{applicationBg}{HTML}{FDF2E9}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                      3. CONFIGURATION DE LA MISE EN PAGE                     ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\geometry{
+    a4paper,
+    top=25mm,
+    bottom=25mm,
+    left=25mm,
+    right=25mm,
+    headheight=20pt,
+    headsep=15pt,
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% Configuration des captions
+\captionsetup{
+    font={small, sf},
+    labelfont={bf, color=mainBlue},
+    format=hang,
+    margin=1cm
+}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                        4. EN-TÊTES ET PIEDS DE PAGE                          ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% En-tête : texte AU-DESSUS de la ligne
+\fancyhead[L]{\sffamily\small\color{darkGray}\nouppercase{\rightmark}}
+\fancyhead[R]{\sffamily\small\color{mediumGray}\nouppercase{\leftmark}}
+\fancyhead[C]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[mainBlue, line width=1.5pt] 
+            ([yshift=-8pt]current page.north west |- 0,0) ++(\dimexpr\oddsidemargin+1in\relax,0) 
+            -- ++(\textwidth,0);
+    \end{tikzpicture}%
+}
+
+% Pied de page : numéro centré avec ligne AU-DESSUS
+\fancyfoot[C]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[mainBlue, line width=1.5pt] 
+            ([yshift=20pt]current page.south west |- 0,0) ++(\dimexpr\oddsidemargin+1in\relax,0) 
+            -- ++(\textwidth,0);
+    \end{tikzpicture}%
+    \vspace{8pt}%
+    {\sffamily\color{mainBlue}\bfseries\thepage}%
+}
+
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \fancyfoot[C]{%
+        {\sffamily\color{mainBlue}\bfseries\thepage}%
+    }%
+    \renewcommand{\headrulewidth}{0pt}%
+    \renewcommand{\footrulewidth}{0pt}%
+}
+
+\AtEndDocument{\clearpage}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                       5. PERSONNALISATION DES TITRES                         ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Style de chapitre moderne (numéro bien positionné, pas de numéro pour chapitre 0)
+\newcommand{\chapterdecoration}{%
+    \ifnum\value{chapter}>0
+        \begin{tikzpicture}[overlay, remember picture, yshift=0cm]
+            % Barre verticale colorée
+            \fill[mainBlue] (0, 0.5cm) rectangle (0.4cm, -1.0cm);
+            % Numéro du chapitre en arrière-plan (semi-transparent)
+            \node[anchor=base west, font=\fontsize{76}{84}\selectfont\color{mainBlue!20}, inner sep=0pt] 
+                at (0.55cm, -1cm) {\thechapter};
+        \end{tikzpicture}%
+        \hspace{2.2cm}%
+    \fi
+}
+
+\titleformat{\chapter}[hang]
+    {\normalfont\sffamily\bfseries\Huge\color{mainBlue}}
+    {\chapterdecoration}
+    {0pt}
+    {}
+\titlespacing*{\chapter}{0pt}{30pt}{50pt}
+
+% Supprimer le numéro "Chapitre 0" pour la table des matières
+\makeatletter
+\patchcmd{\@makeschapterhead}{\Huge}{\Huge\sffamily\bfseries\color{mainBlue}}{}{}
+\makeatother
+
+% Style de section avec accent (sans chevauchement)
+\titleformat{\section}
+    {\normalfont\sffamily\Large\bfseries\color{mainBlue}}
+    {\colorbox{mainBlue}{\parbox{1.8em}{\centering\color{white}\thesection}}}
+    {1em}
+    {}
+    [{\vspace{0.3em}\titlerule[1.5pt]}]
+\titlespacing*{\section}{0pt}{2.5em}{1.5em}
+
+% Style de sous-section
+\titleformat{\subsection}
+    {\normalfont\sffamily\large\bfseries\color{accentBlue}}
+    {\thesubsection}
+    {0.7em}
+    {}
+\titlespacing*{\subsection}{0pt}{1.5em}{0.5em}
+
+% Style de sous-sous-section
+\titleformat{\subsubsection}
+    {\normalfont\sffamily\normalsize\bfseries\color{darkGray}}
+    {\thesubsubsection}
+    {0.5em}
+    {}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                          6. MACROS MATHÉMATIQUES                             ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Kset}{\mathbb{K}}
+\newcommand{\ch}{\mathrm{ch}}
+\newcommand{\sh}{\mathrm{sh}}
+\newcommand{\thh}{\mathrm{th}}
+\newcommand{\tg}{\mathrm{tg}}
+\newcommand{\arctg}{\mathrm{arctg}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\argch}{\mathrm{argch}}
+\newcommand{\argsh}{\mathrm{argsh}}
+\newcommand{\argth}{\mathrm{argth}}
+
+\newcommand{\legbinom}[2]{\mathrm{C}_{#1}^{#2}}
+\newcommand{\cclas}[1]{\mathrm{C}^{#1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\bracks}[1]{\left[#1\right]}
+\newcommand{\angles}[1]{\left\langle#1\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+
+\newcommand{\nimplies}{\;\not\!\!\!\implies}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                    7. STYLES TCOLORBOX MODERNES                              ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Style de base élégant pour tous les environnements
+\tcbset{
+    elegant base/.style={
+        enhanced,
+        breakable,
+        boxrule=0pt,
+        frame hidden,
+        borderline west={3pt}{0pt}{#1},
+        colback=#1!5,
+        colbacktitle=#1,
+        coltitle=white,
+        fonttitle=\sffamily\bfseries,
+        attach boxed title to top left={yshift=-2mm, xshift=5mm},
+        boxed title style={
+            boxrule=0pt,
+            colframe=#1,
+            arc=2pt,
+            outer arc=2pt,
+        },
+        arc=3pt,
+        outer arc=3pt,
+        boxsep=5pt,
+        left=8pt,
+        right=8pt,
+        top=10pt,
+        bottom=8pt,
+        before skip=\bigskipamount,
+        after skip=\bigskipamount,
+        shadow={2pt}{-2pt}{0pt}{black!20},
+    },
+    % Style alternatif avec barre latérale plus marquée
+    modern bar/.style={
+        enhanced,
+        breakable,
+        boxrule=0pt,
+        frame hidden,
+        borderline west={4pt}{0pt}{#1},
+        colback=warmWhite,
+        sharp corners,
+        boxsep=5pt,
+        left=12pt,
+        right=8pt,
+        top=8pt,
+        bottom=8pt,
+        before skip=\bigskipamount,
+        after skip=\bigskipamount,
+        fontupper=\normalfont,
+    },
+    % Ancien style conservé pour compatibilité
+    coursebox/.style={
+        colback=boxBg,
+        colframe=boxFrame,
+        boxrule=0.5pt,
+        arc=3pt,
+        boxsep=5pt,
+        before=\par\bigskip,
+        after=\par\bigskip,
+    },
+    remarkbox/.style={
+        colback=remarkBg,
+        colframe=MidnightBlue!50,
+        boxrule=0.5pt,
+        arc=3pt,
+        boxsep=5pt,
+        before=\par\bigskip,
+        after=\par\bigskip,
+    },
+    proofbox/.style={
+        colback=proofBg,
+        colframe=Gray,
+        boxrule=0.5pt,
+        arc=3pt,
+        boxsep=5pt,
+        before=\par\bigskip,
+        after=\par\bigskip,
+    }
+}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                       8. ENVIRONNEMENTS THÉORÈMES                            ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Déclaration des compteurs
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Théorème}
+\newtheorem{property}{Propriété}
+\newtheorem{remark}{Remarque}
+\newtheorem{example}{Exemple}
+\newtheorem{exercise}{Exercice}
+\newtheorem{consequence}{Conséquence}
+\newtheorem{application}{Application}
+\newtheorem{synthesis}{Résumé}
+
+% Icônes pour chaque type d'environnement
+\newcommand{\deficon}{\faIcon{book}}
+\newcommand{\thmicon}{\faIcon{star}}
+\newcommand{\propicon}{\faIcon{lightbulb}}
+\newcommand{\propertyicon}{\faIcon{check-circle}}
+\newcommand{\remarkicon}{\faIcon{comment}}
+\newcommand{\exampleicon}{\faIcon{pencil-alt}}
+\newcommand{\exerciseicon}{\faIcon{dumbbell}}
+\newcommand{\consequenceicon}{\faIcon{arrow-right}}
+\newcommand{\prooficon}{\faIcon{search}}
+\newcommand{\applicationicon}{\faIcon{cogs}}
+\newcommand{\synthesisicon}{\faIcon{list-ul}}
+
+% Redéfinition de l'environnement definition
+\renewenvironment{definition}[1][]{%
+  \refstepcounter{definition}%
+  \begin{tcolorbox}[
+    elegant base=definitionColor,
+    title={\deficon\quad Définition \thechapter.\thesection.\thedefinition%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement proposition
+\renewenvironment{proposition}[1][]{%
+  \refstepcounter{proposition}%
+  \begin{tcolorbox}[
+    elegant base=propositionColor,
+    title={\propicon\quad Proposition \thechapter.\thesection.\theproposition%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement theorem
+\renewenvironment{theorem}[1][]{%
+  \refstepcounter{theorem}%
+  \begin{tcolorbox}[
+    elegant base=theoremColor,
+    title={\thmicon\quad Théorème \thechapter.\thesection.\thetheorem%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement property
+\renewenvironment{property}[1][]{%
+  \refstepcounter{property}%
+  \begin{tcolorbox}[
+    elegant base=propertyColor,
+    title={\propertyicon\quad Propriété \thechapter.\thesection.\theproperty%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement remark
+\renewenvironment{remark}[1][]{%
+  \refstepcounter{remark}%
+  \begin{tcolorbox}[
+    modern bar=remarkColor,
+    before skip=\medskipamount,
+    after skip=\medskipamount,
+  ]%
+  {\sffamily\bfseries\color{remarkColor}\remarkicon\quad Remarque \thechapter.\thesection.\theremark%
+    \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement example
+\renewenvironment{example}[1][]{%
+  \refstepcounter{example}%
+  \begin{tcolorbox}[
+    modern bar=exampleColor,
+  ]%
+  {\sffamily\bfseries\color{exampleColor}\exampleicon\quad Exemple \thechapter.\thesection.\theexample%
+    \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement exercise
+\renewenvironment{exercise}[1][]{%
+  \refstepcounter{exercise}%
+  \begin{tcolorbox}[
+    elegant base=exerciseColor,
+    title={\exerciseicon\quad Exercice \thechapter.\thesection.\theexercise%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement consequence
+\renewenvironment{consequence}[1][]{%
+  \refstepcounter{consequence}%
+  \begin{tcolorbox}[
+    elegant base=consequenceColor,
+    title={\consequenceicon\quad Conséquence \thechapter.\thesection.\theconsequence%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement proof
+\renewenvironment{proof}[1][]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={2pt}{0pt}{proofColor!50},
+    borderline south={1pt}{0pt}{proofColor!30, dashed},
+    colback=proofBg,
+    arc=0pt,
+    boxsep=5pt,
+    left=12pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt,
+    before skip=\smallskipamount,
+    after skip=\medskipamount,
+  ]%
+  {\sffamily\bfseries\color{proofColor}\prooficon\quad Preuve%
+    \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
+  \normalfont
+}{\hfill$\blacksquare$\end{tcolorbox}}
+
+% Redéfinition de l'environnement application
+\renewenvironment{application}[1][]{%
+  \refstepcounter{application}%
+  \begin{tcolorbox}[
+    elegant base=applicationColor,
+    title={\applicationicon\quad Application \thechapter.\thesection.\theapplication%
+      \ifx&#1&\else\quad\textit{(#1)}\fi}
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Redéfinition de l'environnement synthesis
+\renewenvironment{synthesis}[1][]{%
+  \refstepcounter{synthesis}%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=accentOrange!5,
+    colframe=accentOrange,
+    boxrule=2pt,
+    arc=5pt,
+    outer arc=5pt,
+    title={\synthesisicon\quad Résumé \thechapter.\thesection.\thesynthesis%
+      \ifx&#1&\else\quad\textit{(#1)}\fi},
+    fonttitle=\sffamily\bfseries\large,
+    colbacktitle=accentOrange,
+    coltitle=white,
+    attach boxed title to top center={yshift=-3mm},
+    boxed title style={
+        boxrule=0pt,
+        arc=3pt,
+        outer arc=3pt,
+    },
+    before skip=\bigskipamount,
+    after skip=\bigskipamount,
+    shadow={3pt}{-3pt}{0pt}{black!15},
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                       9. BOÎTES SPÉCIALES                                    ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Environnement importantbox moderne
+\newenvironment{importantbox}[1][]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=accentOrange!8,
+    colframe=accentOrange,
+    boxrule=0pt,
+    borderline={2pt}{0pt}{accentOrange},
+    arc=8pt,
+    outer arc=8pt,
+    shadow={3pt}{-3pt}{0pt}{accentOrange!30},
+    before skip=\bigskipamount,
+    after skip=\bigskipamount,
+    #1
+  ]%
+  \centering\large\color{darkGray}
+}{\end{tcolorbox}}
+
+% Environnement keyformula moderne
+\newenvironment{keyformula}[1][]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=accentBlue!5,
+    colframe=accentBlue,
+    boxrule=2pt,
+    arc=10pt,
+    outer arc=10pt,
+    title={\faIcon{key}\quad Formule clé},
+    fonttitle=\sffamily\bfseries,
+    colbacktitle=accentBlue,
+    coltitle=white,
+    attach boxed title to top center={yshift=-3mm},
+    boxed title style={arc=3pt, outer arc=3pt, boxrule=0pt},
+    shadow={2pt}{-2pt}{0pt}{accentBlue!20},
+    #1
+  ]%
+  \centering\large
+}{\end{tcolorbox}}
+
+% Environnement methodbox moderne
+\newenvironment{methodbox}[1][]{%
+  \begin{tcolorbox}[
+    elegant base=accentGreen,
+    title={\faIcon{route}\quad Méthode},
+    #1
+  ]%
+  \normalfont
+}{\end{tcolorbox}}
+
+% Environnement attention moderne
+\newenvironment{attention}[1][]{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=accentRed!5,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={4pt}{0pt}{accentRed},
+    borderline east={4pt}{0pt}{accentRed},
+    arc=0pt,
+    before skip=\bigskipamount,
+    after skip=\bigskipamount,
+    #1
+  ]%
+  {\sffamily\bfseries\large\color{accentRed}\faIcon{exclamation-triangle}\quad Attention}\par\smallskip
+  \normalfont
+}{\end{tcolorbox}}
+
+% Boîte pour la page de garde (notice)
+\newtcolorbox{noticebox}{
+    enhanced,
+    colback=accentOrange!10,
+    colframe=accentOrange,
+    boxrule=1.5pt,
+    arc=8pt,
+    outer arc=8pt,
+    width=0.85\textwidth,
+    halign=center,
+    before skip=2cm,
+    after skip=1cm,
+    fontupper=\sffamily,
+    shadow={2pt}{-2pt}{0pt}{accentOrange!30},
+    title={\faIcon{info-circle}\quad Note importante},
+    fonttitle=\sffamily\bfseries,
+    colbacktitle=accentOrange,
+    coltitle=white,
+    attach boxed title to top center={yshift=-3mm},
+    boxed title style={arc=3pt, outer arc=3pt, boxrule=0pt},
+}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                         10. LISTES ÉLÉGANTES                                 ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\newlist{elegantlist}{itemize}{3}
+\setlist[elegantlist,1]{
+    label=\textcolor{mainBlue}{\faIcon{chevron-right}},
+    leftmargin=1.8em,
+    itemsep=0.4em,
+    parsep=0.2em,
+}
+\setlist[elegantlist,2]{
+    label=\textcolor{accentBlue}{\faIcon{angle-right}},
+    leftmargin=2em,
+    itemsep=0.3em,
+}
+\setlist[elegantlist,3]{
+    label=\textcolor{mediumGray}{$\circ$},
+    leftmargin=2.2em,
+    itemsep=0.2em,
+}
+
+% Amélioration des listes par défaut
+\setlist[itemize,1]{
+    label=\textcolor{mainBlue}{$\blacktriangleright$},
+    leftmargin=1.5em,
+    itemsep=0.3em,
+}
+\setlist[itemize,2]{
+    label=\textcolor{accentBlue}{$\triangleright$},
+    leftmargin=2em,
+    itemsep=0.2em,
+}
+\setlist[enumerate,1]{
+    label=\textcolor{mainBlue}{\bfseries\arabic*.},
+    leftmargin=1.8em,
+    itemsep=0.3em,
+}
+\setlist[enumerate,2]{
+    label=\textcolor{accentBlue}{\bfseries\alph*)},
+    leftmargin=2em,
+    itemsep=0.2em,
+}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                           11. COMMANDES UTILES                               ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+\newcommand{\doubleheadrightarrow}{%
+    \tikz[baseline=-0.5ex]{%
+        \draw[-{Stealth[length=2mm]}, very thick, mainBlue] (0,0) -- (0.6em,0);
+        \draw[-{Stealth[length=2mm]}, very thick, mainBlue] (0.15em,0) -- (0.75em,0);
+    }%
+}
+
+% Commande pour mettre en évidence
+\newcommand{\highlight}[1]{%
+    \tikz[baseline=(text.base)]{
+        \node[fill=accentOrange!20, rounded corners=2pt, inner sep=2pt] (text) {#1};
+    }%
+}
+
+% Commande pour les mots-clés
+\newcommand{\keyword}[1]{\textbf{\textcolor{mainBlue}{#1}}}
+
+% ╔══════════════════════════════════════════════════════════════════════════════╗
+% ║                        12. PAGE DE GARDE MODERNE                             ║
+% ╚══════════════════════════════════════════════════════════════════════════════╝
+
+% Usage: \MaPageDeGarde{Titre}{Sous-titre/Auteur}{CheminImage}
+\newcommand{\MaPageDeGarde}[4]{%
+    \begin{titlepage}
+        \thispagestyle{empty}
+        
+        % Fond décoratif
+        \begin{tikzpicture}[remember picture, overlay]
+            % Bandes colorées en haut
+            \fill[mainBlue] (current page.north west) rectangle 
+                ([yshift=-4cm]current page.north east);
+            \fill[accentBlue] ([yshift=-4cm]current page.north west) rectangle 
+                ([yshift=-4.3cm]current page.north east);
+            
+            % Cercles décoratifs
+            \fill[mainBlue!10] (current page.south east) circle (8cm);
+            \fill[accentBlue!10] ([xshift=-3cm, yshift=3cm]current page.south east) circle (5cm);
+            
+            % Bande en bas
+            \fill[mainBlue] (current page.south west) rectangle 
+                ([yshift=1.5cm]current page.south east);
+        \end{tikzpicture}
+        
+        \vspace*{5cm}
+        
+        \begin{center}
+            % Titre principal
+            {\fontsize{32}{38}\selectfont\sffamily\bfseries\color{mainBlue}#1\par}
+            
+            \vspace{1.5cm}
+            
+            % Ligne décorative
+            \begin{tikzpicture}
+                \draw[mainBlue, line width=2pt] (-3,0) -- (3,0);
+                \fill[accentBlue] (0,0) circle (4pt);
+            \end{tikzpicture}
+            
+            \vspace{1.5cm}
+            
+            % Auteur
+            {\Large\sffamily\color{darkGray}#2\par}
+            
+            \vspace{0.8cm}
+            
+            % Date
+            {\large\sffamily\color{mediumGray}\today\par}
+            
+            \vspace{2cm}
+            
+            % Image (si fournie)
+            \ifx&#3&%
+            \else
+                \includegraphics[width=0.5\textwidth]{#3}\par
+            \fi
+            
+            \vfill
+            
+            % Notice box
+            \begin{noticebox}
+                #4
+            \end{noticebox}
+            
+        \end{center}
+        
+        \vfill
+        
+    \end{titlepage}
+    \cleardoublepage
+}
+
+\endinput
