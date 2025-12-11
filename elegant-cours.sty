@@ -136,7 +136,6 @@
 
 % En-tête : texte AU-DESSUS de la ligne
 \fancyhead[L]{\sffamily\small\color{darkGray}\nouppercase{\rightmark}}
-\fancyhead[R]{\sffamily\small\color{mediumGray}\nouppercase{\leftmark}}
 \fancyhead[C]{%
     \begin{tikzpicture}[remember picture, overlay]
         \draw[mainBlue, line width=1.5pt] 
@@ -739,10 +738,12 @@
             
             \vfill
             
-            % Notice box
-            \begin{noticebox}
+            % Notice box (only if #4 is not empty)
+            \ifx&#4&\else
+              \begin{noticebox}
                 #4
-            \end{noticebox}
+              \end{noticebox}
+            \fi
             
         \end{center}
         

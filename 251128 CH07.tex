@@ -1,4 +1,4 @@
-    \documentclass[12pt, a4paper]{report}
+\documentclass[12pt, a4paper]{report}
 
 \usepackage{elegant-cours}
 
@@ -1033,7 +1033,7 @@ f'(a) & \text{si } x = a
 
 \begin{remark}
     \begin{enumerate}
-        \item $f$ est dérivable en $b$ $\nimplies$ (n'implique pas)
+        \item $f$ est dérivable en $b$ $\nimplies$ $\lim_{x\to b^-}f'(x)= f'(b)$ (Contre-exemple : $f:x\mapsto x^2\sin(\frac{1}{x})$ si $x\not=0$, $f(0)=0$).
         \item Si $f:[a,b]\to \R$ telle que\\$\begin{cases}
             f \text{ est continue sur } [a,b]\\
             f \text{ est } \mathcal{C}^1 \text{ sur } [a,b[\\
@@ -1041,7 +1041,7 @@ f'(a) & \text{si } x = a
         \end{cases}$\\Alors $f$ est de classe $\mathcal{C}^1$ sur $[a,b]$.
     \end{enumerate}
 \end{remark}
-\todo{à continuer (1)}
+% \todo{à continuer (1)}
 
 \begin{theorem}[Généralisation du prolongement]
     Soit $f : [a,b] \to \R$ telle que :
@@ -1110,6 +1110,8 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
 \end{consequence}
 
 \chapter{Convexité}
+
+\section{Définition et propriétés}
 
 \begin{definition}
     Soit $f \in \R^I$ telle que $I$ est un intervalle de $\R$ avec $\overset{\circ}{I}\ne\emptyset$.
