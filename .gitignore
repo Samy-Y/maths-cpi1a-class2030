@@ -11,7 +11,6 @@
 *.dvi
 *.xdv
 *-converted-to.*
-*.pdf
 *.ps
 *.eps
 *.fls
