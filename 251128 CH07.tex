@@ -940,7 +940,7 @@ f'(a) & \text{si } x = a
     \label{fig:croissance_derivee_nulle}
 \end{figure}
 
-\begin{theorem}[Théorème des accroissements finis généralisé]
+\begin{theorem}[Inégalité des accroissements finis généralisée (IAF.G.)]
   Soient $f,g : I \to \R$ deux fonctions continues sur $I$, dérivables sur $\overset{\circ}{I}$, telles que $\abs{f'} \le g'$ sur $\overset{\circ}{I}$.
 
   Alors, $\forall x,y \in I, \abs{f(x)-f(y)} \leq \abs{g(x)-g(y)}$.
@@ -972,12 +972,12 @@ f'(a) & \text{si } x = a
 \end{consequence}
 
 \begin{proof}
-  On prend $g: I \mapsto M\cdot x$ et on applique le théorème des accroissements finis généralisé.
+  On prend $g: I \mapsto M\cdot x$ et on applique l'inégalité des accroissements finis généralisée.
 
   \begin{itemize}
     \item On a $g'(x) = M$.
     \item Donc, $\abs{f'(x)} \leq M = g'(x)$.
-    \item Donc, d'après le théorème des accroissements finis généralisé, $\forall x,y \in I, \abs{f(x)-f(y)} \leq \abs{g(x)-g(y)} = M\abs{x-y}$.
+    \item Donc, d'après l'inégalité des accroissements finis généralisée, $\forall x,y \in I, \abs{f(x)-f(y)} \leq \abs{g(x)-g(y)} = M\abs{x-y}$.
   \end{itemize}
 
   Ainsi, $\forall x,y \in I, \abs{f(x)-f(y)} \leq M \abs{x-y}$.
@@ -994,7 +994,7 @@ f'(a) & \text{si } x = a
 
   On en déduit donc que $f'$ est bornée sur $[x,y]$ et qu'elle atteint ses bornes (l'image d'un segment par une fonction continue est un segment).
 
-  On applique donc le théorème des accroissements finis généralisé.
+  On applique donc l'inégalité des accroissements finis généralisée.
 \end{proof}
 
 \begin{theorem}[Prolongement de la dérivée]
@@ -1104,7 +1104,7 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
 
     On a, pour tout $x\ne a \in I$ :
 
-    $$\abs{f(x)-\sum_{k=0}^n\frac{f^{(k)}}{k!}(x-a)^k}\le\sup_{t\in[a,x] \text{ ou }t \in [x,a]}\abs{f^{(n+1)}(t)}\frac{\abs{x-a}}{(n+1)!}$$
+    $$\abs{f(x)-\sum_{k=0}^n\frac{f^{(k)}}{k!}(x-a)^k}\le\sup_{t\in[a,x] \text{ ou }t \in [x,a]}\abs{f^{(n+1)}(t)}\frac{\abs{x-a}^{n+1}}{(n+1)!}$$
 
     La démonstration se fait en utilisant la formule de Taylor-Lagrange, et en utilisant le fait que $f$ est de classe $\mathcal{C}^{n+1}$ sur $I$, donc $\abs{f^{(n+1)}(c)}\le \sup_{t\in[a,x]\text{ ou } t\in[x,a]}\abs{f^{(n+1)}(t)}$.
 \end{consequence}
@@ -1158,6 +1158,86 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
     \2 Cela implique que $f\parens{\sum_{i=1}^{n+1}\lambda_i x_i}=f(x_{n+1})\le f(x_{n+1}) = \sum_{i=1}^{n+1} \lambda_i f(x_i)$
     \end{outline}
 \end{proof}
+
+\begin{property}
+  Soit $f \in \R^I$.
+
+  $$f \text{ est convexe sur } I \iff \forall a \in I : \varphi_a : \begin{cases} I\setminus\{a\}\to\R \\ x\mapsto \frac{f(x)-f(a)}{x-a} \end{cases} \text{ est croissante.}$$
+\end{property}
+
+\begin{proof}
+  \begin{outline}
+    \1[$\rightarrow$] On commence la démonstration dans le sens direct.
+    \1 Il faudra distinguer entre trois cas, sachant qu'il y a trois paramètres, donc trois positions relatives possibles.
+    \1 Les cas à distinguer seront donc : $x<a<y$, $a<x<y$, et $x<y<a$.
+    \1 Dans ce cours, nous ne traiterons que le cas $x<a<y$, les deux autres étant similaires.
+    \2 Soient $x,y \in I$ tels que $x<a<y$.
+    \2 Donc $a \in ]x,y[$.
+    \2 Donc $\exists t \in ]0,1[ : a = tx + (1-t)y$.
+    \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)=f(a)$.
+    \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)=f(tx+(1-t)y)$.
+    \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)\le tf(x)+(1-t)f(y)$.
+    \2 Par convexité de $f$, on a donc $t(f(a)-f(x))\le (1-t)(f(y)-f(a))$.
+    \2 Donc $f(a)-f(x)\le \frac{1-t}{t}(f(y)-f(a))$.
+    \2 On a $a-x=\dots=(1-t)(y-x)$ et $y-a=t(y-x)$.
+    \2 Donc $\frac{1-t}{t}=\frac{a-x}{y-a}$.
+    \2 Donc $f(a)-f(x)\le \frac{a-x}{y-a}(f(y)-f(a))$.
+    \2 Donc $\frac{f(a)-f(x)}{a-x}\le \frac{f(y)-f(a)}{y-a}$.
+    \2 Donc $\varphi_a(x)\le \varphi_a(y)$.
+    \2 Donc, $\varphi_a$ est croissante.
+    \1[$\leftarrow$] On commence la démonstration dans le sens réciproque.
+    \1 On suppose que $\forall a \in I, \varphi_a$ est croissante.
+    \2 Soient $x,y \in I, t \in [0,1]$ tels que $x\not=y$.
+    \2 On prendra par exemple $x<y$ sans perte de généralité.
+    \2 On pose $a = tx + (1-t)y \in ]x,y[$.
+    \2 Donc, par hypothèse, on a $\varphi_a(x) \le \varphi_a(y)$.
+    \2 Donc, $\frac{f(a)-f(x)}{a-x} \le \frac{f(y)-f(a)}{y-a}$.
+    \2 Donc $f(a)-f(x) \le \underbrace{\frac{a-x}{y-a}}_{=\frac{1-t}{t}}(f(y)-f(a))$ (quelques cas particuliers $t=0\dots$ ont été omis pour simplifier la démonstration).
+    \2 Donc $t(f(a)-f(x)) \le (1-t)(f(y)-f(a))$.
+    \2 Donc $tf(a)+(1-t)f(a) \le tf(x)+(1-t)f(y)$.
+    \2 On en déduit donc que $f$ est convexe sur $I$.
+    \1 Ainsi, on a montré l'équivalence.
+  \end{outline}
+\end{proof}
+
+\begin{property}
+  Soit $f \in \R^I$ une fonction convexe.
+
+  $\forall a<b<c \in I, f \text{ est dérivable à droite et à gauche en } b \text{ avec } \frac{f(b)-f(a)}{b-a} \le f'_g(b) \le f'_d(b) \le \frac{f(c)-f(b)}{c-b}$
+\end{property}
+
+\begin{proof}
+  \begin{itemize}
+    \item On pose $\psi_1:\begin{cases} ]a,b[\to\R \\ u\mapsto \frac{f(u)-f(b)}{u-b} \end{cases}$.
+    \item On pose $\psi_2:\begin{cases} ]b,c[\to\R \\ v\mapsto \frac{f(v)-f(b)}{v-b} \end{cases}$.
+    \item On peut aussi considérer une fonction $\varphi : \begin{cases} I\setminus\{b\}\to\R \\ x\mapsto \frac{f(x)-f(b)}{x-b} \end{cases}$, puis considérer ses restrictions à $]a,b[$ et $]b,c[$.
+    \item On sait que $\psi_1$ est croissante.
+    \item On peut donc montrer que $\psi_1$ est majorée et qu'elle admet donc une limite réelle et finie en $b$.
+    \item En réalité, $\psi_1$ est majorée par $\varphi_b(v)$, en fixant $v\in]b,c[$.
+    \item Donc, $\lim_{u\to b^-}\psi_1(u)$ existe et est finie. $\psi_1$ admet une limite finie à gauche en $b$.
+    \item On a donc $\psi_1(a) \le \lim_{u\to b^-}\psi_1(u) \le \psi_1(v)$.
+    \item Donc $f$ est dérivable à gauche avec $\frac{f(b)-f(a)}{b-a} \le \lim_{x \to b^-}\frac{f(x)-f(b)}{x-b} \le \frac{f(v)-f(b)}{v-b}$.
+    \item Donc $\forall v \in ]b,c[, \frac{f(b)-f(a)}{b-a} \le f'_g(b) \le \psi_2(v)$.
+    \item On sait aussi que $\psi_2$ est croissante.
+    \item Elle est minorée par $f'_g(b)$. Donc $\psi_2$ admet une limite finie à droite en $b$.
+    \item Donc, $\forall u \in ]a,b[, f'_g(b) \le f'_d(b) \le \frac{f(c)-f(b)}{c-b}$.
+    \item Ainsi, on a montré que $f$ est dérivable à droite et à gauche en $b$ avec $\frac{f(b)-f(a)}{b-a} \le f'_g(b) \le f'_d(b) \le \frac{f(c)-f(b)}{c-b}$.
+  \end{itemize}
+\end{proof}
+
+\begin{consequence}
+  Soit $f \in \R^I$ une fonction convexe sur $I$.
+
+  Alors, $f$ est continue sur $\overset{\circ}{I}$.
+\end{consequence}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{property}
+  Soit $f \in \R^I$ 
+\end{property}
 
 \end{document}
 

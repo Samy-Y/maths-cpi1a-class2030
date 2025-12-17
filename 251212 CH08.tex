@@ -1,0 +1,381 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre VIII : Intégration d'une fonction sur un segment}{Rédigé par Samy Youssoufine}{./assets/logo.png}{Document WIP. Peut contenir des erreurs/sections incomplètes. Version ALPHA de la nouvelle mise en forme.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré à l'étude de l'intégration d'une fonction sur un segment. Les objectifs principaux sont de :
+\begin{itemize}
+    \item Rappeler les définitions et propriétés de base des intégrales.
+    \item Rappeler les techniques d'intégration usuelles, notamment l'intégration par parties et le changement de variable.
+    \item Étendre et généraliser ces techniques d'intégration.
+    \item Présenter de nouvelles formules (formule de Taylor-Lagrange avec reste intégral...).
+\end{itemize}
+
+Ce chapitre ne traitera pas des intégrales impropres, généralisées, etc. Ces notions seront abordées l'année prochaine.
+\vspace*{\fill}
+
+\newpage
+
+\chapter{Généralités}
+
+\section{Primitives, intégrales et propriétés de base}
+
+\begin{definition}[Primitives]
+    Soit $f\in\Kset^I$.
+
+    La fonction $F\in\Kset^I$ est une primitive de $f$ sur $I$ si $F$ est dérivable sur $I$ et $F'=f$.
+
+    On dit "une primitive" et non pas "la primitive" car une fonction peut avoir plusieurs primitives différentes (différant d'une constante additive).
+
+    Si $F$ est une primitive de $f$ sur $I$, alors l'ensemble des primitives de $f$ sur $I$ est l'ensemble des fonctions de la forme $F+c$ avec $c\in\Kset$.
+\end{definition}
+
+\begin{definition}[Intégrale d'une fonction entre deux points]
+    Soit $f\in\Kset^I$.
+
+    L'intégrale de $f$ entre $a$ et $b$ est notée $\int_a^b f$ et est définie par :
+    $$\int_a^b f = F(b) - F(a)$$
+    où $F$ est une primitive de $f$ sur $[a,b]$.
+\end{definition}
+
+\begin{remark}
+    Si $f \in \C^I$, alors $\int_a^b f(t)dt = \int_a^b\Re(f)(t)dt + i\int_a^b \Im(f)(t)dt$.
+
+    Par exemple, $\int_0^1 \frac{dt}{t+i} = \dots = \frac12 \ln(2) - i\frac{\pi}{4}$.
+
+    Attention ! Nous n'avons pas défini la fonction $\ln$ sur $\C$. Ici, nous utilisons la définition de $\ln$ sur $\R$. Il existe bel et bien un logarithme complexe, mais il entre dans le domaine des fonctions holomorphes, ce qui est hors de portée de ce cours.
+\end{remark}
+
+\begin{theorem}
+    Si $f \in \Kset^I$ est continue sur $I$, alors $f$ admet une primitive sur $I$.
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+\todo{recop}
+
+\begin{property}[Propriétés de l'intégrale]
+    Soient $f,g\in\mathcal{C}(I,\Kset)$, et $a,b\in I$.
+
+    \begin{enumerate}
+        \item $\forall \lambda \in \Kset, \int_a^b f+\lambda g = \int_a^b f + \lambda \int_a^b g$.
+        \item Relation de Chasles : $\forall c \in I, \int_a^b f = \int_a^c f + \int_c^b f$.
+        \item Si $f\le g$ sur I et $a\le b$, alors $\int_a^b f \le \int_a^b g$.
+        \item Si $a<b$, $\abs{\int_a^b f} \le \int_a^b \abs{f}$\\, et même $\le \sup_{t\in[a,b]} \abs{f(t)} (b-a)$ (Inégalité triangulaire de l'intégrale, ou encore inégalité de la moyenne).
+    \end{enumerate}
+
+\end{property}
+
+\begin{proof}
+    
+\end{proof}
+\todo{recop}
+
+\begin{consequence}
+    Soit $f\in\mathcal{C}(I,\R),a<b\in I$.
+
+    Si $f\ge 0$ sur $I$, alors $\int_a^b f(t)dt \ge 0$.
+
+    Avec $\int_a^b f(t)dt = 0 \ssi f=0$ sur $[a,b]$.
+\end{consequence}
+
+\begin{proof}
+    
+\end{proof}
+\todo{recop}
+
+\begin{exercise}
+    Soit $f:[a,b]\to\C$ une fonction continue.
+
+    Montrer que $\abs{\int_a^b f(t) dt} = \int_a^b \abs{f(t)} dt$ si et seulement si il existe $\theta \in \R$ tel que $\forall t \in [a,b], f(t) = e^{i\theta} \abs{f(t)}$.
+
+    \textbf{Solution :}
+
+    \begin{outline}
+        \1[$\leftarrow$] La démonstration dans le sens indirect est triviale.
+        \1[$\rightarrow$] Pour démontrer cette propriété dans le sens direct
+    \end{outline}
+\end{exercise}
+\todo{recop}
+
+\begin{remark}
+    Si $f:[a,b]\to\R$ est une fonction continue telle que $\abs{\int_a^b f(t) dt} = \int_a^b \abs{f(t)} dt$, alors $f$ est de signe constant sur $[a,b]$. Il s'agit d'un cas particulier du résultat précédent.
+\end{remark}
+
+\section{Intégration par parties}
+
+\subsection{Formule d'intégration par parties}
+
+\begin{theorem}
+    Soient $f,g\in\mathcal{C}^2([a,b],\Kset)$, et $a,b\in I$.
+
+    $$\int_a^b f\cdot g' = \bracks{f\cdot g}_a^b - \int_a^b f'\cdot g$$
+
+    avec $\bracks{f}_a^b = f(b) - f(a)$.
+\end{theorem}
+
+\begin{proof}
+    On a $(f \cdot g)' = f' \cdot g + f \cdot g'$.
+
+    Donc, en intégrant entre $a$ et $b$, on obtient :
+
+    $$\int_a^b (f \cdot g)' = \int_a^b f' \cdot g + \int_a^b f \cdot g'$$
+
+    Donc $\int_a^b f\cdot g' = \bracks{fg}_a^b - \int_a^b f'\cdot g$.
+\end{proof}
+
+\begin{example}
+    $$\int_a^x \ln(t) dt \text{ avec } a,x > 0$$
+
+    On pose $\begin{cases} u(t) = \ln(t) &\implies u'(t) = \frac{1}{t} \\ v'(t) = 1 &\implies v(t) = t \end{cases}$.
+
+    On a donc : $\int_a^x \ln(t) dt = \bracks{t\ln(t)}_a^x - \int_a^x 1 dt = x\ln(x) - a\ln(a) - (x-a)$.
+
+    Donc : $\int_a^x \ln(t) dt = x\ln(x) - x - (a\ln(a) - a)$.
+\end{example}
+
+\subsection{Formule d'IPP. généralisée}
+
+\begin{exercise}[Formule d'intégration par parties généralisée]
+    Soient $f,g\in\mathcal{C}^n(I,\Kset)$, et $a,b\in I$.
+
+    On souhaite démontrer que :
+
+    $$\int_a^b f\cdot g^{(n)}=\bracks{\sum_{k=1}^n (-1)^{k-1} f^{(k-1)}\cdot g^{(n-k)}}_a^b + (-1)^n \int_a^b f^{(n)}\cdot g$$
+
+    \textbf{Solution :}
+
+    On peut procéder par récurrence sur $n$, mais il est plus simple de faire une démonstration directe par intégration par parties.
+
+    \begin{align*}
+        \parens{\sum_{k=1}^n (-1)^{k-1} f^{(k-1)}\cdot g^{(n-k)}}' &= \sum_{k=1}^n (-1)^{k-1} \parens{f^{(k)}\cdot g^{(n-k)} + f^{(k-1)}\cdot g^{(n-k+1)}} \\
+        &= \sum_{k=1}^n (-1)^{k-1} f^{(k)}\cdot g^{(n-k+1)} - (-1)^k f^{(k)}\cdot g^{(n-k)} \\
+        &= f\cdot g^{(n)} - (-1)^n f^{(n)}\cdot g
+    \end{align*}
+
+    Donc, en intégrant entre $a$ et $b$, on obtient :
+    $$\int_a^b \parens{\sum_{k=1}^n (-1)^{k-1} f^{(k-1)}\cdot g^{(n-k)}}' = \int_a^b f\cdot g^{(n)} - (-1)^n \int_a^b f^{(n)}\cdot g$$
+
+    Ce qui donne bien la formule voulue.
+\end{exercise}
+
+\begin{application}
+    On souhaite calculer $J=\int_a^b P(x)e^{cx}dx$ avec $P\in\Kset_n[X]$ et $c\in\R_+^*$.
+
+    On pose $f:x\mapsto e^{cx}$, qui est $\mathcal{C}^\infty$ sur $\R$.
+
+    On a, pour tout $n \in \N, f^{(n+1)}:x\mapsto c^{n+1} e^{cx}$.
+
+    \begin{align*}
+        J&=\int_a^b P(x)e^{cx}dx\\
+        &=\frac{1}{c^{n+1}}\int_a^b P(x) f^{(n+1)}(x) dx\\
+        &=\frac{1}{c^{n+1}}\bracks{\sum_{k=1}^{n+1} (-1)^{k-1} P^{(k-1)}(x) f^{(n+1-k)}(x)}_a^b + \frac{(-1)^{n+1}}{c^{n+1}}\int_a^b P^{(n+1)}(x) f(x) dx
+    \end{align*}
+
+    Or, on sait que $P$ est de degré $n$, donc $P^{(n+1)}\equiv 0$.
+
+    Donc, on a finalement :
+
+    $$J=\frac{1}{c^{n+1}}\bracks{\sum_{k=1}^{n+1} (-1)^{k-1} P^{(k-1)}(x) f^{(n+1-k)}(x)}_a^b$$
+
+    $$J=\bracks{\sum_{k=0}^n(-1)^k \cdot P^{(k)}(x)\frac{e^{cx}}{c^{k+1}}}_a^b$$
+\end{application}
+
+\section{Changement de variable}
+
+\begin{definition}[Intégration par changement de variable]
+   Soient $g\in\mathcal{C}^1([a,b],\R)$ et $f\in\mathcal{C}(I,\Kset)$ telles que $g([a,b])\subset I$.
+
+    $$\int_a^b f(g(x))\cdot g'(x) dx = \int_{g(a)}^{g(b)} f(t) dt$$
+
+    On dit qu'on a fait le changement de variable suivant :
+    
+    $$t=g(x)\implies \begin{cases}x=a&\rightarrow t=g(a)\\x=b&\rightarrow t=g(b)\end{cases}$$
+    
+    avec $dt=g'(x)dx$.
+
+    Donc $\int_a^b \underbrace{f(g(x))}_{=t}\cdot \underbrace{g'(x)dx}_{=dt}=\int_{g(a)}^{g(b)}f(t)dt$
+\end{definition}
+
+\begin{proof}
+    Soit $F$ une primitive de $f$ sur $I$.
+
+    On a donc :
+
+    \begin{align*}
+        \int_a^b f(g(x))g'(x)dx&=\int_a^b F'(g(x))\cdot g'(x)dx\\
+        &=\int_a^b (F\circ g)'(x)dx=F(g(b))-F(g(a))\\
+        &=\int_{g(a)}^{g(b)}F'(t)dt\\
+        &=\int_{g(a)}^{g(b)}f(t)dt
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    Calculer $I_{n,p}=\int_a^b=(b-x)^n\cdot (x-a)^p dx$, avec $n,p\in\N$.
+
+    \textit{(Ou bien, montrer que $I_{n,p}=(b-a)^{n+p+1}\cdot \sum_{k=0}^n\legbinom{n}{k}\frac{(-1)^k}{p+k+1}$)}
+
+    \textbf{Solution :}
+
+    On va utiliser le changement de variable qui permet de transformer n'importe quel $x\in[a,b]$ en un $t\in[0,1]$.
+
+    On sait que $\forall x \in [a,b], \exists t \in [0,1], x=(1-t)a + tb$.
+
+    On pose alors $x=(1-t)a+tb$. En dérivant, on obtient :
+
+    $$dx = (b-a)dt$$
+
+    Donc, on a :
+
+    \begin{align*}
+        I_{n,p} &= \int_a^b (b-x)^n (x-a)^p dx \\
+        &= \int_0^1 (b-(1-t)a-tb)^n ((1-t)a+tb-a)^p (b-a)dt \\
+        &= (b-a)^{n+p+1} \int_0^1 (1-t)^n t^p dt
+    \end{align*}
+
+    Or, on sait que :
+
+    $$\int_0^1 (1-t)^n t^p dt = \int_0^1 t^p \sum_{k=0}^n \legbinom{n}{k} (-1)^k t^k dt = \sum_{k=0}^n \legbinom{n}{k} (-1)^k \int_0^1 t^{p+k} dt$$
+
+    Donc, on a finalement :
+
+    $$\int_0^1 (1-t)^n t^p dt = \sum_{k=0}^n \legbinom{n}{k} \frac{(-1)^k}{p+k+1}$$
+
+    Donc, on en déduit que :
+
+    $$I_{n,p} = (b-a)^{n+p+1} \cdot \sum_{k=0}^n \legbinom{n}{k} \frac{(-1)^k}{p+k+1}$$
+\end{example}
+
+\section{Formule de Taylor-Lagrange avec reste intégral}
+
+\begin{theorem}[Formule de Taylor-Lagrange avec reste intégral]
+    Soient $f\in\mathcal{C}^{n+1}(I,\Kset)$, $a,x\in I$.
+
+    Alors on a :
+
+    $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x-a)^k + \int_a^x \frac{(x-t)^n}{n!} f^{(n+1)}(t) dt$$
+\end{theorem}
+
+\begin{proof}
+    On pose, pour $k\in\N$, $I_k=\int_a^x \frac{(x-t)^k}{k!} f^{(k+1)}(t) dt$.
+
+    On effectue une intégration par parties sur $I_k$ :
+    $$\begin{cases}
+        u(t) = (x-t)^k &\implies u'(t) = -k(x-t)^{k-1} \\
+        v'(t) = f^{(k+1)}(t) &\implies v(t) = f^{(k)}(t)
+    \end{cases}$$
+
+    Donc, on a :
+    \begin{align*}
+        I_k &= \bracks{\frac{(x-t)^k}{k!} f^{(k)}(t)}_a^x + \underbrace{\int_a^x \frac{k(x-t)^{k-1}}{k!} f^{(k)}(t) dt}_{=I_{k-1}}
+    \end{align*}
+
+    Donc $I_{k-1}-I_k = \frac{(x-a)^k}{k!} f^{(k)}(a)$.
+
+    Donc $\sum_{k=1}^n (I_{k-1}-I_k) = \sum_{k=1}^n \frac{(x-a)^k}{k!} f^{(k)}(a)$.
+
+    Donc $I_0 - I_n = \sum_{k=1}^n \frac{(x-a)^k}{k!} f^{(k)}(a)$.
+
+    Or $I_0 = \int_a^x f^{(1)}(t) dt = f(x) - f(a)$.
+
+    Donc, on a bien :
+
+    $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x-a)^k + \int_a^x \frac{(x-t)^n}{n!} f^{(n+1)}(t) dt$$
+\end{proof}
+
+\begin{consequence}[Inégalité de Taylor-Lagrange]
+    Même énoncé que précédemment écrit dans le chapitre 7.
+
+    Soit $f \in \mathcal{C}^{n+1}(I,\R)$. 
+
+    On a, pour tout $x\ne a \in I$ :
+
+    $$\abs{f(x)-\sum_{k=0}^n\frac{f^{(k)}}{k!}(x-a)^k}\le\sup_{t\in[a,x] \text{ ou }t \in [x,a]}\abs{f^{(n+1)}(t)}\frac{\abs{x-a}^{n+1}}{(n+1)!}$$
+\end{consequence}
+
+\begin{proof}
+    Soient $f\in\mathcal{C}^{n+1}(I,\Kset)$ et $x\not=a \in I$.
+
+    Nous allons procéder à une démonstration différente à celle vue dans le chapitre 7 (nous allons utiliser la formule de Taylor-Lagrange avec reste intégral).
+
+    On a, par la formule de Taylor-Lagrange avec reste intégral :
+
+    \begin{align*}
+        \abs{f(x)-\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x-a)^k}&\le\abs{\int_a^x \frac{(x-t)^n}{n!}f^{(n+1)}(t)dt}\\
+        &\le \int_a^x \abs{f^{(n+1)}(t)}\frac{(x-t)^n}{n!}dt\\
+    \end{align*}
+
+    Or $f^{(n+1)}$ est continue sur le segment $[a,x]$ ou $[x,a]$, donc elle est bornée.
+
+    Donc, on a :
+
+\end{proof}
+\todo{recop}
+
+\begin{application}
+    On pose $f:x\mapsto e^{ix}$. Cette fonction est de classe $\mathcal{C}^\infty$ sur $\R$.
+
+    Soit $x\in\R^*$. D'après l'inégalité de Taylor-Lagrange, on a :
+
+    $$\abs{f(x)-\sum_{k=0}^n \frac{f^{(k)}(0)}{k!} x^k} \le \sup_{t\in[0,x] \text{ ou } t\in[x,0]} \abs{f^{(n+1)}(t)} \frac{\abs{x}^{n+1}}{(n+1)!}$$
+
+    Or on sait que $\forall k \in \N, f^{(k)}:x\mapsto i^k e^{ix}$.
+
+    Donc $f^{(k)}(0) = i^k$.
+
+    Donc $\sup_{t\in[0,x] \text{ ou } t\in[x,0]} \abs{f^{(n+1)}(t)} \le 1$.
+
+    Donc, on a finalement :
+
+    $$\forall n \in N, \abs{e^{ix}-\sum_{k=0}^n \frac{i^k}{k!} x^k} \le \frac{\abs{x}^{n+1}}{(n+1)!}$$
+
+    On a $\frac{\abs{x}^{n+1}}{(n+1)!} \to 0$ lorsque $n \to +\infty$ d'après le critère de d'Alembert.
+
+    Donc, on a bien :
+
+    $$\lim_{n \to +\infty} \abs{e^{ix}-\sum_{k=0}^n \frac{i^k}{k!} x^k} = 0$$
+
+    Donc, on en déduit la formule d'Euler :
+
+    $$\boxed{e^{ix} = \sum_{k=0}^{+\infty} \frac{(ix)^k}{k!}}$$
+
+    En général, pour tout $z\in\C$, on a :
+    $$\boxed{e^{z} = \sum_{k=0}^{+\infty} \frac{z^k}{k!}}$$
+\end{application}
+
+\chapter{Calcul des primitives}
+
+On note $\int f(x)dx$ une primitive de $f$.
+Le calcul de $\int f$ se fait après décomposition de $f$ en éléments plus simples (généralement les fonctions usuelles qui seront présentées dans la partie ci-dessous).
+
+\section{Primitives des fonctions usuelles}
+
+Les primitives des fonctions usuelles sont les suivantes :
+
+\begin{itemize}
+    \item $\forall k,\lambda \in \N\times\Kset, \int \lambda x^k dx = \lambda \frac{x^{k+1}}{k+1} + \gamma$ avec $\gamma \in \Kset$.
+    \item $\forall n \in \Z\setminus\{-1\}, \forall a \in \Kset, \int (x-a)^n dx = \frac{(x-a)^{n+1}}{n+1} + \gamma$ avec $\gamma \in \Kset$.
+    \item $\forall a \in \R$, $\int \frac{1}{x-a} dx = \ln\abs{x-a} + \gamma$ avec $\gamma \in \R$.
+    \item $\forall a \in \C, \int \frac{dx}{x-a} = \frac12 \ln\parens{(x-\alpha)^2+\beta^2} + i\arctg\parens{\frac{x-\alpha}{\beta}}+\gamma$ avec $\gamma \in \C$.
+    \item $\forall a,b\in\R \tqp a^2-4b<0 \et n\in \N^*, \int \frac{dx}{\parens{x^2+ax+b}^n}=\int \frac{dx}{\parens{\parens{x+\frac{a}{2}}^2+\parens{b-\frac{a^2}{4}}}^n}$.\\Par changement de variable, on peut aboutir à une nouvelle intégrale de la forme $\int \frac{dt}{(t^2+1)^n}$, qu'on peut calculer par IPP.
+\end{itemize}
+
+\begin{exercise}
+    On pose $f:x\mapsto \frac{1}{(x^3+1)(x+1)}$.
+
+    \begin{enumerate}
+        \item Déterminer $a,b,c,d\in\R$ tels que $\forall x\in\R\setminus\{-1\}, f(x)=\frac{a}{x+1}+\frac{b}{(x+1)^2}+\frac{cx+d}{x^2 - x + 1}$.
+        \item Calculer $\int f(x)dx$.
+    \end{enumerate}
+\end{exercise}
+\todo{À faire pour le vendredi 19}
+
+\end{document}
