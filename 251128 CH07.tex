@@ -1111,8 +1111,6 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
 
 \chapter{Convexité}
 
-\section{Définition et propriétés}
-
 \begin{definition}
     Soit $f \in \R^I$ telle que $I$ est un intervalle de $\R$ avec $\overset{\circ}{I}\ne\emptyset$.
 
@@ -1235,9 +1233,76 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
   
 \end{proof}
 
+\begin{consequence}
+  Soit $f \in \mathcal{D}^2(I,\R)$.
+
+  $$f \text{ est convexe sur } I \iff f'' \ge 0 \text{ sur } \overset{\circ}{I}$$
+\end{consequence}
+
 \begin{property}
-  Soit $f \in \R^I$ 
+  Soit $f \in \mathcal{D}^1(I,\R)$.
+
+  $$f \text{ est convexe sur } I \iff C_f \text{ est au-dessus de ses tangentes sur } I$$
 \end{property}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  % Axes
+  \draw[->] (-3.5,0) -- (3.5,0) node[right] {$x$};
+  \draw[->] (0,-0.5) -- (0,5) node[above] {$y$};
+  
+  % Fonction convexe f(x) = 0.4x^2 + 0.5
+  \draw[thick, blue, domain=-3.2:3.2, samples=100] plot (\x, {0.4*\x*\x + 0.5});
+  \node[blue, right] at (2.3, 4) {$C_f$};
+  
+  % Tangentes en plusieurs points
+  % Tangente en x = -2.5 : y = f(-2.5) + f'(-2.5)(x - (-2.5)) = 3 - 2(x + 2.5)
+  \draw[red!80!black, thin, domain=-3.5:0, samples=50] plot (\x, {3 + (-2)*(\x + 2.5)});
+  
+  % Tangente en x = -1.8 : f(-1.8) = 1.796, f'(-1.8) = -1.44
+  \draw[red!70!black, thin, domain=-3.2:0.8, samples=50] plot (\x, {1.796 + (-1.44)*(\x + 1.8)});
+  
+  % Tangente en x = -1 : f(-1) = 0.9, f'(-1) = -0.8
+  \draw[red!60!black, thin, domain=-2.8:1.5, samples=50] plot (\x, {0.9 + (-0.8)*(\x + 1)});
+  
+  % Tangente en x = -0.3 : f(-0.3) = 0.536, f'(-0.3) = -0.24
+  \draw[orange!80!black, thin, domain=-2.5:2.2, samples=50] plot (\x, {0.536 + (-0.24)*(\x + 0.3)});
+  
+  % Tangente en x = 0 : f(0) = 0.5, f'(0) = 0
+  \draw[orange, thin, domain=-3:3, samples=50] plot (\x, {0.5});
+  
+  % Tangente en x = 0.4 : f(0.4) = 0.564, f'(0.4) = 0.32
+  \draw[orange!80!black, thin, domain=-2.2:2.8, samples=50] plot (\x, {0.564 + 0.32*(\x - 0.4)});
+  
+  % Tangente en x = 1 : f(1) = 0.9, f'(1) = 0.8
+  \draw[red!60!black, thin, domain=-1.5:2.8, samples=50] plot (\x, {0.9 + 0.8*(\x - 1)});
+  
+  % Tangente en x = 1.8 : f(1.8) = 1.796, f'(1.8) = 1.44
+  \draw[red!70!black, thin, domain=-0.8:3.2, samples=50] plot (\x, {1.796 + 1.44*(\x - 1.8)});
+  
+  % Tangente en x = 2.5 : f(2.5) = 3, f'(2.5) = 2
+  \draw[red!80!black, thin, domain=0:3.5, samples=50] plot (\x, {3 + 2*(\x - 2.5)});
+  
+  % Points de tangence
+  \foreach \a in {-2.5, -1.8, -1, -0.3, 0, 0.4, 1, 1.8, 2.5} {
+    \fill[black] (\a, {0.4*\a*\a + 0.5}) circle (1.5pt);
+  }
+  
+  % Légende
+  \node[red!70!black, right] at (1.5, -0.3) {\small Tangentes $(T_a)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{remark}
+  L'équation de la tangente à la courbe représentative de $f$ au point d'abscisse $a$ est donnée par : $(T_a):y = f(a) + f'(a)(x-a)$.
+\end{remark}
+
+\begin{proof}
+
+\end{proof}
+\todo{recop}
+
+
 
 \end{document}
 
