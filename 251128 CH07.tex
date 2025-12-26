@@ -143,7 +143,7 @@
 \begin{proof}
     Soit $f \in \Kset^I$ dérivable en $a \in I$. 
 
-    On pose $\varphi : \begin{cases}I-\{a\}\to\Kset\\x\mapsto \begin{cases}
+    On pose $\varphi : \begin{cases}I\to\Kset\\x\mapsto \begin{cases}
 \frac{f(x)-f(a)}{x-a} & \text{si } x \neq a\\
 f'(a) & \text{si } x = a
     \end{cases}\end{cases}$.
@@ -795,9 +795,13 @@ f'(a) & \text{si } x = a
   \end{cases}$ (sans oublier que $t$ est \textbf{fixé}).
 
   Donc, d'après l'exercice précédent, il existe $c \in ]a,b[$ tel que $g''(c) = 0$.
-\end{proof}
 
-\todo{a continuer}
+  Après quelques calculs de dérivées, on trouve que $g''(x) = f''(x) - A$.
+
+  En remplaçant $x$ par $c$, on obtient $g''(c) = f''(c) - A = 0$, donc $A = f''(c)$.
+
+  En remplaçant ensuite $A$ dans l'expression de $g(x)$, puis en introduisant $t$, on obtient la formule souhaitée.
+\end{proof}
 
 \section{Théorème des accroissements finis}
 
@@ -824,7 +828,11 @@ f'(a) & \text{si } x = a
 \end{proof}
 
 \begin{application}
-  Soit $f:I\to\R$ dérivable sur $I$ telle que $f'$ est bornée sur $I$, i.e. $\exists M\geq 0, \forall x\in I, |f'(x)| \leq M$. Donc $f$ \textbf{est lipschitzienne} sur $I$, i.e. $\forall x,y\in I, |f(x)-f(y)| \leq M|x-y|$.
+  Soit $f:I\to\R$ dérivable sur $I$ telle que $f'$ est bornée sur $I$
+  
+  i.e. $\exists M\geq 0, \forall x\in I, |f'(x)| \leq M$. 
+  
+  Donc $f$ \textbf{est lipschitzienne} sur $I$, i.e. $\forall x,y\in I, |f(x)-f(y)| \leq M|x-y|$.
 \end{application}
 
 \begin{proof}
@@ -857,13 +865,13 @@ f'(a) & \text{si } x = a
 \begin{proof}
   \begin{outline}
     \1[$\implies$] Soit $x\in\overset{\circ}{I}$, $\forall y \in I-\{x\}$.
-    \2 Comme $f$ est croissante sur $I$, on a $f(y) - f(x) > 0$ si $y > x$ et $f(y) - f(x) < 0$ si $y < x$.
-    \2 Donc, $\frac{f(y) - f(x)}{y - x} > 0$.
+    \2 Comme $f$ est croissante sur $I$, on a $f(y) - f(x) \ge 0$ si $y > x$ et $f(y) - f(x) \le 0$ si $y < x$.
+    \2 Donc, $\frac{f(y) - f(x)}{y - x} \ge 0$.
     \2 Donc, en passant à la limite $y\to x$, on a $f'(x) \geq 0$.
     \2 Cela veut donc dire que $\forall x \in \overset{\circ}{I}, f'(x) \geq 0$.
     \1[$\impliedby$] Soient $x,y\in I$ avec $x<y$.
     \2 D'après le théorème des accroissements finis, il existe $c\in]x,y[$ tel que $f'(c) = \frac{f(y)-f(x)}{y-x}$.
-    \2 Donc, comme $f'(c) > 0$, on a $f(y) - f(x) > 0$.
+    \2 Donc, comme $f'(c) \ge 0$, on a $f(y) - f(x) \ge 0$.
     \2 Ainsi, $f$ est croissante sur $I$.
   \end{outline}
 \end{proof}
@@ -882,7 +890,7 @@ f'(a) & \text{si } x = a
 
 \begin{proof}
   \begin{itemize}
-    \item Démonstration triviale dans le sens direct.
+    \item On suppose que $f$ est strictement croissante sur $I$, mais que $A=\{x\in\inside{I},f'(x)=0\}$ est d'intérieur non-vide. C'est-à-dire qu'il existe $[a,b]\subset \inside{I}$ avec $a<b$ tel que $\forall x\in[a,b], f'(x) = 0$. Cela implique que $f$ est constante sur $[a,b]$, et donc que $f$ n'est pas strictement croissante sur $I$, ce qui contredit nos hypothèses. Ainsi, $A$ est d'intérieur vide.
     \item Réciproquement, supposons que $f'\ge 0$ sur $\overset{\circ}{I}$, que $A = \{x\in\overset{\circ}{I}, f'(x) = 0\}$ est d'intérieur vide et que $f$ est croissante sur $I$.\\i.e. $\forall a<b \in I, f(a) \le f(b)$.\\Si $\exists a<b\in I, f(a) = f(b)$, alors d'après le théorème de Rolle, $\exists c\in]a,b[$ tel que $f'(c) = 0$. Donc $c\in A$.\\Comme $f$ est croissante sur $I$, on a $\forall x\in]a,b[, f(a) \le f(x) \le f(b)$, donc $f(x) = f(a)$, i.e. $]a,b[ \subset A$, ce qui contredit le fait que $A$ est d'intérieur vide.\\Donc, $\forall a<b \in I, f(a) < f(b)$, i.e. $f$ est strictement croissante sur $I$.
   \end{itemize}
 \end{proof}
@@ -947,7 +955,7 @@ f'(a) & \text{si } x = a
 \end{theorem}
 
 \begin{proof}
-  Soient $x<y \in I$. (Le cas $x>y$ se traite de la même manière, sans perte de généralité).
+  Soient $x<y \in I$ (sans perte de généralité).
 
   On a $-g'\le f' \le g'$ sur $\overset{\circ}{I}$.
   Donc $\begin{cases}
@@ -986,7 +994,7 @@ f'(a) & \text{si } x = a
 \begin{consequence}
   Soit $f \in \R^I$ une fonction continue sur $I$, et de classe $\mathcal{C}^1$ sur $\overset{\circ}{I}$, alors :
 
-  $$\forall x,y \in \overset{\circ}{I}~|~x<y, \abs{f(y)-f(x)} \leq \sup_{t\in[x,y]} |f'(t)| \cdot |y-x|.$$
+  $$\forall x,y \in \overset{\circ}{I}\tqp x<y, \abs{f(y)-f(x)} \leq \sup_{t\in[x,y]} |f'(t)| \cdot (y-x).$$
 \end{consequence}
 
 \begin{proof}
@@ -1058,25 +1066,34 @@ f'(a) & \text{si } x = a
 \end{theorem}
 
 \begin{exercise}
-    Soit $f:x\mapsto \begin{cases} e^{\frac{-1}{x^2}}, x\not=0\\0~~ , x=0\end{cases}$.
+    Soit $f:x\mapsto \begin{cases} e^{\frac{-1}{x^2}}, x\not=0\\0~~ , x=0\end{cases}$
+
+    Montrer que $f$ est de classe $\mathcal{C}^\infty$ sur $\R$.
 
     \textbf{Solution :}
 
-    \begin{itemize}
-        \item On a $f$ est de classe $\mathcal{C}^n$ sur $\R_+^*$ et $\R_-^*$.
-        \item On a $\lim_{x\to 0}f(x)=\lim_{x\to 0}e^{-\frac1{x^2}}=0=f(0)$.
-        \item Donc $f$ est continue en $0$.
-        \item placeholder
-        \item avec $P_{n+1}(x)=\underbrace{2x^3P_n(x)}_{d^\circ = 3n+3}-\underbrace{x^2P_n'(x)}_{d^\circ=3n+1}$.
-        \item Donc $d^\circ P_{n+1}=3(n+1)$.
-        \item Donc on a $\forall n \ge 1, \forall x \neq 0, f^(n)(x)=P_n(\frac{1}{x})e^{-\frac{1}{x^2}}$.
-        \item Alors $\lim_{x\to0} f^{(n)}(x)=\lim_{t\to\infty}P_n(t)e^{-t^2}$.
-        \item Donc $\lim_{x\to0} f^{(n)}(x)=0 \in \R$, et ce, pour tout $n\ge 1$.
-    \end{itemize}
+    \begin{outline}
+        \1 On a $f$ est de classe $\mathcal{C}^n$ sur $\R_+^*$ et $\R_-^*$.
+        \1 On a $\lim_{x\to 0}f(x)=\lim_{x\to 0}e^{-\frac1{x^2}}=0=f(0)$.
+        \1 Donc $f$ est continue en $0$.
+        \1 \textbf{Nous allons montrer que $f^{(n)}$ admet une limite finie en 0.}
+        \2 En faisant quelques dérivations, on remarque que :
+        \2 $n=1, f'(x)=\frac{2}{x^3}e^{-\frac{1}{x^2}}$.
+        \2 $n=2, f''(x)=\parens{\frac{4}{x^6}-\frac{6}{x^4}}e^{-\frac{1}{x^2}}$.
+        \2 Nous allons donc montrer que $\forall n \ge 1, \exists P_n \in \R[X]$ tel que $\forall x \neq 0, f^{(n)}(x)=P_n(\frac{1}{x})e^{-\frac{1}{x^2}}$ avec $d^\circ P_n = 3n$.
+        \3 Preuve par récurrence sur $n$.
+        \3 Initialisation : $n=1$, $P_1(X)=2X^3$ avec $d^\circ P_1=3$.
+        \3 Hérédité : Soit $n\in\N^*$. Supposons la propriété vraie au rang $n$.
+        \3 (Calculs...)
+        \3 On trouve $f^{(n+1)}(x)=\parens{\frac{-1}{x^2}P_n'(\frac1x)+\frac{2}{x^3}P_n(\frac1x)}e^{-\frac{1}{x^2}}$ avec $P_{n+1}(x)=\underbrace{2x^3P_n(x)}_{d^\circ = 3n+3}-\underbrace{x^2P_n'(x)}_{d^\circ=3n+1}$.
+        \3 Donc $d^\circ P_{n+1}=3(n+1)$.
+        \2 Donc on a $\forall n \ge 1, \forall x \neq 0, f^(n)(x)=P_n(\frac{1}{x})e^{-\frac{1}{x^2}}$.
+        \2 Alors $\lim_{x\to0} f^{(n)}(x)=\lim_{t\to\infty}P_n(t)e^{-t^2}$.
+        \1 Donc $\lim_{x\to0} f^{(n)}(x)=0 \in \R$, et ce, pour tout $n\ge 1$.
+    \end{outline}
 
     On conclut que $f$ est de classe $\mathcal{C}^\infty$ sur $\R$ avec $\forall n \in \N, f^{(n)}(0)=0$.
 \end{exercise}
-\todo{erm remove placeholder}
 
 \begin{theorem}[Formule de Taylor-Lagrange]
     Soit $f \in \mathcal{C}^n(I,\R) \cap D^{n+1}(\overset{\circ}{I},\R)$.
@@ -1086,18 +1103,29 @@ f'(a) & \text{si } x = a
     $$f(x)=\sum_{k=0}^n\parens{\frac{f^{(k)}(a)}{k!}(x-a)^k}+\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$$
 \end{theorem}
 
-\begin{proof}
-    Soient $a\in I, x\ne a$.
-
-    On pose $g:t\mapsto f(x)-\sum_{k=0}^n f^{(k)}(t)(x-t)^k-A(x-t)^{n+1}$ où $A$ est une constante telle que $g(a)=0$.
-\end{proof}
-\todo{a continuer}
-
-Cette méthode utilisée dans les démonstrations précédentes doit devenir un quasi-réflexe pour la résolution d'exercices où des dérivées dépendent d'un certain $c$ existant dans [...].
-
 \begin{remark}
     Pour $n=0$, on retrouve la formule du théorème des accroissements finis.
 \end{remark}
+
+\begin{proof}
+    \begin{outline}
+      \1 Soient $a\in I, x\ne a$.
+
+    \1 On pose $g:t\mapsto f(x)-\sum_{k=0}^n f^{(k)}(t)(x-t)^k-A(x-t)^{n+1}$ où $A$ est une constante telle que $g(a)=0$.
+
+    \2 Donc $g$ est continue sur $I$ et dérivable sur $\inside{I}$, avec $g(x)=g(a)=0$ ($g$ étant définie pour $t$ dans $I$).
+
+    \2 Donc, d'après le théorème de Rolle, il existe $c \in ]\min(a,x),\max(a,x)[$ tel que $g'(c)=0$.
+
+    \2 Or nous savons que $g'(t)=-f^{(n+1)}(t)(x-t)^n - (n+1)A(x-t)^n$.
+
+    \2 Donc $g'(c)=0 \iff A = \frac{f^{(n+1)}(c)}{(n+1)!}$.
+
+    \1 En remplaçant $A$ dans l'expression de $g(a)=0$, on obtient la formule de Taylor-Lagrange.
+    \end{outline}
+\end{proof}
+
+Cette méthode utilisée dans les démonstrations précédentes doit devenir un quasi-réflexe pour la résolution d'exercices où des dérivées dépendent d'un certain $c$ existant dans [...].
 
 \begin{consequence}[Inégalité de Taylor-Lagrange]
     Soit $f \in \mathcal{C}^{n+1}(I,\R)$. 
@@ -1120,12 +1148,22 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
     \end{enumerate}
 \end{definition}
 
-\begin{remark}
+\begin{remark}[Changement de variable du roi]
     Soient $x,y \in I$ tels que $x<y$.
 
     On pose $\varphi : \begin{cases} [0,1]\to[x,y]\\t\mapsto tx+(1-t)y \end{cases}$
+
+    On remarque que $\varphi$ est continue, dérivable et $\varphi' (t) = x-y < 0$.
+
+    Donc $\varphi$ est bijective de $[0,1]$ vers $[x,y]$.
+
+    $$\implies \begin{cases}
+      \forall t \in [0,1], \varphi(t) \in [x,y]\\
+      \forall a \in [x,y], \exists! t \in [0,1] : a = \varphi(t)
+    \end{cases}$$
+
+    Ce changement de variable est utile pour prouver des propriétés sur les fonctions convexes/concaves. Il est appelé \textbf{changement de variable du roi}. Il est aussi utilisé dans l'intégration ($I=\int_a^b f(x)dx = \int_a^b f(a+b-u)du$). Le \textbf{changement de variable de la reine} n'a pas été abordé en détail pendant le cours mais reste intéressant à étudier.
 \end{remark}
-\todo{recop}
 
 \begin{property}[Inégalité de Jensen]
     Soit $f \in \R^I$ convexe sur $I$.
@@ -1174,8 +1212,8 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
     \2 Donc $\exists t \in ]0,1[ : a = tx + (1-t)y$.
     \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)=f(a)$.
     \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)=f(tx+(1-t)y)$.
-    \2 Donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)\le tf(x)+(1-t)f(y)$.
-    \2 Par convexité de $f$, on a donc $t(f(a)-f(x))\le (1-t)(f(y)-f(a))$.
+    \2 Par convexité de $f$, on a donc $\exists t \in ]0,1[ : t\cdot f(a)+(1-t)\cdot f(a)\le tf(x)+(1-t)f(y)$.
+    \2 Donc $t(f(a)-f(x))\le (1-t)(f(y)-f(a))$.
     \2 Donc $f(a)-f(x)\le \frac{1-t}{t}(f(y)-f(a))$.
     \2 On a $a-x=\dots=(1-t)(y-x)$ et $y-a=t(y-x)$.
     \2 Donc $\frac{1-t}{t}=\frac{a-x}{y-a}$.
@@ -1297,12 +1335,29 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
   L'équation de la tangente à la courbe représentative de $f$ au point d'abscisse $a$ est donnée par : $(T_a):y = f(a) + f'(a)(x-a)$.
 \end{remark}
 
+\todo{preuve pas du tout rigoureuse en dessous}
+
 \begin{proof}
+  On cherche à démontrer que pour tout $a \in I$, et que pour tout $x \in I$, on a $f(x) \ge f(a) + f'(a)(x-a)$.
+
+  \textbf{Démonstration dans le sens direct :}
+
+  \begin{itemize}
+    \item Soit $a \in I$.
+    \item Soit $x \in I$, avec $x \ne a$.
+    \item On pose $\varphi_a : \begin{cases} I\setminus\{a\}\to\R \\ t\mapsto \frac{f(t)-f(a)}{t-a} \end{cases}$.
+    \item On sait que $\varphi_a$ est croissante.
+    \item Donc, si $x<a$, on a $\varphi_a(x) \le \lim_{t\to a^-}\varphi_a(t) = f'_g(a) \le f'_d(a)$.
+    \item Donc, si $x<a$, on a $\frac{f(x)-f(a)}{x-a} \le f_g'(a)$ et $\frac{f(x)-f(a)}{x-a} \le f_d'(a)$.
+    \item Donc, si $x<a$, on a $f(x) - f(a) \ge f_g'(a)(x-a)$ et $f(x) - f(a) \ge f_d'(a)(x-a)$.
+    \item Donc, si $x<a$, on a $f(x) \ge f(a) + f_g'(a)(x-a)$ et $f(x) \ge f(a) + f_d'(a)(x-a)$ (1). On en déduit que la courbe est au-dessus de la demi-tangente à droite et à gauche en $a$ pour $x<a$.
+    \item On répète le raisonnement pour le cas $x>a$.
+    \item Ainsi, on a montré que pour tout $a \in I$, et que pour tout $x \in I$, la courbe de $f$ est au-dessus de ses demi-tangentes en $a$.
+  \end{itemize}
+
+  \textbf{Démonstration dans le sens réciproque à refaire.}
 
 \end{proof}
-\todo{recop}
-
-
 
 \end{document}
 

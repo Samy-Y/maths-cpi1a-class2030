@@ -17,7 +17,7 @@
 \RequirePackage{amsmath, amssymb, amsthm, amsfonts}
 \RequirePackage[margin=2cm]{geometry}
 \RequirePackage{graphicx}
-\RequirePackage{todonotes}
+\RequirePackage[colorinlistoftodos, textsize=small]{todonotes}
 \RequirePackage{outlines}
 \RequirePackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -98,6 +98,10 @@
 \definecolor{exerciseBg}{HTML}{F2F4F4}
 \definecolor{proofBg}{HTML}{FFFFFF}
 \definecolor{applicationBg}{HTML}{FDF2E9}
+
+% Couleurs pour les todos (pas utilisées)
+\definecolor{todoColor}{HTML}{E74C3C}       % Rouge pour les todos urgents
+\definecolor{todoBg}{HTML}{FDEDEC}          % Fond rouge clair
 
 % ╔══════════════════════════════════════════════════════════════════════════════╗
 % ║                      3. CONFIGURATION DE LA MISE EN PAGE                     ║
@@ -250,6 +254,7 @@
 \newcommand{\angles}[1]{\left\langle#1\right\rangle}
 \newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\inside}[1]{\overset{\circ}{#1}}
 
 \newcommand{\nimplies}{\;\not\!\!\!\implies}
 
@@ -425,8 +430,8 @@
   \refstepcounter{remark}%
   \begin{tcolorbox}[
     modern bar=remarkColor,
-    before skip=\medskipamount,
-    after skip=\medskipamount,
+    before skip=\bigskipamount,
+    after skip=\bigskipamount,
   ]%
   {\sffamily\bfseries\color{remarkColor}\remarkicon\quad Remarque \thechapter.\thesection.\theremark%
     \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
@@ -482,8 +487,8 @@
     right=8pt,
     top=8pt,
     bottom=8pt,
-    before skip=\smallskipamount,
-    after skip=\medskipamount,
+    before skip=\bigskipamount,
+    after skip=\bigskipamount,
   ]%
   {\sffamily\bfseries\color{proofColor}\prooficon\quad Preuve%
     \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip

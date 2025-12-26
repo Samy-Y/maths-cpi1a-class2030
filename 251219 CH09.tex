@@ -1,0 +1,230 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre IX : Analyse asymptotique}{Rédigé par Samy Youssoufine}{./assets/logo.png}{Document WIP. Peut contenir des erreurs/sections incomplètes. Version ALPHA de la nouvelle mise en forme.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré à l'étude de l'analyse asymptotique des fonctions et des suites. Les objectifs principaux sont de :
+\begin{itemize}
+    \item Étudier les comportements asymptotiques des suites et des fonctions.
+    \item Présenter des outils d'analyse asymptotique, tels que \textbf{le développement limité}.
+\end{itemize}
+\vspace*{\fill}
+
+\chapter{Comparaison des suites et fonctions}
+
+\section{Comparaison des suites}
+
+\begin{definition}[Négligence, domination et équivalence de suites]
+    Soient $(U_n),(V_n)\in\C^\N$. On dit que :
+    \begin{itemize}
+        \item $(U_n)$ est \textbf{négligeable} devant $(V_n)$ lorsque $\forall \eps > 0, \exists n_0 \in \N, \forall n \ge n_0, \abs{U_n} \le \eps \abs{V_n}$. On note alors $U_n = o(V_n)$ ou $U_n = \underset{n\to+\infty}{o}(V_n)$.
+        \item $(U_n)$ est \textbf{dominée} par $(V_n)$ lorsque $\exists M \ge 0, \exists n_0 \in \N, \forall n \ge n_0, \abs{U_n} \le M \abs{V_n}$. On note alors $U_n = O(V_n)$ ou $U_n = \underset{n\to+\infty}{O}(V_n)$.
+        \item $(U_n)$ est \textbf{équivalente} à $(V_n)$ lorsque $U_n-V_n = o(V_n)$, i.e. $\forall \eps > 0, \exists n_0 \in \N, \forall n \ge n_0, \abs{U_n-V_n} \le \eps \abs{V_n}$. On note alors $U_n \sim V_n$ ou $U_n \underset{n\to+\infty}{\sim} V_n$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Il faut faire très attention à l'écriture manuscrite de $o(V_n)$, pour éviter de la confondre avec d'autres notations. Il faut, dans l'idéal, qu'elle soit de la même taille/hauteur que le signe égal ($=$).
+\end{remark}
+
+\begin{property}
+    Soient $(U_n),(V_n)\in\C^\N$.
+    \begin{itemize}
+        \item Si $(V_n)$ ne s'annule pas à partir d'un certain rang, et que $(U_n)$ est négligeable devant $(V_n)$, alors $\lim\limits_{n\to+\infty} \frac{U_n}{V_n} = 0$.\\Donc $\boxed{U_n=o(V_n) \iff \frac{U_n}{V_n} \xrightarrow[n\to+\infty]{} 0}$.
+        \item Si $(V_n)$ ne s'annule pas à partir d'un certain rang, et que $(U_n)$ est dominée par $(V_n)$, alors la suite $\parens{\frac{U_n}{V_n}}$ est bornée.\\Donc $\boxed{U_n=O(V_n) \iff \parens{\frac{U_n}{V_n}}_n \text{ est bornée}} \in \mathbb{B}\parens{\C}$.
+        \item Si $(V_n)$ ne s'annule pas à partir d'un certain rang, et que $(U_n)$ est équivalente à $(V_n)$, alors $\lim\limits_{n\to+\infty} \frac{U_n}{V_n} = 1$.\\Donc $\boxed{U_n \sim V_n \iff \frac{U_n}{V_n} \xrightarrow[n\to+\infty]{} 1}$.
+    \end{itemize}
+\end{property}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\frac{\cos(n)}{n}=O\parens{\frac{1}{n}}$ car $\frac{\frac{\cos(n)}{n}}{\frac{1}{n}} = \cos(n)$ est bornée.
+        \item $\forall k \ge 1, e^{-n} = o\parens{\frac{1}{n^k}}$ car $\frac{e^{-n}}{\frac{1}{n^k}} = n^k e^{-n} \xrightarrow[n\to+\infty]{} 0$.
+        \item $\ln(1+\frac1n) \sim \frac1n$ car $\frac{\ln(1+\frac1n)}{\frac1n} = n\ln(1+\frac1n) \xrightarrow[n\to+\infty]{} 1$.
+    \end{enumerate}
+\end{example}
+
+Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_n)$ ne s'annule pas à partir d'un certain rang. En effet, si $(V_n)$ s'annule infiniment souvent, le quotient $\frac{U_n}{V_n}$ n'est pas forcément défini pour tout $n$. Maintenant, nous souhaitons généraliser ces propriétés même si $(V_n)$ peut s'annuler à partir d'un certain rang.
+
+\begin{property}[Cas général des propriétés ci-dessus]
+    Soient $(U_n),(V_n)\in\C^\N$.
+    \begin{itemize}
+        \item $U_n = o(V_n) \iff \exists (\eps_n)_n \in \C^\N \tq \eps_n \to 0 \text{ et } \exists n_0 \in \N, \forall n \ge n_0, U_n = \eps_n V_n$.
+        \item $U_n = O(V_n) \iff \exists (\beta_n)_n \in \mathbb{B}(\C) \tq \exists n_0 \in \N, \forall n \ge n_0, U_n = \beta_n V_n$.
+        \item $U_n \sim V_n \iff \exists (\alpha_n)_n \in \C^\N \tq \alpha_n \to 1 \text{ et } \exists n_0 \in \N, \forall n \ge n_0, U_n = \alpha_n V_n$.
+    \end{itemize}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration de la première équivalence :}
+        \2 Pour démontrer la première équivalence dans le sens indirect, on part du fait que $\eps_n \to 0$. On a donc $\forall \eps > 0, \exists n_0 \in \N, \forall n \ge n_0, \abs{\eps_n} \le \eps$. Donc, pour $n \ge n_0$, on a $\abs{U_n} = \abs{\eps_n}\abs{V_n} \le \eps \abs{V_n}$, ce qui prouve que $U_n = o(V_n)$.
+        \2 Pour démontrer la première équivalence dans le sens direct, on part du fait que $U_n = o(V_n)$. Donc, par définition, $\forall \eps > 0, \exists n_1 \in \N, \forall n \ge n_1, \abs{U_n} \le \eps \abs{V_n}$. On peut alors définir la suite $(\eps_n)_n$ de la manière suivante :
+        \3 $\eps_n = \begin{cases}
+            \frac{U_n}{V_n} & \text{si } V_n \ne 0\\
+            0 & \text{sinon}
+        \end{cases}$
+        \3 Il est clair que $\eps_n \to 0$ car pour tout $\eps > 0$, on a $\forall n \ge n_1, \abs{\eps_n} \le \eps$ (il faut étudier les cas où $V_n = 0$ et $V_n\ne0$).
+        \2 Maintenant, il faut vérifier que $U_n = \eps_n V_n$ à partir d'un certain rang.
+        \2 Si $V_n \ne 0$, on a $U_n = \frac{U_n}{V_n} \cdot V_n = \eps_n V_n$.
+        \2 Si $V_n = 0$, alors $\forall n \ge n_1, \abs{U_n} \le 0 \iff U_n= 0\implies 0 \cdot V_n = \eps_n \cdot V_n$.
+    \end{outline}
+\end{proof}
+
+\begin{definition}[Relation d'ordre, relation d'équivalence]
+    \begin{outline}
+        \1 Une relation binaire sur un ensemble $E\not= \emptyset$ est une partie $R$ de $E \times E$. Si $(x,y) \in R$, on note $xRy$.
+        \1 Une relation $R$ est dite :
+        \2 \textbf{réflexive} si et seulement si $\forall x \in E, xRx$.
+        \2 \textbf{symétrique} si et seulement si $\forall x,y \in E, xRy \implies yRx$.
+        \2 \textbf{antisymétrique} si et seulement si $\forall x,y \in E, (xRy \text{ et } yRx) \implies x=y$.
+        \2 \textbf{transitive} si et seulement si $\forall x,y,z \in E, (xRy \text{ et } yRz) \implies xRz$.
+        \1 Une relation $R$ sur $E$ est dite une relation d'ordre si et seulement si $R$ est réflexive, antisymétrique et transitive.
+        \1 Une relation $R$ sur $E$ est dite une relation d'équivalence si et seulement si $R$ est réflexive, symétrique et transitive.
+    \end{outline}
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item La relation $\ge$ sur $\R$ est une relation d'ordre. En effet, elle est réflexive ($\forall x \in \R, x \ge x$), antisymétrique (si $x \ge y$ et $y \ge x$, alors $x=y$) et transitive (si $x \ge y$ et $y \ge z$, alors $x \ge z$).
+        \item Soit $n\in\N^*$, la relation $\equiv$ mod $n$ sur $\Z$ est une relation d'équivalence. En effet, elle est réflexive (pour tout $a\in\Z$, $a \equiv a \mod n$, sachant que $a-a=0\cdot n$, donc $\exists k \in Z, \dots$), symétrique (si $a \equiv b \mod n$, alors $b \equiv a \mod n$) et transitive (si $a \equiv b \mod n$ et $b \equiv c \mod n$, alors $a \equiv c \mod n$).
+    \end{itemize}
+\end{example}
+
+\begin{property}[Étude des relations $o$, $O$ et $\sim$]
+    \begin{outline}
+        \1 \textbf{Étude de la relation $o$ :}
+        \2 La relation $o$ n'est pas reflexive, car $1\ne o(1)$. Elle est donc ni une relation d'ordre, ni une relation d'équivalence.
+        \2 Elle n'est aussi pas symétrique, car $1 = o(n)$ n'implique pas que $n = o(1)$.
+        \2 Par contre, elle est transitive : si $U_n = o(V_n)$ et $V_n = o(W_n)$, alors $U_n = o(W_n)$.
+
+        \1 \textbf{Étude de la relation $O$ :}
+        \2 La relation $O$ est réflexive, car $U_n = O(U_n)$ (on prend $M=1$ depuis la définition).
+        \2 Elle est aussi transitive : si $U_n = O(V_n)$ et $V_n = O(W_n)$, alors $U_n = O(W_n)$.
+
+        \1 \textbf{Étude de la relation $\sim$ :}
+        \2 La relation $\sim$ est réflexive, car $U_n \sim U_n$ (on prend $\alpha_n = 1$ depuis la définition).
+        \2 Elle est aussi symétrique : si $U_n \sim V_n$, alors $V_n \sim U_n$ (on prend $\alpha_n' = \frac{1}{\alpha_n}$).
+        \2 Elle est aussi transitive : si $U_n \sim V_n$ et $V_n \sim W_n$, alors $U_n \sim W_n$ (on prend $\alpha_n'' = \alpha_n \cdot \alpha_n'$).
+        \2 Donc, \textbf{la relation $\sim$ est une relation d'équivalence}.
+    \end{outline}
+\end{property}
+
+\begin{remark}
+    \begin{itemize}
+        \item $U_n=o(V_n) \implies U_n=O(V_n)$.
+        \item $U_n = o(1) \iff U_n \to 0$. $o(1)$ représente les suites qui convergent vers $0$. On peut la noter aussi $\eps_n \to 0$.
+        \item $U_n = O(1) \iff (U_n)_n$ est bornée.
+        \item $(U_n)_n$ converge vers $l\in\C^*$ si et seulement si $U_n \sim l$.
+        \item $O(1) = \alpha_n$ où $(\alpha_n)_n$ est une suite bornée.
+        \item $\begin{cases} o(U_n) = U_n \cdot o(1)\\ O(U_n) = U_n \cdot O(1) \end{cases}$
+        \item $\begin{cases}
+            o(1)\cdot O(1) =o(1)\cdot o(1)=o(1)\\
+            O(1) \cdot O(1) = O(1)
+        \end{cases}$
+        \item $\forall \lambda \in \C, \begin{cases}
+            \lambda \cdot o(1) = o(1)\\
+            \lambda \cdot O(1) = O(1)
+        \end{cases}$
+        \item $o(1) + o(1) = o(1)$ et $O(1) + O(1) = O(1)$.
+        \item $o(1) + O(1) = O(1)$.
+        \item $o(O(U_n)) = O(U_n)\cdot o(1)=U_n \cdot \underbrace{O(1) \cdot o(1)}_{=o(1)} = o(U_n)$.
+        \item $O(o(U_n)) = o(U_n) \cdot O(1) = U_n \cdot \underbrace{o(1) \cdot O(1)}_{=o(1)} = o(U_n)$.
+    \end{itemize}
+\end{remark}
+
+\begin{property}[Conservation de la convergence par équivalence]
+    Soient $(U_n),(V_n) \in \C^\N$, telles que $U_n \sim V_n$.
+    
+    $(U_n)_n$ est convergente si et seulement si $(V_n)_n$ est convergente.
+    
+    Dans ce cas, on a $\lim\limits_{n\to+\infty} U_n = \lim\limits_{n\to+\infty} V_n$.
+\end{property}
+
+\begin{proof}
+    On a $U_n \sim V_n \iff \exists (\alpha_n)_n \in \C^\N \tq \alpha_n \to 1 \text{ et } \exists n_0 \in \N, \forall n \ge n_0, U_n = \alpha_n V_n$.
+
+    Supposons que $(U_n)_n$ est convergente, et soit $l = \lim\limits_{n\to+\infty} U_n$. On a donc :
+    \[V_n = \frac{U_n}{\alpha_n} \xrightarrow[n\to+\infty]{} \frac{l}{1} = l.\]
+    Donc $(V_n)_n$ est convergente, et $\lim\limits_{n\to+\infty} V_n = l = \lim\limits_{n\to+\infty} U_n$.
+\end{proof}
+
+\begin{property}[Conservation de la divergence vers $\pm\infty$ par équiv.]
+    Si $U_n \sim V_n$, avec $\lim\limits_{n\to+\infty} U_n = \pm\infty$, alors $V_n \xrightarrow[n\to+\infty]{} \pm\infty$. (Note : le signe $\pm$ est le même des deux côtés.)
+\end{property}
+
+\begin{property}[Produit des équivalences]
+    Soient $(a_n)_n, (b_n)_n, (u_n)_n, (v_n)_n \in \C^\N$ telles que $a_n \sim b_n$ et $u_n \sim v_n$. Alors :
+    \begin{itemize}
+        \item $a_n u_n \sim b_n v_n$.
+        \item Si $b_n$ ne s'annule pas à partir d'un certain rang, alors $\frac{a_n}{b_n} \sim \frac{u_n}{v_n}$.
+        \item $\forall k \in \N^*, U_n^k \sim V_n^k$.
+        \item Si $U_n>0$ à partir d'un certain rang, alors $\forall \lambda \in \R, U_n^\lambda \sim V_n^\lambda$.
+    \end{itemize}
+\end{property}
+
+\begin{proof}
+    On sait que $\exists \alpha_n, \beta_n \to 1$ telles que $a_n = \alpha_n b_n$ et $u_n = \beta_n v_n$ à partir d'un certain rang. Donc :
+    \begin{itemize}
+        \item $a_n u_n = \alpha_n \beta_n b_n v_n$, avec $\alpha_n \beta_n \to 1$, donc $a_n u_n \sim b_n v_n$.
+        \item $\exists n_0 \in \N, \forall n \ge n_0, b_n \ne 0$. Donc, pour $n \ge n_0$, on a $\frac{a_n}{b_n} = \alpha_n$ et $\frac{u_n}{v_n} = \beta_n$. Donc, $\frac{a_n}{b_n} \sim \frac{u_n}{v_n}$.
+        \item La démonstration des autres propriétés est similaire.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item En général, $U_n \sim V_n$ n'implique pas $\nimplies f(U_n) \sim f(V_n)$. Par exemple, $e^{U_n} \sim e^{V_n}$ n'est vrai que si et seulement si $\lim\limits_{n\to+\infty} (U_n - V_n) = 0$.
+        \item $U_n \sim V_n \underbrace{\nimplies}_{\text{n'implique pas !}} U_n - V_n \xrightarrow[n\to+\infty]{} 0$.
+        \item On ne peut pas toujours additionner des équivalences. Par exemple, si $U_n = n + 1 + \frac{1}{n}$ et $V_n = n$, on a $U_n \sim V_n$ et $U_n - 1 \sim V_n - 1$, mais $U_n + (U_n - 1) \nsim V_n + (V_n - 1)$.\\En général : $\boxed{U_n \sim V_n$ et $A_n \sim B_n \underbrace{\nimplies}_{\text{n'implique pas !}} U_n + A_n \sim V_n + B_n}$.
+        \item $U_n \sim 0 \iff U_n = 0$ à partir d'un certain rang.
+    \end{enumerate}
+\end{remark}
+
+\begin{exercise}
+    \begin{outline}[enumerate]
+        \1 Soient $(U_n)_n, (V_n)_n \in {\R_+^*}^\N$ telles que $U_n \sim V_n$. \textbf{Pour quelle(s) condition(s) aura-t-on $\ln(U_n) \sim \ln(V_n)$ ?}
+        \1 \textit{(Équivalent de l'intégrale de Wallis)} On pose $\forall n \in \N, I_n = \int_0^{\frac{\pi}{2}} \sin^n(t) dt$.
+        \2 Montrer que $\forall n \in \N, I_{n+2} = \frac{n+1}{n+2} I_{n}$ (Intégration par parties).
+        \2 Montrer que la suite $(n\cdot I_n \cdot I_{n-1})_{n\ge1}$ est constante.
+        \2 Montrer que $\forall n \in \N^*, I_n \sim I_{n-1}$.
+        \2 En déduire que $I_n \sim \sqrt{\frac{\pi}{2n}}$.
+        \2 Calculer $I_{2n}$ et donner un équivalent de $\legbinom{2n}{n}$.
+        \2 On pose $U_n=\frac{n!}{\parens{\frac{n}{e}}^n \sqrt{n}}$. On admet que $U_n \xrightarrow[n\to+\infty]{} l$ pour un certain $l \in \R^*$. Montrer que $n! \sim \parens{\frac{n}{e}}^n \sqrt{2\pi n}$ (c'est la formule de Stirling).
+    \end{outline}
+\end{exercise}
+\todo{NE PAS OUBLIER DE FAIRE CA PENDANT LES VACANCES}
+
+\section{Comparaison des fonctions}
+
+\begin{definition}
+    Soient $f,g : I \to \C$ où $I$ est un intervalle non vide de $\R$ et $\overset{\circ}{I} \ne \emptyset$.
+    \begin{enumerate}
+        \item On dit que $f$ est \textbf{négligeable} devant $g$ en $x_0 \in I$ si et seulement si $\exists V \in V(x_0), \exists \eps : V \to \C \tq \lim_{x\to x_0} \eps(x) = 0 \text{ et } \forall x \in V, f(x) = \eps(x) g(x)$. On note alors $f(x)= \underset{x\to x_0}{o}(g(x))$.
+        \item $f$ est dominée par $g$ en $x_0 \in I$ si et seulement si $\exists V \in V(x_0), \exists M:V\to\C, \forall x \in V, f(x) = M(x) g(x)$. On note alors $f(x)= \underset{x\to x_0}{O}(g(x))$.
+        \item $f$ est équivalente à $g$ en $x_0 \in I$ si et seulement si $f(x)-g(x)=\underset{x\to x_0}{o}(g(x))$, i.e. $\exists V \in V(x_0), \exists \alpha : V \to \C \tq \lim_{x\to x_0} \alpha(x) = 1 \text{ et } \forall x \in V, f(x) = \alpha(x) g(x)$. On note alors $f(x) \underset{x\to x_0}{\sim} g(x)$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \begin{outline}
+        \1 Si $g$ ne s'annule pas sur un voisinage de $x_0$, alors
+    \end{outline}
+\end{remark}
+\todo{recop}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\sin(x) \underset{x\to 0}{\sim} x$.
+        \item $P(x)=\sum_{k=0}^n a_k x^k$
+    \end{enumerate}
+\end{example}
+
+\end{document}
