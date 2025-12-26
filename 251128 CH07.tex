@@ -1335,8 +1335,6 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
   L'équation de la tangente à la courbe représentative de $f$ au point d'abscisse $a$ est donnée par : $(T_a):y = f(a) + f'(a)(x-a)$.
 \end{remark}
 
-\todo{preuve pas du tout rigoureuse en dessous}
-
 \begin{proof}
   On cherche à démontrer que pour tout $a \in I$, et que pour tout $x \in I$, on a $f(x) \ge f(a) + f'(a)(x-a)$.
 
@@ -1345,8 +1343,7 @@ Cette méthode utilisée dans les démonstrations précédentes doit devenir un 
   \begin{itemize}
     \item Soit $a \in I$.
     \item Soit $x \in I$, avec $x \ne a$.
-    \item On pose $\varphi_a : \begin{cases} I\setminus\{a\}\to\R \\ t\mapsto \frac{f(t)-f(a)}{t-a} \end{cases}$.
-    \item On sait que $\varphi_a$ est croissante.
+    \item On pose $\varphi_a : \begin{cases} I\setminus\{a\}\to\R \\ t\mapsto \frac{f(t)-f(a)}{t-a} \end{cases}$ croissante (car $f$ est convexe).
     \item Donc, si $x<a$, on a $\varphi_a(x) \le \lim_{t\to a^-}\varphi_a(t) = f'_g(a) \le f'_d(a)$.
     \item Donc, si $x<a$, on a $\frac{f(x)-f(a)}{x-a} \le f_g'(a)$ et $\frac{f(x)-f(a)}{x-a} \le f_d'(a)$.
     \item Donc, si $x<a$, on a $f(x) - f(a) \ge f_g'(a)(x-a)$ et $f(x) - f(a) \ge f_d'(a)(x-a)$.
