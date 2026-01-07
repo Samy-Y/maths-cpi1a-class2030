@@ -58,9 +58,24 @@ Ce chapitre ne traitera pas des intégrales impropres, généralisées, etc. Ces
 \end{theorem}
 
 \begin{proof}
-    
+    Soit $a \in I$, on pose $\forall x \in I$, $F(x) = \int_a^x f(t) dt$.
+
+    Soit $h \ne 0$.
+
+    On a :
+    \begin{align*}
+        \abs{\frac{F(x+h)-F(x)}{h} - f(x)} &= \abs{\frac{1}{h} \int_x^{x+h} f(t) dt - f(x)} \\
+        &= \abs{\frac{1}{h} \int_x^{x+h} (f(t) - f(x)) dt} \\
+        &\le \frac{1}{\abs{h}} \int_x^{x+h} \abs{f(t) - f(x)} dt\\
+        &\le \frac{1}{\abs{h} \int_x^{x+h} \parens{\sup_{\underset{\ou t\in[x+h,x]}{t\in[x,x+h]}} \abs{f(t) - f(x)}} dt} \\
+    \end{align*}
+
+    Comme $f$ est continue en $x$, on a $\lim_{h\to 0} \sup_{t\in[x,x+h]\ou t\in[x+h,x]} \abs{f(t) - f(x)} = 0$.
+
+    Donc $F$ est dérivable sur $I$ et $F' = f$.
+
+    Ainsi, $F$ est une primitive de $f$ sur $I$.
 \end{proof}
-\todo{recop}
 
 \begin{property}[Propriétés de l'intégrale]
     Soient $f,g\in\mathcal{C}(I,\Kset)$, et $a,b\in I$.
@@ -69,13 +84,29 @@ Ce chapitre ne traitera pas des intégrales impropres, généralisées, etc. Ces
         \item $\forall \lambda \in \Kset, \int_a^b f+\lambda g = \int_a^b f + \lambda \int_a^b g$.
         \item Relation de Chasles : $\forall c \in I, \int_a^b f = \int_a^c f + \int_c^b f$.
         \item Si $f\le g$ sur I et $a\le b$, alors $\int_a^b f \le \int_a^b g$.
-        \item Si $a<b$, $\abs{\int_a^b f} \le \int_a^b \abs{f}$\\, et même $\le \sup_{t\in[a,b]} \abs{f(t)} (b-a)$ (Inégalité triangulaire de l'intégrale, ou encore inégalité de la moyenne).
+        \item Si $a<b$, $\abs{\int_a^b f} \le \int_a^b \abs{f}$, et même $\le \sup_{t\in[a,b]} \abs{f(t)} (b-a)$ (Inégalité triangulaire de l'intégrale, ou encore inégalité de la moyenne).
     \end{enumerate}
 
 \end{property}
 
 \begin{proof}
-    
+    \begin{enumerate}
+        \item Triviale.
+        \item Triviale.
+        \item Soit $F$ une primitive de $f$ et $G$ une primitive de $g$ sur $I$. Nous allons étudier leur différence, soit $F-G$. On admet que $(F-G)'=f-g\le 0$ sur $I$.
+        
+        Donc, $F-G$ est décroissante sur $I$.
+
+        Donc $\forall a\le b \in I, (F-G)(b) \le (F-G)(a)$.
+
+        Donc $F(b)-G(b) \le F(a)-G(a)$.
+        
+        Donc $F(b)-F(a) \le G(b)-G(a)$.
+        
+        Donc $\int_a^b f \le \int_a^b g$.
+
+
+    \end{enumerate}
 \end{proof}
 \todo{recop}
 
@@ -88,9 +119,18 @@ Ce chapitre ne traitera pas des intégrales impropres, généralisées, etc. Ces
 \end{consequence}
 
 \begin{proof}
-    
+    \textbf{Sens direct :} Si $f\ge 0$ sur $I$, alors $\int_a^b f(t)dt \ge \underbrace{\int_a^b 0 dt}_{=0}$. Donc $\int_a^b f(t)dt \ge 0$.
+
+    \textbf{Sens indirect :} Soit $a \in I$.
+
+    \begin{align*}
+        \ona \forall x > a, \int_a^x f(t)dt \ge 0 &\implies F(x) - F(a) \ge 0 \avec F \text{ primitive de } f\\
+        &\implies \frac{F(x) - F(a)}{x-a} \ge 0 \avec x-a>0\\
+        &\implies \lim_{x\to a} \frac{F(x) - F(a)}{x-a} = F'(a) = f(a) \ge 0
+    \end{align*}
+
+    Donc $\forall a \in I, f(a) \ge 0$.
 \end{proof}
-\todo{recop}
 
 \begin{exercise}
     Soit $f:[a,b]\to\C$ une fonction continue.
@@ -338,6 +378,8 @@ Ce chapitre ne traitera pas des intégrales impropres, généralisées, etc. Ces
     $$\forall n \in N, \abs{e^{ix}-\sum_{k=0}^n \frac{i^k}{k!} x^k} \le \frac{\abs{x}^{n+1}}{(n+1)!}$$
 
     On a $\frac{\abs{x}^{n+1}}{(n+1)!} \to 0$ lorsque $n \to +\infty$ d'après le critère de d'Alembert.
+
+    \textit{(Rappel du critère de d'Alembert : Soit $(u_n)$ une suite de réels positifs telle que $\lim_{n\to +\infty} \frac{u_{n+1}}{u_n} = 0$. Alors, $\lim_{n\to +\infty} u_n = 0$.)}
 
     Donc, on a bien :
 

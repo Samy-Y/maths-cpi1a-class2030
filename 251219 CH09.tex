@@ -200,7 +200,6 @@ Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_
         \2 On pose $U_n=\frac{n!}{\parens{\frac{n}{e}}^n \sqrt{n}}$. On admet que $U_n \xrightarrow[n\to+\infty]{} l$ pour un certain $l \in \R^*$. Montrer que $n! \sim \parens{\frac{n}{e}}^n \sqrt{2\pi n}$ (c'est la formule de Stirling).
     \end{outline}
 \end{exercise}
-\todo{NE PAS OUBLIER DE FAIRE CA PENDANT LES VACANCES}
 
 \section{Comparaison des fonctions}
 
@@ -215,15 +214,21 @@ Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_
 
 \begin{remark}
     \begin{outline}
-        \1 Si $g$ ne s'annule pas sur un voisinage de $x_0$, alors
+        \1 Si $g$ ne s'annule pas sur un voisinage de $x_0$, alors :
+        \2 $f(x) = \underset{x\to x_0}{o}(g(x)) \iff \lim_{x\to x_0} \frac{f(x)}{g(x)} = 0$.
+        \2 $f(x) = \underset{x\to x_0}{O}(g(x)) \iff \parens{\frac{f(x)}{g(x)}}_{x\in V} \text{ est bornée sur un voisinage } V \text{ de } x_0$.
+        \2 $f(x) \underset{x\to x_0}{\sim} g(x) \iff \lim_{x\to x_0} \frac{f(x)}{g(x)} = 1$.
+        \1 Pour $x_0 = +\infty$ ou $x_0 = -\infty$, les mêmes propriétés sont valables en remplaçant $\lim_{x\to x_0}$ par $\lim_{x\to +\infty}$ ou $\lim_{x\to -\infty}$.
+        \1 Les propriétés analogues à celles des suites sont valables pour les fonctions.
     \end{outline}
 \end{remark}
-\todo{recop}
 
 \begin{example}
     \begin{enumerate}
         \item $\sin(x) \underset{x\to 0}{\sim} x$.
-        \item $P(x)=\sum_{k=0}^n a_k x^k$
+        \item $P(x)=\sum_{k=0}^n a_k x^k \underset{x\to 0}{\sim} a_0$ si $a_0 \neq 0$.
+        \item $\ln(x)= \underset{x\to +\infty}{o}(x)$.
+        \item $\forall k \in \N^*, e^{-x} = \underset{x\to +\infty}{o}\parens{\frac{1}{x^k}}$.
     \end{enumerate}
 \end{example}
 
