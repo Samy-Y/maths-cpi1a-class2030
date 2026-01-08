@@ -241,7 +241,7 @@ Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_
 
     \begin{itemize}
         \item On dit que $f$ admet un \textbf{développement limité} à l'ordre $n$ au voisinage de $x_0$, qu'on notera $\mathbf{DL}_n(x_0)$, lorsqu'il existe un polynôme $P \in \Kset_n[X]$ tel que : $f(x) = P(x - x_0) + \underset{x\to x_0}{o}\parens{(x - x_0)^n}$ \\C'est-à-dire que :$\exists a_0,a_,\dots,a_n \in \Kset, f(x) = \sum_{k=0}^{n}a_k(x-x_0)^k + \underset{x\to x_0}{o}\parens{(x - x_0)^n}$.
-        \item Supposons que $+\infty$ est une extrémité de $I$. On dit que $f$ admet un développement limité à l'ordre $n$ au voisinage de $+\infty$, qu'on notera $\mathbf{DL}_n(+\infty)$, lorsque la fonction $t\mapsto f\parens{\frac{1}{t}}$ admet un développement limité à l'ordre $n$ au voisinage de $0^+$.\\C'est-à-dire que : $\exists P \in \Kset_n[X], f(x) = P\parens{\frac{1}{x}} + \underset{x\to +\infty}{o}\parens{\frac{1}{x^n}}$.\\Ce qui équivaut aussi à écrire $\exists P\in \Kset_n[X], f(\frac1t = P(t)+\underset{t\to 0}{\parens{t^n}}$.\\On appelle aussi ce type de développement un \textbf{développement asymptotique}.
+        \item Supposons que $+\infty$ est une extrémité de $I$. On dit que $f$ admet un développement limité à l'ordre $n$ au voisinage de $+\infty$, qu'on notera $\mathbf{DL}_n(+\infty)$, lorsque la fonction $t\mapsto f\parens{\frac{1}{t}}$ admet un développement limité à l'ordre $n$ au voisinage de $0^+$.\\C'est-à-dire que : $\exists P \in \Kset_n[X], f(x) = P\parens{\frac{1}{x}} + \underset{x\to +\infty}{o}\parens{\frac{1}{x^n}}$.\\Ce qui équivaut aussi à écrire $\exists P\in \Kset_n[X], f(\frac1t) = P(t)+\underset{t\to 0}{\parens{t^n}}$.\\On appelle aussi ce type de développement un \textbf{développement asymptotique}.
     \end{itemize}
 \end{definition}
 
@@ -321,6 +321,8 @@ Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_
     $\sum_{j=0}^{n}a_jx^j=\sum_{j=0}^{k}a_jx^j + \sum_{j=k+1}^{n}a_jx^j=\sum_{j=0}^{k}a_jx^j+\underbrace{x^{k+1}\parens{\sum_{j=k+1}^{n}a_jx^{j-k-1}}}_{=\underset{x\to x_0}{o}(x^{k})}$.
 \end{property}
 
+\section{Formule de Taylor-Young}
+
 \begin{theorem}[Formule de Taylor-Young]
     Soit $f \in \mathcal{C}^n(I,\Kset)$ et $a\in I$.
 
@@ -376,7 +378,7 @@ On déduit de ce théorème que n'importe quelle fonction de classe $\mathcal{C}
         \item $\forall x \in \R, \sin(x) = \sum_{p=0}^{n} (-1)^p \frac{x^{2p+1}}{(2p+1)!} + \underbrace{\underset{x\to 0}{o}(x^{2n+1})}_{\ou \underset{x\to 0}{o}(x^{2n+2})}$.\\Pour démontrer ce résultat, on sépare le développement limité en deux cas : $n$ pair et $n$ impair. On peut aussi ajouter le terme $\underset{x\to 0}{o}(x^{2n+2})$ dans le cas pair, car le dernier terme paire de la somme sera nul.
         \item Soit $\alpha \in \R$.
         \begin{align*}
-            \forall x \in \R^*,\\(1+x)^\alpha &= 1 + \sum_{k=1}^n \frac{\alpha(\alpha-1)\dots(\alpha - k - 1)}{k!} x^k + \underset{x\to 0}{o}(x^n)\\
+            \forall x \in \R^*,\\(1+x)^\alpha &= 1 + \sum_{k=1}^n \frac{\alpha(\alpha-1)\dots(\alpha - k + 1)}{k!} x^k + \underset{x\to 0}{o}(x^n)\\
             &= 1 + \alpha x + \frac{\alpha(\alpha-1)}{2} x^2 + \dots + \frac{\alpha(\alpha-1)\dots(\alpha - n - 1)}{n!} x^n + \underset{x\to 0}{o}(x^n)
         \end{align*}
         \item $\forall x \in ]-1,+\infty[, \frac{1}{\sqrt{1+x}}=(1+x)^{-\frac{1}{2}} = 1 - \frac{1}{2}x + \frac{3}{8}x^2 + \dots \\= 1 - \frac12 x + \frac38 x^2 + \dots$.
@@ -391,8 +393,173 @@ On déduit de ce théorème que n'importe quelle fonction de classe $\mathcal{C}
     Il est fortement conseillé d'expliciter la partie régulière des développements limités usuels jusqu'à l'ordre 5 afin de les mémoriser plus facilement.
 \end{methodbox}
 
+\section{Opérations sur les développements limités}
+
 \begin{property}
-    
+    Soient $f,g \in \Kset, a \in I$.
+
+    Si $f$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P$, et $g$ admet un $\mathbf{DL}_n(a)$ de partie régulière $Q$, alors :
+    \begin{itemize}
+        \item $\forall \alpha \in \Kset, f + \alpha g$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P + \alpha Q$.
+        \item $fg$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P\cdot Q$ tronqué à l'ordre $n$ (sachant qu'il est normalement de degré inférieur ou égal à $2n$).
+    \end{itemize}
 \end{property}
+
+\begin{proof}
+    On pose $f(x)= P(x-a) + \underset{x\to a}{o}((x-a)^n)$ et $g(x) = Q(x-a) + \underset{x\to a}{o}((x-a)^n)$.
+
+    \begin{enumerate}
+        \item On a $(f+\alpha g)(x) = (P+\alpha Q)(x-a) + \underbrace{\underset{x\to a}{o}((x-a)^n) + \alpha\underset{x\to a}{o}((x-a)^n)}_{=\underset{x\to a}{o}((x-a)^n)}$.\\Donc $f + \alpha g$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P + \alpha Q$.
+        \item On a $(f\cdot g)(x)=(P\cdot Q)(x-a)+P(x-a)\cdot \negli{x}{a}{(x-a)^n}+Q(x-a)\cdot \negli{x}{a}{(x-a)^n} + \negli{x}{a}{(x-a)^n}\cdot \negli{x}{a}{(x-a)^n}$\\
+        Donc $(f\cdot g)=(P\cdot Q)(x-a)+\negli{x}{a}{(x-a)^n}$.\\
+        On pose $P\cdot Q = \sum_{k=0}^{2n}c_k \cdot X^k$.\\
+        Donc $(f\cdot g)(x)=\sum_{k=0}^{2n}c_k(x-a)^k + \negli{x}{a}{(x-a)^n}$\\
+        Donc $(f\cdot g)(x)=\sum_{k=0}^{n}c_k(x-a)^k + (x-a)^n\cdot\sum_{k=n+1}^{2n}c_k(x-a)^k-n+\negli{x}{a}{(x-a)^n}$.\\
+        Or $\lim\limits_{x\to a} \parens{\sum_{k=n+1}^{2n}c_k(x-a)^{\overbrace{k-n}^{\ge 1}}} = 0$.\\
+        Alors $(x-a)^n \cdot \sum_{k=n+1}^{2n}c_k(x-a)^{k-n} = \negli{x}{a}{(x-a)^n}$.\\
+        On en déduit que $(f\cdot g)(x) = \sum_{k=0}^{n}c_k(x-a)^k + \negli{x}{a}{(x-a)^n}$.\\
+        Donc $fg$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P\cdot Q$ tronqué à l'ordre $n$.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item Développement limité d'ordre 3 en 0 de $f:x\mapsto \frac{\sin(x)}{1+x}$.
+        \item Développement limité d'ordre 3 en 0 de $f:x\mapsto \frac{e^x}{(1+x)^2}-\cos(x)$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    \begin{outline}
+        \1 \textbf{1er exemple :}
+        \2 On a $f(x)=\sin(x)\cdot \frac{1}{1+x}$.
+        \2 On connaît les développements limités suivants :
+        \3 $\sin(x) = x - \frac{x^3}{6} + \underset{x\to 0}{o}(x^3)$.
+        \3 $\frac{1}{1+x} = 1 - x + x^2 - x^3 + \underset{x\to 0}{o}(x^3)$.
+        \2 On calcule le produit :
+        \2 \begin{align*}
+            f(x) &= \parens{x - \frac{x^3}{6} + \underset{x\to 0}{o}(x^3)} \cdot \parens{1 - x + x^2 - x^3 + \underset{x\to 0}{o}(x^3)}\\
+            &= x - x^2 + \frac{5}{6}x^3 + \underset{x\to 0}{o}(x^3)
+        \end{align*}
+        \2 Donc, le développement limité d'ordre 3 en 0 de $f$ est $f(x) = x - x^2 + \frac{5}{6}x^3 + \underset{x\to 0}{o}(x^3)$.
+        \1 \textbf{2ème exemple :}
+        \2 On a $f(x)=\frac{e^x}{(1+x)^2}-\cos(x)$.
+        \2 On connaît les développements limités suivants :
+        \3 $e^x = 1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \underset{x\to 0}{o}(x^3)$.
+        \3 $\frac{1}{(1+x)^2} = (1+x)^{-2} = 1 - 2x + 3x^2 - 4x^3 + \underset{x\to 0}{o}(x^3)$.
+        \3 $\cos(x) = 1 - \frac{x^2}{2} + \frac{x^4}{24} + \underset{x\to 0}{o}(x^3) = 1 - \frac{x^2}{2} + \underset{x\to 0}{o}(x^3)$.
+        \2 On calcule le produit et la différence pour enfin trouver le développement limité de $f$ :
+        \2 $f(x)=-x+2x^2-\frac{11}6 x^3 + \negli{x}{0}{x^3}$.
+    \end{outline}
+\end{example}
+
+\begin{methodbox}
+\end{methodbox}
+\todo{wb recop!}
+
+\begin{property}
+    Soient $f \in \R^I, g \in \Kset^J$ tel que $0 \in I, f(0)=0 \et f(I) \subset J$.
+
+    Si $f$ admet un $\mathbf{DL}_n(0)$ de partie régulière $P$, et si $g$ admet un $\mathbf{DL}_n(0)$ de partie régulière $Q$, alors la composée $g\circ f$ admet un $\mathbf{DL}_n(0)$ de partie régulière $Q\circ P$ tronquée à l'ordre $n$.
+\end{property}
+
+\begin{remark}[Composée et développement limité (cas général)]
+    Soient $f,g \in \Kset^I, g\in \Kset^J, a \in I\et f(I)\subset J$.
+
+    Si $f$ admet un $\mathbf{DL}_n(a)$ de partie régulière $P$, et si $g$ admet un $\mathbf{DL}_n(b)$ de partie régulière $Q$ avec $b = f(a)$, alors la composée $g\circ f$ admet un $\mathbf{DL}_n(a)$.
+\end{remark}
+
+\begin{proof}
+    \begin{outline}
+        \1 On pose $\begin{cases}
+        f(x) = P(x) + \negli{x}{0}{x^n}\\
+        g(x) = Q(x) + \negli{x}{0}{x^n}
+        \end{cases}$
+
+        \1 Comme $f(0)=0$, on a $P(0)=0$.
+
+        \1 On pose $P(x) = \sum_{k=1}^{n} a_k x^k$ (car $P(0)=0$).
+
+        \1 Et on pose $Q(x) = \sum_{k=0}^{n} b_k x^k$.
+
+        \1 On a donc $(g\circ f)(x) = g(f(x)) = g\parens{\underbrace{P(x) + \negli{x}{0}{x^n}}_{\xrightarrow{x\to 0}0}}$.
+
+        \1 Donc $(g\circ f)(x) = \sum_{k=0}^{n}b_k\parens{P(x) + \negli{x}{0}{x^n}}^k + \negli{x}{0}{\parens{P(x) + \negli{x}{0}{x^n}}^n}$.
+
+        \1 Donc $(g\circ f)(x) = \sum_{k=0}^{n}b_k \cdot \parens{\sum_{j=0}^{k}\legbinom{j}{k} P(x)^j \cdot \negli{x}{0}{x^{n(k-j)}}} + \parens{\sum_{k=0}^{n}\legbinom{k}{n}(P(x))^k\parens{\negli{x}{0}{x^n}}^{n-k}}\cdot \negli{x}{0}{1}$.
+
+        \1 On a 
+    \end{outline}
+\end{proof}
+\todo{recop...}
+
+\begin{methodbox}
+    Généralement, pour calculer le développement limité d'une composée $g\circ f$, on commence par calculer le développement limité de $f$ puis on remplace $x$ par le développement limité de $f$ dans le développement limité de $g$.
+\end{methodbox}
+
+\begin{example}
+    \begin{enumerate}
+        \item $f:x\mapsto e^{\cos(x)}\cdot \sin(x)$. Développement limité d'ordre 4 en 0.
+        \item $g:x\mapsto \ln(e^x + \cos(x))$. Développement limité d'ordre 2 en 0.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    \begin{outline}
+        \1 \textbf{1er exemple :}
+        \2 On remarque d'abord que $\cos(0)=1$. Donc, on va d'abord calculer le développement limité d'ordre 4 en 0 de $\cos(x)$.
+        \2 On a $f(x)=\mathrm{exp}\parens{1-\frac{x^2}2 + \frac{x^4}{24} + \negli{x}{0}{x^4}} \cdot \parens{x - \frac{x^3}{6} + \negli{x}{0}{x^3}}$.
+        \2 Donc $f(x) = e\cdot e^{-\frac{x^2}2 + \frac{x^4}{24} + \negli{x}{0}{x^4}} \cdot \parens{x - \frac{x^3}{6} + \negli{x}{0}{x^3}}$.
+        \2 On calcule le développement limité d'ordre 4 en 0 de $e^{-\frac{x^2}2 + \frac{x^4}{24} + \negli{x}{0}{x^4}}$.
+        \2 Après calculs, on obtient : $f(x)=e(x-\frac23x^3)+\negli{x}{0}{x^3}$.
+        \1 \textbf{2ème exemple :}
+        \2 Le développement limité d'ordre 2 en 0 de $e^x$ est $1 + x + \frac{x^2}{2} + \negli{x}{0}{x^2}$.
+        \2 Le développement limité d'ordre 2 en 0 de $\cos(x)$ est $1 - \frac{x^2}{2} + \negli{x}{0}{x^2}$.
+        \2 Donc, le développement limité d'ordre 2 en 0 de $e^x + \cos(x)$ est $2 + x + \negli{x}{0}{x^2}$.
+        \2 On calcule le développement limité d'ordre 2 en 0 de $\ln(2 + x + \negli{x}{0}{x^2})$.
+        \2 Après calculs, on obtient : $g(x) = \ln(2) + \frac{x}{2} - \frac{x^2}{8} + \negli{x}{0}{x^2}$.
+    \end{outline}
+\end{example}
+
+\begin{property}[Inverse et développement limité]
+    Soient $f\in \Kset^I$ telle que $f(0) \ne 0$.
+
+    Si $f$ admet un $\mathbf{DL}_n(0)$, alors $\frac1f$ admet un $\mathbf{DL}_n(0)$.
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item On a $\frac{1}{f(x)} = \frac{1}{f(0) + f(x) - f(0)} = \frac{1}{f(0)} \cdot \frac{1}{1 + \frac{f(x) - f(0)}{f(0)}}$.
+
+        \item On pose $h:x\mapsto \frac{f(x) - f(0)}{f(0)}$.
+        \item On pose $g:x\mapsto \frac{1}{1+x}$.
+        
+        \item On a $h$ admet un $\mathbf{DL}_n(0)$, $h(0)=0$.
+        \item On a $g$ admet un $\mathbf{DL}_n(0)$.
+        \item Donc $\frac1f=\frac1{f(0)}\cdot (g\circ h)$ admet un $\mathbf{DL}_n(0)$.
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    Développement limité à l'ordre 3 en 0 de la fonction $\tan$.
+
+    \textbf{Solution :}
+
+    On a $\tan(x) = \frac{\sin(x)}{\cos(x)}$.
+    On connaît les développements limités suivants :
+    \begin{itemize}
+        \item $\sin(x) = x - \frac{x^3}{6} + \negli{x}{0}{x^3}$.
+        \item $\cos(x) = 1 - \frac{x^2}{2} + \negli{x}{0}{x^3}$.
+        \item $\frac{1}{\cos(x)} = 1 + \frac{x^2}{2} + \negli{x}{0}{x^3}$ (on utilise la propriété précédente).
+    \end{itemize}
+
+    Donc, on calcule le produit :
+    \begin{align*}
+        \tan(x) &= \parens{x - \frac{x^3}{6} + \negli{x}{0}{x^3}} \cdot \parens{1 + \frac{x^2}{2} + \negli{x}{0}{x^3}}\\
+        &= x + \frac{x^3}{3} + \negli{x}{0}{x^3}
+    \end{align*}
+
+    Donc, le développement limité d'ordre 3 en 0 de $\tan$ est $\tan(x) = x + \frac{x^3}{3} + \negli{x}{0}{x^3}$.
+\end{example}
 
 \end{document}
