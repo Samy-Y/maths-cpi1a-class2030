@@ -226,10 +226,173 @@ Les propriétés ci-dessus sont des cas particuliers de la définition, où $(V_
 \begin{example}
     \begin{enumerate}
         \item $\sin(x) \underset{x\to 0}{\sim} x$.
-        \item $P(x)=\sum_{k=0}^n a_k x^k \underset{x\to 0}{\sim} a_0$ si $a_0 \neq 0$.
+        \item $P(x)=\sum_{k=0}^n a_k x^k \underset{x\to 0}{\sim} a_0x^0=a_0$ si $a_0 \neq 0$.
         \item $\ln(x)= \underset{x\to +\infty}{o}(x)$.
         \item $\forall k \in \N^*, e^{-x} = \underset{x\to +\infty}{o}\parens{\frac{1}{x^k}}$.
     \end{enumerate}
 \end{example}
+
+\chapter{Développement limité}
+
+\section{Généralités}
+
+\begin{definition}
+    Soient $f \in \Kset^I$ et $x_0 \in \overline{I}$.
+
+    \begin{itemize}
+        \item On dit que $f$ admet un \textbf{développement limité} à l'ordre $n$ au voisinage de $x_0$, qu'on notera $\mathbf{DL}_n(x_0)$, lorsqu'il existe un polynôme $P \in \Kset_n[X]$ tel que : $f(x) = P(x - x_0) + \underset{x\to x_0}{o}\parens{(x - x_0)^n}$ \\C'est-à-dire que :$\exists a_0,a_,\dots,a_n \in \Kset, f(x) = \sum_{k=0}^{n}a_k(x-x_0)^k + \underset{x\to x_0}{o}\parens{(x - x_0)^n}$.
+        \item Supposons que $+\infty$ est une extrémité de $I$. On dit que $f$ admet un développement limité à l'ordre $n$ au voisinage de $+\infty$, qu'on notera $\mathbf{DL}_n(+\infty)$, lorsque la fonction $t\mapsto f\parens{\frac{1}{t}}$ admet un développement limité à l'ordre $n$ au voisinage de $0^+$.\\C'est-à-dire que : $\exists P \in \Kset_n[X], f(x) = P\parens{\frac{1}{x}} + \underset{x\to +\infty}{o}\parens{\frac{1}{x^n}}$.\\Ce qui équivaut aussi à écrire $\exists P\in \Kset_n[X], f(\frac1t = P(t)+\underset{t\to 0}{\parens{t^n}}$.\\On appelle aussi ce type de développement un \textbf{développement asymptotique}.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    La fonction $x\mapsto \frac{1}{1-x}$ admet un développement limité à l'ordre $n$ au voisinage de $0$ :
+    \[\frac{1}{1-x} = 1 + x + x^2 + \dots + x^n + \underset{x\to 0}{o}(x^n).\]
+
+    \textbf{Démonstration rapide :} On a $\frac{1}{1-x} = \underset{=\sum_{k=0}^{n}x^k}{\frac{1 - x^{n+1}}{1-x}} + \frac{x^{n+1}}{1-x} = 1 + x + x^2 + \dots + x^n + \frac{x^{n+1}}{1-x}$. Or, $\lim\limits_{x\to 0} \frac{\frac{x^{n+1}}{1-x}}{x^n} = \lim\limits_{x\to 0} \frac{x^{n+1}}{x^n(1-x)} = \lim\limits_{x\to 0} \frac{x}{1-x} = 0$. Donc, $\frac{x^{n+1}}{1-x} = \underset{x\to 0}{o}(x^n)$.
+\end{example}
+
+\begin{property}
+    Soient $f\in\Kset^I,x_0\in\overline{I} \et n\in\N$.
+
+    Si $f$ admet un $\mathbf{DL}_n(x_0)$, alors le polynôme $P$ de degré au plus $n$ est unique, i.e. $\exists! P \in \Kset_n[X], f(x) = P(x-x_0) + \underset{x\to x_0}{o}\parens{(x-x_0)^n},\forall x$.
+
+    On appelle $P$ la partie régulière du développement limité de $f$ à l'ordre $n$ au voisinage de $x_0$.
+\end{property}
+
+\begin{proof}
+    Supposons que $x_0 = 0$ pour simplifier la notation (le raisonnement est similaire pour un $x_0$ quelconque). 
+    
+    Nous allons raisonner par absurde. Supposons que $f$ admette deux développements limités à l'ordre $n$ au voisinage de $0$, i.e. $\exists P,Q \in \Kset_n[X], P \ne Q$ tels que :
+    $$(*):\begin{cases}
+        f(x) = P(x) + \underset{x\to 0}{o}(x^n)\\
+        f(x) = Q(x) + \underset{x\to 0}{o}(x^n)
+    \end{cases}$$
+
+    On sait que $P\ne Q$, donc $P-Q \ne 0$. On peut donc réecrire l'égalité précédente comme suit :
+    $$P-Q=\sum_{k=s}^{n}a_kx^k$$
+    (avec $a_s \ne 0$ et $s \le n$).
+
+    On sait, d'après $(*)$, que :
+    $$P(x) - Q(x) = \underset{x\to 0}{o}(x^n).$$
+
+    Or $(P-Q)(x) \underset{x\to 0}{\sim} a_s x^s$ (car $a_s \ne 0$).
+
+    Cela implique que $a_s x^s = \underset{x\to 0}{o}(x^n)$, ce qui est absurde car $s\le n$.
+
+    \textbf{Conclusion :} Le polynôme $P$ est unique.
+\end{proof}
+
+\begin{property}
+    Soient $f\in\Kset^{I\setminus\{x_0\}}, x_0 \in \overline{I}$.
+
+    \begin{enumerate}
+        \item Si $f$ admet un $\mathbf{DL}_0(x_0)$, alors $f$ est prolongeable par continuité en $x_0$.
+        \item Si $f$ admet un $\mathbf{DL}_1(x_0)$, alors $f$ est prolongeable par dérivation en $x_0$.
+    \end{enumerate}
+\end{property}
+
+\begin{attention}
+    On ne peut pas généraliser cette propriété pour un ordre $n \ge 2$. En effet, le fait que $f$ admette un $\mathbf{DL}_n(x_0)$ n'implique pas que $f$ est $n$ fois prolongeable en une fonction $n$ fois dérivable en $x_0$.
+
+    $$f \admet \mathbf{DL}_n(x_0) \nimplies f \text{ est } n \text{ fois prolongeable en une fct. } n \text{ fois dérivable en } x_0.$$
+
+    \textbf{Contre-exemple :}
+
+    Soit $f:x\mapsto \begin{cases} x^3 \sin\parens{\frac{1}{x}} & \si x \ne 0\\ 0 & \si x=0 \end{cases}$.
+
+    On a $f$ est $\mathcal{C}^1$, et $f \notin \mathcal{D}^2(\R,\R)$ ($f$ n'est pas deux fois dérivable en $0$). 
+    
+    Cependant, $f$ admet un $\mathbf{DL}_2(0)$ car $f(x) = 0 + \underset{x\to 0}{o}(x^2)$.
+\end{attention}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $f$ admet un $\mathbf{DL}_0(x_0)$, donc $f(x)=\lambda + \underset{x\to x_0}{o}(1)$ pour un certain $\lambda \in \Kset$. Donc, $\lim\limits_{x\to x_0} f(x) = \lambda$. Donc, $f$ est prolongeable par continuité en $x_0$, et $\tilde{f}(x_0) = \lambda$ (si on note $\tilde{f}$ le prolongement de $f$ par continuité en $x_0$).
+        \item $f$ admet un $\mathbf{DL}_1(x_0)$, donc $f(x) = a(x-x_0) + b + \underset{x\to x_0}{o}(x - x_0)$ pour certains $a,b \in \Kset$. Donc, $\lim\limits_{x\to x_0} f(x) = b$. Donc, $f$ est prolongeable par continuité en $x_0$, et $\tilde{f}(x_0) = b$ (si on note $\tilde{f}$ le prolongement de $f$ par continuité en $x_0$).\\Nous allons montrer que $\tilde{f}$ est dérivable en $x_0$ et que $\tilde{f}'(x_0) = a$. On a $\frac{f(x)-f(x_0)}{x-x_0} = \frac{f(x) - b}{x-x_0} = \frac{a(x-x_0) + \underset{x\to x_0}{o}(x-x_0)}{x-x_0} = a + \underset{x\to x_0}{o}(1)$. Donc, $\lim\limits_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0} = a$. Donc, $\tilde{f}$ est dérivable en $x_0$ et $\tilde{f}'(x_0) = a$.
+    \end{enumerate}
+\end{proof}
+
+\begin{property}
+    Si $f$ admet un $\mathbf{DL}_n(x_0)$, de partie régulière $P$, alors $\forall k \le n$, $f$ admet un $\mathbf{DL}_k(x_0)$, de partie régulière la partie de $P$ tronqué à l'ordre $k$ (de degré au plus $k$).
+
+    On va tronquer le polynôme de la manière suivante :
+    
+    $\sum_{j=0}^{n}a_jx^j=\sum_{j=0}^{k}a_jx^j + \sum_{j=k+1}^{n}a_jx^j=\sum_{j=0}^{k}a_jx^j+\underbrace{x^{k+1}\parens{\sum_{j=k+1}^{n}a_jx^{j-k-1}}}_{=\underset{x\to x_0}{o}(x^{k})}$.
+\end{property}
+
+\begin{theorem}[Formule de Taylor-Young]
+    Soit $f \in \mathcal{C}^n(I,\Kset)$ et $a\in I$.
+
+    $$\forall x \in I, f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k + \underset{x\to a}{o}\parens{(x-a)^n}$$
+\end{theorem}
+
+On déduit de ce théorème que n'importe quelle fonction de classe $\mathcal{C}^n$ admet un développement limité à l'ordre $n$ en tout point de son domaine, dont la partie régulière est $P(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k$.
+
+\begin{proof}
+    On part de la formule de Taylor-Lagrange avec reste intégral :
+
+    \begin{align*}
+        \forall x \in I, f(x) &= \sum_{k=0}^{n-1} \frac{f^{(k)}(a)}{k!}(x-a)^k + \int_a^x \frac{(x-t)^{n-1}}{(n-1)!} f^{(n)}(t) dt\\
+        &= \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x-a)^k + \underbrace{\int_a^x \frac{(x-t)^{n-1}}{(n-1)!}dt - \frac{(x-a)^n}{n!} f^{(n)}(a)}_{=\underset{o\to a}{o}((x-a)^n)?}\\
+    \end{align*}
+    Or, on a $\int_a^x \frac{(x-t)^{n-1}}{(n-1)!} dt = \frac{(x-a)^n}{n!}$. Donc, on peut écrire :
+    \begin{align*}
+        \forall x \in I, f(x) &= \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x-a)^k + \int_a^x \parens{f^{(n)}(t)-f^{(n)}(a)}\frac{(x-t)^{n-1}}{(n-1)!} dt.
+    \end{align*}
+
+    On a $\abs{\int_a^x \parens{f^{(n)}(t)-f^{(n)}(a)}\frac{(x-t)^{n-1}}{(n-1)!} dt} \le \sup_{t\in[a,x]\ou[x,a]} \abs{f^{(n)}-f^{(n)}(a)} \cdot \frac{\abs{x-a}^n}{n!}$, sachant que $f$ est continue sur $[a,x] \ou [x,a]$, donc bornée sur cet intervalle (elle admet donc un majorant).
+
+    Nous allons donc montrer que $\lim_{x\to a} \sup_{t\in[a,x]\ou[x,a]} \abs{f^{(n)}(t)-f^{(n)}(a)} = 0$.
+
+    On sait que $f^{(n)}$ est continue en $a$.
+
+    Donc $\forall \eps > 0, \exists \mu > 0, \forall x \in I, \abs{x-a} < \mu \implies \abs{f^{(n)}(x)-f^{(n)}(a)} < \eps$.
+
+    Or, on sait que $t \in [a,x] \ou [x,a] \implies \abs{t-a} \le \abs{x-a} \le \mu$.
+
+    Donc $\forall t \in [a,x] \ou [x,a], \abs{f^{(n)}(t)-f^{(n)}(a)} < \eps$.
+
+    Donc $\sup_{t\in[a,x]\ou[x,a]} \abs{f^{(n)}(t)-f^{(n)}(a)} \le \eps$.
+
+    Donc $\lim_{x\to a} \sup_{t\in[a,x]\ou[x,a]} \abs{f^{(n)}(t)-f^{(n)}(a)} = 0$.
+
+    Donc $\int_a^x \parens{f^{(n)}(t)-f^{(n)}(a)}\frac{(x-t)^{n-1}}{(n-1)!} dt = \underset{x\to a}{o}((x-a)^n)$.
+
+    \textbf{Conclusion :} On a bien $f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k + \underset{x\to a}{o}\parens{(x-a)^n}$.
+\end{proof}
+
+\begin{consequence}
+    \begin{enumerate}
+        \item Si $f \in \mathcal{C}^n(I,\Kset)$, alors $f$ admet un $\mathbf{DL}_n(a)$ pour tout $a \in I$ car $f(x) = \underbrace{\sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k}_{=P(x-a),\text{ partie régulière.}} + \underset{x\to a}{o}\parens{(x-a)^n}$.
+        \item Si $f \in \mathcal{C}^\infty(I,\Kset)$, alors $f$ admet un $\mathbf{DL}_n(a)$ pour tout $a \in I$ et pour tout $n \in \N$.
+    \end{enumerate}
+\end{consequence}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\forall x \in \R, e^x = \sum_{k=0}^{n} \frac{x^k}{k!} + \underset{x\to 0}{o}(x^n)$.
+        \item $\forall x \in \R, \cos(x) = \sum_{p=0}^{n} (-1)^p \frac{x^{2p}}{(2p)!} + \underbrace{\underset{x\to 0}{o}(x^{2n})}_{\ou \underset{x\to 0}{o}(x^{2n+1})}$.\\Pour démontrer ce résultat, on sépare le développement limité en deux cas : $n$ pair et $n$ impair. On peut aussi ajouter le terme $\underset{x\to 0}{o}(x^{2n})$ dans le cas impair, car le dernier terme impaire de la somme sera nul.
+        \item $\forall x \in \R, \sin(x) = \sum_{p=0}^{n} (-1)^p \frac{x^{2p+1}}{(2p+1)!} + \underbrace{\underset{x\to 0}{o}(x^{2n+1})}_{\ou \underset{x\to 0}{o}(x^{2n+2})}$.\\Pour démontrer ce résultat, on sépare le développement limité en deux cas : $n$ pair et $n$ impair. On peut aussi ajouter le terme $\underset{x\to 0}{o}(x^{2n+2})$ dans le cas pair, car le dernier terme paire de la somme sera nul.
+        \item Soit $\alpha \in \R$.
+        \begin{align*}
+            \forall x \in \R^*,\\(1+x)^\alpha &= 1 + \sum_{k=1}^n \frac{\alpha(\alpha-1)\dots(\alpha - k - 1)}{k!} x^k + \underset{x\to 0}{o}(x^n)\\
+            &= 1 + \alpha x + \frac{\alpha(\alpha-1)}{2} x^2 + \dots + \frac{\alpha(\alpha-1)\dots(\alpha - n - 1)}{n!} x^n + \underset{x\to 0}{o}(x^n)
+        \end{align*}
+        \item $\forall x \in ]-1,+\infty[, \frac{1}{\sqrt{1+x}}=(1+x)^{-\frac{1}{2}} = 1 - \frac{1}{2}x + \frac{3}{8}x^2 + \dots \\= 1 - \frac12 x + \frac38 x^2 + \dots$.
+        \item $\forall x \in \R\setminus\{-1\}, \frac{1}{1+x} = \frac{1}{1-(-x)} = 1 - x + x^2 - x^3 + \dots + (-1)^n x^n + \underset{x\to 0}{o}(x^n)\\=\sum_{k=0}^{n}(-1)^k x^k + \underset{x\to 0}{o}(x^n)$.
+        \item $\forall x \in \R_+^*, \ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \dots + (-1)^{n-1} \frac{x^n}{n} + \underset{x\to 0}{o}(x^n)\\=\sum_{k=1}^{n} (-1)^{k-1} \frac{x^k}{k} + \underset{x\to 0}{o}(x^n)$.\\Il n'y a pas de factorielle dans ce développement limité !
+        \item $\cosh(x) = \sum_{p=0}^{n} \frac{x^{2p}}{(2p)!} + \underbrace{\underset{x\to 0}{o}(x^{2n})}_{\ou \underset{x\to 0}{o}(x^{2n+1})}$.
+        \item $\sinh(x) = \sum_{p=0}^{n} \frac{x^{2p+1}}{(2p+1)!} + \underbrace{\underset{x\to 0}{o}(x^{2n+1})}_{\ou \underset{x\to 0}{o}(x^{2n+2})}$.
+    \end{enumerate}
+\end{example}
+
+\begin{methodbox}
+    Il est fortement conseillé d'expliciter la partie régulière des développements limités usuels jusqu'à l'ordre 5 afin de les mémoriser plus facilement.
+\end{methodbox}
+
+\begin{property}
+    
+\end{property}
 
 \end{document}

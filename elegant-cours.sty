@@ -271,6 +271,8 @@
 \newcommand{\ssi}{\text{ si et seulement si }}
 \newcommand{\et}{\text{ et }}
 \newcommand{\ou}{\text{ ou } }
+\newcommand{\pour}{\text{ pour }}
+\newcommand{\admet}{\text{ admet }}
 
 % ╔══════════════════════════════════════════════════════════════════════════════╗
 % ║                    7. STYLES TCOLORBOX MODERNES                              ║
@@ -706,23 +708,6 @@
     \begin{titlepage}
         \thispagestyle{empty}
         
-        % Fond décoratif
-        \begin{tikzpicture}[remember picture, overlay]
-            % Bandes colorées en haut
-            \fill[mainBlue] (current page.north west) rectangle 
-                ([yshift=-4cm]current page.north east);
-            \fill[accentBlue] ([yshift=-4cm]current page.north west) rectangle 
-                ([yshift=-4.3cm]current page.north east);
-            
-            % Cercles décoratifs
-            \fill[mainBlue!10] (current page.south east) circle (8cm);
-            \fill[accentBlue!10] ([xshift=-3cm, yshift=3cm]current page.south east) circle (5cm);
-            
-            % Bande en bas
-            \fill[mainBlue] (current page.south west) rectangle 
-                ([yshift=1.5cm]current page.south east);
-        \end{tikzpicture}
-        
         \vspace*{5cm}
         
         \begin{center}
@@ -747,16 +732,14 @@
             % Date
             {\large\sffamily\color{mediumGray}\today\par}
             
-            \vspace{2cm}
+            \vspace{0.5cm}
             
             % Image (si fournie)
             \ifx&#3&%
             \else
                 \includegraphics[width=0.5\textwidth]{#3}\par
             \fi
-            
-            \vfill
-            
+
             % Notice box (only if #4 is not empty)
             \ifx&#4&\else
               \begin{noticebox}
