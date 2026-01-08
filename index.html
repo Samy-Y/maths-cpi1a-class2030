@@ -22,6 +22,8 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            margin-top:10px;
+            margin-bottom:10px;
         }
 
         h1 {
@@ -128,5 +130,42 @@
             </div>
         </div>
     </div>
+    <hr>
+    <h2>Détails des derniers commits</h2>
+    <p><strong>Date de la dernière MAJ :</strong> <span id="commit-date">Loading...</span></p>
+    <p><strong>Message du dernier commit :</strong> <span id="commit-message">Loading...</span></p>
 </body>
+    <script>
+        const GITHUB_USER = 'Samy-Y'; 
+        const GITHUB_REPO = 'maths-cpi1a-class2030'; 
+        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=1`;
+
+        async function fetchLastCommit() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                
+                const commits = await response.json();
+                if (commits && commits.length > 0) {
+                    const latestCommit = commits[0].commit;
+                    const commitMessage = latestCommit.message;
+                    const commitDate = new Date(latestCommit.author.date).toLocaleString(); // Format date nicely
+
+                    document.getElementById('commit-message').textContent = commitMessage;
+                    document.getElementById('commit-date').textContent = commitDate;
+                } else {
+                    document.getElementById('commit-message').textContent = 'No commits found.';
+                }
+
+            } catch (error) {
+                console.error("Error fetching commit data:", error);
+                document.getElementById('commit-message').textContent = 'Failed to load commit data.';
+                document.getElementById('commit-date').textContent = 'N/A';
+            }
+        }
+
+        fetchLastCommit();
+    </script>
 </html>
