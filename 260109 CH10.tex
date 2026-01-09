@@ -1,0 +1,146 @@
+\documentclass[12pt, a4paper]{report}
+
+% wow! quelqu'un est en train de lire le code source !
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre X : Structures algébriques}{Rédigé par Samy Youssoufine}{./assets/logo.png}{Document WIP. Peut contenir des erreurs/sections incomplètes. Version BETA de la nouvelle mise en forme.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d'introduction à l'algèbre. Elle occupera tout le deuxième semestre ainsi que le troisième semestre. Elle ne nécessite quasiment aucune connaissances préalable en analyse.
+\vspace*{\fill}
+
+\chapter{Groupes}
+
+\section{Généralités}
+
+\begin{definition}[Magma]
+    Soit $E$ un ensemble non-vide.
+
+    On appelle un loi de composition interne dans $E$ (LCI) tout application :
+
+    $$(*):\begin{cases}E\times E\to E\\(x,y)\mapsto x*y\end{cases}$$
+
+    C'est pour cela qu'on dit que c'est une loi de composition \textit{interne} : on associe à deux éléments de $E$ un élément de $E$ (on reste dans $E$).
+
+    Dans ce cas, $(E,*)$ est appelé \textbf{magma}.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item + est une LCI dans $\N$, $\Z$, $\Q$, $\R$ et $\C$.
+        \item $-$ n'est pas une LCI dans $\N$ car par exemple $2-3=-1\notin\N$.
+        \item $\times$ est une LCI dans $\N$, $\Z$, $\Q$, $\R$ et $\C$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[]
+    Soit $G$ un ensemble non-vide muni d'une LCI $*$.
+
+    On dit que :
+    \begin{enumerate}
+        \item $*$ est \textbf{associative} si $\forall (x,y,z)\in G^3$, on a $(x*y)*z=x*(y*z)$.
+        \item $*$ admet un \textbf{élément neutre} dans $G$ s'il existe $e\in G$ tel que\\
+        $$\forall x\in G, \quad x*e=e*x=x.$$
+        \item $x\in G$ admet un \textbf{symétrique} pour $*$ s'il existe $y\in G$ tel que\\
+        $$x*y=y*x=e$$
+        \\où $e$ est l'élément neutre de $G$. On dit que $x$ est \textbf{symétrisable} pour $*$. On appelle $y$ le \textbf{symétrique} de $x$ pour $*$, et on le note $x^{-1}$ ou $-x$ si $*$ est additive.
+        \item $*$ est \textbf{commutative} si $\forall (x,y)\in G^2$, on a $x*y=y*x$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    On peut toujours noter le symétrique de $x$ par $x^{-1}$, mais on utilise la notation $-x$ uniquement lorsque la loi est additive (pour simplifier les écritures). On dit qu'une loi est additive si elle agit d'une manière similaire à l'addition usuelle.
+\end{remark}
+
+\begin{attention}
+    Il faut faire attention à la terminologie utilisée. On associe de préférence l'élément neutre à la loi dans l'ensemble. On ne dit pas, par exemple, que $0$ est l'élément neutre de $\R$, mais plutôt que $0$ est l'élément neutre de la loi $+$ dans $\R$, ou que c'est l'élément neutre de $\R$ pour la loi $+$.
+\end{attention}
+
+\begin{definition}[Groupe]
+    Soit $G$ un ensemble non-vide muni d'une LCI $*$.
+
+    On dit que $(G,*)$ est un \textbf{groupe} si :
+    \begin{enumerate}
+        \item $*$ est associative.
+        \item $*$ admet un élément neutre dans $G$.
+        \item Tout élément de $G$ est symétrisable pour $*$.
+    \end{enumerate}
+
+    Si de plus $*$ est commutative, on dit que $(G,*)$ est un \textbf{groupe commutatif} (abélien).
+\end{definition}
+
+\begin{methodbox}
+    Pour montrer que $(G,*)$ est un groupe, on commence par vérifier que $*$ est une loi de composition interne dans $G$. Ensuite, on vérifie l'associativité, l'existence d'un élément neutre, et enfin que tout élément de $G$ est symétrisable pour $*$.
+
+    Si on veut montrer que $(G,*)$ est un groupe commutatif, on vérifie que $*$ est commutative juste après avoir montré qu'elle est associative, pour ne montrer qu'une seule égalité et éviter les répétitions.
+\end{methodbox}
+
+\begin{property}
+    Soit $(E,*)$ un magma tel que $*$ admet un élément neutre $e$.
+
+    \begin{enumerate}
+        \item $e$ est unique.
+        \item Si $*$ est associative, et $a\in G$ est symétrisable, alors le symétrique est unique ; i.e. $\exists ! b \in G, a * b = b * a = e$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Supposons qu'il existe deux éléments neutres $e$ et $e'$. Alors, par définition de l'élément neutre, on a $e*e' = e$ et $e*e' = e'$. Donc, $e = e'$.
+        \item Soit $a\in G$ symétrisable, et supposons qu'il existe deux symétriques $b$ et $b'$ de $a$. Alors, par définition du symétrique, on a $a*b = e$ et $a*b' = e$. En multipliant à gauche par $b'$ dans la première égalité, on obtient :
+        $$b'*(a*b) = b'*e \implies (b'*a)*b = b'.$$
+        En utilisant l'associativité, on a :
+        $$e*b = b' \implies b = b'.$$
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    \begin{itemize}
+        \item $(\Z,+),(\Q,+),(\R,+),(\C,+)$ est un groupe commutatif.
+        \item Soit $E$ un ensemble de cardinal $\card(E)> 2$. On note $S_E$ l'ensemble des applications bijectives de $E$ vers $E$. On munit $S_E$ par la loi $\circ$ (composition), i.e. $\forall f,g\in S_E, f\circ g:\begin{cases}E \to E\\x\to f(g(x))\end{cases}$\\
+        Alors, $(S_E,\circ)$ est un groupe non commutatif.
+    \end{itemize}
+    \textbf{Pour montrer que $(S_E,\circ)$ est un groupe, on vérifie si :}
+    \begin{itemize}
+        \item $\circ$ est une LCI dans $S_E$ :\\Soit $f,g\in S_E$. Comme $f$ et $g$ sont bijectives, alors $f\circ g$ est bijective, et $f\circ g : E \to E$. Donc, $f\circ g\in S_E$. Donc, $\circ$ est une LCI dans $S_E$.
+        \item $\circ$ est associative :\\Soit $f,g,h\in S_E$. Montrons que $(f\circ g)\circ h = f\circ (g\circ h)$.\\Pour montrer que deux applications sont égales, il suffit de montrer que leurs images sont égales (pour tout $x$ de leur ensemble de départ).\\Soit $x\in E$. On a $\parens{\parens{f\circ g}\circ h}(x) = (f\circ g)(h(x)) = f(g(h(x)))$.\\De même, on a $\parens{f\circ \parens{g\circ h}}(x) = f((g\circ h)(x)) = f(g(h(x)))$.\\Donc, $(f\circ g)\circ h = f\circ (g\circ h)$.\\Note : il est parfaitement possible des les calculer plus rapidement, mais cette méthode est plus "rigoureuse" et "sécurisée".
+        \item $\circ$ admet un élément neutre dans $S_E$ :\\On pose $id_E:\begin{cases}E\to E\\x\to x\end{cases}$.\\Soit $f\in S_E$. On a $f\circ id_E = f$ et $id_E \circ f = f$. Donc, $id_E$ est l'élément neutre de $\circ$ dans $S_E$.
+        \item $\forall f \in S_E, f$ admet une bijection réciproque $f^{-1}\in S_E$ telle que $f\circ f^{-1} = id_E$ et $f^{-1}\circ f = id_E$. Donc, tout élément de $S_E$ est symétrisable pour $\circ$.
+        \item On peut déjà conclure que $(S_E,\circ)$ est un groupe. Montrons que ce n'est pas un groupe commutatif.
+        \item $\circ$ n'est pas commutative. On procède à la démonstration par contre-exemple (méthode classique). On pose $E=\{x_1,x_2,x_3\}$ de cardinal $3>2$. On définit $f,g\in S_E$ par :
+        $$f:\begin{cases}x_1\to x_2\\x_2\to x_3\\x_3\to x_1\end{cases},\quad g:\begin{cases}x_1\to x_3\\x_2\to x_1\\x_3\to x_2\end{cases}$$    
+        Après calculs, on trouve que $(f\circ g)(x_2)=x_3\ne (g\circ f)(x_2)=x_1$. Donc, $f\circ g \ne g\circ f$. Donc, $\circ$ n'est pas commutative.
+    \end{itemize}
+    On conclut que $(S_E,\circ)$ est un groupe non commutatif.
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Lorsque $E = \{1,\dots,n\}\tq n\in\N^*$, alors $S_E$ est noté par $S_n$.\\Et $\forall f \in S_n$, $f$ est appelée une \textbf{permutation} de $\{1,\dots,n\}$, et notée par $\sigma=\parens{\begin{array}{cccc}1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n)\end{array}}$.\\Le cardinal de $S_n$ est $n!$ (factorielle de $n$).
+        \item $(S_E,\circ)$ est un groupe non commutatif dès que $\card(E)>2$. Par contre, si $\card{E}=2$, alors $(S_E,\circ)$ est un groupe commutatif isomorphe à $(\Z/2\Z,+)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{property}
+    Soient $(G,*)$ un groupe, $a,b\in G$.
+
+    Alors $(a*b)^{-1}=b^{-1} * a^{-1}$.
+\end{property}
+
+\begin{proof}
+    $(a*b)*(b^{-1} * a^{-1}) = a*(b*b^{-1})*a^{-1} = a*e*a^{-1} = a*a^{-1} = e$.
+    De même, $(b^{-1} * a^{-1})*(a*b) = e$.
+    On en déduit que $(a*b)^{-1}=b^{-1} * a^{-1}$.
+\end{proof}
+
+\begin{exercise}
+    Soit $(G,*)$ un groupe tel que $\forall x \in G, x*x = e$. Montrer que $G$ est un groupe commutatif.
+\end{exercise}
+
+\end{document}
