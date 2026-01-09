@@ -58,7 +58,6 @@
             text-decoration: none;
             border-radius: 4px;
             text-align: center;
-            transition: background-color 0.3s;
         }
 
         .chapter a:first-of-type {
@@ -77,11 +76,31 @@
         .chapter a:last-of-type:hover {
             background-color: #5a6268;
         }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Source Sans 3', Arial, sans-serif;
+            font-size: large;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        .infoContainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MATHS CPI1A - Cours PDF</h1>
+        
         <div class="chapters">
             <div class="chapter">
                 <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
@@ -130,10 +149,13 @@
             </div>
         </div>
     </div>
-    <hr>
-    <h2>Détails des derniers commits</h2>
-    <p><strong>Date de la dernière MAJ :</strong> <span id="commit-date">Loading...</span></p>
-    <p><strong>Message du dernier commit :</strong> <span id="commit-message">Loading...</span></p>
+    <div class="infoContainer">
+        <h2>Détails des derniers commits</h2>
+        <p><strong>Date de la dernière MAJ :</strong> <span id="commit-date">Loading...</span></p>
+        <p><strong>Message du dernier commit :</strong> <span id="commit-message">Loading...</span></p>
+        <button onclick="location.reload();">Rafraîchir les données</button>
+        <button onclick="window.open('https://github.com/Samy-Y/maths-cpi1a-class2030', '_blank')">Voir le dépôt GitHub</button>
+    </div>
 </body>
     <script>
         const GITHUB_USER = 'Samy-Y'; 
