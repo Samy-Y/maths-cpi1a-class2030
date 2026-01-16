@@ -19,6 +19,8 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 
 \section{Généralités}
 
+\subsection{Magma}
+
 \begin{definition}[Magma]
     Soit $E$ un ensemble non-vide.
 
@@ -61,6 +63,8 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{attention}
     Il faut faire attention à la terminologie utilisée. On associe de préférence l'élément neutre à la loi dans l'ensemble. On ne dit pas, par exemple, que $0$ est l'élément neutre de $\R$, mais plutôt que $0$ est l'élément neutre de la loi $+$ dans $\R$, ou que c'est l'élément neutre de $\R$ pour la loi $+$.
 \end{attention}
+
+\subsection{Groupes}
 
 \begin{definition}[Groupe]
     Soit $G$ un ensemble non-vide muni d'une LCI $*$.
@@ -110,7 +114,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     \begin{itemize}
         \item $\circ$ est une LCI dans $S_E$ :\\Soit $f,g\in S_E$. Comme $f$ et $g$ sont bijectives, alors $f\circ g$ est bijective, et $f\circ g : E \to E$. Donc, $f\circ g\in S_E$. Donc, $\circ$ est une LCI dans $S_E$.
         \item $\circ$ est associative :\\Soit $f,g,h\in S_E$. Montrons que $(f\circ g)\circ h = f\circ (g\circ h)$.\\Pour montrer que deux applications sont égales, il suffit de montrer que leurs images sont égales (pour tout $x$ de leur ensemble de départ).\\Soit $x\in E$. On a $\parens{\parens{f\circ g}\circ h}(x) = (f\circ g)(h(x)) = f(g(h(x)))$.\\De même, on a $\parens{f\circ \parens{g\circ h}}(x) = f((g\circ h)(x)) = f(g(h(x)))$.\\Donc, $(f\circ g)\circ h = f\circ (g\circ h)$.\\Note : il est parfaitement possible des les calculer plus rapidement, mais cette méthode est plus "rigoureuse" et "sécurisée".
-        \item $\circ$ admet un élément neutre dans $S_E$ :\\On pose $id_E:\begin{cases}E\to E\\x\to x\end{cases}$.\\Soit $f\in S_E$. On a $f\circ id_E = f$ et $id_E \circ f = f$. Donc, $id_E$ est l'élément neutre de $\circ$ dans $S_E$.
+        \item $\circ$ admet un élément neutre dans $S_E$ :\\On pose $id_E:\begin{cases}E\to E\\x\to x\end{cases}$\\Soit $f\in S_E$. On a $f\circ id_E = f$ et $id_E \circ f = f$. Donc, $id_E$ est l'élément neutre de $\circ$ dans $S_E$.
         \item $\forall f \in S_E, f$ admet une bijection réciproque $f^{-1}\in S_E$ telle que $f\circ f^{-1} = id_E$ et $f^{-1}\circ f = id_E$. Donc, tout élément de $S_E$ est symétrisable pour $\circ$.
         \item On peut déjà conclure que $(S_E,\circ)$ est un groupe. Montrons que ce n'est pas un groupe commutatif.
         \item $\circ$ n'est pas commutative. On procède à la démonstration par contre-exemple (méthode classique). On pose $E=\{x_1,x_2,x_3\}$ de cardinal $3>2$. On définit $f,g\in S_E$ par :
@@ -142,5 +146,390 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{exercise}
     Soit $(G,*)$ un groupe tel que $\forall x \in G, x*x = e$. Montrer que $G$ est un groupe commutatif.
 \end{exercise}
+
+\subsection{Sous-groupes}
+
+\begin{definition}[Sous-groupe]
+    Soit $(G,*)$ un groupe et $H \subset G$.
+    On dit que $(H,*)$ est un \textbf{sous-groupe} de $(G,*)$ si et seulement si :
+    \begin{enumerate}
+        \item $H$ est non-vide.
+        \item $H$ est stable par $*$ : $\forall x,y\in H, x*y \in H$.
+        \item $\forall x \in H, x^{-1} \in H$.
+    \end{enumerate}
+\end{definition}
+
+\begin{property}[Caractérisation d'un sous-groupe]
+    Soient $(G,*)$ un groupe et $H$ une partie de $G$.
+
+    On peut dire que :
+
+    $$H \text{ est un sous-groupe de }(G,*) \iff \begin{cases}H\ne \emptyset\\ \forall x,y\in H, x*y^{-1} \in H\end{cases}$$
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration dans le sens direct $\implies$ :} Trivial (mais à refaire).
+        \1 \textbf{Démonstration dans le sens réciproque $\impliedby$ :}
+            \2 On a $H\ne \emptyset$.
+            \2 Donc $\exists a \in H$.
+            \2 On a $a*a^{-1} = \boxed{e_G \in H}$.
+                \3 $H$ contient l'élément neutre de $G$.
+            \2 On a $\forall x \in H, e_G * x^{-1} = x^{-1} \in H$.
+            \2 Soient $x,y\in H$. Alors, $y^{-1} \in H$.
+            \2 Donc, $x*y = x*(y^{-1})^{-1} \in H$.
+                \3 C'est-à-dire que $H$ est stable par $*$.
+            \2 $H$ est donc un sous-groupe de $(G,*)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $H$ est un sous-groupe de $(G,*)$, alors l'élément neutre de $H$ est l'élément neutre de $G$.
+        \item Tout sous-groupe d'un groupe est lui-même un groupe.
+    \end{enumerate}
+\end{remark}
+
+\begin{property}[Sous-groupes triviaux]
+    Soit $(G,*)$ un groupe.
+
+    Alors, $\{e_G\}$ et $G$ sont des sous-groupes de $(G,*)$, appelés \textbf{sous-groupes triviaux} de $(G,*)$.
+\end{property}
+
+\begin{example}
+    \begin{itemize}
+        \item $Z$ est un sous-groupe de $(\Q,+)$.
+        \item $(\{-1,1\},\times)$ est un sous-groupe de $(\R^*,\times)$.
+        \item On pose $\Z[i]=\{a+ib \tqp a,b\in \Z\}$ (Entiers de Gauss).
+            Et on pose $Z[j] = \{a+jb \tqp a,b\in\Z\}$, avec $j=e^{i\frac{\pi}3}$. (Entiers de Eisenstein). 
+            Alors, $\Z[i]$ et $\Z[j]$ sont des sous-groupes de $(\C,+)$.
+    \end{itemize}
+\end{example}
+
+\begin{property}
+    Tous les sous-groupes de $(\Z,+)$ sont de la forme $n\Z$ avec $n\in\N$.
+\end{property}
+
+\begin{proof}
+    Pour démontrer ça, on commence par vérifier que $n\Z$ est bien un sous-groupe de $(\Z,+)$ pour tout $n\in\N$. Ensuite, on montre que si $H$ est un sous-groupe quelconque de $(\Z,+)$, alors il existe $n\in\N$ tel que $H=n\Z$.
+
+    \begin{outline}
+        \1 $\forall n \in \N$, $n\Z$ est un sous-groupe de $(\Z,+)$.
+            \2 $n\Z \subset \Z$ car $\forall k \in \Z, nk \in \Z$.
+            \2 $n\Z \ne \emptyset$ car $0 \in n\Z$.
+            \2 Soient $a,b \in n\Z$.
+                \3 $\exists k,l \in \Z$ tels que $a= nk$ et $b=n l$.
+                \3 Donc, $a - b = n(k - l) \in n\Z$.
+            \2 Donc, $n\Z$ est un sous-groupe de $(\Z,+)$.
+        \1 Soit $H$ un sous-groupe quelconque de $(\Z,+)$, non réduit au singleton $\{0\}$.
+            \2 On pose $H^+ = H \cap \N^*$.
+            \2 $H^+ \ne \emptyset$ car $H \ne \{0\}$ et $H$ est stable par l'opposé.
+            \2 Or $H$ est un sous-groupe, alors $-a \in H$ pour tout $a \in H$.
+            \2 Donc $a$ et $-a \in H \implies H^+ \ne \emptyset$.
+            \2 On a $H^+ \subset \N^*$, donc $H^+$ admet un minimum $n$.
+            \3 Nous allons essayer de montrer que $H = n\Z$.
+            \2 On a $n \in H$, donc $nk = \begin{cases} \underbrace{n + \dots + n}_{k \text{ fois}}\pour k \ge 0 \\ \underbrace{-(n + \dots + n)}_{k \text{ fois}}\pour k \le 0\end{cases} \in H$.
+            \2 Donc $x\in H$, i.e. $n\Z \subset H$.
+            \2 Soit $a \in H$.
+                \3 Par le théorème de la division euclidienne, il existe $(q,r) \in \Z \times \N$ tels que $a = nq + r$ et $0 \le r < n$.
+                \3 Or, $nq \in H$ (car $n\Z \subset H$) et $a \in H$, donc $r = a - nq \in H$ (car $H$ est stable par l'opposé et par l'addition).
+                \3 Si $r \ne 0$, alors $r \in H^+$ et $r < n$, ce qui contredit la minimalité de $n$.
+                \3 Donc, $r = 0$, et ainsi $a = nq \in n\Z$.
+            \2 Donc, $H \subset n\Z$.
+            \2 On en déduit que $H = n\Z$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Les sous-groupes de $(\R,+)$ sont ou bien denses dans $\R$, ou bien de la forme $a\Z$ avec $a>0$ (Traité dans le DS n°2 d'octobre 2025).
+\end{remark}
+
+\begin{property}
+    Soit $(G,*)$ un groupe.
+    \begin{enumerate}
+        \item Si $(H_i,*)_{i\in I}$ est une famille de sous-groupes de $(G,*)$, alors l'intersection $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
+        \item Si $H \cup K$ sont deux sous-groupes de $(G,*)$, alors $H \subset K$ ou $K \subset H$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration de 1. :}
+        \2 $\forall in I, H_i \subset G \implies \bigcap_{i\in I} H_i \subset G$.
+        \2 $\forall i \in I, H_i \ne \emptyset \implies \bigcap_{i\in I} H_i \ne \emptyset$ (car $e \in H_i$).
+        \2 Soient $a,b \in \bigcap_{i\in I} H_i$.
+        \2 Alors $\forall i \in I, a,b \in H_i \implies a*b^{-1} \in H_i$ (car $H_i$ est un sous-groupe).
+        \2 Donc, $a*b^{-1} \in \bigcap_{i\in I} H_i$.
+        \2 Donc, $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
+        \1 \textbf{Démonstration de 2. :}
+        \2 Dans le sens indirect ($\impliedby$), la démonstration est triviale.
+        \2 Dans le sens direct ($\implies$), on procède par absurde. On admet que $H \not\subset K$ et $K \not\subset H$.
+        \2 Donc $\exists h \in H, h \notin K$ et $\exists k \in K, k \notin H$.
+        \2 On a $h,k\in H\cap K \implies h*k \in H \cap K$ (car $H$ et $K$ sont des sous-groupes).
+        \2 Si $h*k \in H$, alors $\exists h_1 \in H \tq h*k = h_1$.
+        \3 Donc $k=h^{-1}*h_1 \in H$ (car $H$ est stable par $*$ et par l'inverse). (On compose à gauche !)
+        \3 Ce qui est absurde.
+        \2 Si $h*k \in K$, alors $\exists k_1 \in K \tq h*k = k_1$.
+        \3 Donc $h = k_1 * k^{-1} \in K$ (car $K$ est stable par $*$ et par l'inverse). (On compose à droite !)
+        \3 Ce qui est absurde.
+        \2 On en déduit que $H \subset K$ ou $K \subset H$.
+    \end{outline}
+\end{proof}
+
+\begin{property}[Groupe des applications à valeurs dans un groupe]
+    Soit $(G,*)$ un groupe et $D$ un ensemble non-vide.
+
+    On note $G^D$ l'ensemble des applications $D$ vers $G$.
+
+    Alors $(G^D, \star)$ est un groupe, où $\star$ est définie par :
+
+    $$\forall f,g \in G^D, \quad f \star g : \begin{cases}D \to G\\x \mapsto f(x) * g(x)\end{cases}$$
+\end{property}
+
+\begin{remark}
+    On se permet de noter les deux lois de la même manière ($*$ et $\star$) lorsqu'il n'y a pas d'ambiguïté possible. Dans le cours manuscrit, on entoure $\star$ d'un cercle coloré pour le différencier.
+\end{remark}
+
+\begin{attention}
+    $\star$ est définie de manière "naturelle" à partir de $*$. On l'utilise pour effectuer des opérations sur des \textit{applications} à valeurs dans un groupe, tandis que $*$ est utilisée pour effectuer des opérations sur des \textit{éléments} du groupe.
+\end{attention}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration que $\star$ est une LCI dans $G^D$ :}
+        \2 On a $\forall f,g \in G^D, (f \star g)(x)=f(x) * g(x) \in G$ (car $*$ est une LCI dans $G$).
+        \2 Donc $f \star g \in G^D$.
+        \2 D'où $\star$ est une LCI dans $G^D$.
+        \1 \textbf{Démonstration que $\star$ est associative :}
+        \2 Soient $f,g,h \in G^D,x\in D$.
+        \2 On a $\parens{(f \star g) \star h}(x) = (f \star g)(x) * h(x) = (f(x) * g(x)) * h(x)$.
+        \2 De même, on a $\parens{f \star (g \star h)}(x) = f(x) * (g \star h)(x) = f(x) * (g(x) * h(x))$.
+        \2 Or, $*$ est associative dans $G$, donc $(f(x) * g(x)) * h(x) = f(x) * (g(x) * h(x))$.
+        \2 Donc, $\parens{(f \star g) \star h}(x) = \parens{f \star (g \star h)}(x)$.
+        \2 Donc, $(f \star g) \star h = f \star (g \star h)$.
+        \2 Donc, $\star$ est associative.
+        \1 \textbf{Démonstration de l'existence d'un élément neutre :}
+        \2 On pose $e : \begin{cases}D \to G\\x \mapsto e_G\end{cases}$, où $e_G$ est l'élément neutre de $G$.
+        \2 Soit $f \in G^D, x \in D$.
+        \2 On a $(f \star e)(x) = f(x) * e_G = f(x)$, car $f(x) \in G$.
+        \2 De même, on a $(e \star f)(x) = e_G * f(x) = f(x)$, car $f(x) \in G$.
+        \2 Donc, $f \star e = f$ et $e \star f = f$.
+        \2 Donc, $e$ est l'élément neutre de $\star$ dans $G^D$.
+        \1 \textbf{Démonstration que tout élément de $G^D$ est symétrisable pour $\star$ :}
+        \2 Soit $f \in G^D$.
+        \2 On pose $f' : \begin{cases}D \to G\\x \mapsto f(x)^{-1}\end{cases} \in G^D$, où $f(x)^{-1}$ est le symétrique de $f(x)$ pour $*$ dans $G$.
+        \2 On a $\forall x \in D, (f \star f')(x) = f(x) * f(x)^{-1} = e_G = e(x)$.
+        \2 De même, on a $\forall x \in D, (f' \star f)(x) = f(x)^{-1} * f(x) = e_G = e(x)$.
+        \2 Donc, $f \star f' = e$ et $f' \star f = e$.
+        \2 Donc, $f$ est symétrisable pour $\star$.
+        \2 Donc, tout élément de $G^D$ est symétrisable pour $\star$.
+        \1 On en déduit que $(G^D, \star)$ est un groupe.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $(G,*)$ est un groupe abélien, alors $(G^D,\star)$ est aussi un groupe abélien.
+\end{remark}
+
+\begin{example}
+    \begin{itemize}
+        \item Soit $I$ un intervalle de $\R$ non-vide. Alors, $(\R^I,+)$ est un groupe abélien, où $+$ est définie par : $\forall f,g\in\R^I, f+g:x\mapsto f(x)+g(x)$.
+        \item $(\C^\N,+)$ est un groupe abélien, où $+$ est définie par : $\forall (u_n),(v_n)\in\C^\N, (u_n)+(v_n):(n\mapsto u_n+v_n)$. 
+    \end{itemize}
+\end{example}
+
+\section{Groupe $(\Z/n\Z,+)$ où $n\in\N^*$}
+
+\begin{definition}[Rappel de la relation d'équivalence]
+    Une relation binaire $\mathcal{R}$ sur un ensemble $E$ est une relation d'équivalence si :
+    \begin{enumerate}
+        \item $\forall x \in E, x \mathcal{R} x$ (réflexivité).
+        \item $\forall (x,y) \in E^2, x \mathcal{R} y \implies y \mathcal{R} x$ (symétrie).
+        \item $\forall (x,y,z) \in E^3, x \mathcal{R} y$ et $y \mathcal{R} z \implies x \mathcal{R} z$ (transitivité).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Classes d'équivalence]
+    Soit $\mathcal{R}$ une relation d'équivalence sur un ensemble $E$.
+
+    Pour tout $x \in E$, on appelle \textbf{classe d'équivalence} de $x$ pour $\mathcal{R}$ l'ensemble :
+
+    $$\cl{x} = \{y \in E \tq y \mathcal{R} x\}$$
+\end{definition}
+
+\begin{property}
+    $\forall x,y \in E, x\mathcal{R}y \iff \cl{x} = \cl{y}$.
+
+    i.e. deux éléments sont en relation si et seulement si leurs classes d'équivalence sont égales.
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item \textbf{Démonstration dans le sens réciproque $\impliedby$ :} On a $x\in\cl{x} = \cl{y}$, donc $x\in\cl{y}$, i.e. $x\mathcal{R}y$.
+        \item \textbf{Démonstration dans le sens direct $\implies$ :} Soit $z \in \cl{x}$. Alors, $z \mathcal{R} x$ et $x \mathcal{R} y$, donc $z \mathcal{R} y$ (par transitivité). Donc, $z \in \cl{y}$. Ainsi, $\cl{x} \subset \cl{y}$. De même, on montre que $\cl{y} \subset \cl{x}$. Donc, $\cl{x} = \cl{y}$.
+    \end{itemize}
+\end{proof}
+
+\begin{property}
+    Si $\mathcal{R}$ est une relation d'équivalence sur un ensemble $E$, alors les classes d'équivalence forment \textbf{une partition} de $E$.
+    
+    i.e. : Elles sont non-vides, disjointes deux à deux, et leur réunion est égale à $E$.
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item $\forall x \in E, x\in \cl x \implies \cl{x} \ne \emptyset$.
+        \item Soient $x,y \in E$ tels que $\cl{x} \ne \cl{y}$.\\Soit $z \in \cl{x} \cap \cl{y}$. Alors, $z \mathcal{R} x$ et $z \mathcal{R} y$, donc $x \mathcal{R} y$ (par symétrie et transitivité). Donc, $\cl{x} = \cl{y}$, ce qui est absurde. Donc, $\cl{x} \cap \cl{y} = \emptyset$.
+        \item Montrons que $\bigcup_{x \in E} \cl{x} = E$.\\On a $\forall x \in E, \cl{x} \subset E$, donc $\bigcup_{x \in E} \cl{x} \subset E$.\\Soit $y \in E$. On a $y \in \cl{y}$, donc $y \in \bigcup_{x \in E} \cl{x}$. Donc, $E \subset \bigcup_{x \in E} \cl{x}$.\\On en déduit que $\bigcup_{x \in E} \cl{x} = E$.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    On a déjà montré que ``$\equiv [n]$'' est une relation d'équivalence sur $\Z$ (Chapitre IX).
+
+    Pour tout $x \in \Z$, on note $\cl{x}$ par $\overline{x}$, et l'ensemble des classes d'équivalence par $\Z/n\Z=\{\cl{x}\tq x\in\Z\}=\{\overline{0}, \overline{1}, \ldots, \overline{n-1}\}$.
+\end{remark}
+
+\begin{proposition}
+    $(\Z/n\Z,+)$ est un groupe abélien, où $+$ est définie par :
+    $$\forall \overline{a}, \overline{b} \in \Z/n\Z, \quad \overline{a} + \overline{b} = \overline{a+b}$$
+\end{proposition}
+
+\begin{proof}
+    Montrons que $+$ est bien définie.
+
+    + est bel et bien définie si et seulement si elle ne dépend pas du choix du représentant de la classe d'équivalence.
+
+    Soient $\overline{x} = \overline{x'}$ et $\overline{y} = \overline{y'}$ dans $\Z/n\Z$.
+
+    Donc $x \equiv x' [n]$ et $y \equiv y' [n]$.
+
+    i.e. $\exists k_1,k_2 \in \Z$ tels que $x' = x + k_1 n$ et $y' = y + k_2 n$.
+
+    Donc $x+y = x' + y' - (k_1 + k_2) n$.
+    Donc $x + y \equiv x' + y' [n]$.
+    Donc, $\overline{x+y} = \overline{x' + y'}$.
+\end{proof}
+\todo{MQ GRP ABELIEN Z/NZ 21/01}
+
+\subsection{Groupe engendré par une partie}
+
+\begin{definition}[Groupe engendré]
+    Soit $(G,\cdot)$ un groupe et $A \subset G$.
+
+    On appelle \textbf{groupe engendré} par $A$ le plus petit sous-groupe de $(G,\cdot)$, soit $\underset{\substack{H\text{ s.g. de }G \\ A \subset H}}{\bigcap} H$, contenant $A$, noté $\langle A \rangle$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Si $A = \emptyset$, alors $\langle A \rangle = \{e_G\}$, parce que c'est le plus petit sous-groupe de $(G,\cdot)$.
+        \item Si $A$ est un sous-groupe de $(G,\cdot)$, alors $\langle A \rangle = A$.
+        \item Si $A=\{a\}$ avec $a \in G$, alors $\langle A \rangle = \{a^n \tq n \in \Z\}$, avec $a^0 = e_G$ et $a^n = \underbrace{a \cdot a \cdot \ldots \cdot a}_{n \text{ fois}}$ pour $n > 0$, ou $a^n = \underbrace{a^{-1} \cdot a^{-1} \cdot \ldots \cdot a^{-1}}_{-n \text{ fois}}$ pour $n < 0$. On le note aussi par $\langle a \rangle$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Groupes monogènes et groupes cycliques]
+    Soit $(G,\cdot)$ un groupe.
+    \begin{enumerate}
+        \item On dit que $(G,\cdot)$ est un \textbf{groupe monogène} s'il existe $a \in G$ tel que $G = \langle a \rangle$, et on dit que $a$ est un \textbf{générateur} de $G$.
+        \item On dit que $(G,\cdot)$ est un \textbf{groupe cyclique} s'il existe $A \subset G$ fini tel que $G = \langle A \rangle$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $(\Z,+)$ est un groupe monogène, engendré par $1$ (ou $-1$).
+        \item $\mathbf{U}_n = \{z \in \C \tq |z| = 1\}$ est un groupe cyclique, engendré par $e^{i\frac{2\pi}{n}}=\omega$. Donc $\mathbf{U}_n = \langle \omega \rangle = \{1, \omega, \omega^2, \ldots, \omega^{n-1}\}$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    Soient $(G,\cdot)$ un groupe et $a \in G$.
+
+    Si $\langle a \rangle$ est un groupe fini, on appelle \textbf{ordre} de $a$ dans $G$ le cardinal de $\langle a \rangle$, noté par $o(a)=\card(\langle a \rangle)$.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item Pour $(\Z/6\Z,+)$, on a $o(2)=3$ car $\langle \overline{2} \rangle = \{\overline{0}, \overline{2}, \overline{4}\}$, et on a $o(3)=2$, et $o(5)=6$.
+    \end{itemize}
+\end{example}
+
+\todo{qqch sur les générateurs ici $\frownie$}
+
+\begin{property}
+    Soit $(G,\cdot)$ un groupe fini d'élément neutre $e$. Alors, $\forall a \in G, o(a) = \min(\{k\in\N^* \tq a^k = e\})$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 On pose $A=\{k\in\N^* \tq a^k = e\}$. Montrons que $A\ne\emptyset$ et qu'il admet un minimum.
+
+        \2 On a $\angles{a} = \{a^n \tq n \in \Z\} \subset G$ est fini.
+
+        \2 Donc l'application $\psi : \begin{cases}\overbrace{\Z}^{\text{infini}} \to \overbrace{\angles{a}}^{\text{fini}}\\ n \mapsto a^n\end{cases}$ n'est pas injective.
+
+        \3 \textit{Si l'application était injective, alors on aurait une infinité d'éléments dans $\langle a \rangle$, ce qui est absurde, car $\langle a \rangle$ est fini.}
+
+        \2 Donc $\exists k_1,k_2 \in \Z \tq a^{k_1} = a^{k_2}$ et $k_1 \ne k_2$.
+
+        \2 Donc $a^{\abs{k_1 - k_2}} = e$.
+
+        \2 Donc $\abs{k_1 - k_2} \in A$, donc $A \ne \emptyset$.
+
+        \2 En plus, $A \subset \N^*$, donc $A$ admet un minimum. On pose $S=\min(A)$.
+
+        \1 Montrons que $\angles{a} = \{e, a, a^2, \ldots, a^{S-1}\}$.
+
+        \2 On pose $H = \{e, a, a^2, \ldots, a^{S-1}\}$.
+
+        \2 On a $H \subset \angles{a}$.
+
+        \2 Soit $x\in\angles{a}$, donc $\exists n \in \Z \tq x = a ^n$.
+        \2 Par le théorème de la division euclidienne, il existe $(q,r) \in \Z \times \N$ tels que $n = qS + r$ et $0 \le r < S$.
+        \2 Donc, $x = a^n = a^{qS + r} = (a^S)^q * a^r = e^q * a^r = a^r$, sachant que $a^S = e$ (car $S \in A$).
+        \2 Donc, $x \in H$.
+    \end{outline}
+\end{proof}
+
+\begin{methodbox}
+    En pratique, pour chercher l'ordre d'un élément $a$ dans un groupe fini $(G,\cdot)$, on ne cherche pas à calculer tous les éléments de $\langle a \rangle$, mais on cherche le plus petit entier $k \ge 1$ tel que $a^k = e$.
+\end{methodbox}
+
+\section{Théorème de Lagrange}
+
+\begin{theorem}[Théorème de Lagrange]
+    Soit $(G,\cdot)$ un groupe fini et $(H,\cdot)$ un sous-groupe de $(G,\cdot)$.
+
+    Alors, $\card(H)$ divise $\card(G)$ (on note $\card(H) \mid \card(G)$).
+\end{theorem}
+
+\begin{proof}
+    Soit $H$ un sous-groupe de $(G,\cdot)$.
+
+    On définit une relation binaire $\mathcal{R}$ sur $G$ par : $\forall x,y \in G, x\mathcal{R}y \iff x^{-1} \cdot y \in H$.
+
+    \begin{outline}
+        \1 Montrons que $\mathcal{R}$ est une relation d'équivalence.
+            \2 \textbf{Réflexivité :} Soit $x \in G$. On a $x^{-1} \cdot x = e_G \in H$, donc $x \mathcal{R} x$.
+            \2 \textbf{Symétrie :} Soient $x,y \in G$ tels que $x \mathcal{R} y$. Donc, $x^{-1} \cdot y \in H$. Donc, $(x^{-1} \cdot y)^{-1} = y^{-1} \cdot x \in H$ (car $H$ est stable par l'inverse). Donc, $y \mathcal{R} x$.
+            \2 \textbf{Transitivité :} Soient $x,y,z \in G$ tels que $x \mathcal{R} y$ et $y \mathcal{R} z$. Donc, $x^{-1} \cdot y \in H$ et $y^{-1} \cdot z \in H$. Donc, $(x^{-1} \cdot y) \cdot (y^{-1} \cdot z) = x^{-1} \cdot z \in H$ (car $H$ est stable par $\cdot$). Donc, $x \mathcal{R} z$.
+        \1 On en déduit que $\mathcal{R}$ est une relation d'équivalence sur $G$.
+        \1 Soit $\cl{x}$ la classe d'équivalence de $x\in G$ pour la relation $\mathcal{R}$.
+            \2 On a $\cl{x} = \{y\in G\tq x^{-1}\cdot y\in H\} = \{x\cdot h\tq h\in H\}$.
+        \1 On montre que toutes les classes d'équivalence ont le même cardinal que $H$.
+            \2 Soit $x\in G$. On définit l'application $\varphi : \begin{cases}H \to \cl{x}\\ h\mapsto x\cdot h\end{cases}$.
+            \2 Montrons que $\varphi$ est une bijection.
+                \3 \textbf{Injectivité :} Soient $h_1,h_2 \in H$ tels que $\varphi(h_1) = \varphi(h_2)$. Donc, $x\cdot h_1 = x\cdot h_2$. Donc, $h_1 = h_2$ (en composant à gauche par $x^{-1}$). Donc, $\varphi$ est injective.
+                \3 \textbf{Surjectivité :} Soit $y \in \cl{x}$. Donc, $\exists h \in H \tq y = x\cdot h$. Donc, $\varphi(h) = y$. Donc, $\varphi$ est surjective.
+            \2 On en déduit que $\varphi$ est une bijection.
+            \2 Donc, $\card{\cl{x}} = \card{H}$.
+        \1 Soit $\{\cl{x_i}\}_{i\in I}$ l'ensemble des classes d'équivalence de $G$ pour la relation $\mathcal{R}$.
+            \2 On a $\bigcup_{i\in I} \cl{x_i} = G$ et les $\cl{x_i}$ sont disjointes deux à deux.
+            \2 Donc, $\card{G} = \sum_{i\in I} \card{\cl{x_i}}$.
+            \2 Donc, $\card{G} = \sum_{i\in I} \card{H} = \card{H} \cdot \card{I}$.
+        \1 On en déduit que $\card{H} \mid \card{G}$.
+    \end{outline}
+\end{proof}
 
 \end{document}

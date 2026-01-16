@@ -39,6 +39,7 @@
 \RequirePackage{etoolbox}            % Pour les commandes conditionnelles
 \RequirePackage{xparse}              % Pour des commandes plus flexibles
 \RequirePackage{cancel}
+\RequirePackage{wasysym}
 
 % Hyperref doit souvent être chargé en dernier
 \RequirePackage[
@@ -257,18 +258,19 @@
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\inside}[1]{\overset{\circ}{#1}}
 \newcommand{\negli}[3]{\underset{#1\to#2}{o}\left(#3\right)}
-\newcommand{\nimplies}{\;\not\!\!\!\implies}
+\newcommand{\nimplies}{\;\not\!\!\!\implies} % n'implique pas
 \newcommand{\card}[1]{\mathrm{card}\left(#1\right)}
+\newcommand{\cl}[1]{\mathcal{C}\ell\left(#1\right)} % classe d'équivalence
 
 % Macro textuelles
 
 \newcommand{\ona}{\text{ On a }}
 \newcommand{\avec}{\text{ avec }}
 \newcommand{\donc}{\text{ donc }}
-\newcommand{\tq}{\text{ tel que }}
-\newcommand{\tqf}{\text{ telle que } }
-\newcommand{\tqp}{\text{ tels que } }
-\newcommand{\tqpf}{\text{ telles que } }
+\newcommand{\tq}{\text{ tel que }} % tel que (masculin singuler )
+\newcommand{\tqf}{\text{ telle que } } % tel que _féminin (singulier)
+\newcommand{\tqp}{\text{ tels que } } % tel que _pluriel (masculin)
+\newcommand{\tqpf}{\text{ telles que } } % tel que _pluriel _féminin
 \newcommand{\si}{\text{ si }}
 \newcommand{\ssi}{\text{ si et seulement si }}
 \newcommand{\et}{\text{ et }}
@@ -276,7 +278,7 @@
 \newcommand{\pour}{\text{ pour }}
 \newcommand{\admet}{\text{ admet }}
 \newcommand{\car}{\text{ car } }
-\newcommand{\scq}{\text{ sachant que}}
+\newcommand{\scq}{\text{ sachant que }}
 
 % ╔══════════════════════════════════════════════════════════════════════════════╗
 % ║                    7. STYLES TCOLORBOX MODERNES                              ║
@@ -486,7 +488,7 @@
     breakable,
     boxrule=0pt,
     frame hidden,
-    borderline west={2pt}{0pt}{proofColor!50},
+    borderline west={4pt}{0pt}{proofColor!50},
     borderline south={1pt}{0pt}{proofColor!30, dashed},
     colback=proofBg,
     arc=0pt,
