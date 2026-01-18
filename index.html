@@ -156,8 +156,9 @@
     </div>
     <div class="infoContainer">
         <h2>Détails des derniers commits</h2>
-        <p><strong>Date de la dernière MAJ :</strong> <span id="commit-date">Loading...</span></p>
-        <p><strong>Message du dernier commit :</strong> <span id="commit-message">Loading...</span></p>
+        <div id="commits-container">
+            <p>Chargement...</p>
+        </div>
         <button onclick="location.reload();">Rafraîchir les données</button>
         <button onclick="window.open('https://github.com/Samy-Y/maths-cpi1a-class2030', '_blank')">Voir le dépôt GitHub</button>
     </div>
@@ -165,9 +166,10 @@
     <script>
         const GITHUB_USER = 'Samy-Y'; 
         const GITHUB_REPO = 'maths-cpi1a-class2030'; 
-        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=1`;
+        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=3`;
 
-        async function fetchLastCommit() {
+        async function fetchLastCommits() {
+            const container = document.getElementById('commits-container');
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) {
@@ -176,23 +178,34 @@
                 
                 const commits = await response.json();
                 if (commits && commits.length > 0) {
-                    const latestCommit = commits[0].commit;
-                    const commitMessage = latestCommit.message;
-                    const commitDate = new Date(latestCommit.author.date).toLocaleString(); // Format date nicely
+                    container.innerHTML = ''; // Clear loading message
 
-                    document.getElementById('commit-message').textContent = commitMessage;
-                    document.getElementById('commit-date').textContent = commitDate;
+                    commits.forEach((item, index) => {
+                        const commitData = item.commit;
+                        const date = new Date(commitData.author.date).toLocaleString();
+                        const message = commitData.message;
+                        
+                        const commitElement = document.createElement('div');
+                        commitElement.style.borderBottom = index < commits.length - 1 ? '1px solid #eee' : 'none';
+                        commitElement.style.paddingBottom = '10px';
+                        commitElement.style.marginBottom = '10px';
+                        
+                        commitElement.innerHTML = `
+                            <p style="margin-bottom: 5px;"><strong>Message :</strong> ${message}</p>
+                            <p style="color: #666; font-size: 0.9em; margin: 0;">Date : ${date}</p>
+                        `;
+                        container.appendChild(commitElement);
+                    });
                 } else {
-                    document.getElementById('commit-message').textContent = 'No commits found.';
+                    container.textContent = 'Aucun commit trouvé.';
                 }
 
             } catch (error) {
                 console.error("Error fetching commit data:", error);
-                document.getElementById('commit-message').textContent = 'Failed to load commit data.';
-                document.getElementById('commit-date').textContent = 'N/A';
+                container.textContent = 'Échec du chargement des données des commits.';
             }
         }
 
-        fetchLastCommit();
+        fetchLastCommits();
     </script>
 </html>
