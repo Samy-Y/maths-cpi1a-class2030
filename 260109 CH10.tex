@@ -107,7 +107,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{example}
     \begin{itemize}
         \item $(\Z,+),(\Q,+),(\R,+),(\C,+)$ est un groupe commutatif.
-        \item Soit $E$ un ensemble de cardinal $\card(E)> 2$. On note $S_E$ l'ensemble des applications bijectives de $E$ vers $E$. On munit $S_E$ par la loi $\circ$ (composition), i.e. $\forall f,g\in S_E, f\circ g:\begin{cases}E \to E\\x\to f(g(x))\end{cases}$\\
+        \item Soit $E$ un ensemble de cardinal $\card{E}> 2$. On note $S_E$ l'ensemble des applications bijectives de $E$ vers $E$. On munit $S_E$ par la loi $\circ$ (composition), i.e. $\forall f,g\in S_E, f\circ g:\begin{cases}E \to E\\x\to f(g(x))\end{cases}$\\
         Alors, $(S_E,\circ)$ est un groupe non commutatif.
     \end{itemize}
     \textbf{Pour montrer que $(S_E,\circ)$ est un groupe, on vérifie si :}
@@ -127,7 +127,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{remark}
     \begin{enumerate}
         \item Lorsque $E = \{1,\dots,n\}\tq n\in\N^*$, alors $S_E$ est noté par $S_n$.\\Et $\forall f \in S_n$, $f$ est appelée une \textbf{permutation} de $\{1,\dots,n\}$, et notée par $\sigma=\parens{\begin{array}{cccc}1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n)\end{array}}$.\\Le cardinal de $S_n$ est $n!$ (factorielle de $n$).
-        \item $(S_E,\circ)$ est un groupe non commutatif dès que $\card(E)>2$. Par contre, si $\card{E}=2$, alors $(S_E,\circ)$ est un groupe commutatif isomorphe à $(\Z/2\Z,+)$.
+        \item $(S_E,\circ)$ est un groupe non commutatif dès que $\card{E}>2$. Par contre, si $\card{E}=2$, alors $(S_E,\circ)$ est un groupe commutatif isomorphe à $(\Z/2\Z,+)$.
     \end{enumerate}
 \end{remark}
 
@@ -448,7 +448,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{definition}
     Soient $(G,\cdot)$ un groupe et $a \in G$.
 
-    Si $\langle a \rangle$ est un groupe fini, on appelle \textbf{ordre} de $a$ dans $G$ le cardinal de $\langle a \rangle$, noté par $o(a)=\card(\langle a \rangle)$.
+    Si $\langle a \rangle$ est un groupe fini, on appelle \textbf{ordre} de $a$ dans $G$ le cardinal de $\langle a \rangle$, noté par $o(a)=\card{\langle a \rangle}$.
 \end{definition}
 
 \begin{example}
@@ -503,7 +503,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{theorem}[Théorème de Lagrange]
     Soit $(G,\cdot)$ un groupe fini et $(H,\cdot)$ un sous-groupe de $(G,\cdot)$.
 
-    Alors, $\card(H)$ divise $\card(G)$ (on note $\card(H) \mid \card(G)$).
+    Alors, $\card{H}$ divise $\card{G}$ (on note $\card{H} \mid \card{G}$).
 \end{theorem}
 
 \begin{proof}
