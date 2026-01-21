@@ -107,7 +107,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{example}
     \begin{itemize}
         \item $(\Z,+),(\Q,+),(\R,+),(\C,+)$ est un groupe commutatif.
-        \item Soit $E$ un ensemble de cardinal $\card(E)> 2$. On note $S_E$ l'ensemble des applications bijectives de $E$ vers $E$. On munit $S_E$ par la loi $\circ$ (composition), i.e. $\forall f,g\in S_E, f\circ g:\begin{cases}E \to E\\x\to f(g(x))\end{cases}$\\
+        \item Soit $E$ un ensemble de cardinal $\card{E}> 2$. On note $S_E$ l'ensemble des applications bijectives de $E$ vers $E$. On munit $S_E$ par la loi $\circ$ (composition), i.e. $\forall f,g\in S_E, f\circ g:\begin{cases}E \to E\\x\to f(g(x))\end{cases}$\\
         Alors, $(S_E,\circ)$ est un groupe non commutatif.
     \end{itemize}
     \textbf{Pour montrer que $(S_E,\circ)$ est un groupe, on vérifie si :}
@@ -127,7 +127,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{remark}
     \begin{enumerate}
         \item Lorsque $E = \{1,\dots,n\}\tq n\in\N^*$, alors $S_E$ est noté par $S_n$.\\Et $\forall f \in S_n$, $f$ est appelée une \textbf{permutation} de $\{1,\dots,n\}$, et notée par $\sigma=\parens{\begin{array}{cccc}1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n)\end{array}}$.\\Le cardinal de $S_n$ est $n!$ (factorielle de $n$).
-        \item $(S_E,\circ)$ est un groupe non commutatif dès que $\card(E)>2$. Par contre, si $\card{E}=2$, alors $(S_E,\circ)$ est un groupe commutatif isomorphe à $(\Z/2\Z,+)$.
+        \item $(S_E,\circ)$ est un groupe non commutatif dès que $\card{E}>2$. Par contre, si $\card{E}=2$, alors $(S_E,\circ)$ est un groupe commutatif isomorphe à $(\Z/2\Z,+)$.
     \end{enumerate}
 \end{remark}
 
@@ -285,6 +285,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 
     $$\forall f,g \in G^D, \quad f \star g : \begin{cases}D \to G\\x \mapsto f(x) * g(x)\end{cases}$$
 \end{property}
+\label{prop:G^D_groupe}
 
 \begin{remark}
     On se permet de noter les deux lois de la même manière ($*$ et $\star$) lorsqu'il n'y a pas d'ambiguïté possible. Dans le cours manuscrit, on entoure $\star$ d'un cercle coloré pour le différencier.
@@ -448,7 +449,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{definition}
     Soient $(G,\cdot)$ un groupe et $a \in G$.
 
-    Si $\langle a \rangle$ est un groupe fini, on appelle \textbf{ordre} de $a$ dans $G$ le cardinal de $\langle a \rangle$, noté par $o(a)=\card(\langle a \rangle)$.
+    Si $\langle a \rangle$ est un groupe fini, on appelle \textbf{ordre} de $a$ dans $G$ le cardinal de $\langle a \rangle$, noté par $o(a)=\card{\langle a \rangle}$.
 \end{definition}
 
 \begin{example}
@@ -533,5 +534,228 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
         \1 On en déduit que $\card{H} \mid \card{G}$.
     \end{outline}
 \end{proof}
+
+\begin{consequence}
+    \begin{enumerate}
+        \item Si $(G,\cdot)$ est un groupe fini de cardinal premier, alors ses seuls sous-groupes sont les sous-groupes triviaux $\{e_G\}$ et $G$. Dans ce cas, on dit que $G$ est un \textbf{groupe simple}. Par exemple, $(\Z/p\Z,+)$ est un groupe simple pour tout $p$ premier, sachant que le cardinal de $\Z/n\Z$ est $n$.
+        \item Soit $(G,\cdot)$ un groupe fini tel que $\card{G}=n\in\N^*$. On a $\angles{a}$ est un sous-groupe de $G$, donc $o(a)=\card{\angles{a}}$ divise $n$, d'après le théorème de Lagrange. Or, on a $a^{o(a)}=e_G$. Donc, $a^n = e_G$.
+        \item Si $G$ est un sous-groupe de $(\C^*,\times)$ tel que $\card{G}=n\in\N^*$, alors $\forall z \in G, z^n = 1$. Donc $G\subset \mathbf{U}_n = \{z \in \C \tq |z|=1\}$. Or $\card{\mathbf{U}_n} = n = \card{G}$. Donc, $G = \mathbf{U}_n$, vu qu'il s'agit de deux ensembles finis de même cardinal tels que $G \subset \mathbf{U}_n$. Cela veut dire que le seul sous-groupe de $(\C^*,\times)$ de cardinal $n$ est $\mathbf{U}_n$.
+    \end{enumerate}
+\end{consequence}
+
+\chapter{Anneaux et Corps}
+
+\section{Anneaux}
+
+\begin{definition}[Anneau]
+    Soit $A$ un ensemble non-vide muni de deux lois de composition interne notées $+$ et $\times$. Notons que ce ne sont pas les mêmes lois que les additions et multiplications usuelles, elles ont uniquement des ``rôles'' additifs et multiplicatifs similaires.
+
+    On dit que $(A,+,\times)$ est un \textbf{anneau} si :
+    \begin{enumerate}
+        \item $(A,+)$ est un groupe abélien.
+        \item $\times$ est associative dans $A$ et admet un élément neutre dans $A$.
+        \item La loi $\times$ est distributive par rapport à la loi $+$, i.e. :
+        \begin{itemize}
+            \item $\forall (a,b,c) \in A^3, a \times (b + c) = (a \times b) + (a \times c)$ (distributivité à gauche).
+            \item $\forall (a,b,c) \in A^3, (a + b) \times c = (a \times c) + (b \times c)$ (distributivité à droite).
+        \end{itemize}
+    \end{enumerate}
+
+    Si, de plus, la loi $\times$ est commutative dans $A$, on dit que $(A,+,\times)$ est un \textbf{anneau commutatif}.
+\end{definition}
+
+\begin{remark}
+    On ne peut plus parler d'élément neutre de l'anneau, car il y a deux lois de composition interne. On parle donc d'élément neutre pour la loi $\times$ ou pour la loi $+$. 
+
+    \begin{itemize}
+        \item L'élément neutre pour la loi $+$ est noté $0_A$.
+        \item L'élément neutre pour la loi $\times$ est noté $1_A$.
+    \end{itemize}
+
+    Idem, on ne peut pas parler de symétrique d'un élément dans un anneau, mais uniquement de son opposé pour la loi $+$.
+\end{remark}
+
+\begin{example}
+    \begin{itemize}
+        \item $(\Z,+,\times)$, $(\Q,+,\times)$, $(\R,+,\times)$ et $(\C,+,\times)$ sont des anneaux commutatifs.
+        \item $(\Kset^\N,+,\times)$ est un anneau commutatif, où $\Kset$ est $\R$ ou $\C$, sachant que $\Kset^\N$ et le groupe des applications de $\N$ à valeurs dans $\Kset$ (\ref{prop:G^D_groupe}).
+        \item On munit $\Z/n\Z$ des lois $+$ et $\dot\times$ définies par : $\forall \overline{a}, \overline{b} \in \Z/n\Z,$
+        \begin{itemize}
+            \item $\overline{a} + \overline{b} = \overline{a+b}$,
+            \item $\overline{a} \times \overline{b} = \overline{a \dot\times b}$.
+        \end{itemize}
+        $\dot\times$ est bien définie. Prenons $\overline{x}=\overline{x'}$ et $\overline{y}=\overline{y'}$ dans $\Z/n\Z$. Après calculs, on trouve bel et bien que $\overline{xy}=\overline{x'y'}$.\\
+        Donc $\overline{x}\dot\times\overline{y}=\overline{x'}\dot\times\overline{y'}$.\\
+        Ainsi, $(\Z/n\Z,+,\dot\times)$ est un anneau commutatif.
+    \end{itemize}
+\end{example}
+
+\begin{property}
+    Soit $(A,+,\times)$ un anneau.
+
+    \begin{itemize}
+        \item $a\in A$ est dit \textbf{symétrisable} lorsque $a$ est symétrisable pour la loi $\times$, i.e. $\exists b \in A \tq a \times b = b \times a = 1_A$. Dans ce cas, $b$ est unique et on le note $a^{-1}$.
+        \item On note $A^* = \{a \in A \tq a \text{ est symétrisable}\}$ l'ensemble des éléments inversibles de l'anneau $(A,+,\times)$.
+    \end{itemize}
+\end{property}
+
+\begin{attention}
+    L'ensemble $A^*$ n'est pas l'ensemble $A\setminus\{0_A\}$ ! Mais ils coïncident dans le cas particulier des corps (voir plus loin). Voir le premier exemple en \ref{ex:U_Z_Q_R_C}.
+\end{attention}
+
+\begin{remark}
+    On parle d'élément inversible pour la loi $\times$, mais on évite le terme ``symétrisable'' pour éviter toute confusion avec le terme ``symétrique'' qui concerne la loi $+$.
+\end{remark}
+
+\begin{example}
+    
+    \begin{itemize}
+        \item $U_\Z = \{-1,1\}$.
+        \item $U_\Q = U_\R = U_\C = \Q^* = \R^* = \C^* = \Kset\setminus\{0\}$, où $\Kset$ est $\R$ ou $\C$.
+        \item $U_\R = \R^* = \R\setminus\{0\}$.
+        \item $U_{\Z/n\Z} = \{\overline{a} \in \Z/n\Z \tq \exists \overline{b} \in \Z/n\Z, \overline{a} \dot\times \overline{b} = \overline{1}\}$\\$=\{\overline{a} \in \Z/n\Z \tq \pgcd an = 1\}$ (en utilisant le théorème de Bézout).\\Par exemple, $U_{\Z/9\Z} = \{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}\}$.
+        \item $U_{\Z/11\Z} = \Z/11\Z\setminus{\overline{0}}$ car $11$ est premier.
+    \end{itemize}
+\end{example}
+\label{ex:U_Z_Q_R_C}
+
+\begin{property}
+    Soit $(A,+,\times)$ un anneau. Alors, $(A^*=U_A,\times)$ est un groupe, appelé le groupe des inversibles de l'anneau $A$.
+\end{property}
+
+\begin{remark}[Hors programme]
+    Le cardinal de $U_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $U_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{U_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
+
+    $$\varphi(n) = \card{U_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd kn = 1\}}$$
+
+    Par exemple, $\varphi(9) = 9 \left(1 - \frac{1}{3}\right) = 6$, et $\varphi(11) = 11 \left(1 - \frac{1}{11}\right) = 10$.
+
+    Si $n$ est premier, alors $\varphi(n) = n - 1$ (ce sont tous les éléments sauf $\overline{0}$ qui sont inversibles).
+\end{remark}
+
+\begin{remark}
+    Soit $(A,+,\times)$ un anneau. On a toujours $0_A \times a = a \times 0_A = 0_A$, pour tout $a \in A$. On a aussi $-1_A \times a = a \times -1_A = -a$, pour tout $a \in A$.
+
+    \textbf{Preuve du premier point :} Soit $a \in A$. On a $0_A \times a + 0_A \times a = (0_A + 0_A) \times a = 0_A \times a$. Donc, intuitivement, en ``simplifiant'' $0_A \times a$ des deux côtés, on obtient $0_A \times a = 0_A$. De même, on montre que $a \times 0_A = 0_A$.
+\end{remark}
+
+\begin{definition}[Diviseur de zéro]
+    Soit $(A,+,\times)$ un anneau. On dit que $a \in A\setminus\{0_A\}$ est un \textbf{diviseur de zéro} s'il existe $b \in A\setminus\{0_A\}$ tel que $a \times b = 0_A$ ou $b \times a = 0_A$.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $\overline{2}$ est un diviseur de zéro dans $\Z/6\Z$ car $\overline{2} \dot\times \overline{3} = \overline{0}$.
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Anneau intègre]
+    Soit $(A,+,\times)$ un anneau. On dit que $A$ est un \textbf{anneau intègre} lorsque :
+    \begin{itemize}
+        \item $(A,+,\times)$ est un anneau commutatif.*
+        \item $A$ est sans diviseurs de zéro, i.e. : $\forall a,b \in A, a\times b = 0_A \implies a = 0_A \ou b = 0_A$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    La seule définition que nous allons utiliser est celle indiquée ci-dessus. Cependant, on peut définir des anneaux semi-intègres sans avoir besoin de la commutativité de la multiplication...
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item $(\Z,+,\times)$, $(\Q,+,\times)$, $(\R,+,\times)$ et $(\C,+,\times)$ sont des anneaux intègres.
+        \item $(\Z/n\Z,+,\dot\times)$ est intègre si et seulement si $n$ est premier.
+    \end{enumerate}
+\end{example}
+
+\begin{proof}[Deuxième exemple]
+    
+\end{proof}
+\todo{recop $\smile$.}
+
+\section{Sous-anneaux}
+
+\begin{definition}[Sous-anneau]
+    Soit $(A,+,\times)$ un anneau et $B \subset A$. On dit que $B$ est un \textbf{sous-anneau} de $A$ si :
+    \begin{itemize}
+        \item $B$ est non-vide (il doit contenir au moins l'élément $1_A$, qui est le plus facile à montrer).
+        \item $B$ est stable par les lois $+$ et $\times$, i.e. :
+        \begin{itemize}
+            \item $\forall (a,b) \in B^2, a + b \in B$,
+            \item $\forall (a,b) \in B^2, a \times b \in B$.
+        \end{itemize}
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Si $B$ est un sous-anneau de $(A,+,\times)$, alors $(B,+,\times)$ est un anneau.
+\end{remark}
+
+\begin{example}
+    $\Z[i]$ est un sous-anneau de $(\C,+,\times)$, où $\Z[i] = \{a + ib \tq (a,b) \in \Z^2\}$ (entiers de Gauss).
+    \begin{itemize}
+        \item $1_\C = 1 + i0 \in \Z[i]$, donc $\Z[i]$ est non-vide.
+        \item Soient $x=a+ib$ et $y=c+id$ dans $\Z[i]$.
+        \item On a $x+y = (a+c) + i(b+d) \in \Z[i]$ car $(a+c,b+d) \in \Z^2$.
+        \item On a $x \times y = (ac - bd) + i(ad + bc) \in \Z[i]$ car $(ac - bd, ad + bc) \in \Z^2$.
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Élément nilpotent]
+    Soit $(A,+,\times)$ un anneau. On dit que $a \in A$ est un \textbf{élément nilpotent} s'il existe $n \in \N^*$ tel que $a^n = 0_A$, où $a^n = \underbrace{a \times a \times \ldots \times a}_{n \text{ fois}}$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item Dans $\Z/8\Z$, $\overline{2}$ est nilpotent car $\overline{2}^3 = \overline{8} = \overline{0}$.
+        \item Dans $\Z/9\Z$, $\overline{3}$ est nilpotent car $\overline{3}^2 = \overline{9} = \overline{0}$, idem pour $\overline{6}$.
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Soient $(A,+,\times)$ un anneau commutatif et $a,b\in A$. Alors, $\forall n \in \N^*, (a + b)^n = \sum_{k=0}^n \binom nk a^k \times b^{n-k}$ (formule du binôme de Newton), avec la convention $a^0 = 1_A$ et $0_A^0 = 1_A$.
+
+    \textit{Preuve par récurrence sur $n$.}
+\end{property}
+
+\begin{application}
+    Soit $(A,+,\times)$ un anneau commutatif.
+
+    Si $a,b\in A$ sont nilpotents, i.e. $\exists n,m \in \N \tq a^n = 0_A, b^m = 0_A$, alors $a + b$ est nilpotent.
+
+    \textit{En effet :}
+
+    Soit $N = n + m$. On a :
+    $$(a + b)^N = \sum_{k=0}^N \binom Nk a^k \times b^{N-k}$$
+
+    Si $k \ge n$, alors $a^k = 0_A$.
+
+    Si $N - k \ge m$, alors $b^{N-k} = 0_A$.
+
+    Donc, dans la somme précédente, tous les termes sont nuls. Donc, $(a + b)^N = 0_A$.
+
+    On remarque aussi que $(-a)^n=(-1_A)^n \times a^n = 0_A$, donc $-a$ est nilpotent.
+
+    \textbf{Conclusion : } Si $(A,+,\times)$ est un anneau commutatif, alors $\mathcal{N}(a) = \{a \in A \tq a \text{ est nilpotent}\}$ est un sous-groupe de $(A,+)$.
+\end{application}
+
+\section{Corps}
+
+\begin{definition}[Corps]
+    Soit $K$ un ensemble non-vide muni de deux lois de composition interne notées $+$ et $\times$.
+    
+    On dit que $(K,+,\times)$ est un \textbf{corps} si :
+    \begin{enumerate}
+        \item $(K,+,\times)$ est un anneau.
+        \item $\forall x \in K\setminus\{0_K\}, x \in K^*$, i.e. : $x$ est inversible dans $K$.
+    \end{enumerate}
+
+    Si, de plus, la loi $\times$ est commutative dans $K$, on dit que $(K,+,\times)$ est un \textbf{corps commutatif}.
+\end{definition}
+
+\begin{remark}
+    $$(K,+,\times) \text{ est un corps} \iff \begin{cases}(K,+) \text{ est un groupe abélien}\\(K\setminus\{0_K\},\times) \text{ est un groupe}\\ \times \text{ est distributive par rapport à } + \text{ dans } K\end{cases}$$
+\end{remark}
+
 
 \end{document}
