@@ -741,7 +741,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \section{Corps}
 
 \begin{definition}[Corps]
-    Soit $K$ un ensemble non-vide muni de deux lois de composition interne notées $+$ et $\times$.
+    Soit $K$ un ensemble non-vide muni de deux lois de composition interne $+$ et $\times$.
     
     On dit que $(K,+,\times)$ est un \textbf{corps} si :
     \begin{enumerate}
@@ -756,5 +756,196 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     $$(K,+,\times) \text{ est un corps} \iff \begin{cases}(K,+) \text{ est un groupe abélien}\\(K\setminus\{0_K\},\times) \text{ est un groupe}\\ \times \text{ est distributive par rapport à } + \text{ dans } K\end{cases}$$
 \end{remark}
 
+\begin{example}
+    \begin{enumerate}
+        \item $(\Q,+,\times)$, $(\R,+,\times)$ et $(\C,+,\times)$ sont des corps commutatifs.
+        \item $(\Z/n\Z,+,\dot\times)$ est un corps si et seulement si $n$ est un nombre premier, parce que dans ce cas, $U_{\Z/n\Z} = \Z/n\Z\setminus\{\overline{0}\}$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Sous-corps]
+    Soient $(K,+,\times)$ un corps et $L$ une partie de $K$. On dit que $L$ est un \textbf{sous-corps} de $K$ si et seulement si $L$ est un sous-anneau de $K$ et que $\forall x \in L\setminus\{0_L\}, x^{-1}\in L$.
+
+    Si $L$ est un sous-corps de $K$, alors cela équivaut à dire que $K$ est une extension de $L$.
+\end{definition}
+
+\begin{example}
+    On pose $\Q[\sqrt{2}] = \{a + b\sqrt{2} \tqp (a,b) \in \Q^2\}$.
+
+    $\Q[\sqrt{2}]$ est un sous-corps de $(\R,+,\times)$.
+\end{example}
+
+\begin{definition}[Idéal d'un anneau commutatif]
+    Soit $A$ un anneau commutatif. Soit $I$ une partie de $A$.
+
+    On dit que $I$ est un \textbf{idéal} de $A$ lorsque :
+
+    $$\begin{cases}
+    I \subset A~~(0)~~\text{ rappel }\\
+    I \text{ est un sous-groupe de }(A,+)~~(1)\\
+    \forall a \in A, \forall x \in I, a \cdot x \in I \text{ i.e. } AI \subset I~~(2)
+    \end{cases}$$
+    
+\end{definition}
+
+\begin{remark}
+    Si $I$ est un idéal de $A$ tel que $1_A \in I$, alors $I = A$, parce que pour tout $a \in A$, on a $a \cdot 1_A = a \in I$ d'après la condition (2).
+
+    Les sous-groupes triviaux de $(A,+)$, à savoir $\{0_A\}$ et $A$ sont toujours des idéaux de l'anneau commutatif $A$.
+\end{remark}
+
+\begin{exercise}
+    Soit $(K,+,\times)$ un corps commutatif. Montrer que les seuls idéaux de $K$ sont $\{0_K\}$ et $K$.
+
+    \textbf{Solution :}
+
+    Il est clair que $\{0_K\}$ et $K$ sont des idéaux de $K$.
+
+    Soit $I$ un idéal de $K$ tel que $I \ne \{0_K\}$. Donc, $\exists a \in I$ tel que $a \ne 0_K$. Montrons que $I = K$.
+
+    \begin{itemize}
+        \item On sait que $I \ne \{0_K\}$, donc $\exists x \in K$ tel que $x \ne 0_K$ et $x \in I$.
+        \item Donc $x\cdot x^{-1} = 1_K \in I$ (car $I$ est stable par la multiplication par un élément de $K$).
+        \item Alors, d'après la remarque précédente, on a $I = K$.
+    \end{itemize}
+\end{exercise}
+
+\begin{property}[Idéal engendré par un élément]
+    Soit $(A,+,\times)$ un anneau commutatif et $x \in A$. Alors, l'ensemble $xA = \{a \times x \tq a \in A\}$ est le plus petit idéal de $A$ contenant $x$.
+
+    \textbf{Cet idéal est appelé l'idéal engendré par $x$.}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Montrons que $xA$ est un idéal de $A$.
+            \2 On a clairement $xA \subset A$.
+            \2 Montrons que $xA$ est un sous-groupe de $(A,+)$.
+                \3 $0_A = 0_A \times x \in xA$, donc $xA$ est non-vide.
+                \3 Soient $u,v \in xA$. Donc, $\exists a,b \in A$ tels que $u = a \times x$ et $v = b \times x$.
+                \3 Donc, $u - v = (a - b) \times x \in xA$ (car $(A,+)$ est un groupe).
+            \2 Donc, $xA$ est un sous-groupe de $(A,+)$.
+            \2 Montrons que $\forall a \in A, \forall y \in xA, a \times y \in xA$.
+                \3 Soit $a \in A$ et $y \in xA$. Donc, $\exists b \in A$ tel que $y = b \times x$.
+                \3 Donc, $a \times y = a \times (b \times x) = (a \times b) \times x \in xA$ (car $(A,\times)$ est associative).
+            \2 Donc, $\forall a \in A, \forall y \in xA, a \times y \in xA$.
+        \1 On en déduit que $xA$ est un idéal de $A$.
+        \1 Montrons que $xA$ est le plus petit idéal de $A$ contenant $x$. Nous allons, pour cela, montrer que pour tout idéal $I$ de $A$ contenant $x$, on a $xA \subset I$.
+            \2 Soit $I$ un idéal de $A$ tel que $x \in I$.
+            \2 Soit $y \in xA$. Donc, $\exists a \in A$ tel que $y = a \times x$.
+            \2 Or, comme $x \in I$ et que $I$ est stable par la multiplication par un élément de $A$, on a $y = a \times x \in I$. Cela veut dire que $xA \subset I$.
+        \1 On en déduit que $xA$ est le plus petit idéal de $A$ contenant $x$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    La réciproque de l'exercice précédent est vraie : si tous les idéaux d'un anneau commutatif $A$ sont triviaux, alors $A$ est un corps commutatif.
+\end{remark}
+
+\begin{proof}
+    Soit $x \in A\setminus\{0_A\}$. Montrons que $x$ est inversible dans $A$.
+
+    On sait que $xA$ est un idéal de $A$.
+
+    Donc $xA = \{0_A\}$ ou $xA = A$.
+
+    Or, $x \in xA$ et $x \ne 0_A$, donc $xA \ne \{0_A\}$.
+
+    Donc, $xA = A$.
+
+    On a donc $1_A \in xA$, sachant que $1_A\in A$.
+
+    Donc $\exists y \in A$ tel que $1_A = y \times x$.
+
+    Donc $x$ est inversible dans $A$.
+
+    On en déduit que $(A,+,\times)$ est un corps commutatif.
+\end{proof}
+
+\begin{example}
+    Les idéaux de $\Z/4\Z$ sont :
+    \begin{itemize}
+        \item $\{\overline{0}\}$,
+        \item $\Z/4\Z$,
+        \item $\{\overline{0}, \overline{2}\}$ (idéal engendré par $\overline{2}$). D'après le théorème de Lagrange, on sait que le cardinal de cet idéal divise $4$, car tout idéal est un sous-groupe de $(\Z/4\Z,+)$. L'idéal ne peut pas contenir $\overline{1}$ ou $\overline{3}=\overline{-1}$, sinon il serait égal à $\Z/4\Z$. Donc, le seul idéal de cardinal $2$ est $\{\overline{0}, \overline{2}\}$.
+    \end{itemize}
+\end{example}
+
+\begin{property}
+    Soient $(A,+,\times)$ un anneau commutatif et $I,J$ deux idéaux de $A$. Alors,$I\cap J$ et $I + J = \{x + y \tq (x,y) \in I \times J\}$ sont des idéaux de $A$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Montrons que $I \cap J$ et $I+J$ sont des sous-groupes de $(A,+)$.
+            \2 $I\cap J$ est clairement un sous-groupe de $(A,+)$ (propriétés d'intersection).
+            \2 Montrons que $I + J$ est un sous-groupe de $(A,+)$.
+                \3 $0_A = 0_A + 0_A \in I + J$, donc $I + J$ est non-vide.
+                \3 Soient $u,v \in I + J$. Donc, $\exists (a,b), (c,d) \in I \times J$ tels que $u = a + b$ et $v = c + d$.
+                \3 Donc, $u - v = (a - c) + (b - d) \in I + J$ (car $I$ et $J$ sont des sous-groupes de $(A,+)$).
+            \2 Donc, $I + J$ est un sous-groupe de $(A,+)$.
+        \1 Montrons que $\forall a \in A, \forall x \in I \cap J, a \times x \in I \cap J$ et $\forall a \in A, \forall y \in I + J, a \times y \in I + J$.
+            \2 Soit $a \in A$ et $x \in I \cap J$. Donc, $x \in I$ et $x \in J$.
+            \2 Donc, $a \times x \in I$ (car $I$ est un idéal de $A$) et $a \times x \in J$ (car $J$ est un idéal de $A$).
+            \2 Donc, $a \times x \in I \cap J$.
+            \2 Soit $a \in A$ et $y \in I + J$. Donc, $\exists (b,c) \in I \times J$ tel que $y = b + c$.
+            \2 Donc, $a \times y = a \times (b + c) = (a \times b) + (a \times c) \in I + J$ (car $I$ et $J$ sont des idéaux de $A$).
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    Dans $(\Z,+,\times)$, on a $2\Z + 3\Z = n\Z$, où $n = \pgcd(2,3) = 1$ (voir chapitre suivant).
+
+    Donc, $2\Z + 3\Z = \Z$.
+\end{example}
+
+\chapter{Morphismes}
+
+\section{Morphismes de groupes}
+
+\begin{definition}
+    \begin{outline}
+        \1 Morphismes et isomorphismes de groupes
+        \2 Soient $(G,*)$ et $(G',T)$ deux groupes et $f:G\to G'$ une application. On dit que $f$ est un \textbf{morphisme de groupes} si :
+        $$\forall x,y \in G, f(x * y) = f(x) T f(y)$$
+        \2 Si, de plus, $f$ est bijective, on dit que $f$ est un \textbf{isomorphisme de groupes}, et on écrit dans ce cas $G \cong G'$. On note $\Isom(G,G')$ l'ensemble des isomorphismes de groupes de $G$ vers $G'$.
+        \1 Endomorphismes et automorphismes de groupes
+        \2 Si $f:G\to G$, avec $(G,*)$ un groupe et $f$ un morphisme de groupes, on dit que $f$ est un \textbf{endomorphisme} de $G$. Attention : les lois de compositions sont les mêmes dans le domaine et le codomaine.
+        % pas sur de la remarque :/
+        \2 Si, de plus, $f$ est bijective, on dit que $f$ est un \textbf{automorphisme} de $G$. On note $\Aut(G)$ l'ensemble des automorphismes de $G$.
+    \end{outline}
+\end{definition}
+
+\begin{example}
+    Soient $(\R_+^*,\times)$ et $(\R,+)$ deux groupes. L'application $\begin{cases}f : \R_+^* \to \R\\ x \mapsto \ln(x)\end{cases}$ est un isomorphisme de groupes entre $(\R_+^*,\times)$ et $(\R,+)$. On a en effet :
+    $$\forall (x,y) \in (\R_+^*)^2, f(x \times y) = \ln(x \times y) = \ln(x) + \ln(y) = f(x) + f(y)$$
+    De plus, $f$ est bijective, avec $f^{-1} : \R \to \R_+^*, y \mapsto e^y$.
+
+    Soit $f: \Z \to \Z/n\Z, k \mapsto \overline{k}$. C'est un morphisme de groupes de $(\Z,+)$ vers $(\Z/n\Z,+)$. Il est surjectif (surjectif canonique entre $\Z$ et $\Z/n\Z$) mais pas injectif.
+
+    Soit $(G,\cdot)$ un groupe et $a\in G$. L'application $f:\begin{cases}(\Z,+)\to(\angles{a},\cdot)\\ k \mapsto a^k\end{cases}$ est un morphisme de groupes. Il est surjectif par définition de $\angles{a}$.
+\end{example}
+
+\begin{property}
+    Soient $f:(G,*)\to(G',T)$ un morphisme de groupes et $e_G, e_{G'}$ les éléments neutres de $G$ et $G'$.
+    \begin{enumerate}
+        \item $f(e_G) = e_{G'}$.
+        \item SI $H$ est un sous-groupe de $(G,*)$, alors $f(H)=\{f(h) \tq h \in H\}$ est un sous-groupe de $(G',T)$.
+        \item Si $K$ est un sous-groupe de $(G',T)$, alors $f^{-1}(K) = \{g \in G \tq f(g) \in K\}$ est un sous-groupe de $(G,*)$.
+    \end{enumerate}
+\end{property}
+
+\begin{attention}
+    Il ne faut pas confondre les notations $f^{-1}(y)$ et $f^{-1}(\{y\})$. La première notation désigne l'antécédent de $y$ par $f$, tandis que la deuxième notation désigne l'image réciproque de l'ensemble $\{y\}$ par $f$. La première notation n'a de sens que si $f$ est bijective, tandis que la deuxième notation a toujours un sens, elle est définie pour toute application $f$ ; $x \in f^{-1}(K) \iff f(x) \in K$.
+\end{attention}
+
+\begin{proof}
+    \begin{outline}
+        \1 Preuve du premier point
+            \2 On a $f(e_G) = f(e_G * e_G) = f(e_G) T f(e_G)$.
+            \2 En ``simplifiant'' $f(e_G)$ des deux côtés, on obtient $f(e_G) = e_{G'}$.
+        
+    \end{outline}
+\end{proof}
 
 \end{document}
