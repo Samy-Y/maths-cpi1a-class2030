@@ -28,8 +28,32 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #333;
+        }
+
+        /* Styles pour la section commits (InfoContainer) modifiés pour l'élégance en haut de page */
+        .infoContainer {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px; /* Espace avant les chapitres */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Légère ombre pour détacher du fond */
+            border-left: 5px solid #0066cc; /* Touche de couleur pour le design */
+        }
+        
+        .infoContainer h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #0066cc;
+        }
+
+        /* Nouveaux styles pour la barre de contrôle (tri) */
+        .controls {
+            display: flex;
+            justify-content: flex-end; /* Aligner le bouton à droite */
+            margin-bottom: 15px;
+            align-items: center;
         }
 
         .chapters {
@@ -44,6 +68,13 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            border-radius: 4px; /* Coins légèrement arrondis */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .chapter:hover {
+            transform: translateY(-2px); /* Petit effet au survol */
         }
 
         .chapter-name {
@@ -76,24 +107,39 @@
         .chapter a:last-of-type:hover {
             background-color: #5a6268;
         }
+        
         button {
-            margin-top: 10px;
-            padding: 10px 15px;
+            padding: 8px 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
             font-family: 'Source Sans 3', Arial, sans-serif;
-            font-size: large;
+            font-size: 14px;
+            margin-right: 5px;
+            background-color: #fff;
+            color: #333;
+            transition: background 0.2s;
         }
         button:hover {
             background-color: #e0e0e0;
         }
-        .infoContainer {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            margin-top: 20px;
+
+        /* Style spécifique pour le bouton de tri */
+        #sort-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        #sort-btn:hover {
+            background-color: #555;
+        }
+
+        /* Pour le conteneur des commits */
+        #commits-container p {
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -101,75 +147,125 @@
     <div class="container">
         <h1>MATHS CPI1A - Cours PDF</h1>
         
-        <div class="chapters">
-            <div class="chapter">
+        <!-- SECTION COMMITS DÉPLACÉE ICI -->
+        <div class="infoContainer">
+            <h2>Dernières modifications (GitHub)</h2>
+            <div id="commits-container">
+                <p>Chargement...</p>
+            </div>
+            <div style="margin-top: 15px;">
+                <button id="load-more-btn" onclick="fetchLastCommits(false)">Charger plus</button>
+                <button onclick="fetchLastCommits(true)">Rafraîchir</button>
+                <button onclick="window.open('https://github.com/Samy-Y/maths-cpi1a-class2030', '_blank')">Voir sur GitHub</button>
+            </div>
+        </div>
+
+        <!-- ZONE DE CONTRÔLES POUR LE TRI -->
+        <div class="controls">
+            <button id="sort-btn" onclick="toggleSortOrder()">
+                <span>⇅</span> Trier : Plus récents d'abord
+            </button>
+        </div>
+
+        <div class="chapters" id="chapters-grid">
+            <!-- Les chapitres -->
+            <div class="chapter" data-id="1">
                 <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
                 <a href="./250910 CH01.pdf" target="_blank">Voir le PDF</a>
                 <a href="./250910 CH01.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="2">
                 <span class="chapter-name">Chapitre 2 : Nombres complexes</span>
                 <a href="./250924 CH02.pdf" target="_blank">Voir le PDF</a>
                 <a href="./250924 CH02.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="3">
                 <span class="chapter-name">Chapitre 3 : Nombres réels </span>
                 <a href="./251001 CH03.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251001 CH03.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="4">
                 <span class="chapter-name">Chapitre 4 : Suites numériques </span>
                 <a href="./251009 CH04.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251009 CH04.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="5">
                 <span class="chapter-name">Chapitre 5 : Équations différentielles </span>
                 <a href="./251022 CH05.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251022 CH05.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="6">
                 <span class="chapter-name">Chapitre 6 : Limites et continuité </span>
                 <a href="./251113 CH06.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251113 CH06.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="7">
                 <span class="chapter-name">Chapitre 7 : Dérivation </span>
                 <a href="./251128 CH07.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251128 CH07.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="8">
                 <span class="chapter-name">Chapitre 8 : Intégration </span>
                 <a href="./251212 CH08.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251212 CH08.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="9">
                 <span class="chapter-name">Chapitre 9 : Analyse asymptotique </span>
                 <a href="./251219 CH09.pdf" target="_blank">Voir le PDF</a>
                 <a href="./251219 CH09.tex" target="_blank">Voir le code source</a>
             </div>
-            <div class="chapter">
+            <div class="chapter" data-id="10">
                 <span class="chapter-name">Chapitre 10 : Structures algébriques </span>
                 <a href="./260109 CH10.pdf" target="_blank">Voir le PDF</a>
                 <a href="./260109 CH10.tex" target="_blank">Voir le code source</a>
             </div>
         </div>
     </div>
-    <div class="infoContainer">
-        <h2>Détails des derniers commits</h2>
-        <div id="commits-container">
-            <p>Chargement...</p>
-        </div>
-        <button onclick="location.reload();">Rafraîchir les données</button>
-        <button onclick="window.open('https://github.com/Samy-Y/maths-cpi1a-class2030', '_blank')">Voir le dépôt GitHub</button>
-    </div>
+
 </body>
     <script>
         const GITHUB_USER = 'Samy-Y'; 
-        const GITHUB_REPO = 'maths-cpi1a-class2030'; 
-        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=3`;
+        const GITHUB_REPO = 'maths-cpi1a-class2030';
+        let currentPage = 1; 
+        const PER_PAGE = 3; 
+        
+        // --- LOGIQUE DU TRI ---
+        let isAscending = true; // Ordre par défaut (1 vers 10)
 
-        async function fetchLastCommits() {
+        function toggleSortOrder() {
+            const grid = document.getElementById('chapters-grid');
+            const chapters = Array.from(grid.children);
+            const sortBtn = document.getElementById('sort-btn');
+
+            // On inverse simplement la liste actuelle des enfants
+            chapters.reverse().forEach(chapter => grid.appendChild(chapter));
+
+            isAscending = !isAscending;
+
+            // Mise à jour du texte du bouton
+            if (isAscending) {
+                sortBtn.innerHTML = '<span>⇅</span> Trier : Plus récents d\'abord';
+            } else {
+                sortBtn.innerHTML = '<span>⇅</span> Trier : Plus anciens d\'abord';
+            }
+        }
+        // ----------------------
+
+        async function fetchLastCommits(reset = true) {
             const container = document.getElementById('commits-container');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            if (reset) {
+                currentPage = 1;
+                container.innerHTML = '<p>Chargement des commits...</p>';
+                loadMoreBtn.style.display = 'inline-block';
+            } else {
+                loadMoreBtn.textContent = 'Chargement...';
+                loadMoreBtn.disabled = true;
+            }
+
+            const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=${PER_PAGE}&page=${currentPage}`;
+
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) {
@@ -177,35 +273,57 @@
                 }
                 
                 const commits = await response.json();
-                if (commits && commits.length > 0) {
-                    container.innerHTML = ''; // Clear loading message
+                
+                if (reset) {
+                    container.innerHTML = '';
+                }
 
+                if (commits && commits.length > 0) {
                     commits.forEach((item, index) => {
                         const commitData = item.commit;
-                        const date = new Date(commitData.author.date).toLocaleString();
+                        const date = new Date(commitData.author.date).toLocaleDateString('fr-FR', { 
+                            day: 'numeric', month: 'long', hour: '2-digit', minute:'2-digit'
+                        });
                         const message = commitData.message;
                         
                         const commitElement = document.createElement('div');
-                        commitElement.style.borderBottom = index < commits.length - 1 ? '1px solid #eee' : 'none';
-                        commitElement.style.paddingBottom = '10px';
-                        commitElement.style.marginBottom = '10px';
+                        // Style inline pour les éléments de commit
+                        commitElement.style.borderLeft = '3px solid #ddd'; 
+                        commitElement.style.paddingLeft = '10px';
+                        commitElement.style.marginBottom = '12px';
                         
                         commitElement.innerHTML = `
-                            <p style="margin-bottom: 5px;"><strong>Message :</strong> ${message}</p>
-                            <p style="color: #666; font-size: 0.9em; margin: 0;">Date : ${date}</p>
+                            <p style="margin-bottom: 2px; color: #333;"><strong>${message}</strong></p>
+                            <p style="color: #888; font-size: 0.85em; margin: 0;">${date}</p>
                         `;
                         container.appendChild(commitElement);
                     });
+                    
+                    currentPage++; 
                 } else {
-                    container.textContent = 'Aucun commit trouvé.';
+                    if(reset) {
+                        container.textContent = 'Aucun commit trouvé.';
+                    } else {
+                        loadMoreBtn.style.display = 'none';
+                        const endMsg = document.createElement('p');
+                        endMsg.textContent = "Aucun autre commit ancien.";
+                        endMsg.style.fontStyle = "italic";
+                        endMsg.style.color = "#888";
+                        endMsg.style.fontSize = "0.9em";
+                        container.appendChild(endMsg);
+                    }
                 }
 
             } catch (error) {
                 console.error("Error fetching commit data:", error);
-                container.textContent = 'Échec du chargement des données des commits.';
+                if (reset) container.textContent = 'Impossible de charger l\'historique GitHub.';
+            } finally {
+                loadMoreBtn.textContent = 'Charger plus';
+                loadMoreBtn.disabled = false;
             }
         }
 
-        fetchLastCommits();
+        // Appel initial avec reset = true
+        fetchLastCommits(true);
     </script>
 </html>
