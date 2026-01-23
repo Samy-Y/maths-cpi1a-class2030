@@ -894,7 +894,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{proof}
 
 \begin{example}
-    Dans $(\Z,+,\times)$, on a $2\Z + 3\Z = n\Z$, où $n = \pgcd(2,3) = 1$ (voir chapitre suivant).
+    Dans $(\Z,+,\times)$, on a $2\Z + 3\Z = n\Z$, où $n = \pgcd 23 = 1$ (voir chapitre suivant).
 
     Donc, $2\Z + 3\Z = \Z$.
 \end{example}
@@ -927,9 +927,10 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{example}
 
 \begin{property}
-    Soient $f:(G,*)\to(G',T)$ un morphisme de groupes et $e_G, e_{G'}$ les éléments neutres de $G$ et $G'$.
+    Soient $f:(G,*)\to(G',T)$ un morphisme de groupes et $e, e'$ les éléments neutres de $G$ et $G'$.
     \begin{enumerate}
-        \item $f(e_G) = e_{G'}$.
+        \item $f(e) = e'$.
+        \item $\parens{f(x)}^{-1} = f(x^{-1})$, pour tout $x \in G$.
         \item SI $H$ est un sous-groupe de $(G,*)$, alors $f(H)=\{f(h) \tq h \in H\}$ est un sous-groupe de $(G',T)$.
         \item Si $K$ est un sous-groupe de $(G',T)$, alors $f^{-1}(K) = \{g \in G \tq f(g) \in K\}$ est un sous-groupe de $(G,*)$.
     \end{enumerate}
@@ -942,10 +943,185 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{proof}
     \begin{outline}
         \1 Preuve du premier point
-            \2 On a $f(e_G) = f(e_G * e_G) = f(e_G) T f(e_G)$.
-            \2 En ``simplifiant'' $f(e_G)$ des deux côtés, on obtient $f(e_G) = e_{G'}$.
-        
+            \2 On a $f(e) = f(e * e) = f(e) T f(e)$.
+            \2 En ``simplifiant'' $f(e)$ des deux côtés, on obtient $f(e) = e'$.
+        \1 Preuve du quatrième point
+            \2 On a $f^{-1}(K) = \{x\in G \tq f(x) \in K\} \subset G$.
+            \2 Donc $x^{-1} \in f^{-1}(K) \iff f(x) \in K$.
+            \2 Montrons que $f^{-1}(K)$ est non-vide.
+                \3 On a $e' \in K$ (car $K$ est un sous-groupe de $(G',T)$).
+                \3 Donc, $f(e) = e' \in K$, donc $e \in f^{-1}(K)$.
+            \2 Soient $x,y \in f^{-1}(K)$. Montrons que $x * y^{-1} \in f^{-1}(K)$.
+                \3 On a $f(x*y^{-1}) = f(x) T f(y^{-1}) = f(x) T \parens{f(y)}^{-1}$ (d'après le deuxième point).
+                \3 Or, $f(x) \in K$ et $f(y) \in K$ (car $x,y \in f^{-1}(K)$).
+                \3 Donc, $f(x) T \parens{f(y)}^{-1} \in K$ (car $K$ est un sous-groupe de $(G',T)$).
+                \3 Donc, $f(x*y^{-1}) \in K$, donc $x * y^{-1} \in f^{-1}(K)$.
+            \2 Donc, $f^{-1}(K)$ est un sous-groupe de $(G,*)$.
     \end{outline}
 \end{proof}
+\todo{recop 2,3}
+
+\begin{definition}[Noyau et Image]
+    Soit $f:(G,*)\to(G',T)$ un morphisme de groupes, et $e$ l'élément neutre de $*$ dans $G$, et $e'$ l'élément neutre de $T$ dans $G'$.
+
+    \begin{itemize}
+        \item On appelle \textbf{noyau} de $f$ l'ensemble $\Ker(f) = f^{-1}(\{e'\}) = \{x \in G \tq f(x) = e'\}$. La notation $\Ker(f)$ vient de l'anglais \textit{kernel} (noyau). $e$ appartient toujours à $\Ker(f)$, par défaut. On sait que $\Ker(f)$ est un sous-groupe de $(G,*)$ (propriété précédente).
+        \item On appelle \textbf{image} de $f$ l'ensemble $\Imf(f) = f(G) = \{f(x) \tq x \in G\}$. On sait que $\Imf(f)$ est un sous-groupe de $(G',T)$ (propriété précédente).
+    \end{itemize}
+\end{definition}
+
+\begin{property}
+    Soient $f:(G,*)\to(G',T)$ un morphisme de groupes et $e, e'$ les éléments neutres de les lois $*$ et $T$ dans $G$ et $G'$ (respectivement).
+    
+    $f$ est injectif si et seulement si $\Ker(f) = \{e\}$.
+
+    $f$ est surjectif si et seulement si $\Imf(f) = G'$.
+\end{property}
+
+\begin{attention}
+    La propriété précédente est très importante. Elle permet de montrer l'injectivité d'un morphisme de groupes en étudiant uniquement son noyau, ce qui est souvent plus simple.
+\end{attention}
+
+\begin{proof}
+    \begin{outline}[enumerate]
+        \1 Démonstration de la propriété liée à l'injectivité.
+            \2 $\implies$ Démonstration dans le sens direct.
+                \3 Supposons que $f$ est injectif.
+                \3 Soit $x \in \Ker(f)$. Donc, $f(x) = e'$.
+                \3 Or, $f(e) = e'$ (d'après la première propriété sur les morphismes de groupes).
+                \3 Donc, par injectivité de $f$, on a $x = e$.
+                \3 Donc, $\Ker(f) \subset \{e\}$.
+                \3 Comme $e \in \Ker(f)$, on a $\{e\} \subset \Ker(f)$.
+                \3 Donc, $\Ker(f) = \{e\}$.
+            \2 $\impliedby$ Démonstration dans le sens réciproque.
+                \3 Supposons que $\Ker(f) = \{e\}$.
+                \3 Soient $x,y \in G$ tels que $f(x) = f(y)$.
+                \3 Alors, $f(x) T (f(y))^{-1} = e'$.
+                \3 Donc, $f(x * y^{-1}) = e'$.
+                \3 Donc, $x * y^{-1} \in \Ker(f)$.
+                \3 Par hypothèse, $\Ker(f) = \{e\}$, donc $x * y^{-1} = e$.
+                \3 Donc, $x = y$.
+                \3 Ainsi, $f$ est injectif.
+        \1 Démonstration de la propriété liée à la surjectivité.
+            \2 Si $f$ est surjectif, alors (équivalence $\iff$) par définition de la surjectivité, on a $f(G) = G'$, ce qui équivaut à dire que $\Imf(f) = G'$. L'équivalence est donc démontrée.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    $$f:\begin{cases}
+    (\R,+)\to(\Uset,\times)\\
+    \theta \mapsto e^{i\theta}
+    \end{cases}$$
+
+    \begin{itemize}
+        \item On a $\forall \theta,\theta' \in \R, f(\theta + \theta') = e^{i(\theta + \theta')} = e^{i\theta} \times e^{i\theta'} = f(\theta) \times f(\theta')$.
+
+        \item Donc $f$ est bel et bien un morphisme de groupes.
+
+        \item On a $\forall z \in \Uset, \exists \theta \in \R, z e^{i\theta}=f(\theta)$, donc $f$ est surjectif, ce qui équivaut à dire que $f(\R)=\Uset$.
+
+        \item On a $\Ker(f) = \{\theta \in \R \tq e^{i\theta} = 1\} = \{2k\pi \tq k \in \Z\}=2\pi\Z\ne\{0\}$.
+
+        \item Donc $f$ n'est pas injectif.
+    \end{itemize}
+\end{example}
+
+\begin{property}
+    Soit $(G,*)$ un groupe. Alors, $(\Aut(G),\circ)$ est un groupe (où $\circ$ est la composition d'applications).
+\end{property}
+
+\begin{proof}
+    On remarque que $\Aut(G) \subset S_G$, où $S_G$ est l'ensemble des applications bijectives de $G$ dans $G$.
+
+    Montrons alors que $\Aut(G)$ est un sous-groupe de $(S_G,\circ)$.
+
+    \begin{itemize}
+        \item On sait déjà que $\Aut(G) \subset S_G$.
+        \item L'application identité $\Id_G$ est un automorphisme de $G$, donc $\Id_G \in \Aut(G)$, donc $\Aut(G)$ est non-vide.
+        \item Soient $f,g \in \Aut(G)$.
+        \item Comme $f$ et $g$ sont bijectives, $f \circ g$ est bijective.
+        \item $\forall x,y \in G, (f \circ g)(x * y) = f(g(x * y)) = f(g(x) * g(y)) = f(g(x)) * f(g(y)) = (f \circ g)(x) * (f \circ g)(y)$.
+        \item Donc $f \circ g \in \Aut(G)$ (1).
+        \item Soit $f \in \Aut(G)$. Montrons que $f^{-1} \in \Aut(G)$.
+        \item Comme $f$ est bijective, $f^{-1}$ est bijective.
+        \item Soient $x,y \in G$. On a $f^{-1}(x * y) = f^{-1}(f(f^{-1}(x)) * f(f^{-1}(y))) = f^{-1}(f(f^{-1}(x) * f^{-1}(y))) = f^{-1}(x) * f^{-1}(y)$.
+        \item Donc, $f^{-1} \in \Aut(G)$ (2).
+        \item D'après (1) et (2), on en déduit que $\Aut(G)$ est un sous-groupe de $(S_G,\circ)$.
+        \item Donc, $(\Aut(G),\circ)$ est un groupe.
+    \end{itemize}
+\end{proof}
+
+\begin{attention}
+    Dans la preuve précédente, on a utilisé la définition propre d'un sous-groupe (montrer que l'ensemble est non-vide, stable par l'opération et par l'inversion) et pas sa caractérisation (montrer que pour tous $x,y$ dans l'ensemble, $x*y^{-1}$ est dans l'ensemble). En effet, il n'est pas évident de montrer que pour tous $f,g \in \Aut(G)$, $f \circ g^{-1} \in \Aut(G)$.
+\end{attention}
+
+\begin{exercise}
+    Soit $(G,*)$ un groupe d'élément neutre $e$.
+
+    \begin{enumerate}
+        \item Montrer que $\forall a \in G$, l'application $f_a : \begin{cases}G \to G\\ x \mapsto a * x * a^{-1}\end{cases}$ est un automorphisme de $G$ (appelé \textbf{automorphisme intérieur} de $G$).
+        \item On note $\Intr(G) = \{f_a \tq a \in G\}$. Montrer que $(\Intr(G),\circ)$ est un groupe.
+        \item On pose $\varphi : \begin{cases}G \to \Intr(G)\\ a \mapsto f_a\end{cases}$\\Montrer que $\varphi$ est un morphisme de groupes.
+        \item Déterminer $\Ker(\varphi)$.
+    \end{enumerate}
+\end{exercise}
+
+\section{Morphismes d'anneaux}
+
+\begin{definition}[Morphisme d'anneaux]
+    Soient $(A,+,\times)$ et $(A',\oplus,\odot)$ deux anneaux. On dit que $f:A\to A'$ est un \textbf{morphisme d'anneaux} si :
+    \begin{enumerate}
+        \item $\forall x,y \in A, f(x + y) = f(x) \oplus f(y)$,
+        \item $\forall x,y \in A, f(x \times y) = f(x) \odot f(y)$,
+    \end{enumerate}
+    Et si, de plus, $f$ est bijective, on dit que $f$ est un \textbf{isomorphisme d'anneaux}.
+\end{definition}
+
+\begin{attention}
+    Dans le cours manuscrit, la notation pour la loi de $A'$ est la même que pour celle de $A$. Ici, on utilise des notations différentes pour éviter toute confusion. Ce choix dans le cours manuscrit a été fait pour alléger les notations et continuer à utiliser les notations habituelles.
+\end{attention}
+
+\begin{remark}
+    Si $f:A\to A'$ est un morphisme d'anneaux, alors $f:(A,+)\to(A',\oplus)$ est un morphisme de groupes.
+\end{remark}
+
+\begin{property}
+    Soit $f:A\to A'$ un morphisme d'anneaux. Alors :
+    \begin{enumerate}
+        \item L'image de l'image réciproque par $f$ d'un sous-anneau est un sous-anneau.
+        \item Si $A$ et $A'$ sont des anneaux commutatifs, que $I$ est un idéal de $(A,+,\times)$, et que $f$ est surjectif, alors $f(I)$ est un idéal de $(A',\oplus,\odot)$.
+        \item Si $J$ est un idéal de $(A',\oplus,\odot)$, alors $f^{-1}(J)$ est un idéal de $(A,+,\times)$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Preuve du premier point
+            \2 Elle est analogue à la preuve du troisième point de la propriété sur les morphismes de groupes.
+        \1 Preuve du deuxième point
+            \2 Supposons que $f$ est surjectif. Soit $I$ un idéal de $A$.
+            \2 On a $f(I)\subset f(A) \subset A'$.
+            \2 On a $I$ est un sous-groupe de $(A,+)$, cela implique que $f(I)$ est un sous-groupe de $(A',\oplus)$, car $f$ est un morphisme d'anneaux, donc en particulier un morphisme de groupes.
+            \2 Soient $a\in A', y\in f(I)$. Montrons que $ay \in f(I)$.
+                \3 Comme $y \in f(I)$, alors $\exists x \in I$ tel que $y = f(x)$.
+                \3 Comme $f$ est surjectif, $\exists b \in A$ tel que $f(b) = a$.
+                \3 Donc, $a y = f(b) \odot f(x) = f(b \times x) \in f(I)$ (car $f$ est un morphisme d'anneaux), sachant que $b \times x \in I$ (car $I$ est un idéal de $A$).
+            \2 Donc, $f(I)$ est un idéal de $(A',\oplus,\odot)$.
+        \1 Preuve du troisième point
+            \2 Soit $J$ un idéal de $A'$.
+            \2 On a $f^{-1}(J)$ est un sous-groupe de $(A,+)$ (propriété sur les morphismes de groupes).
+            \2 Soient $a \in A, y \in f^{-1}(J)$. Montrons que $a \times y \in f^{-1}(J)$.
+                \3 Comme $y \in f^{-1}(J)$, alors $f(y) \in J$.
+                \3 Donc, $f(a \times y) = f(a) \odot f(y) \in J$ (car $f$ est un morphisme d'anneaux), sachant que $f(y) \in J$ et que $J$ est un idéal de $A'$.
+                \3 Donc, $a \times y \in f^{-1}(J)$.
+            \2 Donc, $f^{-1}(J)$ est un idéal de $(A,+,\times)$.
+    \end{outline}
+\end{proof}
+
+\begin{consequence}
+    Soit $f:A\to A'$ un morphisme d'anneaux. Alors, $\Ker(f)=f^{-1}(\{0_{A'}\})$ est un idéal de $(A,+,\times)$.
+
+    Si $f$ est injectif, cela équivaut à dire que $\Ker(f) = \{0_A\}$.
+\end{consequence}
 
 \end{document}
