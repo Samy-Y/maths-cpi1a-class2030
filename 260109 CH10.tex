@@ -1064,6 +1064,47 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
         \item On pose $\varphi : \begin{cases}G \to \Intr(G)\\ a \mapsto f_a\end{cases}$\\Montrer que $\varphi$ est un morphisme de groupes.
         \item Déterminer $\Ker(\varphi)$.
     \end{enumerate}
+
+    \textbf{Solution :}
+    \begin{outline}
+        \1 Preuve du premier point
+            \2 Soient $x,y \in G$.
+            \2 On a $f_a(x * y) = a * (x * y) * a^{-1} = (a * x) * (y * a^{-1}) = (a * x * a^{-1}) * (a * y * a^{-1}) = f_a(x) * f_a(y)$.
+            \2 Donc, $f_a$ est un morphisme de groupes.
+            \2 Montrons que $f_a$ est bijective.
+                \3 Soit $y \in G$. Montrons qu'il existe un unique $x \in G$ tel que $f_a(x) = y$.
+                \3 On a $f_a(x) = y \iff a * x * a^{-1} = y \iff x = a^{-1} * y * a$.
+                \3 Donc, pour tout $y \in G$, il existe un unique $x \in G$ tel que $f_a(x) = y$.
+            \2 Donc, $f_a$ est bijective.
+            \2 On en déduit que $f_a$ est un automorphisme de $G$.
+        \1 Preuve du deuxième point
+            \2 On sait que $(G,*)$ est un groupe.
+            \2 Donc $(\Aut(G),\circ)$ est un groupe (propriété précédente).
+            \2 Montrons que $\Intr(G)$ est un sous-groupe de $(\Aut(G),\circ)$.
+                \3 On a clairement $\Intr(G) \subset \Aut(G)$.
+                \3 Montrons que $\Intr(G)$ est non-vide.
+                    \4 On a $f_e(x) = e * x * e^{-1} = x$, donc $f_e = \Id_G$.
+                    \4 Donc, $f_e \in \Intr(G)$, donc $\Intr(G)$ est non-vide.
+                \3 Soient $f_a, f_b \in \Intr(G)$. Montrons que $f_a \circ f_b^{-1} \in \Intr(G)$.
+                    \4 On a $\forall x \in G, (f_a \circ f_b^{-1})(x) = f_a(f_b^{-1}(x))$.
+                    \4 Or, $\forall x \in G, f_b^{-1}(x) = b^{-1} * x * b$ (car $f_b$ est bijective).
+                    \4 Donc, $\forall x \in G, (f_a \circ f_b^{-1})(x) = f_a(b^{-1} * x * b) = a * (b^{-1} * x * b) * a^{-1} = (a * b^{-1}) * x * (a * b^{-1})^{-1}$.
+                    \4 Donc, $f_a \circ f_b^{-1} = f_{a*b^{-1}}$.
+                    \4 (On remarque que $f_a\circ f_b = f_{a*b}$)
+                    \4 Donc, $f_a \circ f_b^{-1} \in \Intr(G)$.
+                \3 Donc, $\Intr(G)$ est un sous-groupe de $(\Aut(G),\circ)$.
+        \1 Preuve du troisième point
+            \2 Soient $a,b \in G$.
+            \2 On a $\varphi(a * b) = f_{a*b}$.
+            \2 Or, $\forall x \in G, (f_a \circ f_b)(x) = f_a(f_b(x)) = f_a(b * x * b^{-1}) = a * (b * x * b^{-1}) * a^{-1} = (a * b) * x * (a * b)^{-1} = f_{a*b}(x)$.
+            \2 Donc, $\varphi(a * b) = f_{a*b} = f_a \circ f_b = \varphi(a) \circ \varphi(b)$.
+            \2 On en déduit que $\varphi$ est un morphisme de groupes.
+        \1 Preuve du quatrième point
+            \2 On a $\Ker(\varphi) = \{a \in G \tq \varphi(a) = \Id_G\} = \{a \in G \tq f_a = \Id_G\}$.
+            \2 Donc, $\Ker(\varphi) = \{a \in G \tq \forall x \in G, a * x * a^{-1} = x\}$.
+            \2 Donc, $\Ker(\varphi) = \{a \in G \tq \forall x \in G, a * x = x * a\}$.
+            \2 On en déduit que $\Ker(\varphi)$ est le centre de $G$.
+    \end{outline}
 \end{exercise}
 
 \section{Morphismes d'anneaux}
@@ -1073,6 +1114,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     \begin{enumerate}
         \item $\forall x,y \in A, f(x + y) = f(x) \oplus f(y)$,
         \item $\forall x,y \in A, f(x \times y) = f(x) \odot f(y)$,
+        \item $f(1_A) = 1_{A'}$.
     \end{enumerate}
     Et si, de plus, $f$ est bijective, on dit que $f$ est un \textbf{isomorphisme d'anneaux}.
 \end{definition}
@@ -1119,9 +1161,124 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{proof}
 
 \begin{consequence}
-    Soit $f:A\to A'$ un morphisme d'anneaux. Alors, $\Ker(f)=f^{-1}(\{0_{A'}\})$ est un idéal de $(A,+,\times)$.
+    Soit $f:A\to A'$ un morphisme d'anneaux.
+    
+    \begin{itemize}
+        \item $\Ker(f)=f^{-1}(\{0_{A'}\})$ est un idéal de $(A,+,\times)$.
 
-    Si $f$ est injectif, cela équivaut à dire que $\Ker(f) = \{0_A\}$.
+        \item Si $f$ est injectif, cela équivaut à dire que $\Ker(f) = \{0_A\}$.
+    \end{itemize}
 \end{consequence}
+
+\begin{definition}[Caractéristique d'un anneau]
+    Soit $(A,+,\times)$ un anneau. On définit le morphisme d'anneau suivant :
+    $$f:\begin{cases}\Z\to A\\
+        n \mapsto n\cdot 1_A = \begin{cases}
+        \underbrace{1_A + \cdots + 1_A}_{n \text{ fois}}, & \text{si } n > 0\\
+        0_A, & \text{si } n = 0\\
+        \end{cases}
+    \end{cases}$$
+    \begin{outline}
+    \1 Si $f$ est injectif, alors $\Ker(f) = \{0\}$
+
+        \2 Dans ce cas, on dit que la \textbf{caractéristique} de l'anneau $A$ est $0$.
+
+        \2 On note $\Carac(A) = 0$.
+
+    \1 Si $f$ est non-injectif, c.à.d. $\Ker(f) \neq \{0\}$, alors :
+
+        \2 Comme $\Ker(f)$ est un idéal de $\Z$ (donc un sous-groupe de $(\Z,+)$), alors $\exists! c \in \N^*$ tel que $\Ker(f) = c\Z$ avec $c = \min(\{n\in\N^*\tq n\cdot1_A = 0_A\})$.
+        \2 Dans ce cas, on dit que la \textbf{caractéristique} de l'anneau $A$ est $c$.
+        \2 On note $\Carac(A) = c$.
+
+    \1 Conclusion : La caractéristique d'un anneau $A$ est :
+
+    $$\Carac(A) = \begin{cases}
+    0, & \text{si } f \text{ est injectif}\\
+    \min(\{n\in\N^*\tq n\cdot1_A = 0_A\}), & \text{sinon}
+    \end{cases}$$
+    \end{outline}
+
+\end{definition}
+\todo{démontrer que c'est un morphisme d'anneaux}
+
+\begin{proof}
+    \begin{itemize}
+        \item On pose $E=\{n\in\N^*\tq n\cdot1_A = 0_A\}$.
+
+        \item Dans le cas où $\Ker(f) \neq \{0\}$, on a $\exists n \in \Z \tq n \neq 0$ et $n\cdot 1_A = 0_A$.
+
+        \item Or $-n \in \Ker(f)$ aussi, parce que $(-n)\cdot 1_A = -(n\cdot 1_A) = -0_A = 0_A$, donc $n \in E$.
+
+        \item Donc, $E \neq \emptyset$.
+
+        \item On pose $c=\min(E)$.
+        
+        \item Montrons que $\Ker(f) = c\Z$. $\Ker(f) = \{n\in\Z \tq n\cdot 1_A = 0_A\}$.
+
+        \item On sait que $c \in \Ker(f)$, donc $c\Z \subset \Ker(f)$.
+
+        \item Soit $n \in \Ker(f)$. Donc, $n\cdot 1_A = 0_A$.
+
+        \item Par division euclidienne, on a $n = qc + r$ avec $q \in \Z$ et $r \in \{0, \ldots, c-1\}$.
+
+        \item Si $r>0$, alors $n-qc\in\N^*$.
+        \item Or $n\in\Ker(f)$ et $c\in\Ker(f)$ alors $n - qc \in \Ker(f)$ (car $\Ker(f)$ est un sous-groupe de $(\Z,+)$).
+        \item Donc, $r = n - qc \in E$.
+        \item Donc $r \ge c$ (car $c = \min(E)$).
+        \item Contradiction.
+        \item Donc, $r=0$, et par suite $n = qc \in c\Z$.
+        \item Donc, $\Ker(f) \subset c\Z$.
+        \item On en déduit que $\Ker(f) = c\Z$.
+    \end{itemize}
+    
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $A=\Z$. On a $f:\begin{cases}
+        \Z \to \Z \\ n \mapsto n\cdot1 = n
+        \end{cases}$ est injectif. Donc, $\Carac(\Z) = 0$.
+        \item Soit $n\ge 1$. On pose $A=\Z/n\Z$. On a $f:\begin{cases}
+        \Z \to \Z/n\Z \\ k \mapsto k\overline{1}= \overline{k}
+        \end{cases}$. On a $\Ker(f) = \{k\in\Z\tq f(k) = \overline{0}\} = n\Z$. Donc, $\Carac(\Z/n\Z) = n$.
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Soit $A$ un anneau \textbf{intègre}.
+    
+    $\Carac(A) = 0$ ou un nombre premier.
+\end{property}
+
+\begin{proof}
+    On suppose que $\Carac(A) \ne 0$, et $\Carac(A)$ n'est pas premier.
+
+    Donc $\Carac(A) = c = \min(\{n\in\N^*\tq n\cdot1_A = 0_A\})$ est composé.
+
+    Donc $\exists a,b \in \N^*$ tels que $c = a b$, avec $1 \le a < c$ et $1 \le b < c$. (On peut considérer l'inégalité stricte dans le cas où $c\ne 1$).
+
+    On a $c\cdot 1_A = 0_A$.
+
+    Ce qui implique que $(a b)\cdot 1_A = (a\cdot 1_A) \times (b\cdot 1_A) = 0_A$.
+
+    Ce qui implique que $f(ab)=0_A$.
+    
+    Donc $f(a)\cdot f(b) = 0_A$.
+
+    Comme $A$ est intègre, on a $f(a) = 0_A$ ou $f(b) = 0_A$.
+
+    Cela signifie que soit $a \in \Ker(f)$, soit $b \in \Ker(f)$.
+
+    Donc que $a\cdot 1_A = 0_A$ ou $b \cdot 1_A = 0_A$. Contradiction.
+
+    On conclut que $c=0$ ou $c$ est premier.
+\end{proof}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}
+    Fin du Chapitre X.
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \end{document}
