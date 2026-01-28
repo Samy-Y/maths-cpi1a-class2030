@@ -1,0 +1,243 @@
+\documentclass[12pt, a4paper]{report}
+
+% wow! quelqu'un est en train de lire le code source !
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre XI : Arithmétiques}{Rédigé par Samy Youssoufine}{./assets/logo.png}{Document WIP.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas général). On étudiera ensuite des cas particuliers de cette dernière.
+\vspace*{\fill}
+
+\chapter{Divisibilité dans un anneau intègre}
+
+\section{Divisibilité et éléments associés}
+
+\begin{definition}
+    Soient $A$ un anneau intègre (commutatif) et $x,y$ des éléments de $A$. On dit que $x$ divise $y$ dans $A$ lorsqu'il existe un $a\in A$ tel que $y = xa = ax$ (sachant que la multiplication est commutative). On note alors $x\mid y$ (\textbf{pas} noté $x/y$ !).
+\end{definition}
+
+\begin{example}
+    Prenons $A=\Z[i]$ l'anneau des entiers gaussiens. Cet anneau est intègre parce que c'est un sous-anneau de $\C$, qui est intègre, parce que $\C$ est un corps.
+
+    On cherche les diviseurs de $2$ dans $\Z[i]$. On remarque que $2 = (1+i)(1-i)$, donc $1+i$ et $1-i$ divisent $2$. On peut aussi remarquer que $2 = (-i)(-2i)$, donc $-2i$ divise aussi $2$.
+
+    Nous allons maintenant rechercher tous les diviseurs de $2$ dans $\Z[i]$.
+
+    Soit $x=a+ib \in \Z[i]$ un diviseur de $2$. Alors il existe un $y = c+id$ tel que $xy=2 \iff (a+ib)(c+id)=2$.
+
+    On utilise le module pour trouver des contraintes sur $a$ et $b$ :
+    \[
+        \underbrace{(a^2+b^2)}_{\in\N}\underbrace{(c^2+d^2)}_{\in\N} = |xy|^2 = |2|^2 = 4.
+    \]
+
+    Cela implique que $a^2+b^2$ divise $4$ dans $\N$. Cela implique que $a^2+b^2 \in \{1,2,4\}$ (car $a^2+b^2$ est une somme de carrés d'entiers).
+
+    \begin{itemize}
+        \item Si $a^2+b^2=1$, alors $(a,b) \in \{(\pm 1,0),(0,\pm 1)\}$. Cela donne les diviseurs $1,-1,i,-i$.
+        \item Si $a^2+b^2=2$, alors $(a,b) \in \{(\pm 1,\pm 1)\}$. Cela donne les diviseurs $1+i, 1-i, -1+i, -1-i$.
+        \item Si $a^2+b^2=4$, alors $(a,b) \in \{(\pm 2,0),(0,\pm 2)\}$. Cela donne les diviseurs $2,-2,2i,-2i$.
+    \end{itemize}
+
+    La réciproque est facile à vérifier. Ainsi, les diviseurs de $2$ dans $\Z[i]$ sont :
+
+    \[
+        \{\pm 1, \pm i, \pm (1+i), \pm (1-i), \pm 2, \pm 2i\}.
+    \]
+\end{example}
+
+\begin{importantbox}
+    Dans la suite de cette partie, toute mention de $(A,+,\times)$ désignera un anneau intègre commutatif.
+\end{importantbox}
+
+\begin{property}
+    \begin{enumerate}
+        \item Pour tout $x\in A$, on a $x\mid x$ (réflexivité).
+        \item Pour tout $x,y,z \in A$, si $x\mid y$ et $y\mid z$, alors $x\mid z$ (transitivité).
+        \item Pour tout $x,y\in A$, $x\mid y \iff yA \subset xA$. Il faut faire attention à ne pas inverser les deux membres ! Cette relation nous permet de passer de la relation de divisibilité à une inclusion (inégalité).
+        \item Pour tout $x,y \in A, (x\mid y \et y \mid x) \iff xA = yA$. Cela équivaut à dire que $\exists \eps \in \mathbb{U}_A \tq x = \eps y$. On dit que $x$ et $y$ sont \textbf{associés} dans ce cas.
+        \item La relation de divisibilité n'est pas antisymétrique. Par exemple, dans $\Z$, $2\mid -2$ et $-2\mid 2$, mais $2 \neq -2$.
+        \item La relation de divisibilité n'est pas symétrique, par exemple dans $\Z$, $2\mid 4$, mais $4 \nmid 2$.
+        \item La relation de divisibilité n'est donc pas une relation d'équivalence.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Trivial car $x = x \cdot 1_A$.
+        \item $(x \mid y)$ et $(y \mid z)$ impliquent l'existence de $a,b \in A$ tels que $y = xa$ et $z = yb$. Donc $z = (xa)b = x(ab)$, donc $x \mid z$.
+        \item ($\impliedby$) : On a $y=y\cdot 1_A \in yA \subset xA$, donc $y \in xA \iff \exists a \in A \tq y = ax$, donc $x\mid y$.\\($\implies$) : Supposons que $x\mid y$, alors $\exists a \in A \tq y = ax$. Soit $t \in yA$, i.e. $\exists \alpha \in A \tq t = y\alpha$.\\Donc $t = (ax)\alpha = x\underbrace{(a\alpha)}_{\in A} \in xA$. Ainsi, $yA \subset xA$.
+        \item D'après la propriété précédente, $x\mid y$ et $y \mid x$ équivaut à $yA \subset xA$ et $xA \subset yA$, donc $xA = yA$.\\Maintenant, nous allons montrer que $(x \mid y \et y \mid x) \iff \exists \eps \in \mathbb{U}_n \tq x = \eps y$.\\Dans le sens réciproque, on a $x=\eps y \implies y \mid x$, or $\eps \in \mathbb{U}_A \implies \exists \eps' \in \mathbb{U}_A \tq \eps'x=y$. D'où $x\mid y$.\\Dans le sens direct, on suppose que $x\mid y$ et $y \mid x$. Donc il existe $t,z \in A \tq y=tx \et x=zy$.\\Donc $y=t(zy) = (tz)y$. Donc $y(1_A - tz) = 0_A$. Comme $A$ est intègre, cela veut dire que $y=0_A$ ou $1_A - tz = 0_A \iff tz = 1_A$. Dans le deuxième cas, cela veut dire que $tz=1_A$, donc $z=\eps \in \mathbb{U}_A$, et on a bien $x = zy = \eps y$. Dans le premier cas, on a $y=0_A$, donc $x=zy= z0_A = 0_A$. On peut alors choisir $\eps = 1_A \in \mathbb{U}_A$ et on a bien $x=\eps y$.\\Ainsi, dans tous les cas, on a $\exists \eps \in \mathbb{U}_A \tq x = \eps y$.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\mathbb{U}_\Z = \{-1,1\}$. Donc, dans $\Z$, $(x\mid y \et y \mid x) \iff \exists \eps \in \{-1,1\} \tq x = \eps y$. Cela équivaut à dire que $x=\pm y$, ou que $|x|=|y|$.
+        \item Dans $\Z[i]$, on a $\mathbb{U}_{\Z[i]} = \{1,-1,i,-i\}$. Donc, dans $\Z[i]$, $(x\mid y \et y \mid x) \iff \exists \eps \in \{1,-1,i,-i\} \tq x = \eps y$.
+    \end{enumerate}
+\end{example}
+
+\section{Idéaux/anneaux principaux et PGCD}
+
+\begin{definition}[Anneau principal]
+    \begin{enumerate}
+        \item Soit $I$ un idéal de $A$, $I$ est un \textbf{idéal principal} de $A$ lorsque $I$ est engendré par un seul élément $x$ de $A$. i.e. $I$ est un idéal principal $\iff \exists x \in A \tq I = xA$.
+        \item Un anneau $A$ est dit principal lorsque tout les idéaux sont principaux. i.e. $\forall I \text{ idéal de } A, \exists x \in A \tq I = xA$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\Z$ est un anneau principal.
+        \item Tout corps est un anneau principal parce que les seuls idéaux sont $\{0\}$ et le corps lui-même, qui sont tous deux principaux.
+        \item On a déjà vu que les idéaux de $\Z/4\Z$ sont $\{0\}, 2\Z/4\Z$ et $\Z/4\Z$, qui sont tous des idéaux principaux. Donc $\Z/4\Z$ est un anneau principal.
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Montrer que $\Z/6\Z$ est un anneau principal.
+\end{exercise}
+\todo{à faire pour vendredi}
+
+\begin{theorem}[PGCD dans un anneau principal]
+    Soient $A$ un anneau principal et $x_1,\dots,x_n \in A$. Alors il existe un $d \in A$ tel que :
+
+    $$x_1 A + x_2 A + \dots + x_n A = dA$$
+
+    avec $\forall i \in [\![1,n]\!], d \mid x_i$.
+
+    De plus, si $d'$ est un autre élément de $A$ vérifiant ces propriétés, alors $d' \mid d$.
+
+    Dans cas, $d$ est appelé le \textbf{plus grand commun diviseur} (PGCD) des $x_i$.
+
+    On le note $\pgcd(x_1,\dots,x_n)$.
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item On a $\forall i \in [\![1,n]\!], x_iA$ est un idéal principal.
+        \item Donc $\sum_{i=1}^{n}x_iA = x_1A + \dots + x_nA$ est aussi un idéal de $A$, qui est principal, puisque l'anneau $A$ est principal.
+        \item Donc $\exists d \in A \tq \sum_{i=1}^{n}x_iA = dA$.
+        \item On a $\forall i \in [\![1,n]\!], x_i = x_i\times 1_A + \sum_{j=1\et j\neq i}^{n}x_j \times 0_A \in \sum_{i=1}^{n}x_iA = dA$.
+        \item Donc $\forall i \in [\![1,n]\!], d \mid x_i$.
+        \item Si $d' \in A \tq \forall i \in [\![1,n]\!], d' \mid x_i$.
+        \item Alors $\forall i \in [\![1,n]\!], x_iA \subset d'A$.
+        \item Comme $dA$ est stable par l'addition (sous-groupe), alors $dA = \sum_{i=1}^{n}x_iA \subset d'A \implies d'|d$.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}[Non unicité du PGCD]
+    Si $d$ est un PGCD de $x_i$, alors tout autre PGCD $d'$ est associé à $d$. En effet, on a $d' \mid d$ et $d \mid d'$. Ils peuvent s'écrire sous la forme de $d' = \eps d$ avec $\eps \in \mathbb{U}_A$.
+\end{remark}
+
+\begin{remark}
+    $\Z$ est un anneau principal, donc $\forall x_1,\dots,x_n \in \Z,\exists d \in \Z \tq x_1\Z + \dots + x_n\Z=d\Z$. Or, tous les pgcd des $(x_i)_{1\leq i \leq n}$ sont $\pm d$.
+
+    Alors, $\forall x_1,\dots,x_n \in \Z, \exists! d \in \N \tq \sum_{i=1}^n x_i\Z = d\Z$.
+
+    Dans ce cas, $d$ est appelé \underline{le} PGCD des $x_i$ dans $\Z$.
+\end{remark}
+
+\begin{theorem}[Égalité de Bézout]
+    Soient $A$ un anneau principal et $x_1,\dots,x_n \in A$. Alors, si $d$ est un $\pgcd(x_1,\dots,x_n)$, alors :
+    \[
+        \exists u_1,\dots,u_n \in A \tq d = u_1 x_1 + u_2 x_2 + \dots + u_n x_n.
+    \]
+\end{theorem}
+
+\begin{proof}
+    On a $\sum_{i=1}^{n}x_iA = dA$. Donc, $d\in dA = \sum_{i=1}^{n}x_iA$. 
+\end{proof}
+
+\begin{property}[Réciproque de l'égalité de Bézout]
+    Soient $x_1,\dots,x_n \in A$ (anneau principal), et $d$ un élément de $A$ tel que $\exists u_1,\dots,u_n \in A \tq d = u_1 x_1 + u_2 x_2 + \dots + u_n x_n$.
+
+    $d$ n'est pas forcément le PGCD des $x_i$. Il faut que $d$ soit un diviseur commun des $x_i$ pour que $d$ soit le PGCD des $x_i$.
+    
+\end{property}
+
+\begin{proof}
+    Montrons que $\sum_{i=1}^{n}x_iA = dA$.
+
+    Montrons d'abord l'inclusion $\sum_{i=1}^{n}x_iA \subset dA$.
+
+    Soit $y\in dA$. DOnc $y=da$ pour un certain $a\in A$.
+
+    Donc $y = (\sum_{i=1}^{n}x_iu_i)a=\sum_{i=1}^{n}x_i\underbrace{(u_i a)}_{\in A}$
+
+    Donc $y \in \sum_{i=1}^{n}x_iA$.
+
+    i.e. : $dA \subset \sum_{i=1}^{n}x_i A$.
+
+    On conclut que $\sum_{i=1}^{n}x_iA = dA$.
+
+    D'où $d=\pgcd(x_1,\dots,x_n)$.
+\end{proof}
+
+\begin{consequence}[Théorème de Bézout pour le PGCD]
+    Soient $x_1,\dots,x_n \in A$ principal.
+
+    $\pgcd(x_1,\dots,x_n)=1_A \iff \exists u_1,\dots,u_n \in A \tq \sum_{i=1}^{n}x_iu_i=1_A$.
+
+    On dit que les $x_i$ sont \textbf{premiers entre eux} dans ce cas.
+\end{consequence}
+
+\begin{theorem}[Théorème de Gauss]
+    Soient $A$ un anneau principal et $x,y,z \in A$ tels que $x \mid yz$ et $\pgcd(x,z)=1_A$. Alors $x \mid y$.
+    
+\end{theorem}
+
+\begin{proof}
+    On a $x\mid yz$, donc $\exists a \in A \tq yz = xa$.
+
+    On sait aussi que $\pgcd(x,z)=1_A$, cela équivaut à dire que $\exists u_1,u_2 \in A \tq 1_A = u_1 x + u_2 z$.
+
+    Donc $y= xyu_1+yzu_2$.
+
+    Donc $y= xyu_1 + (xa)zu_2 = x\underbrace{(yu_1 + au_2 z)}_{\in A}$.
+    
+    Donc $x \mid y$.
+\end{proof}
+
+\begin{consequence}
+    \label{consequence:pgcd_produit}
+    Soient $y_1,\dots,y_n$ et $x_1,\dots,x_n$ des éléments de $A$.
+
+    On a :
+
+    $$\parens{\forall i,j \in [\![1,n]\!], \pgcd(x_i,x_j)=1_A} \iff \parens{\prod_{i=1}^n x_i}\wedge \parens{\prod_{i=1}^n y_i} = 1_A$$
+\end{consequence}
+
+\begin{property}
+    Soient $x,y,z \in A$ (anneau principal).
+
+    $$(x\wedge y = x \wedge z= 1_A) \iff x\wedge (yz) = 1_A$$
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item ($\impliedby$) : Facile.
+        \item ($\implies$) : On a $\exists u_1,u_2,v_1,v_2 \in A \tq \begin{cases}xu_1 + y u_2 = 1_A\\xv_1 + z v_2 = 1_A\end{cases}$
+        \item Cela implique que $x(\underbrace{xu_1v_1+zu_1v_2+yu_2v_1}_{\in A}) + yz(u_2v_2) = 1_A$.
+        \item Donc $x \wedge (yz) = 1_A$.
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Démonstration de la conséquence \ref{consequence:pgcd_produit}]
+    En utilisant la propriété précédente, on peut
+    
+\end{proof}
+\todo{recop}
+
+\begin{application}
+    Montrer que $\sqrt[3]{2}$ n'appartient pas à $\Q$.
+\end{application}
+
+\end{document}
