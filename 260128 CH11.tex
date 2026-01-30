@@ -57,6 +57,7 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
 \end{importantbox}
 
 \begin{property}
+    \label{property:divisibilite}
     \begin{enumerate}
         \item Pour tout $x\in A$, on a $x\mid x$ (réflexivité).
         \item Pour tout $x,y,z \in A$, si $x\mid y$ et $y\mid z$, alors $x\mid z$ (transitivité).
@@ -93,6 +94,12 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
     \end{enumerate}
 \end{definition}
 
+% peut ne pas être intègre
+
+\begin{attention}
+    Un anneau principal n'est pas forcément un anneau intègre. Par exemple, $\Z/6\Z$ est un anneau principal (voir exemple plus bas), mais ce n'est pas un anneau intègre car $\overline{2} \times \overline{3} = \overline{0}$ dans $\Z/6\Z$.
+\end{attention}
+
 \begin{example}
     \begin{enumerate}
         \item $\Z$ est un anneau principal.
@@ -104,7 +111,6 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
 \begin{exercise}
     Montrer que $\Z/6\Z$ est un anneau principal.
 \end{exercise}
-\todo{à faire pour vendredi}
 
 \begin{theorem}[PGCD dans un anneau principal]
     Soient $A$ un anneau principal et $x_1,\dots,x_n \in A$. Alors il existe un $d \in A$ tel que :
@@ -238,6 +244,288 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
 
 \begin{application}
     Montrer que $\sqrt[3]{2}$ n'appartient pas à $\Q$.
+
+    \textbf{Solution :}
+
+    Supposons que $\sqrt[3]{2} \in \Q$. 
+    
+    Alors, il existe $(p,q)\in\Z\times\N^*$ tels que $\sqrt[3]{2} = \frac{p}{q}$ et $\pgcd(p,q) = 1$.
+
+    On a donc $2q^3 = p^3$.
+
+    Donc $q^3 \mid p^3$.
+
+    Donc $\pgcd(p^3,q^3) = 1$ (car $\pgcd(p,q)=1$).
+
+    Or, comme $q^3 \mid p^3$ et $\pgcd(p^3,q^3)=1$, d'après le théorème de Gauss, on a $q^3 \mid 1$, donc $q=1$.
+
+    Donc $p^3 = 2$.
+
+    Or $1<2<8=2^3$, donc $1^3<p^3<2^3$, donc $1<p<2$, ce qui est impossible.
+
+    Donc $\sqrt[3]{2} \notin \Q$.
 \end{application}
+
+\begin{property}
+    Soient $A$ un anneau principal et $x,y,z$ dans $A$.
+
+    Si $x\mid y$ et $y\mid z$ avec $\pgcd(x,y)=1_A$, alors $xy \mid z$.
+\end{property}
+
+\begin{proof}
+    On sait que $\exists a,b \in A \tqp z = xa$ et $z=yb$.
+
+    Donc $\exists u,v \in A \tqp xu + yv = 1_A$.
+
+    \begin{align*}
+        \implies z &= z(xu + yv)\\
+        &= xybu + xyav = xy(bu + av)\\
+        &implies xy \mid z.
+    \end{align*}
+\end{proof}
+
+\begin{consequence}
+    Si $x_1,\dots,x_n,z \in A$ (avec $A$ un anneau principal). On a :
+
+    $$\begin{cases}
+        \forall i \in [\![1,n]\!], x_i \mid z\\
+        \forall i,j \in [\![1,n]\!], \pgcd(x_i,x_j) = 1_A
+    \end{cases} \implies \prod_{i=1}^n x_i \mid z$$
+\end{consequence}
+
+\begin{proof}
+    On procède par récurrence sur $n$.
+\end{proof}
+
+\begin{remark}
+    En général, $\begin{cases}
+    x\mid z\\y\mid z
+    \end{cases} \nimplies xy \mid z$.
+
+    (On prend comme contre-exemple $4\mid 12$ et $6\mid 12$...)
+\end{remark}
+
+\begin{property}
+    Soient $t,x,y \in \Z$.
+
+    On a $(tx)\wedge (ty) = |t| (x \wedge y)$.
+\end{property}
+
+\begin{proof}
+    On pose $d=(tx)\wedge (ty)$.
+
+    On a alors $(tx)\Z + (ty)\Z = d\Z$ (définition du PGCD dans $\Z$).
+
+    Ce qui implique que $t(x\Z + y\Z) = d\Z$ (opérations sur les ensembles).
+
+    Donc $t(x \wedge y)\Z = d\Z$.
+
+    Donc $|t(x \wedge y)| = d$ (car ces deux entiers sont associés, voir propriété \ref{property:divisibilite}).
+
+    Donc $d = |t| (x \wedge y)$.
+\end{proof}
+
+\begin{property}
+    Soient $A$ un anneau principal et $x,y \in A$.
+
+    $$x\wedge y = d \iff \exists x_1,y_1 \in A \tq \begin{cases}
+        x = dx_1\\
+        y= dy_1\\
+        x_1 \wedge y_1 = 1_A
+    \end{cases}$$
+\end{property}
+
+\begin{proof}
+    Dans le sens direct $(\implies)$, on suppose que $d\mid x$ et $d\mid y$.
+
+    Donc $\exists x_1,y_1 \in A \tq x=dx_1$ et $y=dy_1$.
+
+    Or $x\wedge y = d = (dx_1) \wedge (dy_1)$
+
+    Donc $d = d(x_1 \wedge y_1)$.
+
+    Alors $d(1_A - (x_1 \wedge y_1)) = 0_A$.
+
+    Si $d = 0_A$, alors $x=y=0_A$, donc on peut choisir $x_1=y_1=1_A$ et on a bien $x_1 \wedge y_1 = 1_A$.
+
+    Si $d \neq 0_A$, comme $A$ est intègre, on a $1_A - (x_1 \wedge y_1) = 0_A$, donc $x_1 \wedge y_1 = 1_A$.
+
+    Dans le sens réciproque $(\impliedby)$, on a $x=dx_1$ et $y=dy_1$.
+
+    On sait que $x_1 \wedge y_1 = 1_A$.
+
+    Donc $\exists u,v \in A \tq 1_A = u x_1 + v y_1$.
+
+    Donc $d = d(u x_1 + v y_1) = u (dx_1) + v (dy_1) = ux + vy$.
+
+    Donc $x \wedge y = d$.
+\end{proof}
+
+\chapter{Divisibilité dans $\Z/n\Z$}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Soient $x,y \in \Z^* \tqp x \mid y$. On a donc $-x\mid y$, on prendra donc toujours $x \in \N^*$ sans perte de généralité. Donc $x\mid y \iff \overline{y} = \overline{0}$ dans $\Z/x\Z$.
+        \item $\Uset{\Z/n\Z} = \{\ovl{x} \tq x \wedge n = 1\}$.\\On rappelle le théorème de Gauss dans $\Z$ : $(x\mid yz \et x \wedge y =1)\implies x \mid z$.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    On a $x\mid yz \iff \ovl{\ovl y \cdot \ovl z} = \ovl 0$ dans $\Z/|x|\Z$.
+
+    \begin{align*}
+        \ona x\wedge y = 1 &\iff \ovl y \in \Uset{\Z/|x|\Z}\\
+        &\implies \ovl y \cdot \ovl z = \ovl 0 \text{ dans } \Z/|x|\Z\\
+        \implies \ovl y^{-1} \cdot \ovl y \cdot \ovl z &= \ovl y^{-1} \cdot \ovl 0\\
+        \ovl z &= \ovl 0 \text{ dans } \Z/|x|\Z\\
+        \implies x \mid z.
+    \end{align*}
+ 
+\end{proof}
+
+\begin{exercise}
+    \begin{enumerate}
+        \item Montrer que $\forall n \in \N, 6 \mid n^3 - n$.
+        \item Pour quelles valeurs de $n \in \N$ a-t-on $11 \mid n^3 + n$ ?
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    \begin{enumerate}
+        \item On peut tout simplement démontrer qu'il s'agit d'un produit de trois nombres consécutifs, dont un est forcément pair. Mais on peut aussi faire ce calcul :\\$\legbinom{3}{n+1}=\dots=\frac{(n-1)n(n+1)}{6} \in \N$.\\ Donc $6 \mid n^3 - n$.
+        \item $11\mid n^3+n \iff \ovl n (\ovl{n^2+1}) = \ovl 0$ dans $\Z/11\Z$.\\On dresse un tableau des carrés dans $\Z/11\Z$. On trouve que $11 \mid n^3 + n$ lorsquee $\ovl n (\ovl{n^2 +1}) = \ovl 0$. C'est-à-dire lorsque $\ovl n = \ovl 0$ dans $\Z/11\Z$ (le cas $\ovl{n^2+1}=\ovl 0$ n'ayant pas de solution). Donc $11 \mid n^3 + n \iff 11 \mid n$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{property}[Divisibilité par 3]
+    Soit $x=a_n\dots a_0$ l'écriture en base décimale de $x \in \N$.
+
+    $$3 \mid x \iff 3 \mid \sum_{k=0}^{n}a_k$$
+\end{property}
+
+\begin{proof}
+    On a $x=\sum_{k=0}^{n}a_k\cdot 10^k$.
+
+    \begin{align*}
+        \ona x &\iff \ovl n = \ovl 0 \text{ dans } \Z/3\Z\\
+        &\iff \sum_{k=0}^{n}\ovl{a_k \cdot 10^k} = \ovl 0 = \ovl{\sum_{k=0}^{n}a_k} \text{ dans } \Z/3\Z\\
+        &\iff \sum_{k=0}^{n}\ovl{a_k} = \ovl 0 \text{ dans } \Z/3\Z\\
+        &\iff 3 \mid \sum_{k=0}^{n}a_k
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Division euclidienne]
+    Soient $(x,y)\in\Z\times\Z^*$.
+
+    Alors $\exists!(q,r)\in\Z\times\N \tqp : \begin{cases}
+    x=qy+r\\
+    0 \leq r < |y|
+    \end{cases}$
+
+    On dit qu'on a effectué la division euclidienne (qu'on notera D.E.) de $x$ par $y$.
+
+    \begin{itemize}
+        \item $q$ est appelé le \textbf{quotient} de la D.E. de $x$ par $y$.
+        \item $r$ est appelé le \textbf{reste} de la D.E. de $x$ par $y$.
+    \end{itemize}
+    
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \begin{cases}
+            x = qy + r\\
+            0 \leq r < |y|
+        \end{cases} &\iff \begin{cases}
+        r = x-qy\\
+        0 \le x - qy < |y|
+        \end{cases}\\
+        &\iff \begin{cases}
+        r = x - qy\\
+        0 \le \frac{x}{|y|} - q \frac{y}{|y|} < 1
+        \end{cases}
+    \end{align*}
+
+    Si $y > 0$, alors on a $\begin{cases}
+    r = x-qy\\
+    0 \le \frac{x}{y} - q < 1
+    \end{cases}$
+
+    On prend $q=E(\frac{x}{y}) \in \Z$, et $r = x-qy \in \N^*$.
+
+    Si $y < 0$, alors on a $\begin{cases}
+    r = x-qy\\
+    -q \le -\frac{x}y < 1 - q
+    \end{cases}$
+
+    Donc on prend $q = -E(-\frac{x}{y}) \in \Z$, et $r = x-qy \in \N^*$.
+
+    D'où l'existence et l'unicité de $(q,r)$.
+\end{proof}
+
+\begin{property}
+    Soient $(x,y) \in \Z \times \Z\times\Z^*$.
+
+    On a $\exists!(q,r)\in\Z\times\N^* \tqp \begin{cases}
+    x=qy+r\\
+    0 < r \leq |y|
+    \end{cases}$
+
+    Le PGCD de $x$ et $y$ est égal au PGCD de $y$ et $r$.
+
+    $$x\wedge y = y \wedge r$$
+\end{property}
+
+\begin{proof}
+    On pose $d=x\wedge y$, et $d' = y \wedge r$.
+
+    \textbf{Méthode 1 (plus facile) en utilisant les combinaisons linéaires :} (non abordée).
+
+    \textbf{Méthode 2 en utilisant la définition du PGCD :}
+
+    \begin{align*}
+        d\Z &= x\Z + y\Z\\
+        &= (qy+r)\Z + y\Z\\
+        &\subset r\Z + y\Z=d'\Z\\
+    \end{align*}
+
+    De même, $d'\Z = y\Z + r\Z \subset x\Z + y\Z = d\Z$.
+
+    Donc $|d| = |d'| \implies d = d'$ car ils sont positifs.
+
+    On en déduit que $x \wedge y = y \wedge r$.
+
+\end{proof}
+
+\begin{application}[Algorithme d'Euclide]
+    Cet algorithme nous permet de déterminer le PGCD de deux entiers $a$ et $b$ ainsi que leurs coefficients de Bézout.
+
+    Soit $(a,b) \in \Z\times\N^*$.
+
+    \begin{itemize}
+        \item Si $b\mid a$ alors $a\wedge b = b$.
+        \item Sinon, $a=bq+r_1$ avec $0<r_1< b$ (après division euclidienne).
+        \item Donc $a\wedge b = b \wedge r_1$.
+        \item Si $r_1 \mid b$ alors $a\wedge b = r_1$.
+        \item Sinon, $b = r_1 q_2 + r_2$ avec $0 < r_2 < r_1$.
+        \item Donc $a\wedge b = r_1 \wedge r_2$.
+        \item On continue ainsi jusqu'à obtenir un reste $r_n$ qui divise le précédent.
+    \end{itemize}
+
+    On a donc construit une suite de restes $(r_n)_{n\ge1}$. Ce processus doit s'arrêter car les restes sont strictement décroissants et positifs. Si le processus ne s'arrête pas, on aurait une suite infinie de restes strictement positifs et décroissants, ce qui est impossible dans $\N$, car la suite doit être stationnaire à partir d'un certain rang.
+
+    Le dernier reste non nul $r_n$ est le PGCD de $a$ et $b$.
+\end{application}
+
+\begin{example}
+    Calculer le PGCD de $a = 60$ et $b=42$.
+
+    On a $a=60=1\times42+18$.
+    Et on a $b = 42 = 2\times 18 + 6$.
+    Enfin, on a $18 = 3 \times 6 + 0$.
+    Donc le PGCD de $60$ et $42$ est $6$.
+
+    On a $6=
+\end{example}
 
 \end{document}
