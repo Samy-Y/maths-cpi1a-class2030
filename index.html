@@ -234,7 +234,14 @@
         const PER_PAGE = 3; 
         
         // --- LOGIQUE DU TRI ---
-        let isAscending = true; // Ordre par défaut (1 vers 10)
+        let isAscending = false; // Ordre par défaut (1 vers 10)
+
+        // make sure the list is sorted by most recent initially
+
+        const grid = document.getElementById('chapters-grid');
+        const chapters = Array.from(grid.children);
+        chapters.sort((a, b) => parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id')));
+        chapters.forEach(chapter => grid.appendChild(chapter));
 
         function toggleSortOrder() {
             const grid = document.getElementById('chapters-grid');
@@ -253,6 +260,8 @@
                 sortBtn.innerHTML = '<span>⇅</span> Trier : Plus anciens d\'abord';
             }
         }
+
+
         // ----------------------
 
         async function fetchLastCommits(reset = true) {
