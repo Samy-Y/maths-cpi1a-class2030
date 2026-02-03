@@ -95,7 +95,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 
     \begin{enumerate}
         \item $e$ est unique.
-        \item Si $*$ est associative, et $a\in G$ est symétrisable, alors le symétrique est unique ; i.e. $\exists ! b \in G, a * b = b * a = e$.
+        \item Si $*$ est associative, et $a\in E$ est symétrisable, alors le symétrique est unique ; i.e. $\exists ! b \in G, a * b = b * a = e$.
     \end{enumerate}
 \end{property}
 
@@ -203,7 +203,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 
 \begin{example}
     \begin{itemize}
-        \item $Z$ est un sous-groupe de $(\Q,+)$.
+        \item $\Z$ est un sous-groupe de $(\Q,+)$.
         \item $(\{-1,1\},\times)$ est un sous-groupe de $(\R^*,\times)$.
         \item On pose $\Z[i]=\{a+ib \tqp a,b\in \Z\}$ (Entiers de Gauss).
             Et on pose $\Z[j] = \{a+jb \tqp a,b\in\Z\}$, avec $j=e^{i\frac{\pi}3}$. (Entiers de Eisenstein). 
@@ -229,14 +229,14 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
         \1 Soit $H$ un sous-groupe quelconque de $(\Z,+)$, non réduit au singleton $\{0\}$.
             \2 On pose $H^+ = H \cap \N^*$.
             \2 $H^+ \ne \emptyset$ car $H \ne \{0\}$ et $H$ est stable par l'opposé.
-            \2 Or $H$ est un sous-groupe, alors $-a \in H$ pour tout $a \in H$.
+            \2 En effet, $H$ est un sous-groupe, alors $-a \in H$ pour tout $a \in H$.
             \2 Donc $a$ et $-a \in H \implies H^+ \ne \emptyset$.
             \2 On a $H^+ \subset \N^*$, donc $H^+$ admet un minimum $n$.
             \3 Nous allons essayer de montrer que $H = n\Z$.
             \2 On a $n \in H$, donc $nk = \begin{cases} \underbrace{n + \dots + n}_{k \text{ fois}}\pour k \ge 0 \\ \underbrace{-(n + \dots + n)}_{k \text{ fois}}\pour k \le 0\end{cases} \in H$.
             \2 Donc $x\in H$, i.e. $n\Z \subset H$.
             \2 Soit $a \in H$.
-                \3 Par le théorème de la division euclidienne, il existe $(q,r) \in \Z \times \N$ tels que $a = nq + r$ et $0 \le r < n$.
+                \3 Par le théorème de la division euclidienne, il existe un unique couple $(q,r) \in \Z \times \N$ tels que $a = nq + r$ et $0 \le r < n$.
                 \3 Or, $nq \in H$ (car $n\Z \subset H$) et $a \in H$, donc $r = a - nq \in H$ (car $H$ est stable par l'opposé et par l'addition).
                 \3 Si $r \ne 0$, alors $r \in H^+$ et $r < n$, ce qui contredit la minimalité de $n$.
                 \3 Donc, $r = 0$, et ainsi $a = nq \in n\Z$.
@@ -252,7 +252,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{property}
     Soit $(G,*)$ un groupe.
     \begin{enumerate}
-        \item Si $(H_i,*)_{i\in I}$ est une famille de sous-groupes de $(G,*)$, alors l'intersection $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
+        \item Si $H_{i_{i\in I}}$ est une famille de sous-groupes de $(G,*)$, alors l'intersection $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
         \item Si $H \cup K$ est un sous-groupe de $(G,*)$, alors $H \subset K$ ou $K \subset H$.
     \end{enumerate}
 \end{property}
@@ -260,10 +260,10 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{proof}
     \begin{outline}
         \1 \textbf{Démonstration de 1. :}
-        \2 $\forall in I, H_i \subset G \implies \bigcap_{i\in I} H_i \subset G$.
+        \2 $\forall i \in I, H_i \subset G \implies \bigcap_{i\in I} H_i \subset G$.
         \2 $\forall i \in I, H_i \ne \emptyset \implies \bigcap_{i\in I} H_i \ne \emptyset$ (car $e \in H_i$).
         \2 Soient $a,b \in \bigcap_{i\in I} H_i$.
-        \2 Alors $\forall i \in I, a,b \in H_i \implies a*b^{-1} \in H_i$ (car $H_i$ est un sous-groupe).
+        \2 Alors $\forall i \in I, a,b \in H_i \implies \forall i \in I, a*b^{-1} \in H_i$ (car $H_i$ est un sous-groupe).
         \2 Donc, $a*b^{-1} \in \bigcap_{i\in I} H_i$.
         \2 Donc, $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
         \1 \textbf{Démonstration de 2. :}
@@ -284,7 +284,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{property}[Groupe des applications à valeurs dans un groupe]
     Soit $(G,*)$ un groupe et $D$ un ensemble non-vide.
 
-    On note $G^D$ l'ensemble des applications $D$ vers $G$.
+    On note $G^D$ l'ensemble des applications de $D$ vers $G$.
 
     Alors $(G^D, \star)$ est un groupe, où $\star$ est définie par :
 
@@ -393,7 +393,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{proof}
 
 \begin{remark}
-    On a déjà montré que ``$\equiv [n]$'' est une relation d'équivalence sur $\Z$ (Chapitre IX).
+    On a déjà montré que ``$\cdot \equiv \cdot [n]$'' est une relation d'équivalence sur $\Z$ (Chapitre IX).
 
     Pour tout $x \in \Z$, on note $\cl{x}$ par $\overline{x}$, et l'ensemble des classes d'équivalence par $\Z/n\Z=\{\cl{x}\tq x\in\Z\}=\{\overline{0}, \overline{1}, \ldots, \overline{n-1}\}$.
 \end{remark}
@@ -617,7 +617,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     \begin{itemize}
         \item $U_\Z = \{-1,1\}$.
         \item $\Kset^* = \Kset\setminus\{0\}$, où $\Kset$ est $\R$ ou $\C$.
-        \item $U_{\Z/n\Z} = \{\overline{a} \in \Z/n\Z \tq \exists \overline{b} \in \Z/n\Z, \overline{a} \dot\times \overline{b} = \overline{1}\}$\\$=\{\overline{a} \in \Z/n\Z \tq \pgcd an = 1\}$ (en utilisant le théorème de Bézout).\\Par exemple, $U_{\Z/9\Z} = \{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}\}$.
+        \item $U_{\Z/n\Z} = \{\overline{a} \in \Z/n\Z \tq \exists \overline{b} \in \Z/n\Z, \overline{a} \dot\times \overline{b} = \overline{1}\}$\\$=\{\overline{a} \in \Z/n\Z \tq \pgcd (a,n) = 1\}$ (en utilisant le théorème de Bézout).\\Par exemple, $U_{\Z/9\Z} = \{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}\}$.
         \item $U_{\Z/11\Z} = \Z/11\Z\setminus{\overline{0}}$ car $11$ est premier.
     \end{itemize}
 \end{example}
@@ -630,7 +630,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{remark}[Hors programme]
     Le cardinal de $U_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $U_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{U_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
 
-    $$\varphi(n) = \card{U_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd kn = 1\}}$$
+    $$\varphi(n) = \card{U_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd(k,n) = 1\}}$$
 
     Par exemple, $\varphi(9) = 9 \left(1 - \frac{1}{3}\right) = 6$, et $\varphi(11) = 11 \left(1 - \frac{1}{11}\right) = 10$.
 
@@ -899,7 +899,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{proof}
 
 \begin{example}
-    Dans $(\Z,+,\times)$, on a $2\Z + 3\Z = n\Z$, où $n = \pgcd 23 = 1$ (voir chapitre suivant).
+    Dans $(\Z,+,\times)$, on a $2\Z + 3\Z = n\Z$, où $n = \pgcd(2,3) = 1$ (voir chapitre suivant).
 
     Donc, $2\Z + 3\Z = \Z$.
 \end{example}
