@@ -6,7 +6,7 @@
 
 \begin{document}
 
-\MaPageDeGarde{Chapitre XI : Arithmétiques}{Rédigé par Samy Youssoufine}{./assets/logo.png}{Document WIP.}
+\MaPageDeGarde{Chapitre XI : Arithmétiques}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Document WIP.}
 
 \tableofcontents
 \clearpage
@@ -363,6 +363,8 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
 
 \chapter{Divisibilité dans $\Z/n\Z$}
 
+\section{Rappels et compléments sur $\Z/n\Z$}
+
 \begin{remark}
     \begin{enumerate}
         \item Soient $x,y \in \Z^* \tqp x \mid y$. On a donc $-x\mid y$, on prendra donc toujours $x \in \N^*$ sans perte de généralité. Donc $x\mid y \iff \overline{y} = \overline{0}$ dans $\Z/x\Z$.
@@ -412,6 +414,8 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
         &\iff 3 \mid \sum_{k=0}^{n}a_k
     \end{align*}
 \end{proof}
+
+\section{Division euclidienne et algorithme d'Euclide}
 
 \begin{theorem}[Division euclidienne]
     Soient $(x,y)\in\Z\times\Z^*$.
@@ -524,7 +528,323 @@ Ce chapitre est consacré à l'arithmétique dans un anneau intègre (cas géné
     Enfin, on a $18 = 3 \times 6 + 0$.
     Donc le PGCD de $60$ et $42$ est $6$.
 
-    On a $6=$
+    Nous allons retrouver les coefficients de Bézout associés.
+
+    On a $6 = 42 - 2 \times 18$.
+
+    Or, $18 = 60 - 1 \times 42$.
+
+    Donc $6 = 42 - 2 \times (60 - 1 \times 42) = 3 \times 42 - 2 \times 60$.
+
+    Ainsi, les coefficients de Bézout sont $u = -2$ et $v=3$.
 \end{example}
+
+\begin{property}[Équation $ax+by=c$]
+    Soient $A$ un anneau principal et $a,b,c \in A \tq (a,b)\neq (0_A,0_A)$.
+
+    On pose $d = a \wedge b$.
+
+    Les solutions de l'équation $ax + by = c$ sont données par :
+    $$\begin{cases}
+        \si d \nmid c, \text{ il n'y a pas de solution}\\
+        \si d \mid c, \exists \text{ une solution }(x_0,y_0) \et S= \{(x,y) = (x_0 + \frac{b}{d}k, y_0 - \frac{a}{d}k) \text{ avec } k \in A\}
+    \end{cases}$$
+    
+\end{property}
+
+\begin{proof}
+    \begin{align*}
+        a \wedge b = d &\iff \exists a_1,b_1 \in A \tqp a = da_1 \et b = db_1 \et a_1 \wedge b_1 = 1_A\\
+    \end{align*}
+
+    Donc $(E) : d(a_1 x + b_1 y) = c$.
+
+    Dans le cas où $d\nmid c$, il n'y a pas de solution.
+
+    Dans le cas contraire, on a $c = d c_1$ avec $c_1 \in A$.
+
+    On va donc trouver l'équation $(E) : a_1 x + b_1 y = c_1$, sachant que l'anneau $A$ est intègre (donc on peut factoriser par $d$, puis omettre le cas où $d=0$, parce que $d$ est un élément non nul).
+
+    Comme $a_1 \wedge b_1 = 1_A$, il existe un certain couple $(u,v)$ tels que $a_1 u + b_1 v = 1_A$.
+
+    En multipliant par $c_1$, on a $a_1 (c_1 u) + b_1 (c_1 v) = c_1$.
+
+    Donc $(x_0,y_0) = (c_1 u, c_1 v)$ est une solution particulière de $(E)$.
+
+    Soit $(x,y)$ une autre solution de $(E)$.
+
+    On obtient le système suivant :
+
+    $$\begin{cases}
+    a_1 x + b_1 y = c_1\\
+    a_1 x_0 + b_1 y_0 = c_1
+    \end{cases}\implies
+    a_1(x - x_0) = b_1 (y - y_0)
+    $$
+
+    \begin{center}
+    \textit{(Attention : à partir de ce stade, on ne travaille que par implications...)}
+    \end{center}
+
+    Cela implique que $b_1 \mid a_1 (x - x_0)$.
+
+    Cela implique que $b_1 \mid (x - x_0)$ car $a_1 \wedge b_1 = 1_A$ (théorème de Gauss).
+
+    Donc $\exists k \in A \tq x - x_0 = b_1 k$.
+
+    Donc $\exists k \in A \tq x = x_0 + b_1 k$.
+
+    En remplaçant dans l'équation $a_1 (x - x_0) = b_1 (y - y_0)$, on obtient :
+
+    \begin{align*}
+        a_1 (b_1 k) &= b_1 (y - y_0)\\
+        \implies a_1 k &= y - y_0 \scq b_1 \ne 0 \et A \text{ est un anneau intègre }\\
+        \implies y &= y_0 + a_1 k
+    \end{align*}
+
+    On trouve ensuite que toutes les solutions de l'équation $(E)$ sont de la forme :
+
+    $$(x,y) = (x_0 + b_1 k, y_0 - a_1 k) \text{ avec } k \in A$$
+
+    \textbf{Maintenant, on doit procéder dans le sens réciproque (il ne faut pas oublier qu'on a procédé par implications).}
+
+    On a $a(x_0 + b_1 k) + b(y_0 - a_1 k) = d(a_1 u c_1 + a_1 b_1 k + b_1 v c_1 - b_1 a_1 k) = d(a_1 u c_1 + b_1 v c_1) = d c_1 = c$.
+
+    On conclut que toutes les solutions de l'équation $(E)$ sont de la forme (dans le cas où $d \mid c$) :
+
+    $$S = \{(x,y) = (x_0 + \frac{b}{d}k, y_0 - \frac{a}{d}k) \tq k \in A\}$$
+
+    Où $(x_0,y_0)$ est une solution particulière de l'équation $ax + by = c$.
+
+    Évidemment, la notation $\frac{a}{d}$ et $\frac{b}{d}$ est valide car $d \mid a$ et $d \mid b$, mais elle n'est pas rigoureuse. Pour être rigoureux, il faudrait écrire $a_1$ et $b_1$ à la place de $\frac{a}{d}$ et $\frac{b}{d}$, en mentionnant le fait qu'ils existent etc...
+
+\end{proof}
+
+\begin{example}
+    Résolvons dans $\Z^2$ l'équation $(E) : 17x + 7y = 1$.
+
+    On a $17 \wedge 7 = 1$.
+
+    avec l'algorithme d'Euclide, on trouve :
+
+    $17 \times (-2) + 7 \times 5 = 1$.
+
+    Donc une solution particulière est $(x_0,y_0) = (-2,5)$.
+
+    On peut donc écrire :
+    $$\begin{cases}
+        17x + 7y = 1\\
+        17x - 2 +7\times 5 = 1
+    \end{cases}\implies 17(x+2) = 7(5-y)$$
+
+    Comme $7 \wedge 17 = 1$, on a $7 \mid (x+2) \implies \exists k \in \Z \tq x + 2 = 7k \implies x = -2 + 7k$.
+
+    Cela implique que $17 \times 7k = 7(5-y) \implies 17k = 5 - y \implies y = 5 - 17k$.
+
+    Réciproquement, on vérifie que $17(-2 + 7k) + 7(5 - 17k) = 1$.
+
+    Donc l'ensemble des solutions de l'équation $(E)$ est :
+    $$S = \{(x,y) = (-2 + 7k, 5 - 17k) \tq k \in \Z\}$$
+\end{example}
+
+\chapter{Nombres premiers}
+
+\section{Définition et propriétés}
+
+\begin{definition}[Nombre premier]
+    Soit $p \in \N^*\setminus\{1\}$.
+
+    $p$ est dit \textbf{nombre premier} si ses seuls diviseurs sont $1$ et $p$.
+
+    On notera par $\mathcal{P}$ l'ensemble des nombres premiers.
+\end{definition}
+
+\begin{theorem}[Lemme]
+    $\forall a \in \N^*\setminus\{1\}, \exists p \in \mathcal{P} \tq p \mid a$.
+\end{theorem}
+
+\begin{proof}
+On pose $E = \{k\in\N^* \setminus \{1\} \tq \forall p \in \mathcal{P}, k \mid a\}$.
+
+On a $q \in E \implies E \neq \emptyset$.
+
+Donc $E \subset \N^*$.
+
+Alors $E$ admet un minimum $p$.
+
+Supposons que $p$ ne soit pas premier. On aura alors :
+
+$\exists 1 < q < p \tq q \mid p$. Or $p \mid a$, alors :
+
+$q \mid a \et q \in \N^* \setminus \{1\} \implies q \in E$.
+
+Ce qui implique que $q\ge \min(E) = p$. Contradiction.
+
+DOnc $p$ est premier et divise $a$.
+
+\end{proof}
+
+\begin{property}[Infinité des nombres premiers]
+    Il existe une infinité de nombres premiers. L'ensemble $\mathcal{P}$ est infini.
+\end{property}
+
+\begin{proof}
+    Supposons que $\mathcal{P}$ soit fini, et notons-le $\mathcal{P} = \{p_1,\dots,p_r\}$, avec chaque $p_i$ deux à deux distincts.
+
+    On pose $a = 1 + \prod_{k=1}^{r} p_k > p_i \forall i \in \{1,\dots,r\}$.
+
+    Donc $\begin{cases}
+    a \notin \mathcal{P}\\
+    a > 1
+    \end{cases}\et \exists j \in \{1,\dots,r\} \tq p_j \mid a$.
+
+    Or $\forall j \in \{1,\dots,r\}, p_j \wedge a = 1$, ce qui implique que $p_j 1$ car $p_j \mid a$. C'est une contradiction.
+
+    Donc $\mathcal{P}$ est infini.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\forall p \in \Pset, \forall x \in\Z$, $p\wedge x = \begin{cases}
+            p & \si p \mid x\\
+            1 & \text{sinon}
+        \end{cases}$, i.e. : Soit $p\mid x$, soit $p$ et $x$ sont premiers entre eux.
+        \item Soient $p \in \Pset$. On a alors $\forall k \in \{1,\dots,p-1\}, p \mid \legbinom kp$.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    \textbf{Preuve du deuxième point :}
+
+    On a $\legbinom kp = \frac{p!}{k!(p-k)!}$.
+
+    Donc $\legbinom kp = \frac pk \times \legbinom{k-1}{p-1}$.
+
+    Donc $k\legbinom kp = p \times \legbinom{k-1}{p-1}$.
+
+    Donc $p \mid k \legbinom kp$.
+
+    Or, comme $1 \le k \le p-1$, on a $p \wedge k = 1$.
+
+    Donc $d = p \wedge k = 1$.
+\end{proof}
+
+\begin{application}
+    \begin{enumerate}
+        \item Si $p \in \Pset \tq p \mid xy$, alors $p \mid x$ ou $p \mid y$. Car si $p \nmid x$, alors $p \wedge x = 1$, donc $p \mid y$ (théorème de Gauss), et si $p \mid x$, c'est trivial.
+    \end{enumerate}
+\end{application}
+
+\section{Théorème de Fermat}
+
+\begin{theorem}[Théorème de Fermat]
+    $$\forall n \in \Z,\forall p \in \Pset, n^p \equiv n [p]$$
+\end{theorem}
+
+\begin{proof}[Preuve classique par récurrence]
+    
+\end{proof}
+\todo{a faire pour jeudi, çàd dem1}
+
+\begin{proof}[Preuve utilisant des notions de structures algébriques]
+    \begin{center}
+        On rappelle que si $(G,\cdot)$ est un groupe fini de cardinal $n \in \N^*$, alors $\forall a \in G, a^n = e$.
+    \end{center}
+
+    On sait que $(\Uset_{\Z/p\Z}, \times)$ est un groupe fini de cardinal $p-1$.
+
+    On a $\forall n \in \Z$, \textbf{si $p\mid n$}, alors $\ovl n = \ovl 0$ et $\ovl n^p = \ovl 0 = \ovl n$. Cela implique que $n^p \equiv n [p]$.
+
+    Le théorème est donc vrai dans ce cas.
+
+    \textbf{Si $p \nmid n$}, c'est-à-dire que $n\wedge p = 1$, alors $\ovl n \in \Uset_{\Z/p\Z}$.
+
+    Donc $\ovl n^{p-1} = \ovl 1$ (car le cardinal de $\Uset_{\Z/p\Z}$ est $p-1$).
+
+    Cela implique que $\ovl n^p = \ovl n$.
+
+    D'où $n^p \equiv n [p]$.
+
+    Le théorème est donc vrai dans ce cas aussi.
+\end{proof}
+
+\begin{remark}
+    $\forall n \in \Z, \forall k \in \N^*\setminus\{1\} \tqp n \wedge k =1$, alors $n^{\phi(k)} \equiv 1 [k]$, où $\phi$ est la fonction indicatrice d'Euler.
+
+    On a aussi : $n\wedge k = 1 \implies \ovl n \in \Uset_{\Z/k\Z}$.
+\end{remark}
+
+\begin{exercise}
+    Déterminer le reste de la division euclidienne de $5^{160}$ par $77$.
+
+    \textbf{Solution :}
+
+    On a $5^{10} \equiv 1[11]$ (car $5 \wedge 11 = 1$ et $\phi(11) = 10$).
+
+    Et on a $5^6 \equiv 1[7]$ (car $5 \wedge 7 = 1$ et $\phi(7) = 6$).
+
+    Donc on a $5^{160} \equiv 2 [7]$ et $5^{160} \equiv 1 [11]$.
+
+    On peut utiliser le \textbf{théorème chinois des restes} pour résoudre ce système. Mais comme celui-ci n'a pas encore été vu, on va procéder par congruences successives.
+
+    % à revoir absolument
+
+    Nous cherchons $k_0 \in \Z$ tel que $k_0 \equiv \underbrace{1}_{\star}[11]$ et $k_0 \equiv \underbrace{2}_{*}[7]$.
+
+    On a $11\wedge 7 = 1$, donc on peut écrire $11u + 7v = 1$.
+
+    Et on a $11 \times 2 + 7 \times (-3) = 1$.
+
+    On pose $k_0 = 11 \times 2 \times \underbrace{2}_{*} + 7 \times (-3) \times \underbrace{1}_{\star} = 23$.
+
+    Donc $\begin{cases} 5^{160} \equiv 23[11] \\ 5^{160} \equiv 23[7] \end{cases}$
+
+    Cela implique que $5^{160} \equiv 23 [77]$, sachant que $7\wedge 11 =1$.
+
+\end{exercise}
+
+\begin{theorem}
+    Soit $x \in \N^*\setminus\{1\}$. Il existe $p_1,\dots,p_r \in \Pset$ tels que $x=\prod_{k=1}^{r}p_k$.
+\end{theorem}
+
+\begin{proof}
+    Preuve par récurrence (forte) sur $x\in\N^*\setminus\{1\}$.
+
+    \textbf{Initialisation :} Pour $x=2$, on a $2 \in \Pset$, donc la propriété est vraie.
+
+    \textbf{Hérédité :} Supposons que la propriété soit vraie pour tout $k \in \N^*\setminus\{1\}$ tel que $2 \le k < x$, avec $x \ge 3$.
+
+    Si $x+1 \in \Pset$, la propriété est vraie.
+
+    Sinon, $\exists q \in \Pset \tq q \mid x+1$, ce qui implique que $x+1 = q \times a$ pour un certain $a \in \N^*\setminus\{1\} \tq a < x+1$.
+
+    Cela implique que $a\le x$, donc en utilisant l'hypothèse de récurrence, on a $a = \prod_{k=1}^{r} p_k$ avec $p_1,\dots,p_r \in \Pset$.
+
+    Donc $x+1 = q \times \prod_{k=1}^{r} p_k$, en posant $p_{r+1} = q$.
+\end{proof}
+
+\begin{definition}[Valuation $p$-adique d'un entier (déf. et théo.)]
+
+    Soient $x \in \N^*\setminus\{1\}$ et $p \in \Pset$.
+
+    Il existe un unique $\alpha \in \N$ et un unique $y \in \N^*$ tels que :
+
+    $$\begin{cases}
+        x = p^{\alpha} y\\
+        p \wedge y = 1
+    \end{cases}$$
+
+    $\alpha$ est appelé la \textbf{valuation $p$-adique} de $x$, et notée $v_p(x)=\alpha$.
+
+    $$v_p(x) = \max\{k \in \N \tq p^k \mid x\}$$
+    
+\end{definition}
+
+\begin{proof}[Existence et unicité]
+    On pose $A = \{k \in \N \tq p^k \mid x\}$.
+
+
+    
+\end{proof}
 
 \end{document}
