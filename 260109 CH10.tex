@@ -442,7 +442,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{example}
     \begin{enumerate}
         \item $(\Z,+)$ est un groupe monogène, engendré par $1$ (ou $-1$).
-        \item $\mathbf{U}_n = \{z \in \C \tq |z| = 1\}$ est un groupe cyclique, engendré par $e^{i\frac{2\pi}{n}}=\omega$. Donc $\mathbf{U}_n = \langle \omega \rangle = \{1, \omega, \omega^2, \ldots, \omega^{n-1}\}$.
+        \item $\Uset_n = \{z \in \C \tq |z| = 1\}$ est un groupe cyclique, engendré par $e^{i\frac{2\pi}{n}}=\omega$. Donc $\Uset_n = \langle \omega \rangle = \{1, \omega, \omega^2, \ldots, \omega^{n-1}\}$.
     \end{enumerate}
 \end{example}
 
@@ -539,7 +539,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     \begin{enumerate}
         \item Si $(G,\cdot)$ est un groupe fini de cardinal premier, alors ses seuls sous-groupes sont les sous-groupes triviaux $\{e_G\}$ et $G$. Dans ce cas, on dit que $G$ est un \textbf{groupe simple}. Par exemple, $(\Z/p\Z,+)$ est un groupe simple pour tout $p$ premier, sachant que le cardinal de $\Z/n\Z$ est $n$.
         \item Soit $(G,\cdot)$ un groupe fini tel que $\card{G}=n\in\N^*$. On a $\angles{a}$ est un sous-groupe de $G$, donc $o(a)=\card{\angles{a}}$ divise $n$, d'après le théorème de Lagrange. Or, on a $a^{o(a)}=e_G$. Donc, $a^n = e_G$.
-        \item Si $G$ est un sous-groupe de $(\C^*,\times)$ tel que $\card{G}=n\in\N^*$, alors $\forall z \in G, z^n = 1$. Donc $G\subset \mathbf{U}_n = \{z \in \C \tq |z|=1\}$. Or $\card{\mathbf{U}_n} = n = \card{G}$. Donc, $G = \mathbf{U}_n$, vu qu'il s'agit de deux ensembles finis de même cardinal tels que $G \subset \mathbf{U}_n$. Cela veut dire que le seul sous-groupe de $(\C^*,\times)$ de cardinal $n$ est $\mathbf{U}_n$.
+        \item Si $G$ est un sous-groupe de $(\C^*,\times)$ tel que $\card{G}=n\in\N^*$, alors $\forall z \in G, z^n = 1$. Donc $G\subset \Uset_n = \{z \in \C \tq |z|=1\}$. Or $\card{\Uset_n} = n = \card{G}$. Donc, $G = \Uset_n$, vu qu'il s'agit de deux ensembles finis de même cardinal tels que $G \subset \Uset_n$. Cela veut dire que le seul sous-groupe de $(\C^*,\times)$ de cardinal $n$ est $\Uset_n$.
     \end{enumerate}
 \end{consequence}
 
@@ -618,14 +618,18 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \end{example}
 \label{ex:U_Z_Q_R_C}
 
+\begin{remark}[Notation $\Uset$]
+    Le symbole $\Uset$ vient de l'``unité'', car les éléments inversibles sont aussi appelés ``unités''. On note très souvent $\Uset$ l'ensemble des éléments inversibles d'un anneau.
+\end{remark}
+
 \begin{property}
     Soit $(A,+,\times)$ un anneau. Alors, $(A^*=\Uset_A,\times)$ est un groupe, appelé le groupe des inversibles de l'anneau $A$.
 \end{property}
 
 \begin{remark}[Hors programme]
-    Le cardinal de $\Uset_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $U_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{U_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
+    Le cardinal de $\Uset_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $\Uset_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{\Uset_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
 
-    $$\varphi(n) = \card{U_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd(k,n) = 1\}}$$
+    $$\varphi(n) = \card{\Uset_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd(k,n) = 1\}}$$
 
     Par exemple, $\varphi(9) = 9 \left(1 - \frac{1}{3}\right) = 6$, et $\varphi(11) = 11 \left(1 - \frac{1}{11}\right) = 10$.
 
@@ -931,7 +935,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     \begin{enumerate}
         \item $f(e) = e'$.
         \item $\parens{f(x)}^{-1} = f(x^{-1})$, pour tout $x \in G$.
-        \item SI $H$ est un sous-groupe de $(G,*)$, alors $f(H)=\{f(h) \tq h \in H\}$ est un sous-groupe de $(G',T)$.
+        \item Si $H$ est un sous-groupe de $(G,*)$, alors $f(H)=\{f(h) \tq h \in H\}$ est un sous-groupe de $(G',T)$.
         \item Si $K$ est un sous-groupe de $(G',T)$, alors $f^{-1}(K) = \{g \in G \tq f(g) \in K\}$ est un sous-groupe de $(G,*)$.
     \end{enumerate}
 \end{property}
