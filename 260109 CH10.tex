@@ -2,11 +2,6 @@
 
 % wow! quelqu'un est en train de lire le code source !
 
-% ===========================
-% IL FAUT REMPLACER LES PGCD
-% LEUR STYLE A ETE CHANGE DANS LE FICHIER elegant-cours.sty
-% ===========================
-
 \usepackage{elegant-cours}
 
 \begin{document}
@@ -253,7 +248,7 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     Soit $(G,*)$ un groupe.
     \begin{enumerate}
         \item Si $H_{i_{i\in I}}$ est une famille de sous-groupes de $(G,*)$, alors l'intersection $\bigcap_{i\in I} H_i$ est un sous-groupe de $(G,*)$.
-        \item Si $H \cup K$ est un sous-groupe de $(G,*)$, alors $H \subset K$ ou $K \subset H$.
+        \item $H \cup K$ est un sous-groupe de $(G,*)$ si et seulement si $H \subset K$ ou $K \subset H$.
     \end{enumerate}
 \end{property}
 
@@ -599,8 +594,8 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
     Soit $(A,+,\times)$ un anneau.
 
     \begin{itemize}
-        \item $a\in A$ est dit \textbf{symétrisable} lorsque $a$ est symétrisable pour la loi $\times$, i.e. $\exists b \in A \tq a \times b = b \times a = 1_A$. Dans ce cas, $b$ est unique et on le note $a^{-1}$.
-        \item On note $A^* = \{a \in A \tq a \text{ est symétrisable}\}$ l'ensemble des éléments inversibles de l'anneau $(A,+,\times)$.
+        \item $a\in A$ est dit \textbf{inversible} lorsque $a$ est inversible pour la loi $\times$, i.e. $\exists b \in A \tq a \times b = b \times a = 1_A$. Dans ce cas, $b$ est unique et on le note $a^{-1}$.
+        \item On note $A^* = \{a \in A \tq a \text{ est inversible}\}$ l'ensemble des éléments inversibles de l'anneau $(A,+,\times)$.
     \end{itemize}
 \end{property}
 
@@ -615,20 +610,20 @@ Ce chapitre est consacré aux structures algébriques. Il s'agit d'un chapitre d
 \begin{example}
     
     \begin{itemize}
-        \item $U_\Z = \{-1,1\}$.
-        \item $\Kset^* = \Kset\setminus\{0\}$, où $\Kset$ est $\R$ ou $\C$.
-        \item $U_{\Z/n\Z} = \{\overline{a} \in \Z/n\Z \tq \exists \overline{b} \in \Z/n\Z, \overline{a} \dot\times \overline{b} = \overline{1}\}$\\$=\{\overline{a} \in \Z/n\Z \tq \pgcd (a,n) = 1\}$ (en utilisant le théorème de Bézout).\\Par exemple, $U_{\Z/9\Z} = \{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}\}$.
-        \item $U_{\Z/11\Z} = \Z/11\Z\setminus{\overline{0}}$ car $11$ est premier.
+        \item $\Uset_\Z = \{-1,1\}$.
+        \item $\Uset_\Kset = \Kset\setminus\{0\}$, où $\Kset$ est $\R$ ou $\C$.
+        \item $\Uset_{\Z/n\Z} = \{\overline{a} \in \Z/n\Z \tq \exists \overline{b} \in \Z/n\Z, \overline{a} \dot\times \overline{b} = \overline{1}\}$\\$=\{\overline{a} \in \Z/n\Z \tq \pgcd (a,n) = 1\}$ (en utilisant le théorème de Bézout).\\Par exemple, $\Uset_{\Z/9\Z} = \{\overline{1}, \overline{2}, \overline{4}, \overline{5}, \overline{7}, \overline{8}\}$.
+        \item $\Uset_{\Z/11\Z} = \Z/11\Z\setminus{\overline{0}}$ car $11$ est premier.
     \end{itemize}
 \end{example}
 \label{ex:U_Z_Q_R_C}
 
 \begin{property}
-    Soit $(A,+,\times)$ un anneau. Alors, $(A^*=U_A,\times)$ est un groupe, appelé le groupe des inversibles de l'anneau $A$.
+    Soit $(A,+,\times)$ un anneau. Alors, $(A^*=\Uset_A,\times)$ est un groupe, appelé le groupe des inversibles de l'anneau $A$.
 \end{property}
 
 \begin{remark}[Hors programme]
-    Le cardinal de $U_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $U_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{U_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
+    Le cardinal de $\Uset_{\Z/n\Z}$ \textbf{ne divise pas $n$}, parce que $U_{\Z/n\Z}$ n'est pas un sous-groupe de $(\Z/n\Z,+)$ (les deux lois sont différentes). Par exemple, pour $n=8$, on a $\card{U_{\Z/8\Z}}=4$ qui ne divise pas $8$. Le cardinal du groupe $(\Z/n\Z,\times)$ est donné par la fonction indicatrice d'Euler $\varphi(n)$.
 
     $$\varphi(n) = \card{U_{\Z/n\Z}} = \card{\{k\in[\![1,n]\!] \tq \pgcd(k,n) = 1\}}$$
 
