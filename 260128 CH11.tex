@@ -6,7 +6,7 @@
 
 \begin{document}
 
-\MaPageDeGarde{Chapitre XI : Arithmétiques}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Document WIP.}
+\MaPageDeGarde{Chapitre XI : Arithmétique}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Peut contenir des erreurs ou des sections incomplètes.}
 
 \tableofcontents
 \clearpage
@@ -841,10 +841,285 @@ DOnc $p$ est premier et divise $a$.
 \end{definition}
 
 \begin{proof}[Existence et unicité]
+    \textbf{Démonstration de l'existence :}
+
     On pose $A = \{k \in \N \tq p^k \mid x\}$.
 
+    \textbf{Démonstration de l'unicité :}
 
+    Supposons que $x = p^{\alpha_1}y_1 = p^{\alpha_2}y_2$ avec $p \wedge y_1 = 1$ et $p \wedge y_2 = 1$.
+
+    Supposons que $\alpha_1 \ne \alpha_2$.
+
+    On posera $lambda = \alpha_1 - \alpha_2 > 0$ (sans perte de généralité).
+
+    On aura donc $p^{\lambda} y_1 = y_2$.
+
+    Ce qui implique que $p\mid y_2$, ce qui est une contradiction, car cela implique que $p = 1$.
+
+    On en déduit que $\alpha_1 = \alpha_2$ et $y_1 = y_2$.
     
 \end{proof}
+\todo{continue}
+
+\begin{property}
+    Si $x=\prod_{i=1}^r  p_i^{\alpha_i}$ avec les $p_i$ des nombres premiers deux à deux distincts, alors $v_{p_i}(x) = \alpha_i$ pour tout $i \in \{1,\dots,r\}$, et $v_p(x) = 0$ pour tout $p \in \Pset\setminus\{p_1,\dots,p_r\}$.
+
+    Et on a $\forall p \in \Pset\setminus\{p_1,\dots,p_r\}, v_p(x) = 0$ (les nombres premiers qui ne divisent pas $x$ ont une valuation nulle).
+\end{property}
+
+\begin{proof}
+    On a $\forall i \in \{1,\dots,r\}, x = p_i^{\alpha_i}\cdot \underbrace{\prod_{\substack{k=1 \\ k\ne i}}^{r}p_k^{\alpha_k}}_{=y_i}$.
+
+    Les $p_k$ (premiers) sont deux à deux distincts, donc $p_i \wedge \prod_{k=1~;~k\ne i}^{r}p_k^{\alpha_k} = 1$.
+
+    Cela implique que $p_i \wedge y_i = 1$ pour tout $i \in \{1,\dots,r\}$.
+
+    On en déduit que $v_{p_i}(x) = \alpha_i$ pour tout $i \in \{1,\dots,r\}$.
+
+    Soit $p \in \Pset\setminus\{p_1,\dots,p_r\}$.
+
+    On a $x=p^0 \cdot x$, et $p\notin\{p_1,\dots,p_r\} \implies \forall i, p\wedge p_i = 1 \implies p \wedge x = 1$.
+
+    Donc $v_p(x) = 0$ pour tout $p \in \Pset\setminus\{p_1,\dots,p_r\}$.
+\end{proof}
+
+\section{Décomposition primaire et applications}
+
+\begin{theorem}[Décomposition primaire]
+
+    Soit $x\in \N^*\setminus\{1\}$.
+
+    Il existe $p_1<\dots<p_r \in \Pset$ deux à deux distincts, et $\alpha_1,\dots,\alpha_r \in \N^*$ tels que $x = \prod_{k=1}^{r} p_k^{\alpha_k}$.
+
+    Cette décomposition est unique.
+
+    Si on n'impose pas l'ordre $p_1 < \dots < p_r$, alors la décomposition est unique à l'ordre/la permutation près.
+
+    i.e. si $x=\prod_{i=1}^s q_i^{\beta_i}$ avec $q_1 < \dots < q_s \in \Pset$ et $\beta_j \in \N^* \forall j$, alors $r=s, \forall 1 \le i \le r : \begin{cases}
+    p_i = q_i\\
+    \alpha_i = \beta_i
+    \end{cases}$
+\end{theorem}
+
+\begin{proof}
+    L'existence a déjà été démontrée.
+
+    \textbf{Démonstration de l'unicité :}
+
+    Supposons que $x=\prod_{k=1}^r p_k^{\alpha_k} = \prod_{i=1}^s q_i^{\beta_i}$ avec $\begin{cases}p_1<\dots<p_r \in \Pset\\q_1<\dots<q_s \in \Pset\end{cases}$ et $\alpha_k,\beta_i \in \N^*$.
+
+    Soit $k=1,\dots,r$. On a $p_k \mid \prod_{i=1}^s q_i^{\beta_i}$.
+
+    On sait que $p_k$ est premier, donc $\exists i \in \{1,\dots,s\} \tq p_k \mid q_i^{\beta_i} \implies p_k \mid q_i$.
+
+    Et on sait aussi que $q_i$ est premier, donc $p_k = q_i$, cela implique que $p_k = 1$ ou $p_k = q_i$.
+
+    Donc $\{p_1,\dots,p_r\}\subset \{q_1,\dots,q_s\}$.
+
+    De même, on trouve que $\{q_1,\dots,q_s\} \subset \{p_1,\dots,p_r\}$.
+
+    Donc $\{p_1,\dots,p_r\} = \{q_1,\dots,q_s\}$, ce qui implique que $r=s$ et $p_i = q_i$ pour tout $i \in \{1,\dots,r\}$.
+
+    On a $x = \prod_{k=1}^r p_k^{\alpha_k} = \prod_{i=1}^r p_i^{\beta_i}$.
+
+    D'après la propriété précédente, on a $v_{p_i}(x) = \alpha_i$ et $v_{p_i}(x) = \beta_i$ pour tout $i \in \{1,\dots,r\}$.
+
+    Donc $\alpha_i = \beta_i$ pour tout $i \in \{1,\dots,r\}$.
+
+    On en déduit que la décomposition primaire de $x$ est unique.
+\end{proof}
+
+\begin{property}
+    Soient $x,y \in \N^*\setminus\{1\}$.
+
+    $$x\mid y \iff \forall p \in \Pset, v_p(x) \le v_p(y)$$
+\end{property}
+\label{prop:div_et_valuation}
+
+\begin{proof}
+    \textbf{($\implies$) :} Soit $p \in \Pset$. On a donc $x = p^\alpha \cdot z_1$ et $p\wedge z_1 = 1$, avec $\alpha = v_p(x)$.
+
+    Comme $x \mid y$, on a $y = x \cdot k$ pour un certain $k \in \N$.
+
+    De même, il existe un unique $\beta \in \N$, et un unique $z_2 \in \N^*$ tels que $k=p^\beta z_2$ ($\beta = v_p(k)$). On a $p \wedge z_2 = 1$.
+
+    Donc $y = p^{\alpha + \beta} z_1 z_2$.
+
+    Comme $p \wedge z_1 = 1$ et $p \wedge z_2 = 1$, on a $p \wedge z_1 z_2 = 1$.
+
+    Donc $v_p(y) = \alpha + \beta \ge \alpha = v_p(x)$.
+
+    \textbf{($\impliedby$) :} On a $x = \prod_{i = 1}^r p_i^{\alpha_i}$ et $y = \prod_{i=1}^r p_i^{\beta_i}$, avec $p_1,\dots,p_r \in \Pset$ et $\forall 1 \le i \le r, \alpha_i, \beta_i \ge 0$.
+
+    On a $\forall 1 \le i \le r, \alpha_i \le \beta_i$ (parce que $v_{p_i}(x) \le v_{p_i}(y)$).
+
+    Donc $y = \prod_{i=1}^r p_i^{\beta_i} = \prod_{i=1}^r p_i^{\alpha_i} \cdot \prod_{i=1}^r p_i^{\beta_i - \alpha_i} = x \cdot \underbrace{\prod_{i=1}^r p_i^{\beta_i - \alpha_i}}_{\in \N^*}$.
+
+    Donc $x \mid y$.
+\end{proof}
+
+\begin{theorem}[Calcul du PGCD par décomposition primaire]
+    Soient $x,y \in \N^*\setminus\{1\}$.
+
+    On a $x = \prod_{i=1}^r p_i^{\alpha_i}$ et $y = \prod_{i=1}^r p_i^{\beta_i}$, avec $p_1,\dots,p_r \in \Pset$ et $\alpha_i, \beta_i \in \N$.
+
+    Alors $x \wedge y = \prod_{i=1}^r p_i^{\min(\alpha_i,\beta_i)}$.
+\end{theorem}
+
+\begin{proof}
+    On pose $d = \prod_{i=1}^r p_i^{m_i}$.
+
+    On a $\forall 1 \le i \le r, m_i \le \alpha_i \et m_i \le \beta_i$.
+
+    Alors $d \mid x$ et $d\mid y$ donc $d\mid x\wedge y$.
+
+    On pose $d' = x \wedge y$, alors $d' \mid x$ et $d' \mid y$.
+
+    Donc $\forall p \in \Pset, \begin{cases}
+    v_p(d') \le v_p(x)\\
+    v_p(d') \le v_p(y)
+    \end{cases}$
+
+    i.e. $\forall 1 \le i \le r, v_{p_i}(d') \le \alpha_i$ et $v_{p_i}(d') \le \beta_i$.
+
+    Donc $\forall 1 \le i \le r, v_{p_i}(d') \le \min(\alpha_i,\beta_i) = m_i$.
+
+    D'après la propriété précédente, on a $d' \mid d$.
+
+    On a $d \mid d'$ et $d' \mid d$, donc $d = d'$, car ils sont tous les deux positifs.
+
+    On en déduit que $x \wedge y = \prod_{i=1}^r p_i^{\min(\alpha_i,\beta_i)}$.
+\end{proof}
+
+\begin{exercise}
+    Soient $x,y \in \N^*$. Montrer que $x\mid y \iff x^2 \mid y^2$.
+
+    \textbf{Solution :}
+
+    On va procéder par équivalences successives en utilisant la propriété \ref{prop:div_et_valuation}.
+
+    \begin{align*}
+        x^2 \mid y^2 &\iff \forall p \in \Pset, v_p(x^2) \le v_p(y^2)\\
+        &\iff \forall p \in \Pset, 2v_p(x) \le 2v_p(y)\\
+        &\iff \forall p \in \Pset, v_p(x) \le v_p(y)\\
+        &\iff x \mid y \text{ CQFD.}
+    \end{align*}
+
+    On a utilisé le fait que $v_p(x^2) = 2v_p(x)$ et $v_p(y^2) = 2v_p(y)$, ce qui est une conséquence de la définition de la valuation $p$-adique (et de la décomposition primaire).
+\end{exercise}
+
+\begin{remark}[PGCD de $a^n,b^n$]
+    Soient $a,b \in \N^*$ et $n \in \N^*$. Alors
+    \[
+        a^n \wedge b^n = (a \wedge b)^n.
+    \]
+\end{remark}
+
+\chapter{Plus petit commun multiple}
+
+\begin{definition}[PPCM (déf. et théorème)]
+
+    Soient $A$ un anneau principal et $x_1,\dots,x_n \in A$, alors $\exists m \in A \tq \cap_{i=1}^n x_i A = mA$, avec :
+
+    $$
+        \forall 1 \le i \le n, x_i \mid m\\
+        \si M \text{ est un autre multiple commun des } (x_i)_i, \text{ alors } m \mid M
+    $$
+
+    $m$ est appelé le \textbf{plus petit commun multiple} (PPCM) des $x_i$ et noté $\ppcm(x_1,\dots,x_n)$, ou encore $x_1 \vee x_2 \vee \dots \vee x_n$.
+    
+\end{definition}
+
+\begin{proof}
+    $\forall 1 \le i \le n, x_i A$ est un idéal de $A$.
+    
+    Donc $\cap_{i=1}^n x_i A$ est un idéal de $A$, qui est un anneau principal.
+
+    $\implies \cap_{i=1}^n x_i A$ est un idéal principal.
+
+    i.e. $\exists m \in A \tq \cap_{i=1}^n x_i A = mA$.
+
+    Donc $\forall 1 \le i \le n, mA \subset x_i A \implies x_i \mid m$.
+
+    Si $\exists M \tq \forall 1 \le i \le n, x_i \mid M$, alors $M \in x_i A$ pour tout $i$. 
+
+    Donc $MA \subset \cap_{i=1}^n x_i A = mA$.
+
+    Donc $m \mid M$.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item Si $m$ est un ppcm des $x_i$, alors les autres ppcm sont les éléments associés à $m$.
+
+        \item Dans le cas de $\Z$, le ppcm est unique (on choisit le ppcm positif, ce qu'on appelle le ``générateur positif'').
+    \end{itemize}
+\end{remark}
+
+\begin{property}
+    \begin{enumerate}
+        \item $\forall x,y \in \Z, \forall \lambda \in \Z, (\lambda x) \vee (\lambda y) = \abs{\lambda} (x \vee y)$.
+        \item Si $x,y \in \Z \tqp x \wedge y = 1$, alors $x \vee y = \abs{x}\cdot\abs{y}$.
+        \item $\forall x,y\in\Z, (x \wedge y) \cdot (x \vee y) = \abs{x}\cdot\abs{y}$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \textbf{Preuve du premier point :}
+
+    \begin{align*}
+    (\lambda x)\Z \cap (\lambda y)\Z &= (\lambda x \vee \lambda y)\Z\\
+    \lambda (x\Z \cap y\Z) &= \lambda(x \vee y)\Z\\
+    (\lambda x \vee \lambda y)\Z &= \lambda (x \vee y)\Z\\
+    \implies (\lambda x) \vee (\lambda y) &= \abs{\lambda} (x \vee y)
+    \end{align*}
+
+    \textbf{Preuve du deuxième point :}
+
+    On pose $m= x \vee y$.
+
+    Donc $x\mid m$ et $y \mid m$.
+
+    Comme $x \wedge y = 1$, on a $xy \mid m$ (propriété de l'application).
+
+    Et on a $m \mid xy$ (car $m \mid x$ et $m \mid y$).
+
+    Donc $m = \abs{xy}$.
+
+    \textbf{Preuve du troisième point :}
+
+    On pose $d=x \wedge y$, donc $\exists x_1,y_1 \in \Z \tqp x= dx_1, y=dy_1 \et x_1 \wedge y_1 = 1$.
+
+    Donc, d'après le deuxième point, on a $x_1 \vee y_1 = \abs{x_1}\cdot\abs{y_1}$.
+
+    Donc $d^2(x_1 \vee y_1) = d^2 \abs{x_1}\cdot\abs{y_1}$.
+
+    Donc $\abs{d}(dx_1 \vee dy_1) = \abs{dx_1}\cdot\abs{dy_1}$.
+
+    Donc $(x \wedge y)(x \vee y) = \abs{x}\cdot\abs{y}$.
+\end{proof}
+
+\begin{theorem}
+    Soient $x = \prod_{i=1}^{r}p_i^{\alpha_i}$ et $y = \prod_{i=1}^{r} p_i^{\beta_i}$, avec $p_1,\dots,p_r \in \Pset$ et $\alpha_i,\beta_i \in \N$.
+
+    Alors $x \vee y = \prod_{i=1}^{r} p_i^{\max(\alpha_i,\beta_i)}$.
+\end{theorem}
+
+\begin{proof}
+    On a $xy = \prod_{i=1}^{r}p_i^{\alpha_i + \beta_i}$.
+
+    Or $x \vee y = \frac{xy}{x\wedge y}$.
+
+    Donc $x \vee y = \prod_{i=1}^{r} p_i^{\alpha_i + \beta_i - \min(\alpha_i,\beta_i)} = \prod_{i=1}^{r} p_i^{\max(\alpha_i,\beta_i)}$.
+
+    Sachant que $\alpha_i + \beta_i - \min(\alpha_i,\beta_i) = \max(\alpha_i,\beta_i)$.
+\end{proof}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}\\
+    Fin du Chapitre XI.\\
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \end{document}
