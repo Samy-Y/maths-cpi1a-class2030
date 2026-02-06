@@ -1,0 +1,358 @@
+\documentclass[12pt, a4paper]{report}
+
+% wrong button guh
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre XII : Polynômes}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Peut contenir des erreurs ou des sections incomplètes. WIP.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y étudierons notamment les notions de degré, de racine, de division euclidienne, ainsi que les concepts de polynômes irréductibles et de factorisation dans ce contexte.
+\vspace*{\fill}
+
+\chapter{Polynômes à coefficients dans un anneau}
+
+\section{Définitions}
+
+\begin{definition}
+    Soit $(A,+,\times)$ un anneau commutatif. On munit $A^\N$ par les deux lois $+$ et $\times$ tel que :
+    
+    $\begin{cases}
+    \forall (a_n)_n, (b_n)_n \in A^\N : (a_n)_n + (b_n)_n = (a_n + b_n)_n\\
+
+    \forall (a_n)_n, (b_n)_n \in A^\N : (a_n)_n \times (b_n)_n = (c_n)_n$ avec $c_n = \sum_{k=0}^n a_k b_{n-k}
+    \end{cases}$
+
+    On peut aussi écrire $c_n = \sum_{\substack{0 \le i \le n\\0\le j \le n\\i+j = n}}a_ib_j$.
+\end{definition}
+
+\begin{theorem}
+    $(A^\N, +, \times)$ est un anneau commutatif. On l'appelle l'anneau des polynômes à coefficients dans $A$ et on le note $A[X]$.
+\end{theorem}
+
+\begin{proof}
+    Comme $(A,+)$ est un groupe abélien (sachant que $(A,+,\times)$ est un anneau), il en est de même pour $(A^\N, +)$. \textit{(On rappelle que le groupe des applications de $\N$ dans un groupe abélien est lui-même un groupe abélien)}
+    
+    La loi $\times$ est bien définie ; c'est une LCI dans $A^\N$ (stabilité par l'addition et la multiplication). De plus, la multiplication $\times$ est associative et commutative, et elle distribue par rapport à l'addition $+$. L'élément neutre de l'anneau $A^\N$ pour la loi $+$ est la suite nulle $(0)_n$ et l'élément neutre pour la loi $\times$ est la suite $(1, 0, 0, \ldots)$. 
+
+    \begin{outline}
+        \1 Pour démontrer que $\times$ est une LCI, on utilise les propriétés de l'anneau $A$ et la définition du produit $(c_n)_n$.
+        \1 Pour démontrer que $\times$ est associative, on considère trois suites $(x_n)_n$, $(y_n)_n$, et $(z_n)_n$ dans $A^\N$ et on montre que $((x_n)_n \times (y_n)_n) \times (z_n)_n = (x_n)_n \times ((y_n)_n \times (z_n)_n)$.
+            \2 Pour cela, on va montrer que tous les termes de ces deux suites sont égaux.
+            \2 On pose $(c_n)_n\times (z_n)_n = (\alpha_n)_n$ et on trouve que $\alpha_n = \sum_{k+l+j=n}(x_k \times y_l)\times z_j$.
+            \2 De même, on pose $(x_n)_n\times ((y_n)_n\times(z_n)_n) = (\beta_n)_n$ et on trouve que $\beta_n = \sum_{k+l+j=n}x_k\times (y_l \times z_j)$.
+            \2 En utilisant l'associativité de la multiplication dans $A$, on trouve que $\alpha_n = \beta_n$ pour tout $n$, \textbf{ce qui prouve l'associativité de $\times$}.
+            \2 Il faut noter qu'on a utilisé la distributivité de la multiplication par rapport à l'addition dans $A$ pour réarranger les termes de ces sommes.
+        \1 Pour démontrer que $\times$ est commutative, on considère deux suites $(x_n)_n$ et $(y_n)_n$ dans $A^\N$ et on montre que $(x_n)_n \times (y_n)_n = (y_n)_n \times (x_n)_n$.
+            \2 On pose une suite $(c_n)_n = \sum_{i+j=n} x_i \times y_j$ et on pose $(d_n)_n = \sum_{i+j=n} y_i \times x_j$.
+            \2 En utilisant la commutativité de la multiplication dans $A$, on trouve que $c_n = d_n$ pour tout $n$, \textbf{ce qui prouve la commutativité de $\times$}.
+        \1 Pour déterminer l'élément neutre de la multiplication $\times$, on doit trouver une suite $e = (e_n)_n$ dans $A^\N$ telle que pour toute suite $(x_n)_n$ dans $A^\N$, on ait $e \times (x_n)_n = (x_n)_n$ et $(x_n)_n \times e = (x_n)_n$.
+            \2 On pose $e = (e_n)_n \in A^\N$ définie par $e_0 = 1_A$, et $\forall n \ge 1, e_n = 0_A$.
+            \2 On utilisera le \textit{Symbole de Kronecker} pour montrer que $e$ est l'élément neutre pour la multiplication $\times$.
+            \3 Le symbole de Kronecker $\delta_{x,y}$ est défini par $\delta_{x,y} = 1$ si $x=y$ et $\delta_{x,y} = 0$ sinon.
+            \2 Soit $(x_n)_n \in A^\N$. On pose $e\times (x_n)_n = (c_n)_n$.
+            \2 En utilisant la définition du produit, on trouve que $c_n = \sum_{k=0}^n \delta_{k,0} \times x_{n-k}$.
+            \2 En utilisant la définition du symbole de Kronecker, on trouve que $c_n = x_n$ pour tout $n$, et sachant que la multiplication est commutative dans $A$, \textbf{ce qui prouve que $e$ est l'élément neutre pour la multiplication $\times$}.
+        \1 Pour montrer que $\times$ est distributive par rapport à $+$, on considère trois suites $(x_n)_n$, $(y_n)_n$, et $(z_n)_n$ dans $A^\N$ et on montre que $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n)_n + (x_n)_n \times (z_n)_n$.
+            \2 On a $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n+z_n)_n$.
+            \2 En utilisant la définition du produit, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n)\parens{\sum_{i+j} x_i \times (y_j + z_j)}_n$.
+            \2 En séparant les termes de cette somme, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n) = \parens{\sum_{i+j} x_i \times y_j}_n + \parens{\sum_{i+j} x_i \times z_j}_n$.
+            \2 En utilisant la définition du produit, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n)_n + (x_n)_n \times (z_n)_n$, \textbf{ce qui prouve la distributivité de $\times$ par rapport à $+$}.
+        \1 On conclut que $(A^\N, +, \times)$ est un anneau commutatif, car il satisfait toutes les propriétés nécessaires : 
+            \2 $(A^\N, +)$ est un groupe abélien.
+            \2 $\times$ est une LCI dans $A^\N$.
+            \2 $\times$ est associative et commutative.
+            \2 $\times$ distribue par rapport à $+$.
+            \2 Il existe un élément neutre pour la multiplication $\times$.
+    \end{outline}
+    
+    Par conséquent, $(A^\N, +, \times)$ satisfait la définition d'un anneau commutatif.
+\end{proof}
+
+\begin{property}[Conservation de l'intégrité]
+    Si $A$ est un anneau intègre, alors $A[X]$ est aussi un anneau intègre.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Supposons que $\exists (a_n)_n, (b_n)_n \in A^\N$ tels que $(a_n)_n \times (b_n)_n = 0_{A^\N}$ et $\begin{cases} (a_n)_n \neq 0_{A^\N}\\ (b_n)_n \neq 0_{A^\N} \end{cases}$.
+
+    \1 On pose $i_0 = \min\parens{\{n\in\N \tq a_n \ne 0\}}$ et $\forall i < i_0, a_i = 0_A$. On pose aussi $j_0 = \min\parens{\{n\in\N \tq b_n \ne 0\}}$ et $\forall j < j_0, b_j = 0_A$. $i_0$ et $j_0$ représentent les indices du premier terme non nul de $(a_n)_n$ et $(b_n)_n$ respectivement.
+
+    \1 On pose $(a_n)_n \times (b_n)_n = (c_n)_n$. Donc $\forall n \in \N, c_n = 0_A = \sum_{i+j=n} a_i \times b_j$.
+
+    \2 On remarque qu'en particulier, pour $n = i_0 + j_0$, on a $c_{i_0 + j_0} = 0_A = \sum_{i+j=i_0+j_0} a_i \times b_j$.
+
+    \2 Cela implique que $\sum_{i+j=i_0+j_0} a_i \times b_j = 0_A$.
+    
+    \3 Dans le cas où $i < i_0$ ou $j < j_0$, on a $a_i = 0_A$ ou $b_j = 0_A$, donc les termes correspondants de la somme sont nuls.
+
+    \3 Dans le cas contraire, c'est à dire lorsque $i \ge i_0$ et $j \ge j_0$, on a $c_{i_0 + j_0} = 0_A + a_{i_0} \times b_{j_0} = 0_A$, car les autres termes de la somme sont nuls.
+
+    \2 Comme $A$ est un anneau intègre, on a $a_{i_0} \times b_{j_0} = 0_A \implies a_{i_0} = 0_A$ ou $b_{j_0} = 0_A$, ce qui contredit la définition de $i_0$ et $j_0$.
+
+    \1 Par conséquent, notre supposition est fausse, et il n'existe pas de tels éléments $(a_n)_n$ et $(b_n)_n$ dans $A^\N$.
+
+    \1 Ainsi, $A^\N$ est un anneau intègre.
+    \end{outline}
+\end{proof}
+
+\begin{definition}
+    On définit la suite $X \in A^\N$ en utilisant le symbole de Kronecker : $X = (\delta_{n,1})_n$. Autrement dit, en posant $X=(x_n)_n$, on a $x_0 = 0_A$, $x_1 = 1_A$, et $\forall n \ge 2, x_n = 0_A$.
+\end{definition}
+
+\begin{property}
+    $\forall k \in \N, X^k = \underbrace{X\times\dots\times X}_{k\text{ fois}} = (\delta_{n,k})_n$.
+\end{property}
+
+\begin{proof}
+    On va démontrer cette propriété par récurrence sur $k$.
+
+    \textbf{Initialisation :} Pour $k=0$, on a $X^0 = 1_{A^\N} = (\delta_{n,0})_n$, ce qui est vrai.
+
+    \textbf{Hérédité :} Supposons que la propriété est vraie pour un certain $k \in \N$, c'est-à-dire que $X^k = (\delta_{n,k})_n$. Nous devons montrer qu'elle est également vraie pour $k+1$.
+
+    On a $X^{k+1} = X^k \times X = \underbrace{(\delta_{n,k})_n}_{=(a_n)_n} \times \underbrace{(\delta_{n,1})_n}_{=(b_n)_n}$.
+
+    On a $X^{k+1} = \parens{\sum_{i=0}^{n}a_i\times b_{n-i}}_n$.
+
+    On obtient donc $X^{k+1} = \parens{\sum_{i=0}^{n}\delta_{i,k}\times \delta_{n-i,1}}_n$.
+
+    Pour chaque $n \in \N$, on a :
+    \[\sum_{i=0}^{n}\delta_{i,k}\times \delta_{n-i,1} = \begin{cases}
+    1_A & \text{si } n = k+1\\
+    0_A & \text{sinon}
+    \end{cases}\]
+
+    On en déduit que $X^{k+1} = (\delta_{n-1,k})_n$.
+
+    Et on a $\delta_{n-1,k} = 1 \iff n-1 = k \iff n = k+1 \iff \delta_{n,k+1} = 1$.
+
+    On en conclut que $X^{k+1} = (\delta_{n,k+1})_n$.
+
+    Ainsi, par le principe de récurrence, la propriété est vraie pour tout $k \in \N$.
+\end{proof}
+
+\begin{definition}
+    On note $A[X] = \{a \in A^\N \tq \exists n_0 \in \N, \forall n \ge n_0, a_n = 0_A\}$. Autrement dit, $A[X]$ est l'ensemble des suites dans $A^\N$ qui sont nulles à partir d'un certain rang.
+\end{definition}
+
+\begin{property}
+    $A[X]$ est un sous-anneau de $(A^\N, +, \times)$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Soient $(a_n)_n$ et $(b_n)_n$ deux éléments de $A[X]$. Par définition, il existe des entiers naturels $n_a$ et $n_b$ tels que $\forall n \ge n_a, a_n = 0_A$ et $\forall n \ge n_b, b_n = 0_A$.
+
+        \1 Les éléments neutre $1_{A^\N}$ et $0_{A^\N}$ appartiennent à $A[X]$ car ils sont nuls à partir du rang 1.
+
+        \1 On pose $n_0 = \max(n_a, n_b)$. Alors, pour tout $n \ge n_0$, on a :
+            \2 $a_n = 0_A$ (car $n \ge n_a$)
+            \2 $b_n = 0_A$ (car $n \ge n_b$)
+            \2 Donc $a-b \in A[X]$.
+        \1 Ainsi, $A[X]$ est stable par soustraction, et par conséquent, il est stable par addition.
+
+        \1 Considérons maintenant le produit $(d_n)_n = (a_n)_n \times (b_n)_n$.\\Pour tout $n \ge n_0$, on a :
+            \2 $d_n = \sum_{i=0}^{n} a_i \times b_{n-i}$
+            \2 Si $n \ge n_0$, alors pour chaque terme de la somme, soit $i \ge n_a$ ou $n-i \ge n_b$, ce qui implique que soit $a_i = 0_A$ soit $b_{n-i} = 0_A$. Par conséquent, chaque terme de la somme est nul, et donc $d_n = 0_A$.
+
+        \1 Ainsi, $(d_n)_n$ appartient à $A[X]$, ce qui montre que $A[X]$ est stable par multiplication.
+
+        \1 Par conséquent, $A[X]$ est un sous-anneau de $(A^\N, +, \times)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $a = (a_n)_n \in A^\N$ et $\lambda \in A$, on définit $\lambda \cdot a = (\lambda \times a_n)_n$ (loi de composition externe, qu'on verra dans le chapitre XIV).
+\end{remark}
+
+\begin{property}
+    \begin{enumerate}
+        \item $\forall a \in A^\N, 1_A \cdot a = a$.
+        \item $\forall \lambda_1,\lambda_2 \in A, \forall a \in A^\N, (\lambda_1 + \lambda_2) \cdot a = \lambda_1 \cdot a + \lambda_2 \cdot a$.
+        \item $\forall \lambda \in A, \forall a,b \in A^\N, \lambda \cdot (a + b) = \lambda \cdot a + \lambda \cdot b$.
+        \item $\forall \lambda_1,\lambda_2 \in A, \forall a \in A^\N, (\lambda_1 \times \lambda_2) \cdot a = \lambda_1 \cdot (\lambda_2 \cdot a)$.
+    \end{enumerate}
+
+    On sait que $\forall a \in A[X], \exists n_0 \in \N, \forall n \ge n_0, a_n = 0_A$.
+
+    i.e. $a = (a_0, a_1, \ldots, a_{n_0}, 0_A, 0_A, \ldots)$.
+
+    \begin{itemize}
+        \item On peut encore réécrire $a$ sous la forme $a = (a_0, 0_A, 0_A, \ldots) + (0_A, a_1, 0_A, \ldots) + \ldots + (0_A, 0_A, \ldots, a_{n_0}, 0_A, \ldots)$.
+
+        \item On peut aussi réécrire $a$ sous la forme $a = a_0 \cdot (1_A, 0_A, 0_A, \ldots) + a_1 \cdot (0_A, 1_A, 0_A, \ldots) + \ldots + a_{n_0} \cdot (0_A, 0_A, \ldots, 1_A, 0_A, \ldots)$.
+    \end{itemize}
+
+    En utilisant la définition de $X$, on trouve que $a = a_0 \cdot 1_{A^\N} + a_1 \cdot X + \ldots + a_{n_0} \cdot X^{n_0}$.
+
+    Donc $a = \sum_{k=0}^{n_0}a_k \cdot X^k$.
+\end{property}
+
+\begin{property}[Préservation de l'intégrité]
+    Si $A$ est un anneau intègre, alors $A[X]$ est aussi un anneau intègre.
+\end{property}
+
+\begin{proof}
+    $A$ intègre $\implies A^\N$ intègre, et $A[X]$ est un sous-anneau de $A^\N$. Donc $A[X]$ est un anneau intègre.
+\end{proof}
+
+\begin{property}
+    Soient $a,b \in A[X]$. On a $a = b \iff \forall n, a_n = b_n$.
+
+    Donc, en particulier, $\sum_{a_k}\cdot X^k = \sum_{b_k}\cdot X^k \iff \forall k, a_k = b_k$.
+\end{property}
+
+\begin{definition}
+    Soit $A$ un anneau commutatif.
+
+    $P = \sum_{k=0}^{n}a_k X^k$ est appelé un polynôme à coefficients dans $A$.
+
+    L'ensemble des polynômes à coefficients dans $A$ est noté $A[X]$.
+
+    Si $P \in A[X]$, alors on définit la \textbf{fonction polynômiale} associée à $P$ comme étant la fonction $P: \begin{array}{ccc}A & \to & A\\
+    x & \mapsto & \tilde P(x) = \sum_{k=0}^{n}a_k x^k\end{array}$.
+\end{definition}
+
+\begin{remark}
+    Si $P,Q \in A[X]$, alors $P=Q \implies \forall x \in A, \tilde P(x) = \tilde Q(x)$, mais la réciproque est fausse en général. On donne un contre-exemple simple dans le cas où $A = \Z/2\Z$ : $P = X^2 + X$ et $Q = 0$. On a $\tilde P(0) = 0$, $\tilde P(1) = 0$, $\tilde Q(0) = 0$, et $\tilde Q(1) = 0$, mais $P \ne Q$.
+\end{remark}
+
+\section{Degré d'un polynôme}
+
+\begin{definition}
+    Soit $P = \sum_{k=0}^{n}a_k X^k \in A[X]$ un polynôme à coefficients dans $A$. On définit le degré de $P$, noté $\deg(P)$ ou $d^\circ P$, comme étant le plus grand entier $k$ tel que $a_k \ne 0_A$.
+
+    $$\deg(P) = \max\{k \in \N \tq a_k \ne 0_A\}\\
+    \si P \ne 0$$
+    
+    Par convention, on pose $\deg(0) = -\infty$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $P \ne 0$, alors $P$ peut être écrit sous la forme $P = \sum_{k=0}^{\deg(P)}a_k X^k$. Le coefficient $a_{\deg(P)}$ est appelé \textbf{le coefficient dominant} de $P$, noté $\cfd(P)$. Si $P \in A[X] \tq \cfd(P) = 1$, alors on dit que $P$ est un \textbf{polynôme unitaire}.
+        \item On note $A_n[X] = \{P \in A[X] \tq \deg(P) \le n\}$, c'est à dire l'ensemble des polynômes à coefficients dans $A$ de degré inférieur ou égal à $n$.
+    \end{enumerate}
+\end{remark}
+
+\begin{property}
+    Soient $A$ un anneau \textit{intègre} (\faIcon{exclamation-circle}) et $P,Q \in A[X]$.
+
+    \begin{enumerate}
+        \item $\deg(P\cdot Q) = \deg(P) + \deg(Q)$ et $\cfd(P\cdot Q) = \cfd(P) \times \cfd(Q)$.
+        \item $\deg(P+Q) \le \max(\deg(P), \deg(Q))$\\avec égalité si et seulement si $\begin{cases} \deg(P) \ne \deg(Q)\\ \text{ou } \deg(P) = \deg(Q) \text{ et } \cfd(P) + \cfd(Q) \ne 0_A\end{cases}$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Si $P=0$ ou $Q=0$, alors $P\cdot Q = 0$, et $\deg(P\cdot Q) = -\infty = \deg(P) + \deg(Q)$.\\Dans le cas contraire, on pose $P = \sum_{k=0}^{n}a_k X^k$ et $Q = \sum_{k=0}^{m}b_k X^k$ avec $a_n \ne 0_A$ et $b_m \ne 0_A$.\\En utilisant la définition du produit, on trouve que $P\cdot Q = \sum_{k=0}^{n+m}c_k X^k$ avec $c_{k} = \sum_{i+j=k} a_i \times b_j$.\\En particulier, on a $c_{n+m} = a_n \times b_m \ne 0_A$ (car $A$ est intègre), ce qui implique que $\deg(P\cdot Q) = n+m = \deg(P) + \deg(Q)$ et $\cfd(P\cdot Q) = c_{n+m} = a_n \times b_m = \cfd(P) \times \cfd(Q)$.
+        \item Si $P = 0 \ou Q= 0$, alors la démonstration est claire.\\Dans le cas contraire, on pose : $P=\sum_{k=0}^{n}a_kX^k, Q = \sum_{k=0}^{m}b_kX^k$. On suppose par exemple (et sans perte de généralité) que $n \le m$, donc $P = \sum_{k=0}^{m}a_kX^k$ avec $\forall k > n, a_k = 0$.\\Donc $(P+Q) = \sum_{k=0}^{m}(a_k+b_k)X^k$.\\Cela implique que $\deg(P+Q) \le m = \max(n,m) = \max(\deg(P), \deg(Q))$.\\Dans le cas où $n < m$, on a $\deg(P+Q) = m = \max(\deg(P), \deg(Q))$.\\Dans le cas où $n = m$, on a $\deg(P+Q) = n = m$ si et seulement si $a_n + b_n \ne 0_A$, c'est à dire $\cfd(P) + \cfd(Q) \ne 0_A$.\\Dans le cas contraire, on a $\deg(P+Q) < n = m$.
+    \end{enumerate}
+\end{proof}
+
+\begin{exercise}
+    On pose $\begin{cases}
+    T_0 = 1, T_1 = X\\
+    \forall n \ge 0, T_{n+2} = 2X \cdot T_{n+1} - T_n
+    \end{cases}$
+
+    $(T_n)_n$ est appelée les \textbf{polynômes de Tchebychev}.
+
+    Calculer $\deg(T_n)$ et $\cfd(T_n)$ pour tout $n \in \N$.
+
+    \textbf{Solution :}
+
+    On remarque que $T_1 = X$ est un polynôme de degré 1 et de coefficient dominant 1, puis $T_2 = 2X^2 - 1$ est un polynôme de degré 2 et de coefficient dominant 2.
+    
+    Il suffit donc de démontrer par récurrence double que $\forall n \in \N, T_n$ est un polynôme de degré $n$ et de coefficient dominant $2^{n-1}$.
+
+    L'initialisation est vérifiée pour $n=0$ et $n=1$.
+
+    L'hérédité doit supposer que, pour un $n \in \N$ fixe, $\begin{cases} \deg(T_n) = n \\ \deg(T_{n+1}) = n+1\end{cases}$ et $\begin{cases} \cfd(T_n) = 2^{n-1} \\ \cfd(T_{n+1}) = 2^n\end{cases}$, et doit démontrer que $\begin{cases} \deg(T_{n+2}) = n+2 \\ \cfd(T_{n+2}) = 2^{n+1}\end{cases}$.
+
+    Ensuite, on conclut que $\forall n \in \N, T_n$ est un polynôme de degré $n$ et de coefficient dominant $2^{n-1}$.
+\end{exercise}
+
+\section{Dérivée d'un polynôme}
+
+\begin{importantbox}
+    Dans cette partie, $\Kset$ désigne le corps $\R$ ou $\C$.
+\end{importantbox}
+
+\begin{definition}[Dérivée d'un polynôme]
+    Soit $P = \sum_{k=0}^{n}a_k X^k \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit le polynôme dérivé de $P$, noté $P'$, de la manière suivante :
+    $$P' = \begin{cases}
+    0 & \si \deg(P) = 0\\
+    \sum_{k=1}^{n} \underbrace{k \cdot a_k}_{\in \Kset[X]} X^{k-1} & \si \deg(P) \ne 0
+    \end{cases}$$
+\end{definition}
+
+\begin{definition}[Dérivées successives d'un polynôme]
+    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit les dérivées successives de $P$ de la manière suivante :
+    \begin{itemize}
+        \item $P^{(0)} = P$.
+        \item $\forall k \in \N, P^{(k+1)} = (P^{(k)})'$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    Si $P = \sum_{i=0}^{n}a_i X^i \in \Kset[X]$ est un polynôme à coefficients dans $\Kset$ et de degré $\deg(P) = n$, alors :
+
+    $$P^{(k)} = \begin{cases}
+        0 & \si k > n\\
+        \sum_{i=k}^{n} \frac{i!}{(i-k)!} a_i X^{i-k} & \si k \le n
+    \end{cases}$$
+\end{remark}
+
+\begin{theorem}[Formule de Taylor]
+    Soient $P \in \Kset[X] \tq \deg(P) = n$ et $a \in \Kset$. Alors :
+
+    $$P = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$$
+\end{theorem}
+
+\begin{proof}
+    On pose $\forall i \in [\![0,n]\!], Q_i = X^i$.
+
+    \begin{align*}
+        \ona \forall i \in [\![0,n]\!], Q_i &= (X-a+a)^i\\
+        &= \sum_{k=0}^{i} \legbinom{k}{i} (X-a)^k a^{i-k}
+    \end{align*}
+
+    \begin{align*}
+        \ona \forall k \in [\![0,i]\!], Q_i^{(k)}(a) &= \frac{i!}{i-k!} X^{i-k}\\
+        \implies Q_i^{(k)} &= k! \cdot \legbinom{k}{i} a^{i-k} (X-a)^k
+    \end{align*}
+
+    Donc $Q_i = \sum_{k=0}^{i} \frac{Q_i^{(k)}(a)}{k!} (X-a)^k$.
+
+    On écrit $P = \sum_{i=0}^{n} \lambda_i X^i = \sum_{i=0}^{n} \lambda_i Q_i$.
+
+    Donc, pour tout $k\le n$, $P^{(k)} = \sum_{i=k}^n \lambda_i Q_i^{(k)}$.
+
+    Donc, pour tout $k \le n$, $\boxed{P^{(k)}(a) = \sum_{i=k}^n \lambda_i Q_i^{(k)}(a)}$.
+    
+    Comme $P = \sum_{i=0}^{n}\lambda_i Q_i$, on trouve que $P = \sum_{i=0}^{n} \lambda_i \sum_{k=0}^{i} \frac{Q_i^{(k)}(a)}{k!} (X-a)^k$.
+
+    En échangeant les sommes, on trouve que $P = \sum_{k=0}^{n} \frac{1}{k!} \underbrace{\parens{\sum_{i=k}^{n} \lambda_i Q_i^{(k)}(a)}}_{=P^{(k)}(a)} (X-a)^k$.
+
+    Le terme entre parenthèses est égal à $P^{(k)}(a)$, d'après la formule encadrée ci-dessus.
+
+    Donc $P = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$.
+
+\end{proof}
+
+\begin{remark}
+    Si $P = \sum_{k=0}^{n}a_k X^k$.
+
+    Alors $\forall k \in [\![0,n]\!], a_k = \frac{P^{(k)}(0)}{k!}$.
+\end{remark}
+
+\end{document}
