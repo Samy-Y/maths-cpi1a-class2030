@@ -323,12 +323,13 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
 
     \begin{align*}
         \ona \forall i \in [\![0,n]\!], Q_i &= (X-a+a)^i\\
-        &= \sum_{k=0}^{i} \legbinom{k}{i} (X-a)^k a^{i-k}
+        &= \sum_{k=0}^{i} \legbinom{i}{k} (X-a)^k a^{i-k}
     \end{align*}
 
     \begin{align*}
-        \ona \forall k \in [\![0,i]\!], Q_i^{(k)}(a) &= \frac{i!}{i-k!} X^{i-k}\\
-        \implies Q_i^{(k)} &= k! \cdot \legbinom{k}{i} a^{i-k} (X-a)^k
+        \ona \forall k \in [\![0,i]\!], Q_i^{(k)}(a) &= \frac{i!}{(i-k)!} a^{i-k}\\
+        \implies Q_i^{(k)} &= k! \cdot \legbinom{i}{k} a^{i-k} (X-a)^k\\
+        \implies \forall k \in [\![0,i]\!], \frac{Q_i^{(k)}(a)}{k!} &= \legbinom{i}{k} a^{i-k}\\
     \end{align*}
 
     Donc $Q_i = \sum_{k=0}^{i} \frac{Q_i^{(k)}(a)}{k!} (X-a)^k$.
@@ -353,6 +354,260 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
     Si $P = \sum_{k=0}^{n}a_k X^k$.
 
     Alors $\forall k \in [\![0,n]\!], a_k = \frac{P^{(k)}(0)}{k!}$.
+\end{remark}
+
+\chapter{Arithmétiques dans $\Kset[X]$}
+
+\begin{importantbox}
+    Dans cette partie, $\Kset$ désigne un corps commutatif.
+\end{importantbox}
+
+\section{Divisibilité dans $\Kset[X]$}
+
+\begin{definition}[Rappel]
+    Soit $A,B \in \Kset[X]$. On dit que $A$ divise $B$ dans $\Kset[X]$ lorsqu'il existe $C \in \Kset[X]$ tel que $B = A \cdot C$, et on écrit $A \mid B$.
+\end{definition}
+
+\begin{attention}
+    On rappelle que $\Kset[X]$ est un anneau intègre, mais pas forcément un corps.
+\end{attention}
+
+\begin{property}
+    Les éléments inversibles de $\Kset[X]$ sont les polynômes de degré 0.
+
+    $$P \in \Uset_{\Kset[X]} \iff \deg(P) = 0$$
+
+    $$\Uset_{\Kset[X]} = \Kset^* = \Kset_0[X]\setminus\{0\}$$
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration dans le sens $\implies$ :
+
+        \2 On a $P \in \Uset_{\Kset[X]} \iff \exists Q \in \Kset[X], P\cdot Q = 1$.
+
+        \2 Donc $\deg(P\cdot Q) = \deg(P) + \deg(Q) = 0$, sachant que $P \ne 0$ et $Q \ne 0$ (car $1 \ne 0$).
+
+        \2 Et comme $\deg(P), \deg(Q) \in \N$, on trouve que $\deg(P) = 0$ et $\deg(Q) = 0$.
+
+        \1 Démonstration dans le sens $\impliedby$ :
+
+        \2 Si $\deg(P) = 0$, alors $P$ est de la forme $P = a_0$ avec $a_0 \in \Kset$ et $a_0 \ne 0$ (car $P \ne 0$).
+
+        \2 Comme $\Kset$ est un corps, $a_0$ est inversible dans $\Kset$, donc il existe $a_0^{-1} \in \Kset$ tel que $a_0 \times a_0^{-1} = 1$.
+
+        \2 On pose $Q = a_0^{-1}$. Alors $P\cdot Q = a_0 \cdot a_0^{-1} = 1$, ce qui implique que $P$ est inversible dans $\Kset[X]$.
+
+        \1 Par conséquent, les éléments inversibles de $\Kset[X]$ sont exactement les polynômes de degré 0.
+    \end{outline}
+
+\end{proof}
+
+\begin{property}
+    Soient $A,B,C \in \Kset[X]$.
+    \begin{outline}[enumerate]
+        \1 Si $A \mid B$ et $B \mid C$, alors $A \mid C$.
+        \1 Si $A \mid B$ et $B \mid A$, alors :
+        \2 $A$ et $B$ sont associés.
+        \2 Il existe $\lambda \in \underbrace{\Uset_{\Kset[X]}}_{=\Kset^*}$ tel que $A = \lambda \cdot B$.
+        \1 $\Kset[X]$ est un anneau intègre, donc toutes les propriétés de divisibilité dans un anneau intègre sont vérifiées dans $\Kset[X]$.
+    \end{outline}
+\end{property}
+
+\section{Division euclidienne}
+
+\begin{theorem}
+    Soient $A,B \in \Kset[X]$ avec $B \ne 0$. 
+    Alors il un unique couple $(Q,R) \in \Kset[X]^2$ tels que $A = B\cdot Q + R$ et $\deg(R) < \deg(B)$.
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 Si $\deg(B) < \deg(A)$,
+        
+        \2 Alors $B=0\cdot A + B$ est une division euclidienne de $B$ par $A$.
+
+        \2 Cela implique que $(Q,R) = (0,B)$ et $\deg(R) = \deg(B) < \deg(A)$.
+
+        \1 Si $\deg(B) \ge \deg(A)$,
+
+        \2 Cela implique que $B \ne 0$.
+
+        \2 On pose $B = \sum_{k=0}^{m}b_k X^k$ avec $b_m \ne 0$, et $A = \sum_{k=0}^{n}a_k X^k$ avec $a_n \ne 0$.
+
+        \2 Le degré de $B$ est $m$ et le degré de $A$ est $n$, donc $m \ge n$.
+
+        \2 Nous allons procéder par récurrence forte sur $m$.
+
+        \3 \textbf{Initialisation :} Si $m < n$, la propriété est vérifiée comme montré dans le premier cas.
+
+        \3 \textbf{Hérédité :} Supposons que la propriété est vérifiée pour tout $k \le m - 1$. Nous allons montrer qu'elle est également vérifiée pour $m$.
+
+        \3 On pose $B_1 = B - b_m a_n^{-1} X^{m-n} \cdot A$. Alors $B_1$ est un polynôme de degré inférieur à $m$ (en prenant le degré de $B$ et le degré de $b_m a_n^{-1} X^{m-n} \cdot A$).
+
+        \3 Le coefficient dominant de $B_1$ est nul, car $b_m - b_m a_n^{-1} a_n = 0$.
+
+        \3 Le degré de $B_1$ est donc strictement inférieur à $m$. On peut donc appliquer l'hypothèse de récurrence à $B_1$. On peut donc écrire $B_1 = A \cdot Q_1 + R$ avec $\deg(R) < \deg(A)$.
+
+        Donc $B = A \cdot Q + R$ avec $Q = Q_1 + b_m a_n^{-1} X^{m-n}$.
+
+        \3 On a donc trouvé un couple $(Q,R) \in \Kset[X]^2$ tel que $B = A\cdot Q + R$ et $\deg(R) < \deg(B)$.
+
+        \2 Montrons maintenant l'unicité de ce couple.
+
+        \3 Supposons qu'il existe un autre couple $(Q',R') \in \Kset[X]^2$ tel que $B = A\cdot Q' + R'$ et $\deg(R') < \deg(B)$.
+
+        \3 En soustrayant les deux égalités, on trouve que $A\cdot \underbrace{(Q-Q')}_{=Q} = \underbrace{R' - R}_{=R}$.
+
+        \3 Comme $\deg(AQ) = \deg(A) + \deg(Q) = \deg(R) \le \max(\deg(R), \deg(R'))$, on trouve que $\deg(Q) < 0$, ce qui implique que $Q = 0$, et par conséquent que $R = 0$.
+
+        \3 Donc $Q = Q'$ et $R = R'$, ce qui montre l'unicité du couple $(Q,R)$.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    $\Kset = \Z/5\Z$, $B = X^4 + X^3 - 2X + 1$, $A = 2X^2 + 4X - 1$.
+
+    (Pour être rigoureux, il aurait fallu noter $\ovl 2,\ovl 4$ et $\ovl 1$ au lieu de $2,4$ et $1$, mais on se permet de faire un léger abus de notation pour alléger les calculs.)
+
+    % division euclidienne figure
+    % using arrays
+    % quotient : 3X² + 2X
+    % reste : 1
+
+    Après division euclidienne, on trouve que le quotient est $3X^2 + 2X$ et le reste est $1$.
+
+\end{example}
+
+On peut utiliser la division euclidienne pour démontrer quelques autres propriétés de $\Kset[X]$, notamment le fait que c'est un anneau principal.
+
+\begin{property}
+    L'anneau $\Kset[X]$ est principal.
+\end{property}
+
+\begin{proof}
+    Soit $I$ un idéal de $\Kset[X]$.
+
+    \begin{outline}
+        \1 Si $I = \{0\}$, alors $I = \langle 0 \rangle = 0\cdot\Kset[X]$.
+
+        \1 Si $I$ n'est pas réduit à $\{0\}$, alors il existe un polynôme non nul $P \in I$ de degré minimal $d$.
+
+        \2 On pose $E = \{\deg(P) \tq P \in I\setminus\{0\}\}$
+
+        \2 On a $E \ne \emptyset$ (car $I \ne \{0\}$) et $E \subset \N$. $E$ admet un minimum $d$ (car $\N$ est bien ordonné).
+
+        \2 On peut donc écrire $\exists P_0 \in I \setminus \{0\} \tq \deg(P_0) = d$.
+
+        \2 Montrons que $I = \langle P_0 \rangle = P_0 \cdot \Kset[X]$.
+
+        \2 Montrons que $I = P_0 \cdot \Kset[X]$.
+
+        \2 On a $\forall Q \in \Kset[X]$, $P_0 \cdot Q \in I$ car $P_0 \in I$ et $I$ est un idéal.
+
+        \2 Donc $P_0 \cdot \Kset[X] \subset I$.
+
+        \2 Soit $B \in I$. Par la division euclidienne, il existe un unique couple $(Q,R) \in \Kset[X]^2$ tel que $B = P_0 \cdot Q + R$ et $\deg(R) < \deg(P_0) = d$.
+
+        \2 On a $R = B - P_0 \cdot Q \in I$ (car $B \in I$, $P_0 \cdot Q \in I$, et $I$ est un idéal, donc stable par soustraction).
+
+        \3 Si $R \ne 0$, cela implique que $R \in I\setminus\{0\}$, et donc que $\deg(R) \in E$, ce qui implique que $\deg(R) \ge \deg(P_0) = d$ (car $d$ est le minimum de $E$). C'est une contradiction, parce que $R = B- P_0 \cdot Q$ et $\deg(R) < \deg(P_0) = d$.
+
+        \3 Donc $R = 0$, et par conséquent, $B = P_0 \cdot Q \in P_0 \cdot \Kset[X]$.
+
+        \2 Ainsi, $I \subset P_0 \cdot \Kset[X]$.
+
+        \2 Par conséquent, $I = P_0 \cdot \Kset[X] = \langle P_0 \rangle$.
+
+        \1 Donc, dans tous les cas, $I$ est principal.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $I$ est un idéal non-nul de $\Kset[X]$, alors $I$ est engendré par un unique polynôme unitaire de degré minimal.
+
+    $$\exists! P_0 \in I \setminus \{0\} \tq P_0 \text{ unitaire et } I = \langle P_0 \rangle = P_0 \cdot \Kset[X]$$
+\end{remark}
+
+\begin{proof}
+    Soit $I$ un idéal non-nul.
+
+    Nous allons montrer que $I$ est engendré par un polynôme unitaire de degré minimal.
+    
+    Donc $\exists P_1 \in \Kset[X] \setminus \{0\} \tq I = \langle P_1 \rangle = P_1 \cdot \Kset[X]$.
+
+    On a donc $I = (\cfd(P_1))^{-1} \cdot P_1 \cdot \Kset[X]$, sachant que $\cfd(P_1) \in \Kset^*$ (car $P_1 \ne 0$ et $\Kset$ est un corps), et que donc les deux polynômes $P_1$ et $(\cfd(P_1))^{-1} \cdot P_1$ sont associés.
+
+    On pose $P_0 = (\cfd(P_1))^{-1} \cdot P_1$. Alors $P_0$ est unitaire, et $I = P_0 \cdot \Kset[X]$.
+
+    Nous allons maintenant montrer que $P_0$ est le \textit{seul} polynôme unitaire de degré minimal qui engendre $I$.
+
+    Si $\exists Q_0 \text{ unitaire } \tq I = P_0 \cdot \Kset[X] = Q_0 \cdot \Kset[X]$, alors $P_0$ et $Q_0$ sont associés.
+
+    Donc $\exists \lambda \in \Kset^* \tq P_0 = \lambda \cdot Q_0$.
+
+    On sait que $\cfd(P_0) = 1$ et $\cfd(Q_0) = 1$, donc $\lambda = 1$, et par conséquent, $P_0 = Q_0$.
+
+    Donc $P_0$ est unique.
+\end{proof}
+
+\begin{definition}[Racine d'un polynôme]
+    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On dit que $a \in \Kset$ est une racine (ou zéro) de $P$ si et seulement si $\tilde P(a) = 0$, c'est à dire $P(a) = 0$.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $2$ est une racine de $X^2 + X - 6$ dans $\Kset[X]$.
+        \item $i$ est une racine de $X^2 + 1$ dans $\Kset[X]$, mais $X^2 + 1$ n'a pas de racine dans $\R[X]$.
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+    La notion de racine dépend très fortement du corps étudié.
+\end{remark}
+
+\begin{property}
+    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. Alors $a \in \Kset$ est une racine de $P$ si et seulement si $(X-a) \mid P$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 La démonstration dans le sens indirect $\impliedby$ est claire, car si $(X-a) \mid P$, alors $P = (X-a) \cdot Q$ pour un certain $Q \in \Kset[X]$, et donc $P(a) = (a-a) \cdot Q(a) = 0$.
+        \1 Dans le sens direct $\implies$, si $P(a) = 0$, alors par la division euclidienne, il existe un unique couple $(Q,R) \in \Kset[X]^2$ tel que $P = (X-a) \cdot Q + R$ et $\deg(R) < \deg(X-a) = 1$. Donc $R$ est une constante. En évaluant en $a$, on obtient $0 = P(a) = (a-a) \cdot Q(a) + R = R$, donc $R = 0$ et $P = (X-a) \cdot Q$, ce qui montre que $(X-a) \mid P$.
+    \end{outline}
+\end{proof}
+
+\begin{consequence}
+    Soient $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$, et $a_1, a_2, \ldots, a_k$ des racines deux à deux distinctes de $P$. Alors $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$.
+
+    $$\prod_{i=1}^{k}(X-a_i) \mid P$$
+\end{consequence}
+
+\begin{proof}
+    On procède par récurrence sur $k \in \N^*$.
+    
+    \textbf{Initialisation :} Pour $k = 1$, le résultat est trivialement vrai, car $(X-a_1) \mid P$ si $a_1$ est une racine de $P$.
+
+    \textbf{Hérédité :} Supposons que le résultat soit vrai pour un certain $k \ge 1$, c'est-à-dire que si $a_1, a_2, \ldots, a_k$ sont des racines deux à deux distinctes de $P$, alors $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$.
+    
+    Soit $a_{k+1}$ une racine distincte de $P$. Alors, par la propriété précédente, $(X-a_{k+1}) \mid P$.
+
+    On sait qu'il existe un $Q \in \Kset[X]$ tel que $P = (X-a_{k}) \cdot Q$.
+
+    Et on a $P(a_{k+1}) = 0$, donc $Q(a_{k+1}) = 0$, ce qui implique que $a_{k+1}$ est une racine de $Q$, et donc que $(X-a_{k+1}) \mid Q$.
+    
+    Par hypothèse de récurrence, $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$. 
+
+    On obtient donc $(X-a_1)(X-a_2)\cdots(X-a_k)(X-a_{k+1}) \mid P$.
+
+    \textbf{Conclusion :} Par le principe de récurrence, le résultat est vrai pour tout $k \in \N^*$.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $P$ est un polynôme dont le nombre de racines distinctes est supérieur au degré de $P$, alors $P$ est le polynôme nul. 
+        \item Si $P$ admet une infinité de racines, alors $P=0$.
+    \end{enumerate}
 \end{remark}
 
 \end{document}
