@@ -551,6 +551,8 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
     Donc $P_0$ est unique.
 \end{proof}
 
+\section{Racines d'un polynôme}
+
 \begin{definition}[Racine d'un polynôme]
     Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On dit que $a \in \Kset$ est une racine (ou zéro) de $P$ si et seulement si $\tilde P(a) = 0$, c'est à dire $P(a) = 0$.
 \end{definition}
@@ -603,11 +605,268 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
     \textbf{Conclusion :} Par le principe de récurrence, le résultat est vrai pour tout $k \in \N^*$.
 \end{proof}
 
+\section{Multiplicité d'une racine}
+
 \begin{remark}
     \begin{enumerate}
         \item Si $P$ est un polynôme dont le nombre de racines distinctes est supérieur au degré de $P$, alors $P$ est le polynôme nul. 
         \item Si $P$ admet une infinité de racines, alors $P=0$.
     \end{enumerate}
 \end{remark}
+
+\begin{definition}[Racine de multiplicité $s$ d'un polynôme]
+    Soient $P \in \Kset[X]$, et $\alpha \in \Kset$ un scalaire, et $s\in \N^*$.
+
+    On dit que $\alpha$ est une \textbf{racine de multiplicité $s$} de $P$ si et seulement si
+    
+    $$(X-\alpha)^s \mid P \text{ et } (X-\alpha)^{s+1} \nmid P$$
+\end{definition}
+
+\begin{example}
+    Considérons le polynôme $P = X^3 - 4X^2 + 5X - 2$ dans $\R[X]$.
+
+    $1$ est une racine de multiplicité $2$ de $P$, et $2$ est une racine de multiplicité $1$ de $P$, parce qu'on a $P = (X-1)^2(X-2)$, et que $P$ n'est pas divisible par $(X-1)^3$ ni par $(X-2)^2$.
+
+    $1$ est aussi dite \textbf{racine double} de $P$, et $2$ est dite \textbf{racine simple} de $P$.
+\end{example}
+
+\begin{property}
+    Soient $P \in \Kset[X]$, $\alpha \in \Kset$ et $s\in \N^*$. Alors $\alpha$ est une racine de multiplicité $s$ de $P$ si et seulement si $\forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0$, et $P^{(s)}(\alpha) \ne 0$.
+
+    Concrètement, une racine de multiplicité $s$ d'un polynôme est une racine qui annule les $s$ premières dérivées du polynôme, mais pas la $s$-ième dérivée du polynôme.
+\end{property}
+
+\begin{proof}
+    La démonstration utilisera la formule de Taylor.
+
+    On pose $n = \deg(P)$.
+
+    \begin{align*}
+        P &= \sum_{k=0}^{n} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^k\\
+        &= (X-\alpha)^s \cdot \underbracket{\sum_{k=s}^{n} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^{k-s}}_{=Q} + \underbracket{\sum_{k=0}^{s-1} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^k}_{=R}
+    \end{align*}
+
+    On remarque que $Q$ et $R$ sont respectivement le quotient et le reste de la division euclidienne de $P$ par $(X-\alpha)^s$.
+
+    On suppose maintenant que $\alpha$ est une racine de multiplicité $s$ de $P$ dans $\Kset[X]$.
+
+    \begin{align*}
+        \iff \big(((X-\alpha)^s \mid P) \et ((X-\alpha)^{s+1} \nmid P)\big)\\
+        \iff (R=0 \et P^{(s)}(\alpha) \ne 0)\\
+        \iff (R=0 \et Q(\alpha) \ne 0)\\
+        \iff \begin{cases}
+        \forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0\\
+        P^{(s)}(\alpha) \ne 0
+        \end{cases}
+    \end{align*}
+
+    On en déduit donc que $\alpha$ est une racine de multiplicité $s$ de $P$ si et seulement si $\forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0$, et $P^{(s)}(\alpha) \ne 0$.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $\alpha$ est une racine de multiplicité $s$ de $P$, alors :
+        
+        $$s = \max(\{k \in \N, (X-\alpha)^k \mid P\})$$
+
+        \item Si $m \in \N^*$ tel que $(X-\alpha)^m \mid P$, alors la multiplicité de $\alpha$ est $\ge$ à $m$.
+    \end{enumerate}
+\end{remark}
+
+\section{Polynômes scindés}
+
+\begin{definition}[Polynôme scindé]
+    Un polynôme $P \in \Kset[X]$ est dit \textbf{scindé} dans $\Kset[X]$ s'il admet $\deg(P)$ racines (pas forcément distinctes) dans $\Kset$.
+
+    Autrement dit, $P$ est scindé dans $\Kset[X]$ s'il existe $a_1, a_2, \ldots, a_n \in \Kset$ (pas forcément distincts) tels que $P = \cfd(P) \prod_{i=1}^{n}(X-a_i)$, où $n = \deg(P)$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Les $x_i$ ne sont pas forcément distincts, car $P$ peut admettre des racines de multiplicité supérieure ou égale à 2.
+        \item Si $P$ est scindé dans $\Kset[X]$, alors :
+        $$\begin{cases}
+        \exists x_1,\dots,x_q \in \Kset \text{ deux à deux distincts }\\
+        \exists s_1,\dots,s_q \in \N^* \text{ tels que } \sum_{i=1}^{q} s_i = n \et P = \cfd(P) \prod_{i=1}^{q}(X-x_i)^{s_i}
+        \end{cases}$$
+
+        \item La notion de polynôme scindé dépend très fortement du corps étudié, car la notion de racine dépend très fortement du corps étudié. Par exemple, $X^2 + 1$ n'est pas scindé dans $\R[X]$, mais il est scindé dans $\C[X]$.
+    \end{enumerate}
+\end{remark}
+
+\begin{property}[Relations racines/coeffs. d'un polynôme scindé]
+    Soit $P = \sum_{k=0}^{n}a_kX^k \in \Kset[X]$ un polynôme scindé dans $\Kset[X]$, et $x_1, x_2, \ldots, x_n$ les racines de $P$ (pas forcément distinctes) dans $\Kset$.
+
+    On pose $\forall k \in [\![1,n]\!], \sigma_k = \sum_{1 \le i_1 < \cdots < i_k \le n} x_{i_1} \cdots x_{i_k}$, c'est à dire que $\sigma_k$ est la somme de tous les produits de $k$ racines distinctes de $P$.
+
+    Alors $\forall k \in [\![0,n]\!], \sigma_k = (-1)^k \cdot \frac{a_{n-k}}{a_n}$, où $a_n$ est le coefficient dominant de $P$ (Formule de Viète).
+\end{property}
+
+\begin{proof}
+    La démonstration se fait par récurrence sur $n = \deg(P) \in \N^*$. Elle est assez complexe et ne sera pas détaillée dans ce cours.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\sigma_1 = \sum_{k=1}^{n}x_k$\\
+        $\sigma_n = \prod_{k=1}^{n} x_k$.
+        \item Dans le cas où $\deg(P)=2=n$, on a $P=a_2X^2 + a_1X + a_0 = a_2(X-x_1)(X-x_2)$, ce qui nous donne $P=a_2(X^2-(x_1+x_2)X + x_1x_2)$, et donc par égalité des polynômes, $\sigma_1 = x_1 + x_2 = -\frac{a_1}{a_2}$ et $\sigma_2 = x_1x_2 = \frac{a_0}{a_2}$.
+        \item Dans le cas où $\deg(P)=3=n$, on a $P=a_3X^3 + a_2X^2 + a_1X + a_0 = a_3(X-x_1)(X-x_2)(X-x_3)$, ce qui nous donne $P=a_3(X^3-(x_1+x_2+x_3)X^2 + (x_1x_2 + x_1x_3 + x_2x_3)X - x_1x_2x_3)$, et donc par égalité des polynômes, $\sigma_1 = x_1 + x_2 + x_3 = -\frac{a_2}{a_3}$, $\sigma_2 = x_1x_2 + x_1x_3 + x_2x_3 = \frac{a_1}{a_3}$ et $\sigma_3 = x_1x_2x_3 = -\frac{a_{0}}{a_{3}}$.
+    \end{enumerate}
+\end{remark}
+
+\begin{application}
+    \begin{enumerate}
+        \item Résoudre dans $\R^3$ le système d'équations suivant :
+        $$\begin{cases}
+            x+y+z = 1\\
+            \frac1x + \frac1y + \frac1z = 2\\
+            xyz = -2
+        \end{cases}$$
+        \item Soient $x_1,\dots,x_n$ les racines d'un polynôme $P \in \Kset[X]$ scindé de degré $n$. Calculer $\sum_{k=1}^{n} x_k^2$ en fonction des coefficients de $P$.
+    \end{enumerate}
+    
+    \textbf{Solution (1) :}
+
+    On pose :
+    $$\begin{cases}
+    \sigma_1 = x + y + z = 2\\
+    \sigma_2 = xy + xz + yz = 1\\
+    \sigma_3 = xyz = -2
+    \end{cases}$$
+
+    $x,y,z$ sont les racines du polynôme $P = X^3 - \sigma_1 X^2 + \sigma_2 X - \sigma_3 = X^3 - 2X^2 + X + 2$.
+
+    L'ensemble des solutions du système est donc $\{(x,y,z) \in \R^3, P(x) = P(y) = P(z) = 0\}$.
+
+    Il faut ensuite continuer réciproquement... Ou au moins mentionner que les solutions restent valident réciproquement.
+
+    \textbf{Solution (2) :}
+
+    On a $\sigma_1 = \sum_{k=1}^{n} x_k$ et $\sigma_2 = \sum_{1 \le i < j \le n} x_i x_j$.
+
+    On a alors $\sum_{k=1}^{n} x_k^2 = (\sum_{k=1}^{n} x_k)^2 - 2\sum_{1 \le i < j \le n} x_i x_j = \sigma_1^2 - 2\sigma_2$.
+\end{application}
+
+\section{PGCD et PPCM de polynômes}
+
+\begin{theorem}
+    Soient $P_1,\dots,P_n \in \Kset[X]$.
+    \begin{outline}[enumerate]
+        \1 \textbf{PGCD :}
+        \2 $\exists ! D \in \Kset[X]$ avec $\begin{cases}D \text{ unitaire }\\D= 0\end{cases}$ tel que :\\ $\sum_{i=1}^{n}P_i \Kset[X] = D\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], D \mid P_i$.
+        \2 Si $\exists \Delta \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], \Delta \mid P_i$, alors $\Delta \mid D$.
+        
+        $D$ est appelé le \textbf{plus grand commun diviseur} (PGCD) de $P_1,\dots,P_n$, et est noté $\pgcd(P_1,\dots,P_n)$.
+
+        \1 \textbf{PPCM :}
+        \2 $\exists ! M \in \Kset[X]$ avec $\begin{cases}M \text{ unitaire }\\M= 0\end{cases}$ tel que :\\ $\bigcap_{i=1}^{n} P_i \cdot \Kset[X] = M\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], P_i \mid M$.
+        \2 Si $\exists A \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], P_i \mid A$, alors $M \mid A$.
+
+        $M$ est appelé le \textbf{plus petit commun multiple} (PPCM) de $P_1,\dots,P_n$, et est noté $\ppcm(P_1,\dots,P_n)$.
+    \end{outline}
+\end{theorem}
+
+\begin{proof}
+    La preuve est analogue à celle du théorème sur le PGCD et le PPCM dans un anneau (chapitre 11).
+\end{proof}
+
+\begin{property}
+    Soient $P_1, \dots , P_n, Q \in \Kset[X]$.
+    \begin{outline}[enumerate]
+        \1 $\pgcd(P_1Q, P_2Q, \dots, P_nQ) = \pgcd(P_1, P_2, \dots, P_n) \cdot \frac{Q}{\cfd(Q)}$.
+        \1 $\ppcm(P_1Q, P_2Q, \dots, P_nQ) = \ppcm(P_1, P_2, \dots, P_n) \cdot \frac{Q}{\cfd(Q)}$.
+    \end{outline}
+\end{property}
+
+\begin{attention}
+    Il ne faut pas oublier que le PGCD et le PPCM sont définis à une unité près, c'est à dire que $\pgcd(P_1, P_2, \dots, P_n)$ et $\ppcm(P_1, P_2, \dots, P_n)$ sont définis à une unité près. C'est pour cela que dans les égalités ci-dessus, on divise $Q$ par son coefficient dominant $\cfd(Q)$ pour s'assurer que le PGCD et le PPCM restent unitaires.
+\end{attention}
+
+\begin{definition}
+    Soient $A_1, \dots, A_n \in \Kset[X]$.
+
+    \begin{enumerate}
+        \item On dit que $A_1, \dots, A_n$ sont \textbf{premiers entre eux} si et seulement si $\pgcd(A_1, \dots, A_n) = 1$.
+        \item On dit que $A_1, \dots, A_n$ sont \textbf{premiers entre eux deux à deux} si et seulement si $\forall i,j \in [\![1,n]\!], i \ne j \implies \pgcd(A_i, A_j) = 1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    La deuxième propriété implique la première, mais la réciproque n'est pas vraie. Par exemple, les polynômes $A_1 = (X-2)(X-3)$, $A_2 = (X-1)(X-3)$ et $A_3 = (X-1)(X-2)$ sont premiers entre eux, car $\pgcd(A_1, A_2, A_3) = 1$, mais ils ne sont pas premiers entre eux deux à deux, car $\pgcd(A_1, A_2) = X-3 \ne 1$, $\pgcd(A_1, A_3) = X-2 \ne 1$ et $\pgcd(A_2, A_3) = X-1 \ne 1$.
+\end{remark}
+
+\begin{importantbox}
+    Les preuves des propriétés qui suivront sont analogues à celles des propriétés sur le PGCD et le PPCM dans un anneau principal (chapitre 11).
+\end{importantbox}
+
+\begin{property}
+    Soient $A,B,C \in \Kset[X] \setminus \{0\}$.
+
+    $$\begin{cases}
+    A \wedge B = 1\\
+    C \mid B
+    \end{cases}
+    \implies A \wedge C = 1$$
+\end{property}
+
+\begin{theorem}[Égalité de Bézout]
+    Soient $P_1,\dots,P_n \in \Kset[X]$.
+
+    $$D = \pgcd(P_1,\dots,P_n) \implies \exists Q_1, \dots, Q_n \in \Kset[X] \tq D = \sum_{i=1}^{n}P_iQ_i$$
+\end{theorem}
+
+\begin{property}
+    Soient $P_1,\dots,P_n \in \Kset[X] \et D \in \Kset[X]$.
+
+    $$\si \exists U_1,\dots,U_n \in \Kset[X] \tq D = P_1U_1 + P_2U_2 + \cdots + P_nU_n$$
+
+    avec $\forall 1 \le i \le n, D \mid P_i$ et $D$ est unitaire (ou nul).
+
+    Alors $D = \pgcd(P_1,\dots,P_n)$.
+\end{property}
+
+\begin{consequence}
+    Soient $P_1,\dots,P_n \in \Kset[X]$.
+
+    $$\pgcd(P_1,\dots,P_n) = 1 \iff \exists Q_1, \dots, Q_n \in \Kset[X] \tq 1 = P_1Q_1 + P_2Q_2 + \cdots + P_nQ_n$$
+\end{consequence}
+
+\begin{theorem}[Théorème de Gauss]
+    Soient $A,B,C \in \Kset[X]\setminus\{0\}$.
+
+    $$\begin{cases}
+    A \wedge B = 1\\
+    A \mid C\\
+    B \mid C
+    \end{cases}
+    \implies AB \mid C$$
+\end{theorem}
+
+\begin{consequence}
+    Soient $A, P_1, \dots, P_n \in \Kset[X]\setminus\{0\}$.
+
+    $$\begin{cases}
+    P_i \mid A \quad \forall i \in [\![1,n]\!]\\
+    (P_1,\dots,P_n) \text{ premiers entre eux deux à deux distincts }
+    \end{cases}
+    \implies \left(\prod_{i=1}^{n} P_i\right) \mid A$$
+\end{consequence}
+
+\begin{property}
+    Si $P_1, \dots, P_n$ sont premiers entre eux deux à deux, alors :
+
+    $$\ppcm(P_1,\dots,P_n) = \frac{1}{\prod_{i=1}^{n} \cfd(P_i)} \prod_{i=1}^{n} P_i$$
+\end{property}
+
+\begin{consequence}
+    Soient $A,B \in \Kset[X]\setminus\{0\}$.
+
+    $$(A\wedge B)(A \vee B) = \frac{1}{\cfd(AB)} AB$$
+\end{consequence}
+
+\begin{theorem}[Lemme d'Euclide]
+    
+\end{theorem}
 
 \end{document}
