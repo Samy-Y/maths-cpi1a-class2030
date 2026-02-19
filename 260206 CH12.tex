@@ -418,7 +418,7 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
 
 \begin{theorem}
     Soient $A,B \in \Kset[X]$ avec $B \ne 0$. 
-    Alors il un unique couple $(Q,R) \in \Kset[X]^2$ tels que $A = B\cdot Q + R$ et $\deg(R) < \deg(B)$.
+    Alors il existe un unique couple $(Q,R) \in \Kset[X]^2$ tels que $A = B\cdot Q + R$ et $\deg(R) < \deg(B)$.
 \end{theorem}
 
 \begin{proof}
@@ -651,10 +651,10 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
     On suppose maintenant que $\alpha$ est une racine de multiplicité $s$ de $P$ dans $\Kset[X]$.
 
     \begin{align*}
-        \iff \big(((X-\alpha)^s \mid P) \et ((X-\alpha)^{s+1} \nmid P)\big)\\
-        \iff (R=0 \et P^{(s)}(\alpha) \ne 0)\\
-        \iff (R=0 \et Q(\alpha) \ne 0)\\
-        \iff \begin{cases}
+        \alpha \text{ racine de multiplicité } s &\iff \big(((X-\alpha)^s \mid P) \et ((X-\alpha)^{s+1} \nmid P)\big)\\
+        &\iff (R=0 \et P^{(s)}(\alpha) \ne 0)\\
+        &\iff (R=0 \et Q(\alpha) \ne 0)\\
+        &\iff \begin{cases}
         \forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0\\
         P^{(s)}(\alpha) \ne 0
         \end{cases}
@@ -866,7 +866,162 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
 \end{consequence}
 
 \begin{theorem}[Lemme d'Euclide]
-    
+    Si $A = B\cdot Q + R$ avec $A,B,Q,R \in \Kset[X]$ et $\deg(R) < \deg(B)$, alors $A\wedge B = B\wedge R$.
 \end{theorem}
+
+\section{Les polynômes irréductibles}
+
+\begin{definition}[Polynôme irréductible]
+    Un polynôme $P \in \Kset[X]$ de degré $\ge 1$ est dit \textbf{irréductible} (ou premier) dans $\Kset[X]$ lorsque les seuls diviseurs de $P$ dans $\Kset[X]$ sont les polynômes constants non-nuls et les polynômes associés à $P$ ($\lambda P \tq \lambda \in \Kset^*$).
+
+    \textit{Dans le cas contraire, $P$ est dit réductible dans $\Kset[X]$.}
+\end{definition}
+
+\begin{attention}
+    Un polynôme irréductible \textbf{n'est pas} forcément un polynôme qui n'admet pas de racines dans $\Kset$. Par exemple $(X^2+1)^2$ est un polynôme réductible dans $\R[X]$, mais il n'admet pas de racines dans $\R$. Idem pour le polynôme $X^4+1$ dans $\R[X]$, qui est réductible mais n'admet pas de racines dans $\R$.
+\end{attention}
+
+\begin{example}
+    \begin{enumerate}
+        \item Les polynômes de degré $1$ sont irréductibles dans $\Kset[X]$.
+        \item $X^2 + 1$ est irréductible dans $\R[X]$, mais il est réductible dans $\C[X]$.
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Soit $A \in \R[X]$ tel que $\deg(A) = 2n+1$ et $n\in\N^*$. Montrer que $A$ est réductible dans $\R[X]$.
+
+    \textbf{Solution :}
+
+    Pour démontrer ce résultat, nous allons utiliser le théorème de la valeur intermédiaire généralisé sur une fonction polynomiale.
+\end{exercise}
+\todo{à faire chez soi}
+
+\begin{remark}
+    \begin{enumerate}
+        \item En général, si $P = P_1 \cdot P_2$ avec $P_1, P_2 \in \Kset[X]$ des polynômes non-constants, alors $P$ est réductible dans $\Kset[X]$.
+        \item Le résultat de l'exercice précédent n'est pas valable dans $\Q[X]$. Par exemple, le polynôme $P = X^3+X-1$ est de degré $3$, mais il est irréductible dans $\Q[X]$.\\
+        \begin{itemize}
+            \item Pour le démontrer, on peut supposer que $P$ est réductible, donc qu'il est factorisable en produit de deux polynômes (au moins), et donc qu'il existe $A,B\in\Q[X] \tqp P = A \cdot B$ avec $1\le \deg(A), \deg(B) \le 2$.
+            \item Prenons, par exemple et sans perte de généralité, $\deg(A) = 1$ et $\deg(B) = 2$. Donc $\exists (a,b) \in \Q^*\times\Q \tqp A = aX+b$. Donc $r= -\frac{b}{a}$ est une racine de $P$. On écrit $r = \frac pq \avec (p,q)\in\Z\times\N^* \et p\wedge q = 1$.
+            \item On a donc $r^3+r-1=0$, ce qui équivaut à dire que $p^3+p\cdot q^2 - q^3=0$, ce qui implique que $p^3 = q(q^2-pq)$, et donc que $q \mid p^3$ et par conséquent $q\mid 1$ donc $q=1$ et par suite $r=p$ et $p(p^2+1)=1$ donc $p\mid 1$ alors $p=\pm 1$. Donc $r = \pm 1$ est une racine de $P$, ce qui est absurde, car $P(1) = 1^3 + 1 - 1 = 1 \ne 0$ et $P(-1) = (-1)^3 + (-1) - 1 = -3 \ne 0$.
+            \item On en déduit que $P$ est irréductible dans $\Q[X]$.
+        \end{itemize}
+    \end{enumerate}
+\end{remark}
+
+% polynômes cyclotomiques
+
+\begin{theorem}[Théorème de D'Alembert-Gauss]
+    Tout polynôme non-constant $P \in \C[X]$ de degré $n \ge 1$ admet au moins une racine dans $\C$.
+\end{theorem}
+
+\begin{proof}
+    À faire comme DL (ou voir CNC 2007).
+\end{proof}
+
+\begin{consequence}
+    \begin{enumerate}
+        \item Les polynômes irréductibles dans $\C[X]$ sont les polynômes de degré $1$.
+        \item Tout polynôme non-constant de $\C[X]$ est scindé dans $\C[X]$. (Une conséquence qui sera abordée bien plus tard est que toute matrice $M_1 \in \mathcal M_1(\C)$ à coefficients complexes est trigonalisable, c'est-à-dire qu'elle est semblable à une matrice triangulaire). 
+    \end{enumerate}
+\end{consequence}
+
+\begin{property}[Conjugaison complexe d'un polynôme]
+    Soit $P \in \C[X]$.
+
+    $$P \in \R[X] \iff \forall z \in \C, \ovl{P(z)} = P(\ovl z)$$
+\end{property}
+
+\begin{proof}
+    Dans le sens direct $(\implies)$, la démonstration est triviale. Si $P = \sum_{k=0}^{n}a_kX^k \in \R[X]$, alors $\ovl{P(z)} = \sum_{k=0}^{n}\ovl{a_k}\ovl{z^k} = \sum_{k=0}^{n}a_k\ovl{z^k} = P(\ovl z)$.
+
+    Dans le sens réciproque $(\impliedby)$, supposons que $\forall z \in \C, \ovl{P(z)} = P(\ovl z)$. On pose $P = \sum_{k=0}^{n}a_kX^k$. Alors $\ovl{P(z)} = \sum_{k=0}^{n}\ovl{a_k}\ovl{z^k}$ et $P(\ovl z) = \sum_{k=0}^{n}a_k\ovl{z^k}$.
+
+    Donc $\sum_{k=0}^{n}(\ovl{a_k} - a_k)\ovl{z^k} = 0$ pour tout $z \in \C$.
+
+    Donc $Q$ admet une infinité de racines, et par conséquent $Q$ est le polynôme nul, c'est à dire que $\forall k \in [\![0,n]\!], \ovl{a_k} - a_k = 0$, ce qui implique que $\forall k \in [\![0,n]\!], a_k \in \R$, et donc $P \in \R[X]$.
+\end{proof}
+
+\begin{consequence}
+    Soient $P \in \R[X]$, $z \in \C\setminus\R$ et $s \in \N^*$. Alors $z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$ si et seulement si $\ovl z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
+\end{consequence}
+
+\begin{proof}
+    Nous allons utiliser les propriétés liées aux polynômes dérivés et à la conjugaison complexe d'un polynôme.
+
+    On sait que $z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
+
+    Par définition, cela équivaut à dire que $\forall k \in [\![0,s-1]\!], P^{(k)}(z) = 0$ et $P^{(s)}(z) \ne 0$.
+
+    Cela implique que $\forall k \in [\![0,s-1]\!], \ovl{P^{(k)}(z)} = 0$ et $\ovl{P^{(s)}(z)} \ne 0$.
+
+    Donc $\forall k \in [\![0,s-1]\!], P^{(k)}(\ovl z) = 0$ et $P^{(s)}(\ovl z) \ne 0$, ce qui équivaut à dire que $\ovl z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
+\end{proof}
+
+\begin{consequence}
+    Les polynômes irréductibles dans $\R[X]$ sont les polynômes de degré $1$ et les polynômes de degré $2$ sans racines dans $\R$, c'est à dire les polynômes dont le discriminant $\Delta$ est strictement négatif $< 0$.
+\end{consequence}
+
+\begin{proof}
+    Soit $P \in \R[X]$.
+    \begin{outline}
+        \1 Si $P$ est de degré $1$, alors $P$ est irréductible dans $\R[X]$.
+        \1 Si $P$ est de degré $2$...
+        \2 Si $\Delta \ge 0$, alors $P$ admet au moins une racine dans $\R$, et par conséquent $P$ est réductible dans $\R[X]$.
+        \2 Dans le cas où $\Delta < 0$, on procède par absurde en supposant que $P$ est réductible.
+        \3 Supposons que $P$ est réductible dans $\R[X]$. Alors il existe $P_1 \in \R[X]$ un polynôme de degré $1$ tel que $P_1 \mid P$, or $P_1$ admet une racine réelle, et par conséquent $P$ admet une racine réelle, ce qui est absurde, car $\Delta < 0$.
+        \3 On en déduit que $P$ est irréductible dans $\R[X]$.
+        \1 Si $P$ est de degré $\ge 3$, alors :
+        \2 Si $P$ admet un au moins une racine réelle $a$, alors $X-a \mid P$, et par conséquent $P$ est réductible dans $\R[X]$.
+        \2 Dans le cas contraire, on sait que $P \in \R[X] \subset \C[X]$, donc d'après le théorème de D'Alembert-Gauss, $P$ admet au moins une racine complexe $z$, cette racine $z$ n'est pas réelle (elle appartient à $\C\setminus\R$). $\ovl z$ est aussi une racine de $P$, donc $X-z \mid P$ et $X-\ovl z \mid P$, et par conséquent $(X-z)(X-\ovl z) \mid P$, et comme $(X-z)(X-\ovl z) = X^2 - 2\Re(z)X + |z|^2 \in \R[X]$, cela implique que $P$ est réductible dans $\R[X]$.
+    \end{outline}
+\end{proof}
+
+\section{Décomposition primaire d'un polynôme}
+
+\begin{property}
+    Soit $A \in \Kset[X] \tq \deg(A) \ge 1$. Alors $\exists P \in \Kset[X]$ irréductible tel que $P \mid A$.
+\end{property}
+
+\begin{proof}
+    On pose $E = \{\deg(D) \tq D\mid A \et \deg(D) \ge 1\}$.
+
+    On a $A \mid A$ donc $\deg(A) \in E$ et par conséquent $E$ est non-vide. Donc $E$ admet un minimum $m \in \N^*$, et il existe $P \in \Kset[X]$ tel que $\deg(P) = m$ et $P \mid A$.
+
+    Supposons que $P$ est réductible dans $\Kset[X]$. Alors il existe $Q \in \Kset[X]$ tel que $1 \le \deg(Q) < \deg(P)$ et $Q \mid P$. Or $P \mid A$, alors $Q \mid A$, donc $\deg Q \in E$ et $\deg(Q) < m$, ce qui est absurde, car $m$ est le minimum de $E$.
+
+    On en déduit que $P$ est irréductible dans $\Kset[X]$ et que $P \mid A$.
+\end{proof}
+
+\begin{theorem}[Décomposition primaire d'un polynôme]
+    Soit $A \in \Kset[X]$. Alors il existe une décomposition primaire de $A$, c'est-à-dire des polynômes irréductibles $P_1, \dots, P_s \in \Kset[X]$ tels que :
+    $$A = \cfd(A) P_1 \dots P_s$$
+
+    Cette décomposition est unique à une permutation près.
+
+    i.e. si $A = \cfd(A) \prod_{i=1}^r Q_i$ avec $Q_i$ irréductible, alors $r=s$ et $\{P_1,\dots,P_s\} = \{Q_1,\dots,Q_r\}$.
+\end{theorem}
+
+\begin{proof}
+    L'existence est démontrée par récurrence forte sur $\deg(A)$.
+
+    \textbf{Démonstration de l'unicité :}
+
+    Supposons que $A = \cfd(A) P_1 \dots P_s$ et $A = \cfd(A) Q_1 \dots Q_r$ avec $P_i, Q_j$ irréductibles.
+
+    On a donc $\forall i \in [\![1,s]\!], P_i \mid A$
+
+    Donc $\exists j \in [\![1,r]\!]$ tel que $P_i \mid Q_j$, car $P_1, \dots, P_s$ sont irréductibles.
+
+    Comme $Q_j$ est irréductible, cela implique que :
+
+    $$\begin{cases}
+        P_i \text{ constant non-nul }\\
+        \exists \lambda \in \Kset^* \tq P_i = \lambda Q_j
+    \end{cases}$$
+
+    Or $\cfd(P_i) = 1$ et $\cfd(Q_j) = 1$, donc $\lambda = 1$, et par conséquent $P_i = Q_j$.
+\end{proof}
 
 \end{document}
