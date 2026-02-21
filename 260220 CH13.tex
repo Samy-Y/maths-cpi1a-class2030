@@ -6,1170 +6,163 @@
 
 \begin{document}
 
-\MaPageDeGarde{Chapitre XII : Polynômes}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Peut contenir des erreurs ou des sections incomplètes. WIP.}
+\MaPageDeGarde{Chapitre XIII : Fractions rationnelles}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{Peut contenir des erreurs ou des sections incomplètes.}
 
 \tableofcontents
 \clearpage
 
 \vspace*{\fill}
-Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y étudierons notamment les notions de degré, de racine, de division euclidienne, ainsi que les concepts de polynômes irréductibles et de factorisation dans ce contexte.
+Ce chapitre est consacré aux fractions rationnelles. Nous allons introduire les fractions rationnelles, en construisant un corps de fractions à partir d'un anneau commutatif intègre. Nous allons ensuite étudier les propriétés de ces fractions rationnelles, notamment leur simplification et leurs applications.
 \vspace*{\fill}
 
-\chapter{Polynômes à coefficients dans un anneau}
+\chapter{Corps de fractions d'un anneau intègre}.
+
+Soit $A$ un anneau intègre commutatif. On souhaite construire le plus petit corps $\Kset$ contenant l'anneau $A$, qu'on appellera corps de fractions de $A$.
+
+\begin{example}
+    Par exemple, si $A = \Z$, alors le corps de fractions de $A$ est $\Q$, le corps des nombres rationnels.
+
+    $$Q = \{\frac{N}{D} \mid N \in \Z, D \in \Z^* \}$$
+
+    L'écriture $\frac ND$ n'est pas unique. En effet...
+
+    $$\frac ND = \frac{N'}{D'} \iff ND' = N'D$$
+\end{example}
+
+Nous allons donc construire une classe d'équivalence pour résoudre ce problème d'unicité d'écriture.
+
+\begin{property}
+    Soit $A$ un anneau intègre commutatif. On définit une relation d'équivalence sur $A \times A^*$ par :
+
+    $$(N, D) \sim (N', D') \iff ND' = N'D$$
+
+    Cette relation est bien une relation d'équivalence.
+\end{property}
+
+\begin{attention}
+    $A^*$ désigne ici $A\setminus\{0_A\}$ et non pas $\Uset_A$ (l'ensemble des éléments inversibles de $A$).
+\end{attention}
+
+\begin{proof}
+    \begin{outline}
+        \1 Réflexivité : $ND = ND$ pour tout $(N, D) \in A \times A^*$.
+        \1 Symétrie : Si $ND' = N'D$, alors $N'D = ND'$, donc $(N', D') \sim (N, D)$ (la relation $=$ est symétrique).
+        \1 Transitivité :
+        \2 Si $(N, D) \sim (N', D')$ et $(N', D') \sim (N'', D'')$, alors $ND' = N'D$ et $N'D'' = N''D'$.
+        \2 En multipliant la première égalité par $D''$ et la seconde par $D$, on obtient $ND'D'' = N'DD''$ et $N'DD'' = N''DD'$.
+        \2 En combinant ces égalités, on trouve $ND'D'' = N''DD'$, ce qui implique que $ND'' = N''D$ (car $A$ est intègre).
+        \2 Ainsi, $(N, D) \sim (N'', D'')$.
+    \end{outline}
+\end{proof}
+
+\begin{definition}
+    Dans la suite, on pose :
+
+    $$\Kset = \{ \cl{N, D} \tq (N, D) \in A \times A^* \}$$
+\end{definition}
+
+\begin{property}
+    $$\begin{cases}
+    \cl{N,D} = \cl{N', D'}\\
+    \cl{A,B} = \cl{A', B'}
+    \end{cases}
+    \implies
+    \begin{cases}
+    \cl{NB + AD, BD} = \cl{N'B' + A'D', B'D'}\\
+    \cl{AN,BD} = \cl{A'N', B'D'}
+    \end{cases}$$
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Montrons que $\cl{NB + AD, BD} = \cl{N'B' + A'D', B'D'}$.
+        \2 En utilisant les égalités $\cl{N,D} = \cl{N', D'}$ et $\cl{A,B} = \cl{A', B'}$, on a $ND' = N'D$ et $AB' = A'B$.
+        \2 En multipliant la première égalité par $B$ et la seconde par $D$, on obtient $NDB = N'DB$ et $ABD = A'BD$.
+        \2 En combinant ces égalités, on trouve $NB + AD = N'B' + A'D'$ et $BD = B'D'$.
+        \1 Montrons que $\cl{AN,BD} = \cl{A'N', B'D'}$.
+        \1 En utilisant les mêmes égalités, on a $AN = A'N'$ et $BD = B'D'$, ce qui implique que $\cl{AN,BD} = \cl{A'N', B'D'}$.
+    \end{outline}
+\end{proof}
+
+\begin{definition}
+    On munit $\Kset$ des opérations suivantes :
+    \begin{itemize}
+        \item Addition $+$ : $\cl{N,D} + \cl{N',D'} = \cl{NB + AD, BD}$.
+        \item Multiplication $\times$ : $\cl{N,D} \cdot \cl{N',D'} = \cl{NN', DD'}$.
+    \end{itemize}
+\end{definition}
+
+\begin{property}
+    Avec les opérations $+$ et $\times$ définies ci-dessus, $\Kset$ est un corps commutatif.
+\end{property}
+
+\begin{importantbox}
+    Dans la suite de ce cours, on notera $\frac ND = \cl{N, D}$
+    $$\Kset = \set{\frac ND \tq (N, D) \in A \times A^*} $$
+\end{importantbox}
+
+\begin{remark}
+    \begin{itemize}
+        \item La définition des lois $+$ et $\times$ dans $\Kset$ provient des mêmes lois définies sur $\Q$ (le corps de fractions de $\Z$).
+        \item Dans $\Kset$, on a $0_\Kset = \cl{0_A, 1_A} = \frac{0_A}{1_A}$ et $1_\Kset = \cl{1_A, 1_A} = \frac{1_A}{1_A}$.
+    \end{itemize}
+\end{remark}
+
+\begin{proof}
+    \begin{outline}
+        \1 On remarque que $\frac ND = \frac{ND'}{DD'}$ et $\frac{N'}{D'} = \frac{N'D}{DD'}$.
+        \1 On peut donc supposer que les ``fractions'' sont écrites avec un dénominateur commun.
+        \1 Les lois $+$ et $\times$ sont déjà définies d'après la remarque précédente.
+        \1 Il ne reste plus qu'à vérifier que $\Kset$ est un corps commutatif.
+        \2 L'addition est associative et commutative, avec $0_\Kset$ comme élément neutre. On utilise les propriétés de l'addition dans $A$ (car $A$ est un anneau commutatif) pour vérifier ces propriétés dans $\Kset$.
+        \2 La multiplication est associative et commutative, avec $1_\Kset$ comme élément neutre. On utilise les propriétés de la multiplication dans $A$ pour vérifier ces propriétés dans $\Kset$.
+        \2 La multiplication est distributive par rapport à l'addition. On utilise les propriétés de l'addition et de la multiplication dans $A$ pour vérifier cette propriété dans $\Kset$.
+        \2 Tout élément nul de $\Kset$ est de la forme $\frac{0_A}{D}$, ce qui correspond à $0_\Kset$. Tout élément non nul de $\Kset$ est de la forme $\frac{N}{D}$ avec $N \neq 0_A$, et son inverse est $\frac{D}{N}$, qui est bien défini car $A$ est intègre (et on démontre facilement que $\frac{N}{D} \cdot \frac{D}{N} = 1_\Kset$).
+    \end{outline}
+    On conclut que $\Kset$ est un corps commutatif.
+\end{proof}
+
+\begin{property}[Injection canonique de $A$ dans $\Kset$]
+    
+    $$f : \substack{A \to \Kset\\ N \mapsto \frac{N}{1_A}}$$
+
+    $f$ est un morphisme d'anneaux injectif.
+\end{property}
+
+\begin{proof}
+    On peut procéder par deux méthodes, soit en montrer que le noyau $\ker(f) = \{0_A\}$ (par équivalences successives sans avoir à passer par une double inclusion), soit en montrant que $f$ est injective directement (en étudiant l'égalité $f(N) = f(N')$ avec $N, N' \in A$).
+\end{proof}
+
+\begin{remark}
+    Par conséquent, on peut identifier $A$ à son image $f(A)$ dans $\Kset$. Et $f : A \to f(A)$ est un isomorphisme d'anneaux.$A$ est donc isomorphe à $f(A)$, qui est un sous-anneau de $\Kset$. Ainsi, on peut considérer $A$ comme un sous-anneau de $\Kset$, et on dit que $\Kset$ est un corps de fractions de $A$.
+\end{remark}
+
+\begin{theorem}
+    $\Kset$ est le plus petit corps contenant $A$.
+
+    $\Kset$ est appelé \textbf{le corps de fractions} de $A$.
+\end{theorem}
+
+\begin{proof}
+    Soit $L$ un corps contenant $A$. On souhaite montrer que $\Kset \subseteq L$.
+
+    \begin{outline}
+        \1 Soit $\frac ND \in \Kset$ avec $N \in A$ et $D \in A^*$. Comme $L$ est un corps contenant $A$, on a $N \in L$ et $D \in L^*$ (car $D$ est non nul dans $A$, il est aussi non nul dans $L$).
+        \1 Par conséquent, $\frac ND = N \cdot D^{-1} \in L$.
+        \1 Ainsi, tout élément de $\Kset$ est aussi un élément de $L$, ce qui implique que $\Kset \subseteq L$.
+    \end{outline}
+\end{proof}
+
+\chapter{Corps des fractions de l'anneau $\Kset[X]$}
 
 \section{Définitions}
 
 \begin{definition}
-    Soit $(A,+,\times)$ un anneau commutatif. On munit $A^\N$ par les deux lois $+$ et $\times$ tel que :
-    
-    $\begin{cases}
-    \forall (a_n)_n, (b_n)_n \in A^\N : (a_n)_n + (b_n)_n = (a_n + b_n)_n\\
+    Soit $A$ un anneau intègre commutatif. On peut construire le corps de fractions de l'anneau $A[X]$, qui est noté $\Kset(X)$ et appelé \textbf{corps des fractions de l'anneau $A[X]$}.
 
-    \forall (a_n)_n, (b_n)_n \in A^\N : (a_n)_n \times (b_n)_n = (c_n)_n$ avec $c_n = \sum_{k=0}^n a_k b_{n-k}
-    \end{cases}$
+    $$\Kset(X) = \set{\frac{P}{Q} \tq P, Q \in A[X], Q \neq 0}$$
 
-    On peut aussi écrire $c_n = \sum_{\substack{0 \le i \le n\\0\le j \le n\\i+j = n}}a_ib_j$.
+    $(\Kset(x), +, \times)$ est un corps commutatif, avec les lois d'addition et de multiplication définies de manière similaire à celles de $\Kset$ (en utilisant les opérations sur les polynômes).
 \end{definition}
-
-\begin{theorem}
-    $(A^\N, +, \times)$ est un anneau commutatif. On l'appelle l'anneau des polynômes à coefficients dans $A$ et on le note $A[X]$.
-\end{theorem}
-
-\begin{proof}
-    Comme $(A,+)$ est un groupe abélien (sachant que $(A,+,\times)$ est un anneau), il en est de même pour $(A^\N, +)$. \textit{(On rappelle que le groupe des applications de $\N$ dans un groupe abélien est lui-même un groupe abélien)}
-    
-    La loi $\times$ est bien définie ; c'est une LCI dans $A^\N$ (stabilité par l'addition et la multiplication). De plus, la multiplication $\times$ est associative et commutative, et elle distribue par rapport à l'addition $+$. L'élément neutre de l'anneau $A^\N$ pour la loi $+$ est la suite nulle $(0)_n$ et l'élément neutre pour la loi $\times$ est la suite $(1, 0, 0, \ldots)$. 
-
-    \begin{outline}
-        \1 Pour démontrer que $\times$ est une LCI, on utilise les propriétés de l'anneau $A$ et la définition du produit $(c_n)_n$.
-        \1 Pour démontrer que $\times$ est associative, on considère trois suites $(x_n)_n$, $(y_n)_n$, et $(z_n)_n$ dans $A^\N$ et on montre que $((x_n)_n \times (y_n)_n) \times (z_n)_n = (x_n)_n \times ((y_n)_n \times (z_n)_n)$.
-            \2 Pour cela, on va montrer que tous les termes de ces deux suites sont égaux.
-            \2 On pose $(c_n)_n\times (z_n)_n = (\alpha_n)_n$ et on trouve que $\alpha_n = \sum_{k+l+j=n}(x_k \times y_l)\times z_j$.
-            \2 De même, on pose $(x_n)_n\times ((y_n)_n\times(z_n)_n) = (\beta_n)_n$ et on trouve que $\beta_n = \sum_{k+l+j=n}x_k\times (y_l \times z_j)$.
-            \2 En utilisant l'associativité de la multiplication dans $A$, on trouve que $\alpha_n = \beta_n$ pour tout $n$, \textbf{ce qui prouve l'associativité de $\times$}.
-            \2 Il faut noter qu'on a utilisé la distributivité de la multiplication par rapport à l'addition dans $A$ pour réarranger les termes de ces sommes.
-        \1 Pour démontrer que $\times$ est commutative, on considère deux suites $(x_n)_n$ et $(y_n)_n$ dans $A^\N$ et on montre que $(x_n)_n \times (y_n)_n = (y_n)_n \times (x_n)_n$.
-            \2 On pose une suite $(c_n)_n = \sum_{i+j=n} x_i \times y_j$ et on pose $(d_n)_n = \sum_{i+j=n} y_i \times x_j$.
-            \2 En utilisant la commutativité de la multiplication dans $A$, on trouve que $c_n = d_n$ pour tout $n$, \textbf{ce qui prouve la commutativité de $\times$}.
-        \1 Pour déterminer l'élément neutre de la multiplication $\times$, on doit trouver une suite $e = (e_n)_n$ dans $A^\N$ telle que pour toute suite $(x_n)_n$ dans $A^\N$, on ait $e \times (x_n)_n = (x_n)_n$ et $(x_n)_n \times e = (x_n)_n$.
-            \2 On pose $e = (e_n)_n \in A^\N$ définie par $e_0 = 1_A$, et $\forall n \ge 1, e_n = 0_A$.
-            \2 On utilisera le \textit{Symbole de Kronecker} pour montrer que $e$ est l'élément neutre pour la multiplication $\times$.
-            \3 Le symbole de Kronecker $\delta_{x,y}$ est défini par $\delta_{x,y} = 1$ si $x=y$ et $\delta_{x,y} = 0$ sinon.
-            \2 Soit $(x_n)_n \in A^\N$. On pose $e\times (x_n)_n = (c_n)_n$.
-            \2 En utilisant la définition du produit, on trouve que $c_n = \sum_{k=0}^n \delta_{k,0} \times x_{n-k}$.
-            \2 En utilisant la définition du symbole de Kronecker, on trouve que $c_n = x_n$ pour tout $n$, et sachant que la multiplication est commutative dans $A$, \textbf{ce qui prouve que $e$ est l'élément neutre pour la multiplication $\times$}.
-        \1 Pour montrer que $\times$ est distributive par rapport à $+$, on considère trois suites $(x_n)_n$, $(y_n)_n$, et $(z_n)_n$ dans $A^\N$ et on montre que $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n)_n + (x_n)_n \times (z_n)_n$.
-            \2 On a $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n+z_n)_n$.
-            \2 En utilisant la définition du produit, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n)\parens{\sum_{i+j} x_i \times (y_j + z_j)}_n$.
-            \2 En séparant les termes de cette somme, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n) = \parens{\sum_{i+j} x_i \times y_j}_n + \parens{\sum_{i+j} x_i \times z_j}_n$.
-            \2 En utilisant la définition du produit, on trouve que $(x_n)_n \times ((y_n)_n + (z_n)_n) = (x_n)_n \times (y_n)_n + (x_n)_n \times (z_n)_n$, \textbf{ce qui prouve la distributivité de $\times$ par rapport à $+$}.
-        \1 On conclut que $(A^\N, +, \times)$ est un anneau commutatif, car il satisfait toutes les propriétés nécessaires : 
-            \2 $(A^\N, +)$ est un groupe abélien.
-            \2 $\times$ est une LCI dans $A^\N$.
-            \2 $\times$ est associative et commutative.
-            \2 $\times$ distribue par rapport à $+$.
-            \2 Il existe un élément neutre pour la multiplication $\times$.
-    \end{outline}
-    
-    Par conséquent, $(A^\N, +, \times)$ satisfait la définition d'un anneau commutatif.
-\end{proof}
-
-\begin{property}[Conservation de l'intégrité]
-    Si $A$ est un anneau intègre, alors $A[X]$ est aussi un anneau intègre.
-\end{property}
-
-\begin{proof}
-    \begin{outline}
-        \1 Supposons que $\exists (a_n)_n, (b_n)_n \in A^\N$ tels que $(a_n)_n \times (b_n)_n = 0_{A^\N}$ et $\begin{cases} (a_n)_n \neq 0_{A^\N}\\ (b_n)_n \neq 0_{A^\N} \end{cases}$.
-
-    \1 On pose $i_0 = \min\parens{\{n\in\N \tq a_n \ne 0\}}$ et $\forall i < i_0, a_i = 0_A$. On pose aussi $j_0 = \min\parens{\{n\in\N \tq b_n \ne 0\}}$ et $\forall j < j_0, b_j = 0_A$. $i_0$ et $j_0$ représentent les indices du premier terme non nul de $(a_n)_n$ et $(b_n)_n$ respectivement.
-
-    \1 On pose $(a_n)_n \times (b_n)_n = (c_n)_n$. Donc $\forall n \in \N, c_n = 0_A = \sum_{i+j=n} a_i \times b_j$.
-
-    \2 On remarque qu'en particulier, pour $n = i_0 + j_0$, on a $c_{i_0 + j_0} = 0_A = \sum_{i+j=i_0+j_0} a_i \times b_j$.
-
-    \2 Cela implique que $\sum_{i+j=i_0+j_0} a_i \times b_j = 0_A$.
-    
-    \3 Dans le cas où $i < i_0$ ou $j < j_0$, on a $a_i = 0_A$ ou $b_j = 0_A$, donc les termes correspondants de la somme sont nuls.
-
-    \3 Dans le cas contraire, c'est à dire lorsque $i \ge i_0$ et $j \ge j_0$, on a $c_{i_0 + j_0} = 0_A + a_{i_0} \times b_{j_0} = 0_A$, car les autres termes de la somme sont nuls.
-
-    \2 Comme $A$ est un anneau intègre, on a $a_{i_0} \times b_{j_0} = 0_A \implies a_{i_0} = 0_A$ ou $b_{j_0} = 0_A$, ce qui contredit la définition de $i_0$ et $j_0$.
-
-    \1 Par conséquent, notre supposition est fausse, et il n'existe pas de tels éléments $(a_n)_n$ et $(b_n)_n$ dans $A^\N$.
-
-    \1 Ainsi, $A^\N$ est un anneau intègre.
-    \end{outline}
-\end{proof}
-
-\begin{definition}
-    On définit la suite $X \in A^\N$ en utilisant le symbole de Kronecker : $X = (\delta_{n,1})_n$. Autrement dit, en posant $X=(x_n)_n$, on a $x_0 = 0_A$, $x_1 = 1_A$, et $\forall n \ge 2, x_n = 0_A$.
-\end{definition}
-
-\begin{property}
-    $\forall k \in \N, X^k = \underbrace{X\times\dots\times X}_{k\text{ fois}} = (\delta_{n,k})_n$.
-\end{property}
-
-\begin{proof}
-    On va démontrer cette propriété par récurrence sur $k$.
-
-    \textbf{Initialisation :} Pour $k=0$, on a $X^0 = 1_{A^\N} = (\delta_{n,0})_n$, ce qui est vrai.
-
-    \textbf{Hérédité :} Supposons que la propriété est vraie pour un certain $k \in \N$, c'est-à-dire que $X^k = (\delta_{n,k})_n$. Nous devons montrer qu'elle est également vraie pour $k+1$.
-
-    On a $X^{k+1} = X^k \times X = \underbrace{(\delta_{n,k})_n}_{=(a_n)_n} \times \underbrace{(\delta_{n,1})_n}_{=(b_n)_n}$.
-
-    On a $X^{k+1} = \parens{\sum_{i=0}^{n}a_i\times b_{n-i}}_n$.
-
-    On obtient donc $X^{k+1} = \parens{\sum_{i=0}^{n}\delta_{i,k}\times \delta_{n-i,1}}_n$.
-
-    Pour chaque $n \in \N$, on a :
-    \[\sum_{i=0}^{n}\delta_{i,k}\times \delta_{n-i,1} = \begin{cases}
-    1_A & \text{si } n = k+1\\
-    0_A & \text{sinon}
-    \end{cases}\]
-
-    On en déduit que $X^{k+1} = (\delta_{n-1,k})_n$.
-
-    Et on a $\delta_{n-1,k} = 1 \iff n-1 = k \iff n = k+1 \iff \delta_{n,k+1} = 1$.
-
-    On en conclut que $X^{k+1} = (\delta_{n,k+1})_n$.
-
-    Ainsi, par le principe de récurrence, la propriété est vraie pour tout $k \in \N$.
-\end{proof}
-
-\begin{definition}
-    On note $A[X] = \{a \in A^\N \tq \exists n_0 \in \N, \forall n \ge n_0, a_n = 0_A\}$. Autrement dit, $A[X]$ est l'ensemble des suites dans $A^\N$ qui sont nulles à partir d'un certain rang.
-\end{definition}
-
-\begin{property}
-    $A[X]$ est un sous-anneau de $(A^\N, +, \times)$.
-\end{property}
-
-\begin{proof}
-    \begin{outline}
-        \1 Soient $(a_n)_n$ et $(b_n)_n$ deux éléments de $A[X]$. Par définition, il existe des entiers naturels $n_a$ et $n_b$ tels que $\forall n \ge n_a, a_n = 0_A$ et $\forall n \ge n_b, b_n = 0_A$.
-
-        \1 Les éléments neutre $1_{A^\N}$ et $0_{A^\N}$ appartiennent à $A[X]$ car ils sont nuls à partir du rang 1.
-
-        \1 On pose $n_0 = \max(n_a, n_b)$. Alors, pour tout $n \ge n_0$, on a :
-            \2 $a_n = 0_A$ (car $n \ge n_a$)
-            \2 $b_n = 0_A$ (car $n \ge n_b$)
-            \2 Donc $a-b \in A[X]$.
-        \1 Ainsi, $A[X]$ est stable par soustraction, et par conséquent, il est stable par addition.
-
-        \1 Considérons maintenant le produit $(d_n)_n = (a_n)_n \times (b_n)_n$.\\Pour tout $n \ge n_0$, on a :
-            \2 $d_n = \sum_{i=0}^{n} a_i \times b_{n-i}$
-            \2 Si $n \ge n_0$, alors pour chaque terme de la somme, soit $i \ge n_a$ ou $n-i \ge n_b$, ce qui implique que soit $a_i = 0_A$ soit $b_{n-i} = 0_A$. Par conséquent, chaque terme de la somme est nul, et donc $d_n = 0_A$.
-
-        \1 Ainsi, $(d_n)_n$ appartient à $A[X]$, ce qui montre que $A[X]$ est stable par multiplication.
-
-        \1 Par conséquent, $A[X]$ est un sous-anneau de $(A^\N, +, \times)$.
-    \end{outline}
-\end{proof}
-
-\begin{remark}
-    Si $a = (a_n)_n \in A^\N$ et $\lambda \in A$, on définit $\lambda \cdot a = (\lambda \times a_n)_n$ (loi de composition externe, qu'on verra dans le chapitre XIV).
-\end{remark}
-
-\begin{property}
-    \begin{enumerate}
-        \item $\forall a \in A^\N, 1_A \cdot a = a$.
-        \item $\forall \lambda_1,\lambda_2 \in A, \forall a \in A^\N, (\lambda_1 + \lambda_2) \cdot a = \lambda_1 \cdot a + \lambda_2 \cdot a$.
-        \item $\forall \lambda \in A, \forall a,b \in A^\N, \lambda \cdot (a + b) = \lambda \cdot a + \lambda \cdot b$.
-        \item $\forall \lambda_1,\lambda_2 \in A, \forall a \in A^\N, (\lambda_1 \times \lambda_2) \cdot a = \lambda_1 \cdot (\lambda_2 \cdot a)$.
-    \end{enumerate}
-
-    On sait que $\forall a \in A[X], \exists n_0 \in \N, \forall n \ge n_0, a_n = 0_A$.
-
-    i.e. $a = (a_0, a_1, \ldots, a_{n_0}, 0_A, 0_A, \ldots)$.
-
-    \begin{itemize}
-        \item On peut encore réécrire $a$ sous la forme $a = (a_0, 0_A, 0_A, \ldots) + (0_A, a_1, 0_A, \ldots) + \ldots + (0_A, 0_A, \ldots, a_{n_0}, 0_A, \ldots)$.
-
-        \item On peut aussi réécrire $a$ sous la forme $a = a_0 \cdot (1_A, 0_A, 0_A, \ldots) + a_1 \cdot (0_A, 1_A, 0_A, \ldots) + \ldots + a_{n_0} \cdot (0_A, 0_A, \ldots, 1_A, 0_A, \ldots)$.
-    \end{itemize}
-
-    En utilisant la définition de $X$, on trouve que $a = a_0 \cdot 1_{A^\N} + a_1 \cdot X + \ldots + a_{n_0} \cdot X^{n_0}$.
-
-    Donc $a = \sum_{k=0}^{n_0}a_k \cdot X^k$.
-\end{property}
-
-\begin{property}[Préservation de l'intégrité]
-    Si $A$ est un anneau intègre, alors $A[X]$ est aussi un anneau intègre.
-\end{property}
-
-\begin{proof}
-    $A$ intègre $\implies A^\N$ intègre, et $A[X]$ est un sous-anneau de $A^\N$. Donc $A[X]$ est un anneau intègre.
-\end{proof}
-
-\begin{property}
-    Soient $a,b \in A[X]$. On a $a = b \iff \forall n, a_n = b_n$.
-
-    Donc, en particulier, $\sum_{a_k}\cdot X^k = \sum_{b_k}\cdot X^k \iff \forall k, a_k = b_k$.
-\end{property}
-
-\begin{definition}
-    Soit $A$ un anneau commutatif.
-
-    $P = \sum_{k=0}^{n}a_k X^k$ est appelé un polynôme à coefficients dans $A$.
-
-    L'ensemble des polynômes à coefficients dans $A$ est noté $A[X]$.
-
-    Si $P \in A[X]$, alors on définit la \textbf{fonction polynômiale} associée à $P$ comme étant la fonction $P: \begin{array}{ccc}A & \to & A\\
-    x & \mapsto & \tilde P(x) = \sum_{k=0}^{n}a_k x^k\end{array}$.
-\end{definition}
-
-\begin{remark}
-    Si $P,Q \in A[X]$, alors $P=Q \implies \forall x \in A, \tilde P(x) = \tilde Q(x)$, mais la réciproque est fausse en général. On donne un contre-exemple simple dans le cas où $A = \Z/2\Z$ : $P = X^2 + X$ et $Q = 0$. On a $\tilde P(0) = 0$, $\tilde P(1) = 0$, $\tilde Q(0) = 0$, et $\tilde Q(1) = 0$, mais $P \ne Q$.
-\end{remark}
-
-\section{Degré d'un polynôme}
-
-\begin{definition}
-    Soit $P = \sum_{k=0}^{n}a_k X^k \in A[X]$ un polynôme à coefficients dans $A$. On définit le degré de $P$, noté $\deg(P)$ ou $d^\circ P$, comme étant le plus grand entier $k$ tel que $a_k \ne 0_A$.
-
-    $$\deg(P) = \max\{k \in \N \tq a_k \ne 0_A\}\\
-    \si P \ne 0$$
-    
-    Par convention, on pose $\deg(0) = -\infty$.
-\end{definition}
-
-\begin{remark}
-    \begin{enumerate}
-        \item Si $P \ne 0$, alors $P$ peut être écrit sous la forme $P = \sum_{k=0}^{\deg(P)}a_k X^k$. Le coefficient $a_{\deg(P)}$ est appelé \textbf{le coefficient dominant} de $P$, noté $\cfd(P)$. Si $P \in A[X] \tq \cfd(P) = 1$, alors on dit que $P$ est un \textbf{polynôme unitaire}.
-        \item On note $A_n[X] = \{P \in A[X] \tq \deg(P) \le n\}$, c'est à dire l'ensemble des polynômes à coefficients dans $A$ de degré inférieur ou égal à $n$.
-    \end{enumerate}
-\end{remark}
-
-\begin{property}
-    Soient $A$ un anneau \textit{intègre} (\faIcon{exclamation-circle}) et $P,Q \in A[X]$.
-
-    \begin{enumerate}
-        \item $\deg(P\cdot Q) = \deg(P) + \deg(Q)$ et $\cfd(P\cdot Q) = \cfd(P) \times \cfd(Q)$.
-        \item $\deg(P+Q) \le \max(\deg(P), \deg(Q))$\\avec égalité si et seulement si $\begin{cases} \deg(P) \ne \deg(Q)\\ \text{ou } \deg(P) = \deg(Q) \text{ et } \cfd(P) + \cfd(Q) \ne 0_A\end{cases}$.
-    \end{enumerate}
-\end{property}
-
-\begin{proof}
-    \begin{enumerate}
-        \item Si $P=0$ ou $Q=0$, alors $P\cdot Q = 0$, et $\deg(P\cdot Q) = -\infty = \deg(P) + \deg(Q)$.\\Dans le cas contraire, on pose $P = \sum_{k=0}^{n}a_k X^k$ et $Q = \sum_{k=0}^{m}b_k X^k$ avec $a_n \ne 0_A$ et $b_m \ne 0_A$.\\En utilisant la définition du produit, on trouve que $P\cdot Q = \sum_{k=0}^{n+m}c_k X^k$ avec $c_{k} = \sum_{i+j=k} a_i \times b_j$.\\En particulier, on a $c_{n+m} = a_n \times b_m \ne 0_A$ (car $A$ est intègre), ce qui implique que $\deg(P\cdot Q) = n+m = \deg(P) + \deg(Q)$ et $\cfd(P\cdot Q) = c_{n+m} = a_n \times b_m = \cfd(P) \times \cfd(Q)$.
-        \item Si $P = 0 \ou Q= 0$, alors la démonstration est claire.\\Dans le cas contraire, on pose : $P=\sum_{k=0}^{n}a_kX^k, Q = \sum_{k=0}^{m}b_kX^k$. On suppose par exemple (et sans perte de généralité) que $n \le m$, donc $P = \sum_{k=0}^{m}a_kX^k$ avec $\forall k > n, a_k = 0$.\\Donc $(P+Q) = \sum_{k=0}^{m}(a_k+b_k)X^k$.\\Cela implique que $\deg(P+Q) \le m = \max(n,m) = \max(\deg(P), \deg(Q))$.\\Dans le cas où $n < m$, on a $\deg(P+Q) = m = \max(\deg(P), \deg(Q))$.\\Dans le cas où $n = m$, on a $\deg(P+Q) = n = m$ si et seulement si $a_n + b_n \ne 0_A$, c'est à dire $\cfd(P) + \cfd(Q) \ne 0_A$.\\Dans le cas contraire, on a $\deg(P+Q) < n = m$.
-    \end{enumerate}
-\end{proof}
-
-\begin{exercise}
-    On pose $\begin{cases}
-    T_0 = 1, T_1 = X\\
-    \forall n \ge 0, T_{n+2} = 2X \cdot T_{n+1} - T_n
-    \end{cases}$
-
-    $(T_n)_n$ est appelée les \textbf{polynômes de Tchebychev}.
-
-    Calculer $\deg(T_n)$ et $\cfd(T_n)$ pour tout $n \in \N$.
-
-    \textbf{Solution :}
-
-    On remarque que $T_1 = X$ est un polynôme de degré 1 et de coefficient dominant 1, puis $T_2 = 2X^2 - 1$ est un polynôme de degré 2 et de coefficient dominant 2.
-    
-    Il suffit donc de démontrer par récurrence double que $\forall n \in \N, T_n$ est un polynôme de degré $n$ et de coefficient dominant $2^{n-1}$.
-
-    L'initialisation est vérifiée pour $n=0$ et $n=1$.
-
-    L'hérédité doit supposer que, pour un $n \in \N$ fixe, $\begin{cases} \deg(T_n) = n \\ \deg(T_{n+1}) = n+1\end{cases}$ et $\begin{cases} \cfd(T_n) = 2^{n-1} \\ \cfd(T_{n+1}) = 2^n\end{cases}$, et doit démontrer que $\begin{cases} \deg(T_{n+2}) = n+2 \\ \cfd(T_{n+2}) = 2^{n+1}\end{cases}$.
-
-    Ensuite, on conclut que $\forall n \in \N, T_n$ est un polynôme de degré $n$ et de coefficient dominant $2^{n-1}$.
-\end{exercise}
-
-\section{Dérivée d'un polynôme}
-
-\begin{importantbox}
-    Dans cette partie, $\Kset$ désigne le corps $\R$ ou $\C$.
-\end{importantbox}
-
-\begin{definition}[Dérivée d'un polynôme]
-    Soit $P = \sum_{k=0}^{n}a_k X^k \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit le polynôme dérivé de $P$, noté $P'$, de la manière suivante :
-    $$P' = \begin{cases}
-    0 & \si \deg(P) = 0\\
-    \sum_{k=1}^{n} \underbrace{k \cdot a_k}_{\in \Kset[X]} X^{k-1} & \si \deg(P) \ne 0
-    \end{cases}$$
-\end{definition}
-
-\begin{definition}[Dérivées successives d'un polynôme]
-    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit les dérivées successives de $P$ de la manière suivante :
-    \begin{itemize}
-        \item $P^{(0)} = P$.
-        \item $\forall k \in \N, P^{(k+1)} = (P^{(k)})'$.
-    \end{itemize}
-\end{definition}
-
-\begin{remark}
-    Si $P = \sum_{i=0}^{n}a_i X^i \in \Kset[X]$ est un polynôme à coefficients dans $\Kset$ et de degré $\deg(P) = n$, alors :
-
-    $$P^{(k)} = \begin{cases}
-        0 & \si k > n\\
-        \sum_{i=k}^{n} \frac{i!}{(i-k)!} a_i X^{i-k} & \si k \le n
-    \end{cases}$$
-\end{remark}
-
-\begin{theorem}[Formule de Taylor]
-    Soient $P \in \Kset[X] \tq \deg(P) = n$ et $a \in \Kset$. Alors :
-
-    $$P = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$$
-\end{theorem}
-
-\begin{proof}
-    On pose $\forall i \in [\![0,n]\!], Q_i = X^i$.
-
-    \begin{align*}
-        \ona \forall i \in [\![0,n]\!], Q_i &= (X-a+a)^i\\
-        &= \sum_{k=0}^{i} \legbinom{i}{k} (X-a)^k a^{i-k}
-    \end{align*}
-
-    \begin{align*}
-        \ona \forall k \in [\![0,i]\!], Q_i^{(k)}(a) &= \frac{i!}{(i-k)!} a^{i-k}\\
-        \implies Q_i^{(k)} &= k! \cdot \legbinom{i}{k} a^{i-k} (X-a)^k\\
-        \implies \forall k \in [\![0,i]\!], \frac{Q_i^{(k)}(a)}{k!} &= \legbinom{i}{k} a^{i-k}\\
-    \end{align*}
-
-    Donc $Q_i = \sum_{k=0}^{i} \frac{Q_i^{(k)}(a)}{k!} (X-a)^k$.
-
-    On écrit $P = \sum_{i=0}^{n} \lambda_i X^i = \sum_{i=0}^{n} \lambda_i Q_i$.
-
-    Donc, pour tout $k\le n$, $P^{(k)} = \sum_{i=k}^n \lambda_i Q_i^{(k)}$.
-
-    Donc, pour tout $k \le n$, $\boxed{P^{(k)}(a) = \sum_{i=k}^n \lambda_i Q_i^{(k)}(a)}$.
-    
-    Comme $P = \sum_{i=0}^{n}\lambda_i Q_i$, on trouve que $P = \sum_{i=0}^{n} \lambda_i \sum_{k=0}^{i} \frac{Q_i^{(k)}(a)}{k!} (X-a)^k$.
-
-    En échangeant les sommes, on trouve que $P = \sum_{k=0}^{n} \frac{1}{k!} \underbrace{\parens{\sum_{i=k}^{n} \lambda_i Q_i^{(k)}(a)}}_{=P^{(k)}(a)} (X-a)^k$.
-
-    Le terme entre parenthèses est égal à $P^{(k)}(a)$, d'après la formule encadrée ci-dessus.
-
-    Donc $P = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$.
-
-\end{proof}
-
-\begin{remark}
-    Si $P = \sum_{k=0}^{n}a_k X^k$.
-
-    Alors $\forall k \in [\![0,n]\!], a_k = \frac{P^{(k)}(0)}{k!}$.
-\end{remark}
-
-\chapter{Arithmétiques dans $\Kset[X]$}
-
-\begin{importantbox}
-    Dans cette partie, $\Kset$ désigne un corps commutatif.
-\end{importantbox}
-
-\section{Divisibilité dans $\Kset[X]$}
-
-\begin{definition}[Rappel]
-    Soit $A,B \in \Kset[X]$. On dit que $A$ divise $B$ dans $\Kset[X]$ lorsqu'il existe $C \in \Kset[X]$ tel que $B = A \cdot C$, et on écrit $A \mid B$.
-\end{definition}
-
-\begin{attention}
-    On rappelle que $\Kset[X]$ est un anneau intègre, mais pas forcément un corps.
-\end{attention}
-
-\begin{property}
-    Les éléments inversibles de $\Kset[X]$ sont les polynômes de degré 0.
-
-    $$P \in \Uset_{\Kset[X]} \iff \deg(P) = 0$$
-
-    $$\Uset_{\Kset[X]} = \Kset^* = \Kset_0[X]\setminus\{0\}$$
-\end{property}
-
-\begin{proof}
-    \begin{outline}
-        \1 Démonstration dans le sens $\implies$ :
-
-        \2 On a $P \in \Uset_{\Kset[X]} \iff \exists Q \in \Kset[X], P\cdot Q = 1$.
-
-        \2 Donc $\deg(P\cdot Q) = \deg(P) + \deg(Q) = 0$, sachant que $P \ne 0$ et $Q \ne 0$ (car $1 \ne 0$).
-
-        \2 Et comme $\deg(P), \deg(Q) \in \N$, on trouve que $\deg(P) = 0$ et $\deg(Q) = 0$.
-
-        \1 Démonstration dans le sens $\impliedby$ :
-
-        \2 Si $\deg(P) = 0$, alors $P$ est de la forme $P = a_0$ avec $a_0 \in \Kset$ et $a_0 \ne 0$ (car $P \ne 0$).
-
-        \2 Comme $\Kset$ est un corps, $a_0$ est inversible dans $\Kset$, donc il existe $a_0^{-1} \in \Kset$ tel que $a_0 \times a_0^{-1} = 1$.
-
-        \2 On pose $Q = a_0^{-1}$. Alors $P\cdot Q = a_0 \cdot a_0^{-1} = 1$, ce qui implique que $P$ est inversible dans $\Kset[X]$.
-
-        \1 Par conséquent, les éléments inversibles de $\Kset[X]$ sont exactement les polynômes de degré 0.
-    \end{outline}
-
-\end{proof}
-
-\begin{property}
-    Soient $A,B,C \in \Kset[X]$.
-    \begin{outline}[enumerate]
-        \1 Si $A \mid B$ et $B \mid C$, alors $A \mid C$.
-        \1 Si $A \mid B$ et $B \mid A$, alors :
-        \2 $A$ et $B$ sont associés.
-        \2 Il existe $\lambda \in \underbrace{\Uset_{\Kset[X]}}_{=\Kset^*}$ tel que $A = \lambda \cdot B$.
-        \1 $\Kset[X]$ est un anneau intègre, donc toutes les propriétés de divisibilité dans un anneau intègre sont vérifiées dans $\Kset[X]$.
-    \end{outline}
-\end{property}
-
-\section{Division euclidienne}
-
-\begin{theorem}
-    Soient $A,B \in \Kset[X]$ avec $B \ne 0$. 
-    Alors il existe un unique couple $(Q,R) \in \Kset[X]^2$ tels que $A = B\cdot Q + R$ et $\deg(R) < \deg(B)$.
-\end{theorem}
-
-\begin{proof}
-    \begin{outline}
-        \1 Si $\deg(B) < \deg(A)$,
-        
-        \2 Alors $B=0\cdot A + B$ est une division euclidienne de $B$ par $A$.
-
-        \2 Cela implique que $(Q,R) = (0,B)$ et $\deg(R) = \deg(B) < \deg(A)$.
-
-        \1 Si $\deg(B) \ge \deg(A)$,
-
-        \2 Cela implique que $B \ne 0$.
-
-        \2 On pose $B = \sum_{k=0}^{m}b_k X^k$ avec $b_m \ne 0$, et $A = \sum_{k=0}^{n}a_k X^k$ avec $a_n \ne 0$.
-
-        \2 Le degré de $B$ est $m$ et le degré de $A$ est $n$, donc $m \ge n$.
-
-        \2 Nous allons procéder par récurrence forte sur $m$.
-
-        \3 \textbf{Initialisation :} Si $m < n$, la propriété est vérifiée comme montré dans le premier cas.
-
-        \3 \textbf{Hérédité :} Supposons que la propriété est vérifiée pour tout $k \le m - 1$. Nous allons montrer qu'elle est également vérifiée pour $m$.
-
-        \3 On pose $B_1 = B - b_m a_n^{-1} X^{m-n} \cdot A$. Alors $B_1$ est un polynôme de degré inférieur à $m$ (en prenant le degré de $B$ et le degré de $b_m a_n^{-1} X^{m-n} \cdot A$).
-
-        \3 Le coefficient dominant de $B_1$ est nul, car $b_m - b_m a_n^{-1} a_n = 0$.
-
-        \3 Le degré de $B_1$ est donc strictement inférieur à $m$. On peut donc appliquer l'hypothèse de récurrence à $B_1$. On peut donc écrire $B_1 = A \cdot Q_1 + R$ avec $\deg(R) < \deg(A)$.
-
-        Donc $B = A \cdot Q + R$ avec $Q = Q_1 + b_m a_n^{-1} X^{m-n}$.
-
-        \3 On a donc trouvé un couple $(Q,R) \in \Kset[X]^2$ tel que $B = A\cdot Q + R$ et $\deg(R) < \deg(B)$.
-
-        \2 Montrons maintenant l'unicité de ce couple.
-
-        \3 Supposons qu'il existe un autre couple $(Q',R') \in \Kset[X]^2$ tel que $B = A\cdot Q' + R'$ et $\deg(R') < \deg(B)$.
-
-        \3 En soustrayant les deux égalités, on trouve que $A\cdot \underbrace{(Q-Q')}_{=Q} = \underbrace{R' - R}_{=R}$.
-
-        \3 Comme $\deg(AQ) = \deg(A) + \deg(Q) = \deg(R) \le \max(\deg(R), \deg(R'))$, on trouve que $\deg(Q) < 0$, ce qui implique que $Q = 0$, et par conséquent que $R = 0$.
-
-        \3 Donc $Q = Q'$ et $R = R'$, ce qui montre l'unicité du couple $(Q,R)$.
-    \end{outline}
-\end{proof}
-
-\begin{example}
-    $\Kset = \Z/5\Z$, $B = X^4 + X^3 - 2X + 1$, $A = 2X^2 + 4X - 1$.
-
-    (Pour être rigoureux, il aurait fallu noter $\ovl 2,\ovl 4$ et $\ovl 1$ au lieu de $2,4$ et $1$, mais on se permet de faire un léger abus de notation pour alléger les calculs.)
-
-    % division euclidienne figure
-    % using arrays
-    % quotient : 3X² + 2X
-    % reste : 1
-
-    Après division euclidienne, on trouve que le quotient est $3X^2 + 2X$ et le reste est $1$.
-
-\end{example}
-
-On peut utiliser la division euclidienne pour démontrer quelques autres propriétés de $\Kset[X]$, notamment le fait que c'est un anneau principal.
-
-\begin{property}
-    L'anneau $\Kset[X]$ est principal.
-\end{property}
-
-\begin{proof}
-    Soit $I$ un idéal de $\Kset[X]$.
-
-    \begin{outline}
-        \1 Si $I = \{0\}$, alors $I = \langle 0 \rangle = 0\cdot\Kset[X]$.
-
-        \1 Si $I$ n'est pas réduit à $\{0\}$, alors il existe un polynôme non nul $P \in I$ de degré minimal $d$.
-
-        \2 On pose $E = \{\deg(P) \tq P \in I\setminus\{0\}\}$
-
-        \2 On a $E \ne \emptyset$ (car $I \ne \{0\}$) et $E \subset \N$. $E$ admet un minimum $d$ (car $\N$ est bien ordonné).
-
-        \2 On peut donc écrire $\exists P_0 \in I \setminus \{0\} \tq \deg(P_0) = d$.
-
-        \2 Montrons que $I = \langle P_0 \rangle = P_0 \cdot \Kset[X]$.
-
-        \2 Montrons que $I = P_0 \cdot \Kset[X]$.
-
-        \2 On a $\forall Q \in \Kset[X]$, $P_0 \cdot Q \in I$ car $P_0 \in I$ et $I$ est un idéal.
-
-        \2 Donc $P_0 \cdot \Kset[X] \subset I$.
-
-        \2 Soit $B \in I$. Par la division euclidienne, il existe un unique couple $(Q,R) \in \Kset[X]^2$ tel que $B = P_0 \cdot Q + R$ et $\deg(R) < \deg(P_0) = d$.
-
-        \2 On a $R = B - P_0 \cdot Q \in I$ (car $B \in I$, $P_0 \cdot Q \in I$, et $I$ est un idéal, donc stable par soustraction).
-
-        \3 Si $R \ne 0$, cela implique que $R \in I\setminus\{0\}$, et donc que $\deg(R) \in E$, ce qui implique que $\deg(R) \ge \deg(P_0) = d$ (car $d$ est le minimum de $E$). C'est une contradiction, parce que $R = B- P_0 \cdot Q$ et $\deg(R) < \deg(P_0) = d$.
-
-        \3 Donc $R = 0$, et par conséquent, $B = P_0 \cdot Q \in P_0 \cdot \Kset[X]$.
-
-        \2 Ainsi, $I \subset P_0 \cdot \Kset[X]$.
-
-        \2 Par conséquent, $I = P_0 \cdot \Kset[X] = \langle P_0 \rangle$.
-
-        \1 Donc, dans tous les cas, $I$ est principal.
-    \end{outline}
-\end{proof}
-
-\begin{remark}
-    Si $I$ est un idéal non-nul de $\Kset[X]$, alors $I$ est engendré par un unique polynôme unitaire de degré minimal.
-
-    $$\exists! P_0 \in I \setminus \{0\} \tq P_0 \text{ unitaire et } I = \langle P_0 \rangle = P_0 \cdot \Kset[X]$$
-\end{remark}
-
-\begin{proof}
-    Soit $I$ un idéal non-nul.
-
-    Nous allons montrer que $I$ est engendré par un polynôme unitaire de degré minimal.
-    
-    Donc $\exists P_1 \in \Kset[X] \setminus \{0\} \tq I = \langle P_1 \rangle = P_1 \cdot \Kset[X]$.
-
-    On a donc $I = (\cfd(P_1))^{-1} \cdot P_1 \cdot \Kset[X]$, sachant que $\cfd(P_1) \in \Kset^*$ (car $P_1 \ne 0$ et $\Kset$ est un corps), et que donc les deux polynômes $P_1$ et $(\cfd(P_1))^{-1} \cdot P_1$ sont associés.
-
-    On pose $P_0 = (\cfd(P_1))^{-1} \cdot P_1$. Alors $P_0$ est unitaire, et $I = P_0 \cdot \Kset[X]$.
-
-    Nous allons maintenant montrer que $P_0$ est le \textit{seul} polynôme unitaire de degré minimal qui engendre $I$.
-
-    Si $\exists Q_0 \text{ unitaire } \tq I = P_0 \cdot \Kset[X] = Q_0 \cdot \Kset[X]$, alors $P_0$ et $Q_0$ sont associés.
-
-    Donc $\exists \lambda \in \Kset^* \tq P_0 = \lambda \cdot Q_0$.
-
-    On sait que $\cfd(P_0) = 1$ et $\cfd(Q_0) = 1$, donc $\lambda = 1$, et par conséquent, $P_0 = Q_0$.
-
-    Donc $P_0$ est unique.
-\end{proof}
-
-\section{Racines d'un polynôme}
-
-\begin{definition}[Racine d'un polynôme]
-    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On dit que $a \in \Kset$ est une racine (ou zéro) de $P$ si et seulement si $\tilde P(a) = 0$, c'est à dire $P(a) = 0$.
-\end{definition}
-
-\begin{example}
-    \begin{itemize}
-        \item $2$ est une racine de $X^2 + X - 6$ dans $\Kset[X]$.
-        \item $i$ est une racine de $X^2 + 1$ dans $\Kset[X]$, mais $X^2 + 1$ n'a pas de racine dans $\R[X]$.
-    \end{itemize}
-\end{example}
-
-\begin{remark}
-    La notion de racine dépend très fortement du corps étudié.
-\end{remark}
-
-\begin{property}
-    Soit $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. Alors $a \in \Kset$ est une racine de $P$ si et seulement si $(X-a) \mid P$.
-\end{property}
-
-\begin{proof}
-    \begin{outline}
-        \1 La démonstration dans le sens indirect $\impliedby$ est claire, car si $(X-a) \mid P$, alors $P = (X-a) \cdot Q$ pour un certain $Q \in \Kset[X]$, et donc $P(a) = (a-a) \cdot Q(a) = 0$.
-        \1 Dans le sens direct $\implies$, si $P(a) = 0$, alors par la division euclidienne, il existe un unique couple $(Q,R) \in \Kset[X]^2$ tel que $P = (X-a) \cdot Q + R$ et $\deg(R) < \deg(X-a) = 1$. Donc $R$ est une constante. En évaluant en $a$, on obtient $0 = P(a) = (a-a) \cdot Q(a) + R = R$, donc $R = 0$ et $P = (X-a) \cdot Q$, ce qui montre que $(X-a) \mid P$.
-    \end{outline}
-\end{proof}
-
-\begin{consequence}
-    Soient $P \in \Kset[X]$ un polynôme à coefficients dans $\Kset$, et $a_1, a_2, \ldots, a_k$ des racines deux à deux distinctes de $P$. Alors $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$.
-
-    $$\prod_{i=1}^{k}(X-a_i) \mid P$$
-\end{consequence}
-
-\begin{proof}
-    On procède par récurrence sur $k \in \N^*$.
-    
-    \textbf{Initialisation :} Pour $k = 1$, le résultat est trivialement vrai, car $(X-a_1) \mid P$ si $a_1$ est une racine de $P$.
-
-    \textbf{Hérédité :} Supposons que le résultat soit vrai pour un certain $k \ge 1$, c'est-à-dire que si $a_1, a_2, \ldots, a_k$ sont des racines deux à deux distinctes de $P$, alors $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$.
-    
-    Soit $a_{k+1}$ une racine distincte de $P$. Alors, par la propriété précédente, $(X-a_{k+1}) \mid P$.
-
-    On sait qu'il existe un $Q \in \Kset[X]$ tel que $P = (X-a_{k}) \cdot Q$.
-
-    Et on a $P(a_{k+1}) = 0$, donc $Q(a_{k+1}) = 0$, ce qui implique que $a_{k+1}$ est une racine de $Q$, et donc que $(X-a_{k+1}) \mid Q$.
-    
-    Par hypothèse de récurrence, $(X-a_1)(X-a_2)\cdots(X-a_k) \mid P$. 
-
-    On obtient donc $(X-a_1)(X-a_2)\cdots(X-a_k)(X-a_{k+1}) \mid P$.
-
-    \textbf{Conclusion :} Par le principe de récurrence, le résultat est vrai pour tout $k \in \N^*$.
-\end{proof}
-
-\section{Multiplicité d'une racine}
-
-\begin{remark}
-    \begin{enumerate}
-        \item Si $P$ est un polynôme dont le nombre de racines distinctes est supérieur au degré de $P$, alors $P$ est le polynôme nul. 
-        \item Si $P$ admet une infinité de racines, alors $P=0$.
-    \end{enumerate}
-\end{remark}
-
-\begin{definition}[Racine de multiplicité $s$ d'un polynôme]
-    Soient $P \in \Kset[X]$, et $\alpha \in \Kset$ un scalaire, et $s\in \N^*$.
-
-    On dit que $\alpha$ est une \textbf{racine de multiplicité $s$} de $P$ si et seulement si
-    
-    $$(X-\alpha)^s \mid P \text{ et } (X-\alpha)^{s+1} \nmid P$$
-\end{definition}
-
-\begin{example}
-    Considérons le polynôme $P = X^3 - 4X^2 + 5X - 2$ dans $\R[X]$.
-
-    $1$ est une racine de multiplicité $2$ de $P$, et $2$ est une racine de multiplicité $1$ de $P$, parce qu'on a $P = (X-1)^2(X-2)$, et que $P$ n'est pas divisible par $(X-1)^3$ ni par $(X-2)^2$.
-
-    $1$ est aussi dite \textbf{racine double} de $P$, et $2$ est dite \textbf{racine simple} de $P$.
-\end{example}
-
-\begin{property}
-    Soient $P \in \Kset[X]$, $\alpha \in \Kset$ et $s\in \N^*$. Alors $\alpha$ est une racine de multiplicité $s$ de $P$ si et seulement si $\forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0$, et $P^{(s)}(\alpha) \ne 0$.
-
-    Concrètement, une racine de multiplicité $s$ d'un polynôme est une racine qui annule les $s$ premières dérivées du polynôme, mais pas la $s$-ième dérivée du polynôme.
-\end{property}
-
-\begin{proof}
-    La démonstration utilisera la formule de Taylor.
-
-    On pose $n = \deg(P)$.
-
-    \begin{align*}
-        P &= \sum_{k=0}^{n} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^k\\
-        &= (X-\alpha)^s \cdot \underbracket{\sum_{k=s}^{n} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^{k-s}}_{=Q} + \underbracket{\sum_{k=0}^{s-1} \frac{P^{(k)}(\alpha)}{k!} (X-\alpha)^k}_{=R}
-    \end{align*}
-
-    On remarque que $Q$ et $R$ sont respectivement le quotient et le reste de la division euclidienne de $P$ par $(X-\alpha)^s$.
-
-    On suppose maintenant que $\alpha$ est une racine de multiplicité $s$ de $P$ dans $\Kset[X]$.
-
-    \begin{align*}
-        \alpha \text{ racine de multiplicité } s &\iff \big(((X-\alpha)^s \mid P) \et ((X-\alpha)^{s+1} \nmid P)\big)\\
-        &\iff (R=0 \et P^{(s)}(\alpha) \ne 0)\\
-        &\iff (R=0 \et Q(\alpha) \ne 0)\\
-        &\iff \begin{cases}
-        \forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0\\
-        P^{(s)}(\alpha) \ne 0
-        \end{cases}
-    \end{align*}
-
-    On en déduit donc que $\alpha$ est une racine de multiplicité $s$ de $P$ si et seulement si $\forall k \in [\![0,s-1]\!], P^{(k)}(\alpha) = 0$, et $P^{(s)}(\alpha) \ne 0$.
-\end{proof}
-
-\begin{remark}
-    \begin{enumerate}
-        \item Si $\alpha$ est une racine de multiplicité $s$ de $P$, alors :
-        
-        $$s = \max(\{k \in \N, (X-\alpha)^k \mid P\})$$
-
-        \item Si $m \in \N^*$ tel que $(X-\alpha)^m \mid P$, alors la multiplicité de $\alpha$ est $\ge$ à $m$.
-    \end{enumerate}
-\end{remark}
-
-\section{Polynômes scindés}
-
-\begin{definition}[Polynôme scindé]
-    Un polynôme $P \in \Kset[X]$ est dit \textbf{scindé} dans $\Kset[X]$ s'il admet $\deg(P)$ racines (pas forcément distinctes) dans $\Kset$.
-
-    Autrement dit, $P$ est scindé dans $\Kset[X]$ s'il existe $a_1, a_2, \ldots, a_n \in \Kset$ (pas forcément distincts) tels que $P = \cfd(P) \prod_{i=1}^{n}(X-a_i)$, où $n = \deg(P)$.
-\end{definition}
-
-\begin{remark}
-    \begin{enumerate}
-        \item Les $x_i$ ne sont pas forcément distincts, car $P$ peut admettre des racines de multiplicité supérieure ou égale à 2.
-        \item Si $P$ est scindé dans $\Kset[X]$, alors :
-        $$\begin{cases}
-        \exists x_1,\dots,x_q \in \Kset \text{ deux à deux distincts }\\
-        \exists s_1,\dots,s_q \in \N^* \text{ tels que } \sum_{i=1}^{q} s_i = n \et P = \cfd(P) \prod_{i=1}^{q}(X-x_i)^{s_i}
-        \end{cases}$$
-
-        \item La notion de polynôme scindé dépend très fortement du corps étudié, car la notion de racine dépend très fortement du corps étudié. Par exemple, $X^2 + 1$ n'est pas scindé dans $\R[X]$, mais il est scindé dans $\C[X]$.
-    \end{enumerate}
-\end{remark}
-
-\begin{property}[Relations racines/coeffs. d'un polynôme scindé]
-    Soit $P = \sum_{k=0}^{n}a_kX^k \in \Kset[X]$ un polynôme scindé dans $\Kset[X]$, et $x_1, x_2, \ldots, x_n$ les racines de $P$ (pas forcément distinctes) dans $\Kset$.
-
-    On pose $\forall k \in [\![1,n]\!], \sigma_k = \sum_{1 \le i_1 < \cdots < i_k \le n} x_{i_1} \cdots x_{i_k}$, c'est à dire que $\sigma_k$ est la somme de tous les produits de $k$ racines distinctes de $P$.
-
-    Alors $\forall k \in [\![0,n]\!], \sigma_k = (-1)^k \cdot \frac{a_{n-k}}{a_n}$, où $a_n$ est le coefficient dominant de $P$ (Formule de Viète).
-\end{property}
-
-\begin{proof}
-    La démonstration se fait par récurrence sur $n = \deg(P) \in \N^*$. Elle est assez complexe et ne sera pas détaillée dans ce cours.
-\end{proof}
-
-\begin{remark}
-    \begin{enumerate}
-        \item $\sigma_1 = \sum_{k=1}^{n}x_k$\\
-        $\sigma_n = \prod_{k=1}^{n} x_k$.
-        \item Dans le cas où $\deg(P)=2=n$, on a $P=a_2X^2 + a_1X + a_0 = a_2(X-x_1)(X-x_2)$, ce qui nous donne $P=a_2(X^2-(x_1+x_2)X + x_1x_2)$, et donc par égalité des polynômes, $\sigma_1 = x_1 + x_2 = -\frac{a_1}{a_2}$ et $\sigma_2 = x_1x_2 = \frac{a_0}{a_2}$.
-        \item Dans le cas où $\deg(P)=3=n$, on a $P=a_3X^3 + a_2X^2 + a_1X + a_0 = a_3(X-x_1)(X-x_2)(X-x_3)$, ce qui nous donne $P=a_3(X^3-(x_1+x_2+x_3)X^2 + (x_1x_2 + x_1x_3 + x_2x_3)X - x_1x_2x_3)$, et donc par égalité des polynômes, $\sigma_1 = x_1 + x_2 + x_3 = -\frac{a_2}{a_3}$, $\sigma_2 = x_1x_2 + x_1x_3 + x_2x_3 = \frac{a_1}{a_3}$ et $\sigma_3 = x_1x_2x_3 = -\frac{a_{0}}{a_{3}}$.
-    \end{enumerate}
-\end{remark}
-
-\begin{application}
-    \begin{enumerate}
-        \item Résoudre dans $\R^3$ le système d'équations suivant :
-        $$\begin{cases}
-            x+y+z = 1\\
-            \frac1x + \frac1y + \frac1z = 2\\
-            xyz = -2
-        \end{cases}$$
-        \item Soient $x_1,\dots,x_n$ les racines d'un polynôme $P \in \Kset[X]$ scindé de degré $n$. Calculer $\sum_{k=1}^{n} x_k^2$ en fonction des coefficients de $P$.
-    \end{enumerate}
-    
-    \textbf{Solution (1) :}
-
-    On pose :
-    $$\begin{cases}
-    \sigma_1 = x + y + z = 2\\
-    \sigma_2 = xy + xz + yz = 1\\
-    \sigma_3 = xyz = -2
-    \end{cases}$$
-
-    $x,y,z$ sont les racines du polynôme $P = X^3 - \sigma_1 X^2 + \sigma_2 X - \sigma_3 = X^3 - 2X^2 + X + 2$.
-
-    L'ensemble des solutions du système est donc $\{(x,y,z) \in \R^3, P(x) = P(y) = P(z) = 0\}$.
-
-    Il faut ensuite continuer réciproquement... Ou au moins mentionner que les solutions restent valident réciproquement.
-
-    \textbf{Solution (2) :}
-
-    On a $\sigma_1 = \sum_{k=1}^{n} x_k$ et $\sigma_2 = \sum_{1 \le i < j \le n} x_i x_j$.
-
-    On a alors $\sum_{k=1}^{n} x_k^2 = (\sum_{k=1}^{n} x_k)^2 - 2\sum_{1 \le i < j \le n} x_i x_j = \sigma_1^2 - 2\sigma_2$.
-\end{application}
-
-\section{PGCD et PPCM de polynômes}
-
-\begin{theorem}
-    Soient $P_1,\dots,P_n \in \Kset[X]$.
-    \begin{outline}[enumerate]
-        \1 \textbf{PGCD :}
-        \2 $\exists ! D \in \Kset[X]$ avec $\begin{cases}D \text{ unitaire }\\D= 0\end{cases}$ tel que :\\ $\sum_{i=1}^{n}P_i \Kset[X] = D\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], D \mid P_i$.
-        \2 Si $\exists \Delta \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], \Delta \mid P_i$, alors $\Delta \mid D$.
-        
-        $D$ est appelé le \textbf{plus grand commun diviseur} (PGCD) de $P_1,\dots,P_n$, et est noté $\pgcd(P_1,\dots,P_n)$.
-
-        \1 \textbf{PPCM :}
-        \2 $\exists ! M \in \Kset[X]$ avec $\begin{cases}M \text{ unitaire }\\M= 0\end{cases}$ tel que :\\ $\bigcap_{i=1}^{n} P_i \cdot \Kset[X] = M\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], P_i \mid M$.
-        \2 Si $\exists A \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], P_i \mid A$, alors $M \mid A$.
-
-        $M$ est appelé le \textbf{plus petit commun multiple} (PPCM) de $P_1,\dots,P_n$, et est noté $\ppcm(P_1,\dots,P_n)$.
-    \end{outline}
-\end{theorem}
-
-\begin{proof}
-    La preuve est analogue à celle du théorème sur le PGCD et le PPCM dans un anneau (chapitre 11).
-\end{proof}
-
-\begin{property}
-    Soient $P_1, \dots , P_n, Q \in \Kset[X]$.
-    \begin{outline}[enumerate]
-        \1 $\pgcd(P_1Q, P_2Q, \dots, P_nQ) = \pgcd(P_1, P_2, \dots, P_n) \cdot \frac{Q}{\cfd(Q)}$.
-        \1 $\ppcm(P_1Q, P_2Q, \dots, P_nQ) = \ppcm(P_1, P_2, \dots, P_n) \cdot \frac{Q}{\cfd(Q)}$.
-    \end{outline}
-\end{property}
-
-\begin{attention}
-    Il ne faut pas oublier que le PGCD et le PPCM sont définis à une unité près, c'est à dire que $\pgcd(P_1, P_2, \dots, P_n)$ et $\ppcm(P_1, P_2, \dots, P_n)$ sont définis à une unité près. C'est pour cela que dans les égalités ci-dessus, on divise $Q$ par son coefficient dominant $\cfd(Q)$ pour s'assurer que le PGCD et le PPCM restent unitaires.
-\end{attention}
-
-\begin{definition}
-    Soient $A_1, \dots, A_n \in \Kset[X]$.
-
-    \begin{enumerate}
-        \item On dit que $A_1, \dots, A_n$ sont \textbf{premiers entre eux} si et seulement si $\pgcd(A_1, \dots, A_n) = 1$.
-        \item On dit que $A_1, \dots, A_n$ sont \textbf{premiers entre eux deux à deux} si et seulement si $\forall i,j \in [\![1,n]\!], i \ne j \implies \pgcd(A_i, A_j) = 1$.
-    \end{enumerate}
-\end{definition}
-
-\begin{remark}
-    La deuxième propriété implique la première, mais la réciproque n'est pas vraie. Par exemple, les polynômes $A_1 = (X-2)(X-3)$, $A_2 = (X-1)(X-3)$ et $A_3 = (X-1)(X-2)$ sont premiers entre eux, car $\pgcd(A_1, A_2, A_3) = 1$, mais ils ne sont pas premiers entre eux deux à deux, car $\pgcd(A_1, A_2) = X-3 \ne 1$, $\pgcd(A_1, A_3) = X-2 \ne 1$ et $\pgcd(A_2, A_3) = X-1 \ne 1$.
-\end{remark}
-
-\begin{importantbox}
-    Les preuves des propriétés qui suivront sont analogues à celles des propriétés sur le PGCD et le PPCM dans un anneau principal (chapitre 11).
-\end{importantbox}
-
-\begin{property}
-    Soient $A,B,C \in \Kset[X] \setminus \{0\}$.
-
-    $$\begin{cases}
-    A \wedge B = 1\\
-    C \mid B
-    \end{cases}
-    \implies A \wedge C = 1$$
-\end{property}
-
-\begin{theorem}[Égalité de Bézout]
-    Soient $P_1,\dots,P_n \in \Kset[X]$.
-
-    $$D = \pgcd(P_1,\dots,P_n) \implies \exists Q_1, \dots, Q_n \in \Kset[X] \tq D = \sum_{i=1}^{n}P_iQ_i$$
-\end{theorem}
-
-\begin{property}
-    Soient $P_1,\dots,P_n \in \Kset[X] \et D \in \Kset[X]$.
-
-    $$\si \exists U_1,\dots,U_n \in \Kset[X] \tq D = P_1U_1 + P_2U_2 + \cdots + P_nU_n$$
-
-    avec $\forall 1 \le i \le n, D \mid P_i$ et $D$ est unitaire (ou nul).
-
-    Alors $D = \pgcd(P_1,\dots,P_n)$.
-\end{property}
-
-\begin{consequence}
-    Soient $P_1,\dots,P_n \in \Kset[X]$.
-
-    $$\pgcd(P_1,\dots,P_n) = 1 \iff \exists Q_1, \dots, Q_n \in \Kset[X] \tq 1 = P_1Q_1 + P_2Q_2 + \cdots + P_nQ_n$$
-\end{consequence}
-
-\begin{theorem}[Théorème de Gauss]
-    Soient $A,B,C \in \Kset[X]\setminus\{0\}$.
-
-    $$\begin{cases}
-    A \wedge B = 1\\
-    A \mid C\\
-    B \mid C
-    \end{cases}
-    \implies AB \mid C$$
-\end{theorem}
-
-\begin{consequence}
-    Soient $A, P_1, \dots, P_n \in \Kset[X]\setminus\{0\}$.
-
-    $$\begin{cases}
-    P_i \mid A \quad \forall i \in [\![1,n]\!]\\
-    (P_1,\dots,P_n) \text{ premiers entre eux deux à deux distincts }
-    \end{cases}
-    \implies \left(\prod_{i=1}^{n} P_i\right) \mid A$$
-\end{consequence}
-
-\begin{property}
-    Si $P_1, \dots, P_n$ sont premiers entre eux deux à deux, alors :
-
-    $$\ppcm(P_1,\dots,P_n) = \frac{1}{\prod_{i=1}^{n} \cfd(P_i)} \prod_{i=1}^{n} P_i$$
-\end{property}
-
-\begin{consequence}
-    Soient $A,B \in \Kset[X]\setminus\{0\}$.
-
-    $$(A\wedge B)(A \vee B) = \frac{1}{\cfd(AB)} AB$$
-\end{consequence}
-
-\begin{theorem}[Lemme d'Euclide]
-    Si $A = B\cdot Q + R$ avec $A,B,Q,R \in \Kset[X]$ et $\deg(R) < \deg(B)$, alors $A\wedge B = B\wedge R$.
-\end{theorem}
-
-\section{Les polynômes irréductibles}
-
-\begin{definition}[Polynôme irréductible]
-    Un polynôme $P \in \Kset[X]$ de degré $\ge 1$ est dit \textbf{irréductible} (ou premier) dans $\Kset[X]$ lorsque les seuls diviseurs de $P$ dans $\Kset[X]$ sont les polynômes constants non-nuls et les polynômes associés à $P$ ($\lambda P \tq \lambda \in \Kset^*$).
-
-    \textit{Dans le cas contraire, $P$ est dit réductible dans $\Kset[X]$.}
-\end{definition}
-
-\begin{attention}
-    \begin{itemize}
-        \item Un polynôme irréductible \textbf{n'est pas} forcément un polynôme qui n'admet pas de racines dans $\Kset$. Par exemple $(X^2+1)^2$ est un polynôme réductible dans $\R[X]$, mais il n'admet pas de racines dans $\R$. Idem pour le polynôme $X^4+1$ dans $\R[X]$, qui est réductible mais n'admet pas de racines dans $\R$.
-        \item Par définition, un polynôme irréductible est de degré $\ge 1$. Par conséquent, les polynômes constants non-nuls ne sont pas considérés irréductibles dans $\Kset[X]$.
-    \end{itemize}
-\end{attention}
-
-\begin{example}
-    \begin{enumerate}
-        \item Les polynômes de degré $1$ sont irréductibles dans $\Kset[X]$.
-        \item $X^2 + 1$ est irréductible dans $\R[X]$, mais il est réductible dans $\C[X]$.
-    \end{enumerate}
-\end{example}
-
-\begin{exercise}
-    Soit $A \in \R[X]$ tel que $\deg(A) = 2n+1$ et $n\in\N^*$. Montrer que $A$ est réductible dans $\R[X]$.
-
-    \textbf{Solution :}
-
-    Pour démontrer ce résultat, nous allons utiliser le théorème de la valeur intermédiaire généralisé sur une fonction polynomiale.
-\end{exercise}
-\todo{à faire chez soi}
-
-\begin{remark}
-    \begin{enumerate}
-        \item En général, si $P = P_1 \cdot P_2$ avec $P_1, P_2 \in \Kset[X]$ des polynômes non-constants, alors $P$ est réductible dans $\Kset[X]$.
-        \item Le résultat de l'exercice précédent n'est pas valable dans $\Q[X]$. Par exemple, le polynôme $P = X^3+X-1$ est de degré $3$, mais il est irréductible dans $\Q[X]$.\\
-        \begin{itemize}
-            \item Pour le démontrer, on peut supposer que $P$ est réductible, donc qu'il est factorisable en produit de deux polynômes (au moins), et donc qu'il existe $A,B\in\Q[X] \tqp P = A \cdot B$ avec $1\le \deg(A), \deg(B) \le 2$.
-            \item Prenons, par exemple et sans perte de généralité, $\deg(A) = 1$ et $\deg(B) = 2$. Donc $\exists (a,b) \in \Q^*\times\Q \tqp A = aX+b$. Donc $r= -\frac{b}{a}$ est une racine de $P$. On écrit $r = \frac pq \avec (p,q)\in\Z\times\N^* \et p\wedge q = 1$.
-            \item On a donc $r^3+r-1=0$, ce qui équivaut à dire que $p^3+p\cdot q^2 - q^3=0$, ce qui implique que $p^3 = q(q^2-pq)$, et donc que $q \mid p^3$ et par conséquent $q\mid 1$ donc $q=1$ et par suite $r=p$ et $p(p^2+1)=1$ donc $p\mid 1$ alors $p=\pm 1$. Donc $r = \pm 1$ est une racine de $P$, ce qui est absurde, car $P(1) = 1^3 + 1 - 1 = 1 \ne 0$ et $P(-1) = (-1)^3 + (-1) - 1 = -3 \ne 0$.
-            \item On en déduit que $P$ est irréductible dans $\Q[X]$.
-        \end{itemize}
-    \end{enumerate}
-\end{remark}
-
-% polynômes cyclotomiques
-
-\begin{theorem}[Théorème de D'Alembert-Gauss]
-    Tout polynôme non-constant $P \in \C[X]$ de degré $n \ge 1$ admet au moins une racine dans $\C$.
-\end{theorem}
-
-\begin{proof}
-    À faire comme DL (ou voir CNC 2007).
-\end{proof}
-
-\begin{consequence}
-    \begin{enumerate}
-        \item Les polynômes irréductibles dans $\C[X]$ sont les polynômes de degré $1$.
-        \item Tout polynôme non-constant de $\C[X]$ est scindé dans $\C[X]$. (Une conséquence qui sera abordée bien plus tard est que toute matrice $M_1 \in \mathcal M_1(\C)$ à coefficients complexes est trigonalisable, c'est-à-dire qu'elle est semblable à une matrice triangulaire). 
-    \end{enumerate}
-\end{consequence}
-
-\begin{property}[Conjugaison complexe d'un polynôme]
-    Soit $P \in \C[X]$.
-
-    $$P \in \R[X] \iff \forall z \in \C, \ovl{P(z)} = P(\ovl z)$$
-\end{property}
-
-\begin{proof}
-    Dans le sens direct $(\implies)$, la démonstration est triviale. Si $P = \sum_{k=0}^{n}a_kX^k \in \R[X]$, alors $\ovl{P(z)} = \sum_{k=0}^{n}\ovl{a_k}\ovl{z^k} = \sum_{k=0}^{n}a_k\ovl{z^k} = P(\ovl z)$.
-
-    Dans le sens réciproque $(\impliedby)$, supposons que $\forall z \in \C, \ovl{P(z)} = P(\ovl z)$. On pose $P = \sum_{k=0}^{n}a_kX^k$. Alors $\ovl{P(z)} = \sum_{k=0}^{n}\ovl{a_k}\ovl{z^k}$ et $P(\ovl z) = \sum_{k=0}^{n}a_k\ovl{z^k}$.
-
-    Donc $\sum_{k=0}^{n}(\ovl{a_k} - a_k)\ovl{z^k} = 0$ pour tout $z \in \C$.
-
-    Donc $Q$ admet une infinité de racines, et par conséquent $Q$ est le polynôme nul, c'est à dire que $\forall k \in [\![0,n]\!], \ovl{a_k} - a_k = 0$, ce qui implique que $\forall k \in [\![0,n]\!], a_k \in \R$, et donc $P \in \R[X]$.
-\end{proof}
-
-\begin{consequence}
-    Soient $P \in \R[X]$, $z \in \C\setminus\R$ et $s \in \N^*$. Alors $z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$ si et seulement si $\ovl z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
-\end{consequence}
-
-\begin{proof}
-    Nous allons utiliser les propriétés liées aux polynômes dérivés et à la conjugaison complexe d'un polynôme.
-
-    On sait que $z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
-
-    Par définition, cela équivaut à dire que $\forall k \in [\![0,s-1]\!], P^{(k)}(z) = 0$ et $P^{(s)}(z) \ne 0$.
-
-    Cela implique que $\forall k \in [\![0,s-1]\!], \ovl{P^{(k)}(z)} = 0$ et $\ovl{P^{(s)}(z)} \ne 0$.
-
-    Donc $\forall k \in [\![0,s-1]\!], P^{(k)}(\ovl z) = 0$ et $P^{(s)}(\ovl z) \ne 0$, ce qui équivaut à dire que $\ovl z$ est une racine de multiplicité $s$ de $P$ dans $\C[X]$.
-\end{proof}
-
-\begin{consequence}
-    Les polynômes irréductibles dans $\R[X]$ sont les polynômes de degré $1$ et les polynômes de degré $2$ sans racines dans $\R$, c'est à dire les polynômes dont le discriminant $\Delta$ est strictement négatif $< 0$.
-\end{consequence}
-
-\begin{proof}
-    Soit $P \in \R[X]$.
-    \begin{outline}
-        \1 Si $P$ est de degré $1$, alors $P$ est irréductible dans $\R[X]$.
-        \1 Si $P$ est de degré $2$...
-        \2 Si $\Delta \ge 0$, alors $P$ admet au moins une racine dans $\R$, et par conséquent $P$ est réductible dans $\R[X]$.
-        \2 Dans le cas où $\Delta < 0$, on procède par absurde en supposant que $P$ est réductible.
-        \3 Supposons que $P$ est réductible dans $\R[X]$. Alors il existe $P_1 \in \R[X]$ un polynôme de degré $1$ tel que $P_1 \mid P$, or $P_1$ admet une racine réelle, et par conséquent $P$ admet une racine réelle, ce qui est absurde, car $\Delta < 0$.
-        \3 On en déduit que $P$ est irréductible dans $\R[X]$.
-        \1 Si $P$ est de degré $\ge 3$, alors :
-        \2 Si $P$ admet un au moins une racine réelle $a$, alors $X-a \mid P$, et par conséquent $P$ est réductible dans $\R[X]$.
-        \2 Dans le cas contraire, on sait que $P \in \R[X] \subset \C[X]$, donc d'après le théorème de D'Alembert-Gauss, $P$ admet au moins une racine complexe $z$, cette racine $z$ n'est pas réelle (elle appartient à $\C\setminus\R$). $\ovl z$ est aussi une racine de $P$, donc $X-z \mid P$ et $X-\ovl z \mid P$, et par conséquent $(X-z)(X-\ovl z) \mid P$, et comme $(X-z)(X-\ovl z) = X^2 - 2\Re(z)X + |z|^2 \in \R[X]$, cela implique que $P$ est réductible dans $\R[X]$.
-    \end{outline}
-\end{proof}
-
-\section{Décomposition primaire d'un polynôme}
-
-\begin{property}
-    Soit $A \in \Kset[X] \tq \deg(A) \ge 1$. Alors $\exists P \in \Kset[X]$ irréductible tel que $P \mid A$.
-\end{property}
-
-\begin{proof}
-    On pose $E = \{\deg(D) \tq D\mid A \et \deg(D) \ge 1\}$.
-
-    On a $A \mid A$ donc $\deg(A) \in E$ et par conséquent $E$ est non-vide. Donc $E$ admet un minimum $m \in \N^*$, et il existe $P \in \Kset[X]$ tel que $\deg(P) = m$ et $P \mid A$.
-
-    Supposons que $P$ est réductible dans $\Kset[X]$. Alors il existe $Q \in \Kset[X]$ tel que $1 \le \deg(Q) < \deg(P)$ et $Q \mid P$. Or $P \mid A$, alors $Q \mid A$, donc $\deg Q \in E$ et $\deg(Q) < m$, ce qui est absurde, car $m$ est le minimum de $E$.
-
-    On en déduit que $P$ est irréductible dans $\Kset[X]$ et que $P \mid A$.
-\end{proof}
-
-\begin{theorem}[Décomposition primaire d'un polynôme]
-    Soit $A \in \Kset[X]$. Alors il existe une décomposition primaire de $A$, c'est-à-dire des polynômes irréductibles $P_1, \dots, P_s \in \Kset[X]$ tels que :
-    $$A = \cfd(A) P_1 \dots P_s$$
-
-    Cette décomposition est unique à une permutation près.
-
-    i.e. si $A = \cfd(A) \prod_{i=1}^r Q_i$ avec $Q_i$ irréductible, alors $r=s$ et $\{P_1,\dots,P_s\} = \{Q_1,\dots,Q_r\}$.
-\end{theorem}
-
-\begin{proof}
-    L'existence est démontrée par récurrence forte sur $\deg(A)$.
-
-    \textbf{Démonstration de l'unicité :}
-
-    Supposons que $A = \cfd(A) P_1 \dots P_s$ et $A = \cfd(A) Q_1 \dots Q_r$ avec $P_i, Q_j$ irréductibles.
-
-    On a donc $\forall i \in [\![1,s]\!], P_i \mid A$
-
-    Donc $\exists j \in [\![1,r]\!]$ tel que $P_i \mid Q_j$, car $P_1, \dots, P_s$ sont irréductibles.
-
-    Comme $Q_j$ est irréductible, cela implique que :
-
-    $$\begin{cases}
-        P_i \text{ constant non-nul }\\
-        \exists \lambda \in \Kset^* \tq P_i = \lambda Q_j
-    \end{cases}$$
-
-    Or $\cfd(P_i) = 1$ et $\cfd(Q_j) = 1$, donc $\lambda = 1$, et par conséquent $P_i = Q_j$.
-\end{proof}
-
-\begin{consequence}
-    Soit $A$ un polynôme de $\Kset[X]$ de degré $\ge 1$.
-
-    Alors $\exists P_1,\dots,P_r \in \Kset[X]$ irréductibles deux à deux distincts, et $\alpha_1,\dots,\alpha_r \in \N^*$ tels que $A = \cfd(A) \prod_{i=1}^{r} P_i^{\alpha_i}$.
-
-    Cette décomposition est unique à une permutation près des $(P_k)_{1 \le k \le r}$.
-\end{consequence}
-
-\begin{remark}
-    \begin{enumerate}
-        \item Dans $\C[X]$, il existe $x_1,\dots,x_r \in \C$ deux à deux distincts et $\alpha_1,\dots,\alpha_r \in \N^*$ tels que $A = \cfd(A) \prod_{i=1}^{r} (X-x_i)^{\alpha_i}$.
-        \item Dans $\R[X]$, il existe $x_1,\dots,x_r \in \R$ deux à deux distincts, et il existe $(b_1,c_1),\dots,(b_s,c_s) \in \R^2$ tels que $b_i^2 + c_i^2 > 0$ pour tout $i \in [\![1,s]\!]$, et $\alpha_1,\dots,\alpha_r, \beta_1,\dots,\beta_s \in \N$ tels que $A = \cfd(A) \prod_{i=1}^{r} (X-x_i)^{\alpha_i} \prod_{j=1}^{s} (X^2 + b_j X + c_j)^{\beta_j}$ avec $\forall j \in [\![1,s]\!], b_j^2 - 4c_j < 0$.
-    \end{enumerate}
-\end{remark}
-
-\begin{theorem}[PGCD et PPCM par décomposition primaire]
-    Soient $A,B$ deux polynômes de $\Kset[X]$ de degré $\ge 1$.
-
-    On écrit :
-
-    $$\begin{cases}
-    A = \cfd(A) \prod_{i=1}^{r} P_i^{\alpha_i}\\
-    B = \cfd(B) \prod_{i=1}^{r} P_i^{\beta_i}
-    \end{cases}$$
-
-    avec $P_1,\dots,P_r \in \Kset[X]$ irréductibles deux à deux distincts
-    
-    et $\alpha_1,\dots,\alpha_r, \beta_1,\dots,\beta_r \in \N$.
-
-    Le PGCD et le PPCM de $A$ et $B$ sont alors donnés par les formules suivantes :
-
-    $$A \wedge B = \prod_{i=1}^{r} P_i^{\min(\alpha_i,\beta_i)}$$
-    
-    $$A \vee B = \prod_{i=1}^{r} P_i^{\max(\alpha_i,\beta_i)}$$
-    
-\end{theorem}
-
-\begin{remark}
-    \begin{outline}[enumerate]
-        \1 $A \wedge B = D \iff \exists A_1,B_1 \in \Kset[X] \tq \begin{cases} A = A_1 D \\ B = B_1 D \\ A_1 \wedge B_1 = 1 \end{cases}$
-        \1 \textbf{Caractérisation des polynômes premiers entre eux dans $K[X]$ avec $K$ un sous-corps de $\C$ :}
-        \2 Soient $K$ un sous-corps de $\C$ et $P,Q \in \Kset[X]$.
-        $$P \wedge Q = 1 \iff P \et Q \text{ n'ont aucune racine commune dans } \C$$
-    \end{outline}
-\end{remark}
-
-\begin{proof}[Démonstration de la caractérisation (2)]
-    \begin{outline}
-        \1 La démonstration de l'implication $(\implies)$ est assez simple.
-        \2 On suppose que $P \wedge Q = 1$. 
-        \2 Par conséquent, il existe $A,B \in \Kset[X]$ tels que $1 = AP + BQ$.
-        \2 Soit $z \in \C$ une racine de $P$ et de $Q$. Alors $1 = AP(z) + BQ(z) = 0$, ce qui est absurde.
-        \2 On en déduit que $P$ et $Q$ n'ont aucune racine commune dans $\C$.
-        \1 La démonstration de l'implication $(\impliedby)$ est plus complexe. % ←←← ba dum tss, hahahah complexe
-        \2 On suppose que les deux polynômes $P$ et $Q$ n'ont aucune racine commune dans $\C$.
-        \2 On pose $D = P \wedge Q$.
-        \2 Donc $\exists P_1, Q_1 \in \Kset[X]$ tels que $P = D P_1$ et $Q = D Q_1$.
-        \2 Nous allons raisonner par absurde en supposant que $\deg(D) \ge 1$.
-        \2 Comme $\deg(D) \ge 1$, alors $D$ admet au moins une racine $z \in \C$.
-        \2 Donc $P(z) = D(z) P_1(z) = 0$ et $Q(z) = D(z) Q_1(z) = 0$, ce qui est absurde, car $P$ et $Q$ n'ont aucune racine commune dans $\C$.
-        \2 On en déduit que $\deg(D) = 0$, et comme $D$ est unitaire, alors $D = 1$, et par conséquent $P \wedge Q = 1$.
-    \end{outline}
-\end{proof}
-
-\chapter{Complément : Interpolation de Lagrange}
-
-L'objectif de ce complément est de pouvoir construire une fonction polynomiale qui prend des valeurs données en des points donnés. Par exemple, étant donné $n$ points $x_1,\dots,x_n$ deux à deux distincts dans $\Kset$, et $n$ éléments $y_1,\dots,y_n$ de $\Kset$, on souhaite construire un polynôme $P \in \Kset[X]$ tel que $P(x_i) = y_i$ pour tout $i \in [\![1,n]\!]$, et donc déterminer $P(x), \forall x \ne x_k \tq k \in [\![1,n]\!]$. Cela nous permettra de prédire la valeur d'une fonction polynomiale à partir de quelques points, ce qui est très utile en analyse numérique, en cryptographie, en théorie de l'information, etc.
-
-\begin{definition}[Polynômes élémentaires de Lagrange]
-    Soient $n \in \N, x_0,\dots,x_n$ des éléments de $\R$ distincts deux à deux.
-
-    On pose $\forall k \in [\![0,n]\!], l_k = \prod_{\substack{0 \le j \le n \\ j \ne k}} \frac{X-x_j}{x_k - x_j}$.
-
-    Ce polynôme $l_k$ est appelé le \textbf{polynôme élémentaire de Lagrange} associé à $(x_k)_{0 \le k \le n}$. Il est de degré $\le n$ (donc $\in \R_n[X]$).
-\end{definition}
-
-\begin{remark}
-    Soit $k \in [\![0,n]\!]$.
-
-    $$\forall 0 \le i \le n, l_k(x_i) = \delta_{i,k} \begin{cases}1 & \text{si } i = k\\0 & \text{si } i \ne k\end{cases}$$
-\end{remark}
-
-\begin{theorem}
-    Soient $f$ une fonction continue sur le segment $[a,b]$ et $a \le x_0 < x_1 < \cdots < x_n \le b$ des éléments de $[a,b]$.
-
-    On souhaite "approximer" en quelque sorte la fonction $f$ par un polynôme $P \in \R_n[X]$ tel que $P(x_i) = f(x_i)$ pour tout $i \in [\![0,n]\!]$.
-
-    Alors $P \in \R_n[X]$ est unique et est donné par la formule suivante :
-
-    $$P = \sum_{k=0}^{n} f(x_k) l_k$$
-
-    où $(l_k)_{0 \le k \le n}$ sont les polynômes élémentaires de Lagrange associés à $(x_k)_{0 \le k \le n}$.
-
-    $P$ est appelé le \textbf{polynôme d'interpolation de Lagrange} (ou l'interpolé) de $f$ aux points $x_0,\dots,x_n$.
-\end{theorem}
-
-\begin{proof}
-    \begin{outline}
-        \1 Démontrons que $P$ est un polynôme.
-            \2 On sait que $\forall k \in [\![0,n]\!], l_k \in \R_n[X]$, donc $P = \sum_{k=0}^{n}f(x_k) l_k \in \R_n[X]$.
-            \2 Et on a bien $P(x_i) = \sum_{k=0}^{n} f(x_k) l_k(x_i) = f(x_i)$ pour tout $i \in [\![0,n]\!]$.
-            \2 On a donc construit un polynôme $P$ tel que $P(x_i) = f(x_i)$ pour tout $i \in [\![0,n]\!]$.
-        \1 Démontrons que $P$ est unique.
-            \2 Supposons qu'il existe un autre polynôme $Q \in \R_n[X]$ tel que $Q(x_i) = f(x_i)$ pour tout $i \in [\![0,n]\!]$.
-            \2 Alors $P(x_i) = Q(x_i)$ pour tout $i \in [\![0,n]\!]$.
-            \2 Donc $(P-Q)(x_i) = 0$ pour tout $i \in [\![0,n]\!]$.
-            \2 Par conséquent, le polynôme $P-Q$ admet au moins $n+1$ racines distinctes, ce qui est absurde, car $\deg(P-Q) \le n$.
-            \2 On en déduit que $P-Q$ est le polynôme nul, c'est à dire que $P=Q$, et par conséquent $P$ est unique.
-    \end{outline}
-\end{proof}
-
-\begin{theorem}[Erreur d'interpolation de Lagrange]
-    Soient $f$ une fonction de classe $\cclas{n+1}$ à image dans $\Kset$ sur le segment $[a,b]$ et $a \le x_0 < x_1 < \cdots < x_n \le b$ des éléments de $[a,b]$.
-
-    L'erreur d'interpolation de Lagrange est donnée par la formule suivante :
-
-    $$\forall x \in [a,b], \exists \eps_x \in [a,b], e(x) = f(x) - P(x) = \frac{f^{(n+1)}(\eps_x)}{(n+1)!} \prod_{k=0}^{n} (x-x_k)$$
-\end{theorem}
-
-\begin{proof}
-    \begin{outline}
-    \1 Soit $x \in [a,b]$.
-
-    \1 Si $x = x_k \tq 0 \le k \le n$, alors $e(x_k) = f(x_k) - P(x_k) = 0$, et la formule est vérifiée.
-
-    \2 De même, $\prod_{i=0}^n (x_k - x_i) = 0$ pour tout $k \in [\![0,n]\!]$, donc la formule est vérifiée.
-
-    \1 Dans le cas où $x \ne x_k$ pour tout $k \in [\![0,n]\!]$, on pose la fonction $g : [a,b] \to \Kset$ définie par $g : t \mapsto f(t) - P(t) - e(x) \prod_{k=0}^{n} (t-x_k)$.
-
-    \2 Cette fonction est de classe $\cclas{n+1}$ (car toutes les fonctions qui la composent sont aussi de classe $\cclas{n+1}$).
-
-    \2 $\forall k \in [\![0,n]\!], g(x_k) = f(x_k) - P(x_k) - e(x) \prod_{i=0}^{n} (x_k - x_i) = 0$. La fonction admet donc au moins $n+1$ racines distinctes.
-
-    \2 Comme $x$ a été fixé au début de la preuve, on a $g(x) = f(x) - P(x) - e(x) \prod_{k=0}^{n} (x-x_k) = 0$, donc $g$ admet au moins $n+2$ racines distinctes.
-
-    \2 On peut donc procéder en utilisant le théorème de Rolle (plus précisément, Rolle itéré) pour montrer que $g^{(n+1)}$ admet au moins une racine dans $[a,b]$, sachant que Rolle itéré nécessite $n+2$ racines distinctes pour garantir l'existence d'une racine de $g^{(n+1)}$, car $g$ est de classe $\cclas{n+1}$.
-
-    \2 Donc $\exists \eps_x \in [a,b]$ tel que $g^{(n+1)}(\eps_x) = 0$.
-
-    \2 Or $g^{(n+1)}(t) = f^{(n+1)}(t) - P^{(n+1)}(t) - e(x) \prod_{k=0}^{n} (t-x_k)$. Comme $P$ est de degré $\le n$, alors $P^{(n+1)}$ est le polynôme nul, et par conséquent $g^{(n+1)}(t) = f^{(n+1)}(t) - e(x) \prod_{k=0}^{n} (t-x_k)$.
-
-    \2 On en déduit que $0 = g^{(n+1)}(\eps_x) = f^{(n+1)}(\eps_x) - e(x) \prod_{k=0}^{n} (\eps_x-x_k)$, et par conséquent $e(x) = \frac{f^{(n+1)}(\eps_x)}{(n+1)!} \prod_{k=0}^{n} (x-x_k)$.
-    \end{outline}
-\end{proof}
 
 \end{document}
