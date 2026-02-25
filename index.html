@@ -85,31 +85,63 @@
             color: #333;
         }
 
-        .chapter a {
+        .chapter-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .btn-primary {
+            flex: 1;
             padding: 10px 15px;
+            background-color: #0066cc;
             color: white;
             text-decoration: none;
             border-radius: 4px;
             text-align: center;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
         }
 
-        .chapter a:first-of-type {
-            background-color: #0066cc;
-        }
-
-        .chapter a:first-of-type:hover {
+        .btn-primary:hover {
             background-color: #0052a3;
         }
 
-        .chapter a:last-of-type {
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .btn-summary {
+            background-color: #b0b0b0;
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+        .btn-source {
             background-color: #6c757d;
             color: white;
         }
 
-        .chapter a:last-of-type:hover {
+        .btn-source:hover {
             background-color: #5a6268;
         }
-        
+
         button {
             padding: 8px 15px;
             border: 1px solid #ccc;
@@ -173,68 +205,159 @@
             <!-- Les chapitres -->
             <div class="chapter" data-id="1">
                 <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
-                <a href="./250910 CH01.pdf" target="_blank">Voir le PDF</a>
-                <a href="./250910 CH01.tex" target="_blank">Voir le code source</a>
+                <div class="chapter-buttons">
+                    <a href="./250910 CH01.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./250910 CH01.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="2">
                 <span class="chapter-name">Chapitre 2 : Nombres complexes</span>
-                <a href="./250924 CH02.pdf" target="_blank">Voir le PDF</a>
-                <a href="./250924 CH02.tex" target="_blank">Voir le code source</a>
+                <div class="chapter-buttons">
+                    <a href="./250924 CH02.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./250924 CH02.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="3">
-                <span class="chapter-name">Chapitre 3 : Nombres réels </span>
-                <a href="./251001 CH03.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251001 CH03.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 3 : Nombres réels</span>
+                <div class="chapter-buttons">
+                    <a href="./251001 CH03.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251001 CH03.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="4">
-                <span class="chapter-name">Chapitre 4 : Suites numériques </span>
-                <a href="./251009 CH04.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251009 CH04.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 4 : Suites numériques</span>
+                <div class="chapter-buttons">
+                    <a href="./251009 CH04.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251009 CH04.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="5">
-                <span class="chapter-name">Chapitre 5 : Équations différentielles </span>
-                <a href="./251022 CH05.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251022 CH05.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 5 : Équations différentielles</span>
+                <div class="chapter-buttons">
+                    <a href="./251022 CH05.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251022 CH05.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="6">
-                <span class="chapter-name">Chapitre 6 : Limites et continuité </span>
-                <a href="./251113 CH06.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251113 CH06.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 6 : Limites et continuité</span>
+                <div class="chapter-buttons">
+                    <a href="./251113 CH06.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251113 CH06.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="7">
-                <span class="chapter-name">Chapitre 7 : Dérivation </span>
-                <a href="./251128 CH07.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251128 CH07.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 7 : Dérivation</span>
+                <div class="chapter-buttons">
+                    <a href="./251128 CH07.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251128 CH07.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="8">
-                <span class="chapter-name">Chapitre 8 : Intégration </span>
-                <a href="./251212 CH08.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251212 CH08.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 8 : Intégration</span>
+                <div class="chapter-buttons">
+                    <a href="./251212 CH08.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251212 CH08.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="9">
-                <span class="chapter-name">Chapitre 9 : Analyse asymptotique </span>
-                <a href="./251219 CH09.pdf" target="_blank">Voir le PDF</a>
-                <a href="./251219 CH09.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 9 : Analyse asymptotique</span>
+                <div class="chapter-buttons">
+                    <a href="./251219 CH09.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./251219 CH09.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="10">
-                <span class="chapter-name">Chapitre 10 : Structures algébriques </span>
-                <a href="./260109 CH10.pdf" target="_blank">Voir le PDF</a>
-                <a href="./260109 CH10.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 10 : Structures algébriques</span>
+                <div class="chapter-buttons">
+                    <a href="./260109 CH10.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./260109 CH10.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="11">
-                <span class="chapter-name">Chapitre 11 : Arithmétiques </span>
-                <a href="./260128 CH11.pdf" target="_blank">Voir le PDF</a>
-                <a href="./260128 CH11.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 11 : Arithmétiques</span>
+                <div class="chapter-buttons">
+                    <a href="./260128 CH11.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./260128 CH11.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="12">
-                <span class="chapter-name">Chapitre 12 : Polynômes </span>
-                <a href="./260206 CH12.pdf" target="_blank">Voir le PDF</a>
-                <a href="./260206 CH12.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 12 : Polynômes</span>
+                <div class="chapter-buttons">
+                    <a href="./260206 CH12.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./260206 CH12.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
             <div class="chapter" data-id="13">
-                <span class="chapter-name">Chapitre 13 : Fractions rationnelles </span>
-                <a href="./260220 CH13.pdf" target="_blank">Voir le PDF</a>
-                <a href="./260220 CH13.tex" target="_blank">Voir le code source</a>
+                <span class="chapter-name">Chapitre 13 : Fractions rationnelles</span>
+                <div class="chapter-buttons">
+                    <a href="./260220 CH13.pdf" class="btn-primary" target="_blank">Voir cours</a>
+                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                    </button>
+                    <a href="./260220 CH13.tex" class="btn-icon btn-source" target="_blank" title="Code source">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
