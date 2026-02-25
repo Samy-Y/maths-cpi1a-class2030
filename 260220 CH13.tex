@@ -155,14 +155,283 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 
 \chapter{Corps des fractions de l'anneau $\Kset[X]$}
 
-\section{Définitions}
-
 \begin{definition}
     Soit $A$ un anneau intègre commutatif. On peut construire le corps de fractions de l'anneau $A[X]$, qui est noté $\Kset(X)$ et appelé \textbf{corps des fractions de l'anneau $A[X]$}.
 
     $$\Kset(X) = \set{\frac{P}{Q} \tq P, Q \in A[X], Q \neq 0}$$
 
-    $(\Kset(x), +, \times)$ est un corps commutatif, avec les lois d'addition et de multiplication définies de manière similaire à celles de $\Kset$ (en utilisant les opérations sur les polynômes).
+    $(\Kset(X), +, \times)$ est un corps commutatif, avec les lois d'addition et de multiplication définies de manière similaire à celles de $\Kset$ (en utilisant les opérations sur les polynômes).
 \end{definition}
+
+\section{Degré d'une fraction rationnelle}
+
+\begin{property}
+    Soient $(N,D),(N_1,D_1) \in \Kset[X]\times\Kset[X]^*$.
+
+    Si $\frac ND = \frac{N_1}{D_1}$, alors : $N \cdot D_1 = N_1 \cdot D$.
+
+    On a donc une égalité de deux polynômes, et on peut comparer leurs degrés. En particulier, on a $\deg(N) + \deg(D_1) = \deg(N_1) + \deg(D)$, ce qui implique que :
+
+    $$\deg(N) - \deg(D) = \deg(N_1) - \deg(D_1)$$
+
+    Cela veut dire que $\deg(N) - \deg(D)$ est une quantité qui ne dépend pas du représentant choisi pour cette fraction rationnelle.
+\end{property}
+
+\begin{definition}[Degré d'une fraction rationnelle]
+    On définit le \textbf{degré d'une fraction rationnelle} $\frac ND$ par :
+
+    $$\deg\left(\frac ND\right) = \deg(N) - \deg(D)$$
+
+    On le note $\deg\parens{\frac ND}$ ou $\mathrm d ^\circ (\frac ND)$.
+\end{definition}
+
+\begin{remark}[Valeur du degré d'une fraction rationnelle]
+    Pour toute fraction $F \in \Kset(X)$, on a $\deg(F) \in \Z\cup\{-\infty\}$.
+
+    avec $\deg(F)= \deg(\frac ND) = -\infty$ si et seulement si $F = 0_\Kset(X)$, donc si et seulement si $N = 0_\Kset[X]$ (en posant $F = \frac ND$ avec $N, D \in \Kset[X]$ et $D \neq 0_\Kset[X]$).
+
+    En effet, $\deg(F) = \underbracket{\deg(N)}_{\in \N\cup\{-\infty\}} - \underbracket{\deg(D)}_{\in \N} \in \Z\cup\{-\infty\}$. 
+\end{remark}
+
+\begin{remark}[Degré d'un polynôme vu comme une fraction rationnelle]
+    Si $P \in \Kset[X]^*$, alors $\deg(P) \in \N$.
+
+    \textbf{La réciproque est fausse :} On ne peut pas écrire $(F \in \Kset(X) \et \deg(F) \in \N ) \implies F \in \Kset[X]$. On peut donner comme contre-exemple le polynôme $F = \frac{X^2}{X+1} \in \Kset(X)$, qui est une fraction rationnelle de degré $1$ (car $\deg(X^2) - \deg(X+1) = 2 - 1 = 1$), mais qui n'est pas un polynôme (car il n'est pas de la forme $\frac{P}{1}$ avec $P \in \Kset[X]$).
+\end{remark}
+
+\begin{remark}[Division de polynômes et appartenance à $\Kset\bracks{X}$]
+    Pour $F = \frac AB \in \Kset(X)$, on a :
+
+    $$F \in \Kset[X] \iff B \mid A$$
+\end{remark}
+
+\begin{property}
+    Soient $F, G \in \Kset(X)$. Alors :
+
+    $$\deg(F\cdot G) = \deg(F) + \deg(G)$$
+    $$\deg(F + G) \leq \max(\deg(F), \deg(G)) \text{ avec égalité si } \deg(F) \neq \deg(G)$$
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item La première égalité est vérifiée trivialement, en effet :
+        
+        \begin{align*}
+            \deg(F\cdot G) &= \deg\left(\frac{A}{B} \cdot \frac{C}{D}\right)\\
+            &= \deg\left(\frac{AC}{BD}\right)\\
+            &= \deg(AC) - \deg(BD)\\
+            &= (\deg(A) + \deg(C)) - (\deg(B) + \deg(D))\\
+            &= (\deg(A) - \deg(B)) + (\deg(C) - \deg(D))\\
+            &= \deg(F) + \deg(G)
+        \end{align*}
+        \item Pour démontrer la seconde inégalité, on pose $F = \frac AD$ et $G = \frac BD$ (on suppose que les fractions sont écrites avec un dénominateur commun, ce qui est toujours possible). Alors : $F + G = \frac{A + B}{D}$, et $\deg(F + G) = \deg(A + B) - \deg(D)$. \\Or, $\deg(A + B) \leq \max(\deg(A), \deg(B))$ (propriété issue des polynômes !), ce qui implique que $\deg(F + G) \leq \max(\deg(A), \deg(B)) - \deg(D) = \max(\underbrace{\deg(A) - \deg(D)}_{\text{degré de fraction}}, \underbrace{\deg(B) - \deg(D)}_{\text{degré de fraction}}) = \max(\deg(F), \deg(G))$.\\Ensuite, on démontre facilement l'égalité dans le cas où $\deg(F) \neq \deg(G)$.
+    \end{enumerate}
+\end{proof}
+
+\section{Fraction dérivée}
+
+\begin{property}
+    Soit $F = \frac ND$.
+
+    La fraction $\frac{N'D - ND'}{D^2}$ ne dépend pas du représentant choisi pour $F$.
+\end{property}
+
+\begin{definition}[Fraction dérivée]
+    On définit la \textbf{fraction dérivée} de $F$ par :
+
+    $$F' = \frac{N'D - ND'}{D^2}$$
+
+    Par convention, $F^{(0)} = F$.
+
+    On peut aussi définir, par récurrence, les dérivées successives de $F$ par :
+
+    $$\forall k \in \N, F^{(k+1)} = (F^{(k)})'$$
+\end{definition}
+
+\begin{proof}
+    Soit $F = \frac ND = \frac AB \iff NB = AD$.
+
+    Nous voulons montrer que $\frac{N'D - ND'}{D^2} = \frac{A'B - AB'}{B^2} \iff D^2\parens{A'B-AB'} = B^2\parens{N'D - ND'}$.
+
+    \begin{outline}
+        \1 Dans le sens direct $\implies$ :
+        \2 On a N'B + N B' = A'D + A D' (en dérivant l'égalité $NB = AD$).
+        \2 Et on a aussi $D^2(A'B - AB') = A'D\cdot DB - AD^2 B$ et $B^2(N'D - ND') = N'B\cdot BD - NB^2 D$.
+        \2 En combinant ces égalités, on trouve que $D^2(A'B - AB') = B^2(N'D - ND')$.
+        \1 Dans le sens inverse $\impliedby$, la démonstration est plus simple, on peut directement utiliser les égalités $D^2(A'B - AB') = B^2(N'D - ND')$ et $NB = AD$ pour trouver que $N'B + N B' = A'D + A D'$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}[Degré de la fraction dérivée]
+    Soit $F = \frac AB$ avec $\deg(A),\deg(B) \ge 1$.
+
+    $$\deg(F') \le \deg(F) - 1$$
+
+    En effet, on a :
+    \begin{align*}
+    \deg(F') &= \deg(\frac{A'B - AB'}{B^2})\\
+    &= \deg(A'B - AB') - \deg(B^2)\\
+    &\leq \max(\deg(A'B), \deg(AB')) - 2\deg(B)\\
+    &\le \max(\deg(A') + \deg(B), \deg(A) + \deg(B')) - 2\deg(B)\\
+    &\le \max((\deg(A) - 1) + \deg(B), \deg(A) + (\deg(B) - 1)) - 2\deg(B)\\
+    &\le \max(\deg(A) + \deg(B) - 1, \deg(A) + \deg(B) - 1) - 2\deg(B)\\
+    &\le \deg(A) + \deg(B) - 1 - 2\deg(B)\\
+    &\le \deg(A) - \deg(B) - 1\\
+    &\le \deg(F) - 1
+    \end{align*}
+\end{remark}
+
+\begin{example}
+    $F = \frac{X}{X+1} \implies \deg F = 0$.
+
+    et $F' = \frac{1}{(X+1)^2} \implies \deg F' = -2$
+\end{example}
+
+\begin{property}
+    Soient $F_1,F_2 \in \Kset(X)$. Alors :
+
+    \begin{enumerate}
+        \item $\forall \lambda \in\Kset, (F_1 + \lambda F_2)' = F_1' + \lambda F_2'$
+        \item $(F_1 \cdot F_2)' = F_1' \cdot F_2 + F_1 \cdot F_2'$
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Pour démontrer la première propriété, on peut utiliser le fait que $\Kset(X)$ est un corps (et techniquement, un sous-espace vectoriel), et considérer $\lambda \in \Kset$ comme un polynôme de degré $0$.
+        \item La démonstration est triviale, on procède par calcul direct.
+    \end{enumerate}
+\end{proof}
+
+\section{Zéros et pôles d'une fraction rationnelle}
+
+\begin{definition}[Zéros et pôles d'une fraction rationnelle]
+    Soit $F = \frac AB \in \Kset(X)$, avec $A \wedge B = 1$ (c'est à dire que $A$ et $B$ sont premiers entre eux).
+
+    \begin{itemize}
+        \item On dit que $\alpha$ est \textbf{zéro} (ou racine) de $F$ de multiplicité $s$ lorsque $\alpha$ est une racine de $A$ (le \textit{numérateur}) de multiplicité $s$.
+        \item On dit que $\beta$ est \textbf{pôle} de $F$ de multiplicité $t$ lorsque $\beta$ est une racine de $B$ (le \textit{dénominateur}) de multiplicité $t$.
+    \end{itemize}
+\end{definition}
+
+\begin{attention}
+    Attention, les zéros et les pôles d'une fraction rationnelle sont définis si le numérateur et le dénominateur sont premiers entre eux. En effet, si $A$ et $B$ ont un facteur commun, alors on peut simplifier la fraction rationnelle, ce qui peut faire disparaître certains zéros ou pôles. Par exemple, si $F = \frac{(X-1)(X-2)}{X^2-1} = \frac{(X-1)(X-2)}{(X-1)(X+1)}$, alors $F$ peut être simplifié en $\frac{X-2}{X+1}$, ce qui fait ``disparaître'' le zéro/pôle $1$.
+\end{attention}
+
+\begin{example}
+    Soit $F = \frac{X^2 - 3X + 2}{(X^3-1)((X+1)^2)}$.
+
+    On peut simplifier $F$ en $\frac{X-2}{(X^2+X+1)(X+1)^2}$.
+
+    \begin{outline}
+        \1 $2$ est dit \textbf{zéro simple} de $F$ (car $2$ est une racine simple du numérateur),
+        \1 $-1$ est dit \textbf{pôle double} de $F$ (car $-1$ est une racine double du dénominateur),
+        \1 les racines complexes de $X^2 + X + 1$ sont des \textbf{pôles simples} de $F$ (car les racines de $X^2 + X + 1$ sont des racines simples du dénominateur).
+    \end{outline}
+\end{example}
+
+\begin{definition}[Fonction rationnelle]
+    Soit $F = \frac AB \in \Kset(X)$, avec $A \wedge B = 1$.
+
+    On définit la \textbf{fonction rationnelle} associée à $F$ par :
+
+    $$\tilde F : \substack{\Kset \to \Kset\\ x \mapsto \tilde{F}(x) = \frac{A(x)}{B(x)}}$$
+    
+    On peut noter l'ensemble des pôles de $F$ par $\mathcal D$. Alors, $\tilde F$ est une fonction définie sur $\Kset \setminus \mathcal D$.
+\end{definition}
+
+\chapter{Décomposition en éléments simples (DES) d'une fraction rationnelle}
+
+\section{Généralités}
+
+\begin{theorem}[Forme irréductible d'une fraction rationnelle]
+    Soit $F \in \Kset(X)$. Alors, il existe un unique couple $(A,B) \in \Kset[X]^2$ tel que $A \wedge B = 1$, $B$ est unitaire et $F = \frac AB$.
+\end{theorem}
+
+\begin{proof}
+    Soit $F = \frac ND \in \Kset(X)$.
+
+    \begin{outline}
+        \1 \textbf{Existence} : On peut trouver un couple $(A, B) \in \Kset[X]^2$ tel que $A \wedge B = 1$, $B$ est unitaire et $\frac AB = \frac ND$.
+        \2 Montrons que $F$ peut s'écrire sous la forme $\frac AB$ avec $A, B \in \Kset[X]$ et $B$ unitaire.
+        \3 On sait que $D$ admet un coefficient dominant non nul, disons $d$, car $D \neq 0_\Kset[X]$.
+        \3 On pose $N_1 = d^{-1} \cdot N$ et $D_1 = d^{-1} \cdot D$. Alors, $N_1$ et $D_1$ sont des polynômes de $\Kset[X]$ avec $D_1$ unitaire
+        \2 On a alors : $\frac{N_1}{D_1} = \frac ND$.
+        \3 On peut se permettre d'écrire $F = \frac{N_1}{D_1}$ car ils agissent comme d'autres représentants de cette classe d'équivalence.
+        \1 Montrons qu'on peut écrire $F$ sous la forme $\frac AB$ avec $A, B \in \Kset[X]$, $A \wedge B = 1$, $B$ unitaire et $\cfd(B) = 1$.
+        \2 Soit $C = N_1 \wedge D_1$.
+        \2 Alors il existe un couple $(A,B) \in \Kset[X]^2$ tel que $N_1 = CA$ et $D_1 = CB$.
+        \2 Donc $F = \frac AB \avec A \wedge B = 1 \et \cfd(B) = 1$, sachant que $D_1$ et $C$ sont unitaires.
+        \1 \textbf{Unicité} : Supposons que $F$ puisse s'écrire sous la forme $\frac AB$ et $\frac{A'}{B'}$ avec $A, B, A', B' \in \Kset[X]$, $A \wedge B = 1$, $A' \wedge B' = 1$, $B$ unitaire et $B'$ unitaire. Alors, on a :
+        \2 $A'B = AB'$ (en utilisant l'égalité $\frac AB = \frac{A'}{B'}$).
+        \2 Comme $B \mid A' B$, alors en utilisant le théorème de Gauss, on trouve que $B \mid B'$. De même,
+    \end{outline}
+\end{proof}
+\todo{pls help me finish this}
+
+\begin{definition}[Élément simple]
+    Soit $F \in \Kset(X)$.
+
+    On dit que $F$ est un \textbf{élément simple} lorsque $F$ est un monôme, c'est-à-dire qu'il peut s'écrire sous la forme $F = \alpha \cdot X^k$ avec $\alpha \in \Kset$ et $k \in \N$.
+
+    ou bien lorsque :
+    \begin{outline}
+        \1 il existe...
+        \2 $A \in \Kset[X] \setminus \{0\}$.
+        \2 $P \in \Kset[X]$ irréductible.
+        \2 $n \in \N^*$
+        \1 tels que $F = \frac{A}{P^n}$, avec $\deg(A) < \deg(P)$ (!).
+    \end{outline}
+\end{definition}
+
+\begin{remark}
+    \begin{outline}
+        \1 Les éléments simples dans $\C(X)$ sont :
+        \2 les monômes de la forme $\alpha X^k$ avec $\alpha \in \C$ et $k \in \N$,
+        \2 ainsi que les fractions de la forme $\frac{\lambda}{(X - \alpha)^n}$ avec $\lambda \in \C^*$, $\alpha \in \C$ et $n \in \N^*$, qu'on appelle des éléments simples de 1$^\text{ère}$ espèce.
+        \1 Les éléments simples dans $\R(X)$ sont :
+        \2 les monômes de la forme $\alpha X^k$ avec $\alpha \in \R$ et $k \in \N$, 
+        \2 les éléments simples de 1$^\text{ère}$ espèce de la forme $\frac{\lambda}{(X - \alpha)^n}$ avec $\lambda \in \R^*$, $\alpha \in \R$ et $n \in \N^*$,
+        \2 les éléments simples de 2$^\text{ème}$ espèce de la forme $\frac{\lambda X + \mu}{(X^2 + aX + b)^n}$ avec $\lambda, \mu, a, b \in \R$, $(a,b) \ne (0,0)$ et $b^2 - 4a < 0$, $n \in \N^*$.
+    \end{outline}
+\end{remark}
+
+\begin{property}[Partie entière et partie fractionnaire]
+    Soit $F \in \Kset(X)$. Alors, il existe un unique couple $(E, G) \in \Kset[X] \times \Kset(X)$ tel que :
+
+    $$\begin{cases}
+    F = E + G\\
+    \deg(G) < 0
+    \end{cases}$$
+
+    $E$ est appelé la partie entière de $F$, et $G$ est appelé la partie fractionnaire de $F$.
+\end{property}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{remark}
+    Si $F \in \Kset(X) \avec \deg(F) < 0$, alors $F$ est égal à sa partie fractionnaire $F=G$, et sa partie entière est nulle $E=0$ (par unicité de ces deux parties...).
+\end{remark}
+
+\section{Décomposition en éléments simples (cas général)}
+
+On va préparer une généralisation du théorème de décomposition en éléments simples (DES) pour les fractions rationnelles à coefficients dans un corps quelconque $\Kset$ en se basant sur trois propriétés :
+
+\begin{property}
+    Soient $A$ et $B_1,\dots,B_n \in \Kset[X]$ tels que $B_i$ et $B_j$ sont deux à deux premiers entre eux.
+
+    On pose $F = \frac{A}{B_1 \cdots B_n}$ avec $\deg(F) < 0$.
+
+    Alors...
+
+    $$\exists! (A_1, \dots, A_n) \in \Kset[X]^n \tqp F = \sum_{i=1}^{n}\frac{A_i}{B_i} \et \underbrace{\forall i \in [\![1,n]\!], \deg(A_i) < \deg(B_i)}_{\text{condition importante}}$$
+\end{property}
+
+\begin{proof}
+    La démonstration de cette propriété se fait par récurrence sur $n \in \N^*$. Le cas de base $n=1$ est trivial, mais le cas $n=2$ est plus utile est plus intéressant à démontrer. Il faut y employer le théorème de Bézout et décomposer le numérateur $A$ en $A\cdot 1$ puis en $A\cdot (B_1 u + B_2 v)$, ce qui permet de trouver les éléments $A_1$ et $A_2$ de la décomposition.
+\end{proof}
+\todo{à faire 25/02}
 
 \end{document}
