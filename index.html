@@ -127,6 +127,14 @@
         }
 
         .btn-summary {
+            background-color: #d9610c;
+            color: white;
+            opacity: 0.75;
+        }
+
+        /* disabled btn-summary properties */
+
+        .btn-summary:disabled {
             background-color: #b0b0b0;
             color: white;
             cursor: not-allowed;
@@ -339,9 +347,9 @@
                 <span class="chapter-name">Chapitre 12 : Polynômes</span>
                 <div class="chapter-buttons">
                     <a href="./260206 CH12.pdf" class="btn-primary" target="_blank">Voir cours</a>
-                    <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
+                    <a href="./ch12_fiche.pdf"><button class="btn-icon btn-summary" title="Résumé ALPHA">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
-                    </button>
+                    </button></a>
                     <a href="./260206 CH12.tex" class="btn-icon btn-source" target="_blank" title="Code source">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
                     </a>

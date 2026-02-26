@@ -196,7 +196,7 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 \begin{remark}[Degré d'un polynôme vu comme une fraction rationnelle]
     Si $P \in \Kset[X]^*$, alors $\deg(P) \in \N$.
 
-    \textbf{La réciproque est fausse :} On ne peut pas écrire $(F \in \Kset(X) \et \deg(F) \in \N ) \implies F \in \Kset[X]$. On peut donner comme contre-exemple le polynôme $F = \frac{X^2}{X+1} \in \Kset(X)$, qui est une fraction rationnelle de degré $1$ (car $\deg(X^2) - \deg(X+1) = 2 - 1 = 1$), mais qui n'est pas un polynôme (car il n'est pas de la forme $\frac{P}{1}$ avec $P \in \Kset[X]$).
+    \textbf{La réciproque est fausse :} On ne peut pas écrire $(F \in \Kset(X) \et \deg(F) \in \N ) \implies F \in \Kset[X]$. On peut donner comme contre-exemple la fraction rationnelle $F = \frac{X^2}{X+1} \in \Kset(X)$, qui est une fraction rationnelle de degré $1$ (car $\deg(X^2) - \deg(X+1) = 2 - 1 = 1$), mais qui n'est pas un polynôme (car il n'est pas de la forme $\frac{P}{1}$ avec $P \in \Kset[X]$).
 \end{remark}
 
 \begin{remark}[Division de polynômes et appartenance à $\Kset\bracks{X}$]
@@ -335,7 +335,7 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 
     On définit la \textbf{fonction rationnelle} associée à $F$ par :
 
-    $$\tilde F : \substack{\Kset \to \Kset\\ x \mapsto \tilde{F}(x) = \frac{A(x)}{B(x)}}$$
+    $$\tilde F : \substack{\Kset\setminus\{\text{ensemble des pôles de } F\} \to \Kset\\ x \mapsto \tilde{F}(x) = \frac{A(x)}{B(x)}}$$
     
     On peut noter l'ensemble des pôles de $F$ par $\mathcal D$. Alors, $\tilde F$ est une fonction définie sur $\Kset \setminus \mathcal D$.
 \end{definition}
