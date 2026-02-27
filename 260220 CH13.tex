@@ -417,7 +417,7 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 
 \section{Décomposition en éléments simples (cas général)}
 
-On va préparer une généralisation du théorème de décomposition en éléments simples (DES) pour les fractions rationnelles à coefficients dans un corps quelconque $\Kset$ en se basant sur trois propriétés :
+On va préparer une généralisation du théorème de décomposition en éléments simples (DES) pour les fractions rationnelles à coefficients dans un corps quelconque $\Kset$ en se basant sur deux propriétés :
 
 \begin{property}
     Soient $A$ et $B_1,\dots,B_n \in \Kset[X]$ tels que $B_i$ et $B_j$ sont deux à deux premiers entre eux.
@@ -431,7 +431,237 @@ On va préparer une généralisation du théorème de décomposition en élémen
 
 \begin{proof}
     La démonstration de cette propriété se fait par récurrence sur $n \in \N^*$. Le cas de base $n=1$ est trivial, mais le cas $n=2$ est plus utile est plus intéressant à démontrer. Il faut y employer le théorème de Bézout et décomposer le numérateur $A$ en $A\cdot 1$ puis en $A\cdot (B_1 u + B_2 v)$, ce qui permet de trouver les éléments $A_1$ et $A_2$ de la décomposition.
+
+    La preuve a été faite en tant qu'exercice hors-classe. Il ne faut pas oublier de démontrer l'existence (via division euclidienne et en considérant la somme des quotients comme une partie entière de la fraction) et l'unicité (en considérant un autre couple vérifiant les mêmes propriétés, et/ou par absurde) de la décomposition pendant l'initialisation de la récurrence, dans le cas où $n=2$. L'hérédité devient ensuite triviale, en recyclant tout simplement la démonstration du cas de base $n=2$.
+
+    \textit{L'unicité ne peut pas être démontrée par la division euclidienne parce qu'elle dépend des constantes $U$ et $V$ de Bézout, qui ne sont pas uniques.}
 \end{proof}
-\todo{à faire 25/02}
+
+\begin{example}
+    $F = \frac{X^2}{(X-1)(X^2+1)} \in \R(X)$.
+
+    On a donc $F = \frac{a}{X-1} + \frac{bX + c}{X^2 + 1}$ avec $a, b, c \in \R$.
+
+    Pour déterminer les constantes $a,b,c$, il n'y a pas besoin d'aboutir à un système d'équations (même si cette méthode marche). Il suffit tout simplement de multiplier l'égalité par $(X-1)$ et d'évaluer l'égalité à $X=1$ pour trouver $a=\frac12$. Ensuite, on peut multiplier l'égalité par $X^2 + 1$ et évaluer à $X=i$ pour trouver $b=c=\frac12$.
+
+    Au final, $F = \frac12 \parens{\frac{1}{X-1} + \frac{X+1}{X^2 + 1}}$.
+\end{example}
+
+\begin{property}
+    Soit $F=\frac{A}{B^n} \avec n \in \N^* \et \deg(F) < 0$.
+    $$\text{Alors } \exists ! (A_1, \dots, A_n) \in \Kset[X]^n \tq F = \sum_{k=1}^{n} \frac{A_k}{B^k} \et \forall k \in [\![1,n]\!], \deg(A_k) < \deg(B)$$
+\end{property}
+
+\begin{proof}
+    La preuve se fait par récurrence sur $n \in \N^*$. Le cas de base $n=1$ est trivial. L'hérédité se fait en utilisant la division euclidienne pour trouver un quotient $Q$ et un reste $R$ tels que $A = QB + A_{n+1}$ avec $\deg(R) < \deg(B)$, ce qui permet d'écrire $F = \frac{Q}{B^n} + \frac{A_{n+1}}{B^{n+1}}$, et de conclure en utilisant l'hypothèse de récurrence sur la fraction $\frac{Q}{B^{n-1}}$.
+\end{proof}
+
+\begin{example}
+    $F = \frac{X^5-3X^4+2X^2+2}{(X^2+1)^3} \in \R(X)$.
+
+    Pour décomposer cette fraction, on peut utiliser deux méthodes. Comme le degré de $F$ est négatif, on peut l'écrire sous la forme d'une somme de la forme $\frac{A_k}{B^k}$, puis multiplier par le dénominateur afin d'aboutir ensuite à un système de six équations à six inconnues, dont la résolution sera (évidemment) assez laborieuse.
+    
+    Cependant, la deuxième méthode, plus rapide, est exactement analogue à celle qui a été utilisée dans la preuve. On pose $A= X^5-3X^4+2X^2+2$, et on décompose $F = \frac{A_1}{(X^2+1)} + \frac{A_2}{(X^2+1)^2} + \frac{A_3}{(X^2+1)^3}$, avec $\deg(A_k) < 2$ pour $k \in \{1,2,3\}$.
+
+    On effectue ensuite la division euclidienne de $A$ par $X^2 + 1$ pour trouver un quotient $Q$ et un reste $R$ tels que $A = Q(X^2 + 1) + R$ avec $\deg(R) < 2$. On trouve alors $Q = X^3 - 3X^2 - X + 5$ et $R=X-3$. Par conséquent, $F = \frac{Q}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
+
+    Ensuite, on effectue la division euclidienne de $Q$ par $X^2 + 1$ pour trouver un quotient $Q_1$ et un reste $R_1$ tels que $Q = Q_1(X^2 + 1) + R_1$ avec $\deg(R_1) < 2$. On trouve alors $Q_1 = X - 3$ et $R_1 = -2X + 8$. Par conséquent, $F = \frac{Q_1}{(X^2+1)} + \frac{R_1}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
+\end{example}
+
+\begin{theorem}[D.E.S. d'une fraction rationnelle]
+    Soit $F = \frac AB \in \Kset(X)$ avec $\deg(F) < 0$ et $A\wedge B = 1$ et $B$ unitaire.
+
+    On écrit $B = \prod_{i=1}^r B_i^{\alpha_i}$ avec $\alpha_i \ge 1$ et $(B_i)_{1\le i \le r}$ irréductibles deux à deux distincts.
+    
+    Alors, il existe un unique $E \in \Kset[X]$ et une unique famille $(A_{i,j})_{\underset{i \in [\![1,r]\!]}{j \in [\![1,\alpha_i]\!]}}$ d'éléments de $\Kset[X]$ tels que :
+
+    $$F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j} \et \forall i \in [\![1,r]\!], \forall j \in [\![1,\alpha_i]\!], \deg(A_{i,j}) < \deg(B_i)$$
+\end{theorem}
+
+\begin{proof}
+    Nous utilisons d'abord la division euclidienne de $A$ par $B$ pour trouver un quotient $E$ et un reste $R$ tels que $A = EB + R$ avec $\deg(R) < \deg(B)$. Par conséquent, $F = E + \frac RB$, qui reste une fraction de degré négatif. 
+    
+    Ensuite, on utilise la première propriété pour trouver des éléments $A_{i,1}$ tels que $\frac RB = \sum_{i=1}^r \frac{A_{i,1}}{B_i}$ avec $\deg(A_{i,1}) < \deg(B_i)$ pour tout $i \in [\![1,r]\!]$, sachant que $B$ peut être décomposé en un produit $\prod_{i=1}^r B_i^{\alpha_i}$ avec $\deg(\frac{A_k}{B_k^{\alpha_k}}) < 0$ pour tout $k \in [\![1,r]\!]$.
+    $$\frac{R}{\prod_{i=1}^r B_i^{\alpha_i}} = \sum_{i=1}^r \frac{A_{i,1}}{B_i}$$
+    Ensuite, on utilise la seconde propriété pour trouver des éléments $A_{i,j}$ tels que $\frac{A_{i,1}}{B_i} = \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}$ avec $\deg(A_{i,j}) < \deg(B_i)$ pour tout $j \in [\![1,\alpha_i]\!]$ et tout $i \in [\![1,r]\!]$.
+    
+    En combinant toutes ces égalités, on trouve que $F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}$ avec les conditions de degrés sur les $A_{i,j}$.
+\end{proof}
+
+\begin{exercise}
+    Décomposer une fraction rationnelle générale dans $\C(X)$ puis dans $\R(X)$ en éléments simples.
+
+    \textbf{Solution :}
+
+    Dans $\C(X)$, nous allons poser $F = \frac AB$ avec $A, B \in \C[X]$, $A \wedge B = 1$, $B$ unitaire et $\deg(F) < 0$.
+    \begin{outline}
+        \1 On factorise le dénominateur $B$ en produit de facteurs irréductibles deux à deux distincts, c'est à dire $B = \prod_{i=1}^r (X-x_i)^{\alpha_i}$ avec $\alpha_i \ge 1$ et $(x_i)_{1\le i \le r}$.
+        \1 Ensuite, on utilise le théorème de D.E.S. pour trouver un unique élément $E \in \C[X]$ et une famille unique $(A_{i,j})_{\underset{i \in [\![1,r]\!]}{j \in [\![1,\alpha_i]\!]}}$ d'éléments de $\C[X]$ tels que $F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}$ avec $\deg(A_{i,j}) < \deg(B_i)$ pour tout $i \in [\![1,r]\!]$ et tout $j \in [\![1,\alpha_i]\!]$.
+    \end{outline}
+
+    Dans $\R(X)$, la démarche est exactement la même, à la différence que les facteurs irréductibles de $B$ sont soit des polynômes du premier degré (ayant une racine réelle), soit des polynômes du second degré (ayant des racines complexes conjuguées).
+
+    \begin{outline}
+        \1 On factorise le dénominateur $B$ en produit de facteurs irréductibles deux à deux distincts, c'est à dire $B = \prod_{i=1}^r (X - \alpha_i)^{\alpha_i} \prod_{j=1}^s (X^2 + a_j X + b_j)^{\beta_j}$ avec $\alpha_i, a_j, b_j \in \R$, $\alpha_i$ distincts, $a_j^2 - 4b_j < 0$ et $j \in [\![1,s]\!]$.
+        \1 Ensuite, on utilise le théorème de D.E.S. pour trouver un unique élément $E \in \R[X]$ et une famille unique $(A_{i,j})_{\underset{i \in [\![1,r]\!]}{j \in [\![1,\alpha_i]\!]}}$ d'éléments de $\R[X]$ et une famille unique $(B_{k,l})_{\underset{k \in [\![1,s]\!]}{l \in [\![1,\beta_k]\!]}}$ d'éléments de $\R[X]$ tels que $F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{(X - \alpha_i)^j} + \sum_{k=1}^s \sum_{l=1}^{\beta_k} \frac{B_{k,l}}{(X^2 + a_k X + b_k)^l}$ avec $\deg(A_{i,j}) < 1$ pour tout $i \in [\![1,r]\!]$ et tout $j \in [\![1,\alpha_i]\!]$, et $\deg(B_{k,l}) < 2$ pour tout $k \in [\![1,s]\!]$ et tout $l \in [\![1,\beta_k]\!]$.
+        \1 On peut aussi utiliser le 
+    \end{outline}
+
+\end{exercise}\todo{recop}
+
+\section{Techniques de décomposition en éléments simples}
+
+\subsection{Méthode par pôles simples}
+
+\begin{property}
+    Soit $F = \frac AB \in \Kset(X)$ avec $A\wedge B = 1$ et $B = \prod_{i=1}^n (X - a_i)$ où les $(a_i)_{1\le i \le n}$ sont deux à deux distincts.
+
+    Alors, $F$ peut être décomposée de la manière suivante :
+
+    $$F = E + \sum_{i=1}^{n}\frac{\lambda_i}{X - a_i}$$
+    
+    avec $E \in \Kset[X]$ et $\lambda_i \in \Kset$ pour tout $i \in [\![1,n]\!]$.
+
+    Alors $\forall k \in \{1,\dots,n\}, \lambda_k = \frac{A(a_k)}{B'(a_k)}$.
+
+    \textit{(On peut se permettre de ``diviser'' par $B'(a_k)$ (en travaillant dans $\R$ ou $\C$) car $B'(a_k) \neq 0$ pour tout $k \in [\![1,n]\!]$, étant donné que les $a_i$ sont deux à deux distincts, ce qui implique que $B$ n'admet pas de racine multiple (ne possède que des racines simples), et donc que $B'(a_k) \neq 0$ pour tout $k \in [\![1,n]\!]$).}
+\end{property}
+
+\begin{proof}
+    recop
+\end{proof}
+\todo{recop}
+
+\begin{example}
+    \begin{outline}
+        \1 Décomposons la fraction rationnelle $F = \frac{1}{X^n -1}$ dans $\C(X)$ où $n \in \N^*\setminus \{1\}$.
+        \2 On pose $B= X^n - 1$.
+        \2 $B$ peut s'écrire comme le produit $\prod_{k=0}^{n-1} (X - \omega^k)$ où $\omega = e^{\frac{2i\pi}{n}}$ est une racine primitive $n$-ième de l'unité.
+        \2 Comme la partie entière de $F$ est nulle parce que son degré est strictement négatif, on peut écrire $F$ sous la forme $F = \sum_{k=0}^{n-1} \frac{\lambda_k}{X - \omega^k}$ avec $\lambda_k \in \C$ pour tout $k \in [\![0,n-1]\!]$.
+        \2 En utilisant la propriété précédente, on trouve que $\lambda_k = \frac{1}{B'(\omega^k)}$ pour tout $k \in [\![0,n-1]\!]$.
+        \2 En calculant $B'(\omega^k)$, on trouve que $B'(\omega^k) = n \cdot \omega^{k(n-1)}$ pour tout $k \in [\![0,n-1]\!]$.
+        \2 Donc $\frac{1}{B'(\omega^k)} = \frac{1}{n \cdot \omega^{k(n-1)}}$, qu'on pourra simplifier en $\frac{\omega^k}{n}$ (sans perte de généralité) pour tout $k \in [\![0,n-1]\!]$.
+        \2 Par conséquent, $F = \frac{1}{X^n - 1} = \sum_{k=0}^{n-1} \frac{\omega^k}{n(X - \omega^k)}$.
+        \2 On peut aussi la réécrire en considérant un nouveau $\omega \in \Uset_n$, ce qui nous donne :
+        $$F = \frac1n \sum_{\omega \in \Uset_n} \frac{\omega}{X - \omega}$$
+        \1 Calculons $\int_1^2 \frac{dx}{x(x+1)(x+2)}$ via une décomposition en éléments simples.
+        \2 On pose $F = \frac{1}{X(X+1)(X+2)}$.
+        \2 On a $F = \frac{a}{X} + \frac{b}{X+1} + \frac{c}{X+2}$ avec $a,b,c \in \R$.
+        \2 En multipliant l'égalité par $X$ et en évaluant à $X=0$, on trouve que $a = \frac12$.
+        \2 En multipliant l'égalité par $X+1$ et en évaluant à $X=-1$, on trouve que $b = -1$.
+        \2 En multipliant l'égalité par $X+2$ et en évaluant à $X=-2$, on trouve que $c = \frac12$.
+        \2 Par conséquent, $F = \frac{1}{X(X+1)(X+2)} = \frac12 \cdot \frac{1}{X} - 1 \cdot \frac{1}{X+1} + \frac12 \cdot \frac{1}{X+2}$.
+        \2 L'intégration devient alors triviale.
+    \end{outline}
+\end{example}
+
+\section{Méthode par pôles doubles}
+
+\begin{property}
+    Soit $F = \frac AB \avec A \wedge B = 1$ et $B = (X - a)^2 \cdot Q$ avec $Q(a) \neq 0$ et $a \in \Kset$.
+
+    Alors, $F$ peut être décomposée de la manière suivante :
+
+    $$F = E + \frac{\alpha}{X - a} + \frac{\beta}{(X - a)^2} + \frac{A_1}{Q}$$
+
+    avec $\deg(A_1) < \deg(Q)$, $(\alpha,\beta) \in \Kset^2$.
+
+    $$\text{Et on a } \begin{cases}
+    \beta = \frac{A(a)}{Q(a)}\\
+    \alpha = \left(\frac AQ\right)'(a)
+    \end{cases}$$
+\end{property}
+
+\begin{proof}
+    \begin{align*}
+    F &= \frac{A}{(X - a)^2 \cdot Q}
+    \\
+      &= E + \frac{\alpha}{X - a} + \frac{\beta}{(X - a)^2} + \frac{A_1}{Q}
+    \\
+    (X - a)^2 \cdot F &= \frac AQ
+    \\
+      &= (X-a)^2(E+\frac{A_1}{Q}) + \alpha(X-a)+ \beta
+    \\
+    \implies [(X-a)^2 \cdot F]_{X=a} &= \frac{A(a)}{Q(a)} = \beta
+    \\
+    \implies \parens{\frac AQ}' &= (X-a)\big[2(E+\frac{A_1}{Q}) + (X-a)\cdot(E+\frac{A_1}{Q})'\big]+\alpha
+    \\
+    \donc \parens{\frac AQ}'(a) &= \alpha
+    \\
+    B = (X-a)^2 \cdot Q &\implies B'' = 2Q + 4(X-a)Q' + (X-a)^2 Q'' \implies B''(a) = 2Q(a) \neq 0
+    \\
+    \implies \beta = \frac{2A(a)}{B''(a)}
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    Décomposons $F = \frac{X}{(X-1)^2(X-2)}$ dans $\R(X)$.
+
+    On remarque très clairement que le ``$\frac AQ$'' dans cet exemple est le $\frac{X}{X-2}$.
+
+    On a $F = \frac{a}{X-1} + \frac{b}{(X-1)^2} + \frac{c}{X-2}$ avec $a,b,c \in \R$.
+
+    En utilisant la même méthode que celle qui a été employée précédemment (multiplication de $F$ par... et évaluations aux racines...) on trouve que :
+
+    $$\begin{cases}
+    [(X-2)F]_{X=2} = c = 2\\
+    [(X-1)^2 F]_{X=1} = b = -1\\
+    \parens{\frac{X}{X-2}}'(1) = a = -\frac12
+    \end{cases}$$
+
+    On peut aussi trouver $a$ en multipliant $F$ par $X$ et en évaluant à $X\to\infty$, mais cela marche dans ce seulement parce que le degré de $F$ est négatif (pas forcément strictement négatif).
+\end{example}
+
+\subsection{Pôles de multiplicité supérieure ou égale à $3$}
+
+\subsubsection{Cas particulier}
+
+Soit $F = \frac{P}{(X-a)^s}$ avec $P \in \Kset[X]$, $a \in \Kset$ et $s \in \N^* \mid s \ge 3$.
+
+D'après la formule de Taylor, on a $P = \sum_{k=0}^{n}P^{(k)}(a) \cdot \frac{(X-a)^k}{k!}$.
+
+\begin{itemize}
+    \item Si $n < s$, alors $F = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} \cdot \frac{1}{(X-a)^{s-k}}$.
+    \item Si $n \ge s$, alors $F = \sum_{k=0}^{s-1} \frac{P^{(k)}(a)}{k!} \cdot \frac{1}{(X-a)^{s-k}} + \underbrace{\sum_{k=s}^{n} \frac{P^{(k)}(a)}{k!} \cdot (X-a)^{k-s}}_{\text{partie entière}}$. 
+\end{itemize}
+
+\begin{example}
+    Décomposons $F = \frac{X^5}{(X-1)^4}$ dans $\R(X)$.
+
+    L'idée consiste à tout simplement rajouter et retrancher 1 et appliquer la formule du binôme de Newton.
+
+    On a $X^5 = (X-1+1)^5 = \sum_{k=0}^5 \binom{5}{k} (X-1)^k$.
+
+    En réintégrant dans l'expression de $F$, on trouve :
+    $$F = (X-1)+5+\sum_{k=0}^3 \binom{5}{k} \cdot \frac{1}{(X-1)^{4-k}}$$
+
+    $$\implies F = (X+4)+\sum_{j=1}^{4} \binom{5}{4-j} \cdot \frac{1}{(X-1)^j}$$
+
+    C'est une décomposition en éléments simples de $F$.
+\end{example}
+
+\subsubsection{Cas général}
+
+$F = \frac AB \in \Kset(X) \avec A \wedge B = 1$ et $B = (X-a)^5 \cdot Q$ avec $Q(a) \neq 0$ et $a \in \Kset$.
+
+On définit la fonction rationnelle $f: x\mapsto \frac{A(x)}{Q(x)}$.
+
+Comme $Q(a) \neq 0$, $f$ est de classe $\cclas\infty$ dans un voisinage de $a$, et on peut donc effectuer un développement limité $DL_n(a)$ pour tout $n \in \N$ de $f$ au voisinage de $a$.
+
+Et en particulier, pour $n=s-1$, on trouve que $f(x)=\sum_{k=0}^{s-1} \alpha_k(x-a)^k + \negli{a}((x-a)^{s-1})$ avec $\alpha_k = \frac{f^{(k)}(a)}{k!}$ pour tout $k \in [\![0,s-1]\!]$.
+
+Par conséquent, $F(x) = \frac{A(x)}{B(x)} = \frac{f(x)}{(x-a)^s} = \sum_{k=0}^{s-1} \alpha_k \cdot \frac{1}{(x-a)^{s-k}} + \negli{x}{a}{\frac{1}{x-a}}$.
+
+Donc $F(x)=\sum_{j=1}^s \alpha_{s-j} \cdot \frac{1}{(x-a)^j} + \negli{x}{a}{\frac{1}{(x-a)}}$.
+
+Or $F = E+\sum_{j=1}^s \frac{\lambda_j}{(X-a)^j} + \frac{A_1}Q$ avec $E \in \Kset[X]$ et $\lambda_j \in \Kset$ pour tout $j \in [\![1,s]\!]$ et $\deg(A_1) < \deg(Q)$.
+
+i.e. $F(x) = \sum_{j=1}^s \frac{\lambda_j}{(x-a)^j} + \negli{x}{a}{\frac{1}{(x-a)}}+(E(x) + \frac{A_1(x)}{Q(x)})$.
+
+On a $(x-a)(E(x)+\frac{A_1(x)}{Q(x)}) \to 0$ lorsque $x \to a$, ce qui signifie que :
+
+$F(x) = \sum_{j=1}^s \frac{\lambda_j}{(x-a)^j} + \negli{x}{a}{\frac{1}{(x-a)}}$.
+
+Par conséquent, par unicité du développement limité d'ordre $s-1$ de $f$ au voisinage de $a$ ($DL_{s-1}(a)$), on trouve que $\lambda_j = \alpha_{s-j}$ pour tout $j \in [\![1,s]\!]$, qui sont des constantes qu'on connaît et qui sont égales à $\frac{f^{(s-j)}(a)}{(s-j)!}$ pour tout $j \in [\![1,s]\!]$.
 
 \end{document}

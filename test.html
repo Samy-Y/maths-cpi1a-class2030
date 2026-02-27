@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>mini_macros</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<p>Ce chapitre est consacré aux fractions rationnelles. Nous allons
+introduire les fractions rationnelles, en construisant un corps de
+fractions à partir d’un anneau commutatif intègre. Nous allons ensuite
+étudier les propriétés de ces fractions rationnelles, notamment leur
+simplification et leurs applications.</p>
+<h1 id="corps-de-fractions-dun-anneau-intègre">Corps de fractions d’un
+anneau intègre</h1>
+<p>Soit <span class="math inline">\(A\)</span> un anneau intègre
+commutatif. On souhaite construire le plus petit corps <span
+class="math inline">\(\mathbb{K}\)</span> contenant l’anneau <span
+class="math inline">\(A\)</span>, qu’on appellera corps de fractions de
+<span class="math inline">\(A\)</span>.</p>
+<div class="example">
+<p>Par exemple, si <span class="math inline">\(A = \mathbb{Z}\)</span>,
+alors le corps de fractions de <span class="math inline">\(A\)</span>
+est <span class="math inline">\(\mathbb{Q}\)</span>, le corps des
+nombres rationnels.</p>
+<p><span class="math display">\[Q = \{\frac{N}{D} \mid N \in \mathbb{Z},
+D \in \mathbb{Z}^* \}\]</span></p>
+<p>L’écriture <span class="math inline">\(\frac ND\)</span> n’est pas
+unique. En effet...</p>
+<p><span class="math display">\[\frac ND = \frac{N&#39;}{D&#39;} \iff
+ND&#39; = N&#39;D\]</span></p>
+</div>
+<p>Nous allons donc construire une classe d’équivalence pour résoudre ce
+problème d’unicité d’écriture.</p>
+<div class="property">
+<p>Soit <span class="math inline">\(A\)</span> un anneau intègre
+commutatif. On définit une relation d’équivalence sur <span
+class="math inline">\(A \times A^*\)</span> par :</p>
+<p><span class="math display">\[(N, D) \sim (N&#39;, D&#39;) \iff
+ND&#39; = N&#39;D\]</span></p>
+<p>Cette relation est bien une relation d’équivalence.</p>
+</div>
+<div class="attention">
+<p><span class="math inline">\(A^*\)</span> désigne ici <span
+class="math inline">\(A\setminus\{0_A\}\)</span> et non pas <span
+class="math inline">\(\mathbb{U}_A\)</span> (l’ensemble des éléments
+inversibles de <span class="math inline">\(A\)</span>).</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em></p>
+<div class="outline">
+<p>Réflexivité : <span class="math inline">\(ND = ND\)</span> pour tout
+<span class="math inline">\((N, D) \in A \times A^*\)</span>. Symétrie :
+Si <span class="math inline">\(ND&#39; = N&#39;D\)</span>, alors <span
+class="math inline">\(N&#39;D = ND&#39;\)</span>, donc <span
+class="math inline">\((N&#39;, D&#39;) \sim (N, D)\)</span> (la relation
+<span class="math inline">\(=\)</span> est symétrique). Transitivité :
+Si <span class="math inline">\((N, D) \sim (N&#39;, D&#39;)\)</span> et
+<span class="math inline">\((N&#39;, D&#39;) \sim (N&#39;&#39;,
+D&#39;&#39;)\)</span>, alors <span class="math inline">\(ND&#39; =
+N&#39;D\)</span> et <span class="math inline">\(N&#39;D&#39;&#39; =
+N&#39;&#39;D&#39;\)</span>. En multipliant la première égalité par <span
+class="math inline">\(D&#39;&#39;\)</span> et la seconde par <span
+class="math inline">\(D\)</span>, on obtient <span
+class="math inline">\(ND&#39;D&#39;&#39; = N&#39;DD&#39;&#39;\)</span>
+et <span class="math inline">\(N&#39;DD&#39;&#39; =
+N&#39;&#39;DD&#39;\)</span>. En combinant ces égalités, on trouve <span
+class="math inline">\(ND&#39;D&#39;&#39; = N&#39;&#39;DD&#39;\)</span>,
+ce qui implique que <span class="math inline">\(ND&#39;&#39; =
+N&#39;&#39;D\)</span> (car <span class="math inline">\(A\)</span> est
+intègre). Ainsi, <span class="math inline">\((N, D) \sim (N&#39;&#39;,
+D&#39;&#39;)\)</span>.</p>
+</div>
+<p> ◻</p>
+</div>
+<div class="definition">
+<p>Dans la suite, on pose :</p>
+<p><span class="math display">\[\mathbb{K}= \{ \mathcal{C}\ell\left(N,
+D\right) \text{ tel que }(N, D) \in A \times A^* \}\]</span></p>
+</div>
+<div class="property">
+<p><span class="math display">\[\begin{cases}
+    \mathcal{C}\ell\left(N,D\right) = \mathcal{C}\ell\left(N&#39;,
+D&#39;\right)\\
+    \mathcal{C}\ell\left(A,B\right) = \mathcal{C}\ell\left(A&#39;,
+B&#39;\right)
+    \end{cases}
+    \implies
+    \begin{cases}
+    \mathcal{C}\ell\left(NB + AD, BD\right) =
+\mathcal{C}\ell\left(N&#39;B&#39; + A&#39;D&#39;, B&#39;D&#39;\right)\\
+    \mathcal{C}\ell\left(AN,BD\right) =
+\mathcal{C}\ell\left(A&#39;N&#39;, B&#39;D&#39;\right)
+    \end{cases}\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em></p>
+<div class="outline">
+<p>Montrons que <span class="math inline">\(\mathcal{C}\ell\left(NB +
+AD, BD\right) = \mathcal{C}\ell\left(N&#39;B&#39; + A&#39;D&#39;,
+B&#39;D&#39;\right)\)</span>. En utilisant les égalités <span
+class="math inline">\(\mathcal{C}\ell\left(N,D\right) =
+\mathcal{C}\ell\left(N&#39;, D&#39;\right)\)</span> et <span
+class="math inline">\(\mathcal{C}\ell\left(A,B\right) =
+\mathcal{C}\ell\left(A&#39;, B&#39;\right)\)</span>, on a <span
+class="math inline">\(ND&#39; = N&#39;D\)</span> et <span
+class="math inline">\(AB&#39; = A&#39;B\)</span>. En multipliant la
+première égalité par <span class="math inline">\(B\)</span> et la
+seconde par <span class="math inline">\(D\)</span>, on obtient <span
+class="math inline">\(NDB = N&#39;DB\)</span> et <span
+class="math inline">\(ABD = A&#39;BD\)</span>. En combinant ces
+égalités, on trouve <span class="math inline">\(NB + AD = N&#39;B&#39; +
+A&#39;D&#39;\)</span> et <span class="math inline">\(BD =
+B&#39;D&#39;\)</span>. Montrons que <span
+class="math inline">\(\mathcal{C}\ell\left(AN,BD\right) =
+\mathcal{C}\ell\left(A&#39;N&#39;, B&#39;D&#39;\right)\)</span>. En
+utilisant les mêmes égalités, on a <span class="math inline">\(AN =
+A&#39;N&#39;\)</span> et <span class="math inline">\(BD =
+B&#39;D&#39;\)</span>, ce qui implique que <span
+class="math inline">\(\mathcal{C}\ell\left(AN,BD\right) =
+\mathcal{C}\ell\left(A&#39;N&#39;, B&#39;D&#39;\right)\)</span>.</p>
+</div>
+<p> ◻</p>
+</div>
+<div class="definition">
+<p>On munit <span class="math inline">\(\mathbb{K}\)</span> des
+opérations suivantes :</p>
+<ul>
+<li><p>Addition <span class="math inline">\(+\)</span> : <span
+class="math inline">\(\mathcal{C}\ell\left(N,D\right) +
+\mathcal{C}\ell\left(N&#39;,D&#39;\right) = \mathcal{C}\ell\left(NB +
+AD, BD\right)\)</span>.</p></li>
+<li><p>Multiplication <span class="math inline">\(\times\)</span> :
+<span class="math inline">\(\mathcal{C}\ell\left(N,D\right) \cdot
+\mathcal{C}\ell\left(N&#39;,D&#39;\right) =
+\mathcal{C}\ell\left(NN&#39;, DD&#39;\right)\)</span>.</p></li>
+</ul>
+</div>
+<div class="property">
+<p>Avec les opérations <span class="math inline">\(+\)</span> et <span
+class="math inline">\(\times\)</span> définies ci-dessus, <span
+class="math inline">\(\mathbb{K}\)</span> est un corps commutatif.</p>
+</div>
+<div class="importantbox">
+<p>Dans la suite de ce cours, on notera <span
+class="math inline">\(\frac ND = \mathcal{C}\ell\left(N,
+D\right)\)</span> <span class="math display">\[\mathbb{K}= \left\{\frac
+ND \text{ tel que }(N, D) \in A \times A^*\right\}\]</span></p>
+</div>
+<div class="remark">
+<ul>
+<li><p>La définition des lois <span class="math inline">\(+\)</span> et
+<span class="math inline">\(\times\)</span> dans <span
+class="math inline">\(\mathbb{K}\)</span> provient des mêmes lois
+définies sur <span class="math inline">\(\mathbb{Q}\)</span> (le corps
+de fractions de <span
+class="math inline">\(\mathbb{Z}\)</span>).</p></li>
+<li><p>Dans <span class="math inline">\(\mathbb{K}\)</span>, on a <span
+class="math inline">\(0_\mathbb{K}= \mathcal{C}\ell\left(0_A, 1_A\right)
+= \frac{0_A}{1_A}\)</span> et <span class="math inline">\(1_\mathbb{K}=
+\mathcal{C}\ell\left(1_A, 1_A\right) =
+\frac{1_A}{1_A}\)</span>.</p></li>
+</ul>
+</div>
+<div class="proof">
+<p><em>Proof.</em></p>
+<div class="outline">
+<p>On remarque que <span class="math inline">\(\frac ND =
+\frac{ND&#39;}{DD&#39;}\)</span> et <span
+class="math inline">\(\frac{N&#39;}{D&#39;} =
+\frac{N&#39;D}{DD&#39;}\)</span>. On peut donc supposer que les
+“fractions” sont écrites avec un dénominateur commun. Les lois <span
+class="math inline">\(+\)</span> et <span
+class="math inline">\(\times\)</span> sont déjà définies d’après la
+remarque précédente. Il ne reste plus qu’à vérifier que <span
+class="math inline">\(\mathbb{K}\)</span> est un corps commutatif.
+L’addition est associative et commutative, avec <span
+class="math inline">\(0_\mathbb{K}\)</span> comme élément neutre. On
+utilise les propriétés de l’addition dans <span
+class="math inline">\(A\)</span> (car <span
+class="math inline">\(A\)</span> est un anneau commutatif) pour vérifier
+ces propriétés dans <span class="math inline">\(\mathbb{K}\)</span>. La
+multiplication est associative et commutative, avec <span
+class="math inline">\(1_\mathbb{K}\)</span> comme élément neutre. On
+utilise les propriétés de la multiplication dans <span
+class="math inline">\(A\)</span> pour vérifier ces propriétés dans <span
+class="math inline">\(\mathbb{K}\)</span>. La multiplication est
+distributive par rapport à l’addition. On utilise les propriétés de
+l’addition et de la multiplication dans <span
+class="math inline">\(A\)</span> pour vérifier cette propriété dans
+<span class="math inline">\(\mathbb{K}\)</span>. Tout élément nul de
+<span class="math inline">\(\mathbb{K}\)</span> est de la forme <span
+class="math inline">\(\frac{0_A}{D}\)</span>, ce qui correspond à <span
+class="math inline">\(0_\mathbb{K}\)</span>. Tout élément non nul de
+<span class="math inline">\(\mathbb{K}\)</span> est de la forme <span
+class="math inline">\(\frac{N}{D}\)</span> avec <span
+class="math inline">\(N \neq 0_A\)</span>, et son inverse est <span
+class="math inline">\(\frac{D}{N}\)</span>, qui est bien défini car
+<span class="math inline">\(A\)</span> est intègre (et on démontre
+facilement que <span class="math inline">\(\frac{N}{D} \cdot \frac{D}{N}
+= 1_\mathbb{K}\)</span>).</p>
+</div>
+<p>On conclut que <span class="math inline">\(\mathbb{K}\)</span> est un
+corps commutatif. ◻</p>
+</div>
+<div class="property">
+<p><span class="math display">\[f : \substack{A \to \mathbb{K}\\ N
+\mapsto \frac{N}{1_A}}\]</span></p>
+<p><span class="math inline">\(f\)</span> est un morphisme d’anneaux
+injectif.</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> On peut procéder par deux méthodes, soit en montrer
+que le noyau <span class="math inline">\(\ker(f) = \{0_A\}\)</span> (par
+équivalences successives sans avoir à passer par une double inclusion),
+soit en montrant que <span class="math inline">\(f\)</span> est
+injective directement (en étudiant l’égalité <span
+class="math inline">\(f(N) = f(N&#39;)\)</span> avec <span
+class="math inline">\(N, N&#39; \in A\)</span>). ◻</p>
+</div>
+<div class="remark">
+<p>Par conséquent, on peut identifier <span
+class="math inline">\(A\)</span> à son image <span
+class="math inline">\(f(A)\)</span> dans <span
+class="math inline">\(\mathbb{K}\)</span>. Et <span
+class="math inline">\(f : A \to f(A)\)</span> est un isomorphisme
+d’anneaux.<span class="math inline">\(A\)</span> est donc isomorphe à
+<span class="math inline">\(f(A)\)</span>, qui est un sous-anneau de
+<span class="math inline">\(\mathbb{K}\)</span>. Ainsi, on peut
+considérer <span class="math inline">\(A\)</span> comme un sous-anneau
+de <span class="math inline">\(\mathbb{K}\)</span>, et on dit que <span
+class="math inline">\(\mathbb{K}\)</span> est un corps de fractions de
+<span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="theorem">
+<p><span class="math inline">\(\mathbb{K}\)</span> est le plus petit
+corps contenant <span class="math inline">\(A\)</span>.</p>
+<p><span class="math inline">\(\mathbb{K}\)</span> est appelé <strong>le
+corps de fractions</strong> de <span
+class="math inline">\(A\)</span>.</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Soit <span class="math inline">\(L\)</span> un corps
+contenant <span class="math inline">\(A\)</span>. On souhaite montrer
+que <span class="math inline">\(\mathbb{K}\subseteq L\)</span>.</p>
+<div class="outline">
+<p>Soit <span class="math inline">\(\frac ND \in \mathbb{K}\)</span>
+avec <span class="math inline">\(N \in A\)</span> et <span
+class="math inline">\(D \in A^*\)</span>. Comme <span
+class="math inline">\(L\)</span> est un corps contenant <span
+class="math inline">\(A\)</span>, on a <span class="math inline">\(N \in
+L\)</span> et <span class="math inline">\(D \in L^*\)</span> (car <span
+class="math inline">\(D\)</span> est non nul dans <span
+class="math inline">\(A\)</span>, il est aussi non nul dans <span
+class="math inline">\(L\)</span>). Par conséquent, <span
+class="math inline">\(\frac ND = N \cdot D^{-1} \in L\)</span>. Ainsi,
+tout élément de <span class="math inline">\(\mathbb{K}\)</span> est
+aussi un élément de <span class="math inline">\(L\)</span>, ce qui
+implique que <span class="math inline">\(\mathbb{K}\subseteq
+L\)</span>.</p>
+</div>
+<p> ◻</p>
+</div>
+<h1 id="corps-des-fractions-de-lanneau-mathbbkx">Corps des fractions de
+l’anneau <span class="math inline">\(\mathbb{K}[X]\)</span></h1>
+<div class="definition">
+<p>Soit <span class="math inline">\(A\)</span> un anneau intègre
+commutatif. On peut construire le corps de fractions de l’anneau <span
+class="math inline">\(A[X]\)</span>, qui est noté <span
+class="math inline">\(\mathbb{K}(X)\)</span> et appelé <strong>corps des
+fractions de l’anneau <span
+class="math inline">\(A[X]\)</span></strong>.</p>
+<p><span class="math display">\[\mathbb{K}(X) = \left\{\frac{P}{Q}
+\text{ tel que }P, Q \in A[X], Q \neq 0\right\}\]</span></p>
+<p><span class="math inline">\((\mathbb{K}(X), +, \times)\)</span> est
+un corps commutatif, avec les lois d’addition et de multiplication
+définies de manière similaire à celles de <span
+class="math inline">\(\mathbb{K}\)</span> (en utilisant les opérations
+sur les polynômes).</p>
+</div>
+<h2 id="degré-dune-fraction-rationnelle">Degré d’une fraction
+rationnelle</h2>
+<div class="property">
+<p>Soient <span class="math inline">\((N,D),(N_1,D_1) \in
+\mathbb{K}[X]\times\mathbb{K}[X]^*\)</span>.</p>
+<p>Si <span class="math inline">\(\frac ND = \frac{N_1}{D_1}\)</span>,
+alors : <span class="math inline">\(N \cdot D_1 = N_1 \cdot
+D\)</span>.</p>
+<p>On a donc une égalité de deux polynômes, et on peut comparer leurs
+degrés. En particulier, on a <span class="math inline">\(\deg(N) +
+\deg(D_1) = \deg(N_1) + \deg(D)\)</span>, ce qui implique que :</p>
+<p><span class="math display">\[\deg(N) - \deg(D) = \deg(N_1) -
+\deg(D_1)\]</span></p>
+<p>Cela veut dire que <span class="math inline">\(\deg(N) -
+\deg(D)\)</span> est une quantité qui ne dépend pas du représentant
+choisi pour cette fraction rationnelle.</p>
+</div>
+<div class="definition">
+<p>On définit le <strong>degré d’une fraction rationnelle</strong> <span
+class="math inline">\(\frac ND\)</span> par :</p>
+<p><span class="math display">\[\deg\left(\frac ND\right) = \deg(N) -
+\deg(D)\]</span></p>
+<p>On le note <span class="math inline">\(\deg\left(\frac
+ND\right)\)</span> ou <span class="math inline">\(\mathrm d ^\circ
+(\frac ND)\)</span>.</p>
+</div>
+<div class="remark">
+<p>Pour toute fraction <span class="math inline">\(F \in
+\mathbb{K}(X)\)</span>, on a <span class="math inline">\(\deg(F) \in
+\mathbb{Z}\cup\{-\infty\}\)</span>.</p>
+<p>avec <span class="math inline">\(\deg(F)= \deg(\frac ND) =
+-\infty\)</span> si et seulement si <span class="math inline">\(F =
+0_\mathbb{K}(X)\)</span>, donc si et seulement si <span
+class="math inline">\(N = 0_\mathbb{K}[X]\)</span> (en posant <span
+class="math inline">\(F = \frac ND\)</span> avec <span
+class="math inline">\(N, D \in \mathbb{K}[X]\)</span> et <span
+class="math inline">\(D \neq 0_\mathbb{K}[X]\)</span>).</p>
+<p>En effet, <span class="math inline">\(\deg(F) =
+\underbracket{\deg(N)}_{\in \mathbb{N}\cup\{-\infty\}} -
+\underbracket{\deg(D)}_{\in \mathbb{N}} \in
+\mathbb{Z}\cup\{-\infty\}\)</span>.</p>
+</div>
+<div class="remark">
+<p>Si <span class="math inline">\(P \in \mathbb{K}[X]^*\)</span>, alors
+<span class="math inline">\(\deg(P) \in \mathbb{N}\)</span>.</p>
+<p><strong>La réciproque est fausse :</strong> On ne peut pas écrire
+<span class="math inline">\((F \in \mathbb{K}(X) \text{ et }\deg(F) \in
+\mathbb{N}) \implies F \in \mathbb{K}[X]\)</span>. On peut donner comme
+contre-exemple la fraction rationnelle <span class="math inline">\(F =
+\frac{X^2}{X+1} \in \mathbb{K}(X)\)</span>, qui est une fraction
+rationnelle de degré <span class="math inline">\(1\)</span> (car <span
+class="math inline">\(\deg(X^2) - \deg(X+1) = 2 - 1 = 1\)</span>), mais
+qui n’est pas un polynôme (car il n’est pas de la forme <span
+class="math inline">\(\frac{P}{1}\)</span> avec <span
+class="math inline">\(P \in \mathbb{K}[X]\)</span>).</p>
+</div>
+<div class="property">
+<p>Soient <span class="math inline">\(F, G \in \mathbb{K}(X)\)</span>.
+Alors :</p>
+<p><span class="math display">\[\deg(F\cdot G) = \deg(F) +
+\deg(G)\]</span> <span class="math display">\[\deg(F + G) \leq
+\max(\deg(F), \deg(G)) \text{ avec égalité si } \deg(F) \neq
+\deg(G)\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em></p>
+<ol>
+<li><p>La première égalité est vérifiée trivialement, en effet :</p>
+<p><span class="math display">\[\begin{align*}
+            \deg(F\cdot G) &amp;= \deg\left(\frac{A}{B} \cdot
+\frac{C}{D}\right)\\
+            &amp;= \deg\left(\frac{AC}{BD}\right)\\
+            &amp;= \deg(AC) - \deg(BD)\\
+            &amp;= (\deg(A) + \deg(C)) - (\deg(B) + \deg(D))\\
+            &amp;= (\deg(A) - \deg(B)) + (\deg(C) - \deg(D))\\
+            &amp;= \deg(F) + \deg(G)
+\end{align*}\]</span></p></li>
+<li><p>Pour démontrer la seconde inégalité, on pose <span
+class="math inline">\(F = \frac AD\)</span> et <span
+class="math inline">\(G = \frac BD\)</span> (on suppose que les
+fractions sont écrites avec un dénominateur commun, ce qui est toujours
+possible). Alors : <span class="math inline">\(F + G = \frac{A +
+B}{D}\)</span>, et <span class="math inline">\(\deg(F + G) = \deg(A + B)
+- \deg(D)\)</span>.<br />
+Or, <span class="math inline">\(\deg(A + B) \leq \max(\deg(A),
+\deg(B))\)</span> (propriété issue des polynômes !), ce qui implique que
+<span class="math inline">\(\deg(F + G) \leq \max(\deg(A), \deg(B)) -
+\deg(D) = \max(\underbrace{\deg(A) - \deg(D)}_{\text{degré de
+fraction}}, \underbrace{\deg(B) - \deg(D)}_{\text{degré de fraction}}) =
+\max(\deg(F), \deg(G))\)</span>.<br />
+Ensuite, on démontre facilement l’égalité dans le cas où <span
+class="math inline">\(\deg(F) \neq \deg(G)\)</span>.</p></li>
+</ol>
+<p> ◻</p>
+</div>
+<h2 id="fraction-dérivée">Fraction dérivée</h2>
+<div class="property">
+<p>Soit <span class="math inline">\(F = \frac ND\)</span>.</p>
+<p>La fraction <span class="math inline">\(\frac{N&#39;D -
+ND&#39;}{D^2}\)</span> ne dépend pas du représentant choisi pour <span
+class="math inline">\(F\)</span>.</p>
+</div>
+<div class="definition">
+<p>On définit la <strong>fraction dérivée</strong> de <span
+class="math inline">\(F\)</span> par :</p>
+<p><span class="math display">\[F&#39; = \frac{N&#39;D -
+ND&#39;}{D^2}\]</span></p>
+<p>Par convention, <span class="math inline">\(F^{(0)} = F\)</span>.</p>
+<p>On peut aussi définir, par récurrence, les dérivées successives de
+<span class="math inline">\(F\)</span> par :</p>
+<p><span class="math display">\[\forall k \in \mathbb{N}, F^{(k+1)} =
+(F^{(k)})&#39;\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Soit <span class="math inline">\(F = \frac ND = \frac
+AB \iff NB = AD\)</span>.</p>
+<p>Nous voulons montrer que <span class="math inline">\(\frac{N&#39;D -
+ND&#39;}{D^2} = \frac{A&#39;B - AB&#39;}{B^2} \iff
+D^2\left(A&#39;B-AB&#39;\right) = B^2\left(N&#39;D -
+ND&#39;\right)\)</span>.</p>
+<div class="outline">
+<p>Dans le sens direct <span class="math inline">\(\implies\)</span> :
+On a N’B + N B’ = A’D + A D’ (en dérivant l’égalité <span
+class="math inline">\(NB = AD\)</span>). Et on a aussi <span
+class="math inline">\(D^2(A&#39;B - AB&#39;) = A&#39;D\cdot DB - AD^2
+B\)</span> et <span class="math inline">\(B^2(N&#39;D - ND&#39;) =
+N&#39;B\cdot BD - NB^2 D\)</span>. En combinant ces égalités, on trouve
+que <span class="math inline">\(D^2(A&#39;B - AB&#39;) = B^2(N&#39;D -
+ND&#39;)\)</span>. Dans le sens inverse <span
+class="math inline">\(\impliedby\)</span>, la démonstration est plus
+simple, on peut directement utiliser les égalités <span
+class="math inline">\(D^2(A&#39;B - AB&#39;) = B^2(N&#39;D -
+ND&#39;)\)</span> et <span class="math inline">\(NB = AD\)</span> pour
+trouver que <span class="math inline">\(N&#39;B + N B&#39; = A&#39;D + A
+D&#39;\)</span>.</p>
+</div>
+<p> ◻</p>
+</div>
+<div class="remark">
+<p>Soit <span class="math inline">\(F = \frac AB\)</span> avec <span
+class="math inline">\(\deg(A),\deg(B) \ge 1\)</span>.</p>
+<p><span class="math display">\[\deg(F&#39;) \le \deg(F) -
+1\]</span></p>
+<p>En effet, on a : <span class="math display">\[\begin{align*}
+    \deg(F&#39;) &amp;= \deg(\frac{A&#39;B - AB&#39;}{B^2})\\
+    &amp;= \deg(A&#39;B - AB&#39;) - \deg(B^2)\\
+    &amp;\leq \max(\deg(A&#39;B), \deg(AB&#39;)) - 2\deg(B)\\
+    &amp;\le \max(\deg(A&#39;) + \deg(B), \deg(A) + \deg(B&#39;)) -
+2\deg(B)\\
+    &amp;\le \max((\deg(A) - 1) + \deg(B), \deg(A) + (\deg(B) - 1)) -
+2\deg(B)\\
+    &amp;\le \max(\deg(A) + \deg(B) - 1, \deg(A) + \deg(B) - 1) -
+2\deg(B)\\
+    &amp;\le \deg(A) + \deg(B) - 1 - 2\deg(B)\\
+    &amp;\le \deg(A) - \deg(B) - 1\\
+    &amp;\le \deg(F) - 1
+\end{align*}\]</span></p>
+</div>
+<div class="example">
+<p><span class="math inline">\(F = \frac{X}{X+1} \implies \deg F =
+0\)</span>.</p>
+<p>et <span class="math inline">\(F&#39; = \frac{1}{(X+1)^2} \implies
+\deg F&#39; = -2\)</span></p>
+</div>
+<div class="property">
+<p>Soient <span class="math inline">\(F_1,F_2 \in
+\mathbb{K}(X)\)</span>. Alors :</p>
+<ol>
+<li><p><span class="math inline">\(\forall \lambda \in\mathbb{K}, (F_1 +
+\lambda F_2)&#39; = F_1&#39; + \lambda F_2&#39;\)</span></p></li>
+<li><p><span class="math inline">\((F_1 \cdot F_2)&#39; = F_1&#39; \cdot
+F_2 + F_1 \cdot F_2&#39;\)</span></p></li>
+</ol>
+</div>
+<div class="proof">
+<p><em>Proof.</em></p>
+<ol>
+<li><p>Pour démontrer la première propriété, on peut utiliser le fait
+que <span class="math inline">\(\mathbb{K}(X)\)</span> est un corps (et
+techniquement, un sous-espace vectoriel), et considérer <span
+class="math inline">\(\lambda \in \mathbb{K}\)</span> comme un polynôme
+de degré <span class="math inline">\(0\)</span>.</p></li>
+<li><p>La démonstration est triviale, on procède par calcul
+direct.</p></li>
+</ol>
+<p> ◻</p>
+</div>
+<h2 id="zéros-et-pôles-dune-fraction-rationnelle">Zéros et pôles d’une
+fraction rationnelle</h2>
+<div class="definition">
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span>, avec <span class="math inline">\(A \wedge B =
+1\)</span> (c’est à dire que <span class="math inline">\(A\)</span> et
+<span class="math inline">\(B\)</span> sont premiers entre eux).</p>
+<ul>
+<li><p>On dit que <span class="math inline">\(\alpha\)</span> est
+<strong>zéro</strong> (ou racine) de <span
+class="math inline">\(F\)</span> de multiplicité <span
+class="math inline">\(s\)</span> lorsque <span
+class="math inline">\(\alpha\)</span> est une racine de <span
+class="math inline">\(A\)</span> (le <em>numérateur</em>) de
+multiplicité <span class="math inline">\(s\)</span>.</p></li>
+<li><p>On dit que <span class="math inline">\(\beta\)</span> est
+<strong>pôle</strong> de <span class="math inline">\(F\)</span> de
+multiplicité <span class="math inline">\(t\)</span> lorsque <span
+class="math inline">\(\beta\)</span> est une racine de <span
+class="math inline">\(B\)</span> (le <em>dénominateur</em>) de
+multiplicité <span class="math inline">\(t\)</span>.</p></li>
+</ul>
+</div>
+<div class="attention">
+<p>Attention, les zéros et les pôles d’une fraction rationnelle sont
+définis si le numérateur et le dénominateur sont premiers entre eux. En
+effet, si <span class="math inline">\(A\)</span> et <span
+class="math inline">\(B\)</span> ont un facteur commun, alors on peut
+simplifier la fraction rationnelle, ce qui peut faire disparaître
+certains zéros ou pôles. Par exemple, si <span class="math inline">\(F =
+\frac{(X-1)(X-2)}{X^2-1} = \frac{(X-1)(X-2)}{(X-1)(X+1)}\)</span>, alors
+<span class="math inline">\(F\)</span> peut être simplifié en <span
+class="math inline">\(\frac{X-2}{X+1}\)</span>, ce qui fait
+“disparaître” le zéro/pôle <span class="math inline">\(1\)</span>.</p>
+</div>
+<div class="example">
+<p>Soit <span class="math inline">\(F = \frac{X^2 - 3X +
+2}{(X^3-1)((X+1)^2)}\)</span>.</p>
+<p>On peut simplifier <span class="math inline">\(F\)</span> en <span
+class="math inline">\(\frac{X-2}{(X^2+X+1)(X+1)^2}\)</span>.</p>
+<div class="outline">
+<p><span class="math inline">\(2\)</span> est dit <strong>zéro
+simple</strong> de <span class="math inline">\(F\)</span> (car <span
+class="math inline">\(2\)</span> est une racine simple du numérateur),
+<span class="math inline">\(-1\)</span> est dit <strong>pôle
+double</strong> de <span class="math inline">\(F\)</span> (car <span
+class="math inline">\(-1\)</span> est une racine double du
+dénominateur), les racines complexes de <span class="math inline">\(X^2
++ X + 1\)</span> sont des <strong>pôles simples</strong> de <span
+class="math inline">\(F\)</span> (car les racines de <span
+class="math inline">\(X^2 + X + 1\)</span> sont des racines simples du
+dénominateur).</p>
+</div>
+</div>
+<div class="definition">
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span>, avec <span class="math inline">\(A \wedge B =
+1\)</span>.</p>
+<p>On définit la <strong>fonction rationnelle</strong> associée à <span
+class="math inline">\(F\)</span> par :</p>
+<p><span class="math display">\[\tilde F :
+\substack{\mathbb{K}\setminus\{\text{ensemble des pôles de } F\} \to
+\mathbb{K}\\ x \mapsto \tilde{F}(x) = \frac{A(x)}{B(x)}}\]</span></p>
+<p>On peut noter l’ensemble des pôles de <span
+class="math inline">\(F\)</span> par <span
+class="math inline">\(\mathcal D\)</span>. Alors, <span
+class="math inline">\(\tilde F\)</span> est une fonction définie sur
+<span class="math inline">\(\mathbb{K}\setminus \mathcal D\)</span>.</p>
+</div>
+<h1
+id="décomposition-en-éléments-simples-des-dune-fraction-rationnelle">Décomposition
+en éléments simples (DES) d’une fraction rationnelle</h1>
+<h2 id="généralités">Généralités</h2>
+<div class="theorem">
+<p>Soit <span class="math inline">\(F \in \mathbb{K}(X)\)</span>. Alors,
+il existe un unique couple <span class="math inline">\((A,B) \in
+\mathbb{K}[X]^2\)</span> tel que <span class="math inline">\(A \wedge B
+= 1\)</span>, <span class="math inline">\(B\)</span> est unitaire et
+<span class="math inline">\(F = \frac AB\)</span>.</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Soit <span class="math inline">\(F = \frac ND \in
+\mathbb{K}(X)\)</span>.</p>
+<div class="outline">
+<p><strong>Existence</strong> : On peut trouver un couple <span
+class="math inline">\((A, B) \in \mathbb{K}[X]^2\)</span> tel que <span
+class="math inline">\(A \wedge B = 1\)</span>, <span
+class="math inline">\(B\)</span> est unitaire et <span
+class="math inline">\(\frac AB = \frac ND\)</span>. Montrons que <span
+class="math inline">\(F\)</span> peut s’écrire sous la forme <span
+class="math inline">\(\frac AB\)</span> avec <span
+class="math inline">\(A, B \in \mathbb{K}[X]\)</span> et <span
+class="math inline">\(B\)</span> unitaire. On sait que <span
+class="math inline">\(D\)</span> admet un coefficient dominant non nul,
+disons <span class="math inline">\(d\)</span>, car <span
+class="math inline">\(D \neq 0_\mathbb{K}[X]\)</span>. On pose <span
+class="math inline">\(N_1 = d^{-1} \cdot N\)</span> et <span
+class="math inline">\(D_1 = d^{-1} \cdot D\)</span>. Alors, <span
+class="math inline">\(N_1\)</span> et <span
+class="math inline">\(D_1\)</span> sont des polynômes de <span
+class="math inline">\(\mathbb{K}[X]\)</span> avec <span
+class="math inline">\(D_1\)</span> unitaire On a alors : <span
+class="math inline">\(\frac{N_1}{D_1} = \frac ND\)</span>. On peut se
+permettre d’écrire <span class="math inline">\(F =
+\frac{N_1}{D_1}\)</span> car ils agissent comme d’autres représentants
+de cette classe d’équivalence. Montrons qu’on peut écrire <span
+class="math inline">\(F\)</span> sous la forme <span
+class="math inline">\(\frac AB\)</span> avec <span
+class="math inline">\(A, B \in \mathbb{K}[X]\)</span>, <span
+class="math inline">\(A \wedge B = 1\)</span>, <span
+class="math inline">\(B\)</span> unitaire et <span
+class="math inline">\(\mathrm{CD}(B) = 1\)</span>. Soit <span
+class="math inline">\(C = N_1 \wedge D_1\)</span>. Alors il existe un
+couple <span class="math inline">\((A,B) \in \mathbb{K}[X]^2\)</span>
+tel que <span class="math inline">\(N_1 = CA\)</span> et <span
+class="math inline">\(D_1 = CB\)</span>. Donc <span
+class="math inline">\(F = \frac AB \text{ avec }A \wedge B = 1 \text{ et
+}\mathrm{CD}(B) = 1\)</span>, sachant que <span
+class="math inline">\(D_1\)</span> et <span
+class="math inline">\(C\)</span> sont unitaires.
+<strong>Unicité</strong> : Supposons que <span
+class="math inline">\(F\)</span> puisse s’écrire sous la forme <span
+class="math inline">\(\frac AB\)</span> et <span
+class="math inline">\(\frac{A&#39;}{B&#39;}\)</span> avec <span
+class="math inline">\(A, B, A&#39;, B&#39; \in \mathbb{K}[X]\)</span>,
+<span class="math inline">\(A \wedge B = 1\)</span>, <span
+class="math inline">\(A&#39; \wedge B&#39; = 1\)</span>, <span
+class="math inline">\(B\)</span> unitaire et <span
+class="math inline">\(B&#39;\)</span> unitaire. Alors, on a : <span
+class="math inline">\(A&#39;B = AB&#39;\)</span> (en utilisant l’égalité
+<span class="math inline">\(\frac AB = \frac{A&#39;}{B&#39;}\)</span>).
+Comme <span class="math inline">\(B \mid A&#39; B\)</span>, alors en
+utilisant le théorème de Gauss, on trouve que <span
+class="math inline">\(B \mid B&#39;\)</span>. De même,</p>
+</div>
+<p> ◻</p>
+</div>
+<div class="definition">
+<p>Soit <span class="math inline">\(F \in \mathbb{K}(X)\)</span>.</p>
+<p>On dit que <span class="math inline">\(F\)</span> est un
+<strong>élément simple</strong> lorsque <span
+class="math inline">\(F\)</span> est un monôme, c’est-à-dire qu’il peut
+s’écrire sous la forme <span class="math inline">\(F = \alpha \cdot
+X^k\)</span> avec <span class="math inline">\(\alpha \in
+\mathbb{K}\)</span> et <span class="math inline">\(k \in
+\mathbb{N}\)</span>.</p>
+<p>ou bien lorsque :</p>
+<div class="outline">
+<p>il existe... <span class="math inline">\(A \in \mathbb{K}[X]
+\setminus \{0\}\)</span>. <span class="math inline">\(P \in
+\mathbb{K}[X]\)</span> irréductible. <span class="math inline">\(n \in
+\mathbb{N}^*\)</span> tels que <span class="math inline">\(F =
+\frac{A}{P^n}\)</span>, avec <span class="math inline">\(\deg(A) &lt;
+\deg(P)\)</span> (!).</p>
+</div>
+</div>
+<div class="remark">
+<div class="outline">
+<p>Les éléments simples dans <span
+class="math inline">\(\mathbb{C}(X)\)</span> sont : les monômes de la
+forme <span class="math inline">\(\alpha X^k\)</span> avec <span
+class="math inline">\(\alpha \in \mathbb{C}\)</span> et <span
+class="math inline">\(k \in \mathbb{N}\)</span>, ainsi que les fractions
+de la forme <span class="math inline">\(\frac{\lambda}{(X -
+\alpha)^n}\)</span> avec <span class="math inline">\(\lambda \in
+\mathbb{C}^*\)</span>, <span class="math inline">\(\alpha \in
+\mathbb{C}\)</span> et <span class="math inline">\(n \in
+\mathbb{N}^*\)</span>, qu’on appelle des éléments simples de 1<span
+class="math inline">\(^\text{ère}\)</span> espèce. Les éléments simples
+dans <span class="math inline">\(\mathbb{R}(X)\)</span> sont : les
+monômes de la forme <span class="math inline">\(\alpha X^k\)</span> avec
+<span class="math inline">\(\alpha \in \mathbb{R}\)</span> et <span
+class="math inline">\(k \in \mathbb{N}\)</span>, les éléments simples de
+1<span class="math inline">\(^\text{ère}\)</span> espèce de la forme
+<span class="math inline">\(\frac{\lambda}{(X - \alpha)^n}\)</span> avec
+<span class="math inline">\(\lambda \in \mathbb{R}^*\)</span>, <span
+class="math inline">\(\alpha \in \mathbb{R}\)</span> et <span
+class="math inline">\(n \in \mathbb{N}^*\)</span>, les éléments simples
+de 2<span class="math inline">\(^\text{ème}\)</span> espèce de la forme
+<span class="math inline">\(\frac{\lambda X + \mu}{(X^2 + aX +
+b)^n}\)</span> avec <span class="math inline">\(\lambda, \mu, a, b \in
+\mathbb{R}\)</span>, <span class="math inline">\((a,b) \ne
+(0,0)\)</span> et <span class="math inline">\(b^2 - 4a &lt; 0\)</span>,
+<span class="math inline">\(n \in \mathbb{N}^*\)</span>.</p>
+</div>
+</div>
+<div class="property">
+<p>Soit <span class="math inline">\(F \in \mathbb{K}(X)\)</span>. Alors,
+il existe un unique couple <span class="math inline">\((E, G) \in
+\mathbb{K}[X] \times \mathbb{K}(X)\)</span> tel que :</p>
+<p><span class="math display">\[\begin{cases}
+    F = E + G\\
+    \deg(G) &lt; 0
+    \end{cases}\]</span></p>
+<p><span class="math inline">\(E\)</span> est appelé la partie entière
+de <span class="math inline">\(F\)</span>, et <span
+class="math inline">\(G\)</span> est appelé la partie fractionnaire de
+<span class="math inline">\(F\)</span>.</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> ◻</p>
+</div>
+<div class="remark">
+<p>Si <span class="math inline">\(F \in \mathbb{K}(X) \text{ avec
+}\deg(F) &lt; 0\)</span>, alors <span class="math inline">\(F\)</span>
+est égal à sa partie fractionnaire <span
+class="math inline">\(F=G\)</span>, et sa partie entière est nulle <span
+class="math inline">\(E=0\)</span> (par unicité de ces deux
+parties...).</p>
+</div>
+<h2 id="décomposition-en-éléments-simples-cas-général">Décomposition en
+éléments simples (cas général)</h2>
+<p>On va préparer une généralisation du théorème de décomposition en
+éléments simples (DES) pour les fractions rationnelles à coefficients
+dans un corps quelconque <span class="math inline">\(\mathbb{K}\)</span>
+en se basant sur deux propriétés :</p>
+<div class="property">
+<p>Soient <span class="math inline">\(A\)</span> et <span
+class="math inline">\(B_1,\dots,B_n \in \mathbb{K}[X]\)</span> tels que
+<span class="math inline">\(B_i\)</span> et <span
+class="math inline">\(B_j\)</span> sont deux à deux premiers entre
+eux.</p>
+<p>On pose <span class="math inline">\(F = \frac{A}{B_1 \cdots
+B_n}\)</span> avec <span class="math inline">\(\deg(F) &lt;
+0\)</span>.</p>
+<p>Alors...</p>
+<p><span class="math display">\[\exists! (A_1, \dots, A_n) \in
+\mathbb{K}[X]^n \text{ tels que } F = \sum_{i=1}^{n}\frac{A_i}{B_i}
+\text{ et }\underbrace{\forall i \in [\![1,n]\!], \deg(A_i) &lt;
+\deg(B_i)}_{\text{condition importante}}\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> La démonstration de cette propriété se fait par
+récurrence sur <span class="math inline">\(n \in \mathbb{N}^*\)</span>.
+Le cas de base <span class="math inline">\(n=1\)</span> est trivial,
+mais le cas <span class="math inline">\(n=2\)</span> est plus utile est
+plus intéressant à démontrer. Il faut y employer le théorème de Bézout
+et décomposer le numérateur <span class="math inline">\(A\)</span> en
+<span class="math inline">\(A\cdot 1\)</span> puis en <span
+class="math inline">\(A\cdot (B_1 u + B_2 v)\)</span>, ce qui permet de
+trouver les éléments <span class="math inline">\(A_1\)</span> et <span
+class="math inline">\(A_2\)</span> de la décomposition.</p>
+<p>La preuve a été faite en tant qu’exercice hors-classe. Il ne faut pas
+oublier de démontrer l’existence (via division euclidienne et en
+considérant la somme des quotients comme une partie entière de la
+fraction) et l’unicité (en considérant un autre couple vérifiant les
+mêmes propriétés, et/ou par absurde) de la décomposition pendant
+l’initialisation de la récurrence, dans le cas où <span
+class="math inline">\(n=2\)</span>. L’hérédité devient ensuite triviale,
+en recyclant tout simplement la démonstration du cas de base <span
+class="math inline">\(n=2\)</span>.</p>
+<p><em>L’unicité ne peut pas être démontrée par la division euclidienne
+parce qu’elle dépend des constantes <span
+class="math inline">\(U\)</span> et <span
+class="math inline">\(V\)</span> de Bézout, qui ne sont pas
+uniques.</em> ◻</p>
+</div>
+<div class="example">
+<p><span class="math inline">\(F = \frac{X^2}{(X-1)(X^2+1)} \in
+\mathbb{R}(X)\)</span>.</p>
+<p>On a donc <span class="math inline">\(F = \frac{a}{X-1} + \frac{bX +
+c}{X^2 + 1}\)</span> avec <span class="math inline">\(a, b, c \in
+\mathbb{R}\)</span>.</p>
+<p>Pour déterminer les constantes <span
+class="math inline">\(a,b,c\)</span>, il n’y a pas besoin d’aboutir à un
+système d’équations (même si cette méthode marche). Il suffit tout
+simplement de multiplier l’égalité par <span
+class="math inline">\((X-1)\)</span> et d’évaluer l’égalité à <span
+class="math inline">\(X=1\)</span> pour trouver <span
+class="math inline">\(a=\frac12\)</span>. Ensuite, on peut multiplier
+l’égalité par <span class="math inline">\(X^2 + 1\)</span> et évaluer à
+<span class="math inline">\(X=i\)</span> pour trouver <span
+class="math inline">\(b=c=\frac12\)</span>.</p>
+<p>Au final, <span class="math inline">\(F = \frac12 \left(\frac{1}{X-1}
++ \frac{X+1}{X^2 + 1}\right)\)</span>.</p>
+</div>
+<div class="property">
+<p>Soit <span class="math inline">\(F=\frac{A}{B^n} \text{ avec }n \in
+\mathbb{N}^* \text{ et }\deg(F) &lt; 0\)</span>. <span
+class="math display">\[\text{Alors } \exists ! (A_1, \dots, A_n) \in
+\mathbb{K}[X]^n \text{ tel que }F = \sum_{k=1}^{n} \frac{A_k}{B^k}
+\text{ et }\forall k \in [\![1,n]\!], \deg(A_k) &lt;
+\deg(B)\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> La preuve se fait par récurrence sur <span
+class="math inline">\(n \in \mathbb{N}^*\)</span>. Le cas de base <span
+class="math inline">\(n=1\)</span> est trivial. L’hérédité se fait en
+utilisant la division euclidienne pour trouver un quotient <span
+class="math inline">\(Q\)</span> et un reste <span
+class="math inline">\(R\)</span> tels que <span class="math inline">\(A
+= QB + A_{n+1}\)</span> avec <span class="math inline">\(\deg(R) &lt;
+\deg(B)\)</span>, ce qui permet d’écrire <span class="math inline">\(F =
+\frac{Q}{B^n} + \frac{A_{n+1}}{B^{n+1}}\)</span>, et de conclure en
+utilisant l’hypothèse de récurrence sur la fraction <span
+class="math inline">\(\frac{Q}{B^{n-1}}\)</span>. ◻</p>
+</div>
+<div class="example">
+<p><span class="math inline">\(F = \frac{X^5-3X^4+2X^2+2}{(X^2+1)^3} \in
+\mathbb{R}(X)\)</span>.</p>
+<p>Pour décomposer cette fraction, on peut utiliser deux méthodes. Comme
+le degré de <span class="math inline">\(F\)</span> est négatif, on peut
+l’écrire sous la forme d’une somme de la forme <span
+class="math inline">\(\frac{A_k}{B^k}\)</span>, puis multiplier par le
+dénominateur afin d’aboutir ensuite à un système de six équations à six
+inconnues, dont la résolution sera (évidemment) assez laborieuse.</p>
+<p>Cependant, la deuxième méthode, plus rapide, est exactement analogue
+à celle qui a été utilisée dans la preuve. On pose <span
+class="math inline">\(A= X^5-3X^4+2X^2+2\)</span>, et on décompose <span
+class="math inline">\(F = \frac{A_1}{(X^2+1)} + \frac{A_2}{(X^2+1)^2} +
+\frac{A_3}{(X^2+1)^3}\)</span>, avec <span
+class="math inline">\(\deg(A_k) &lt; 2\)</span> pour <span
+class="math inline">\(k \in \{1,2,3\}\)</span>.</p>
+<p>On effectue ensuite la division euclidienne de <span
+class="math inline">\(A\)</span> par <span class="math inline">\(X^2 +
+1\)</span> pour trouver un quotient <span
+class="math inline">\(Q\)</span> et un reste <span
+class="math inline">\(R\)</span> tels que <span class="math inline">\(A
+= Q(X^2 + 1) + R\)</span> avec <span class="math inline">\(\deg(R) &lt;
+2\)</span>. On trouve alors <span class="math inline">\(Q = X^3 - 3X^2 -
+X + 5\)</span> et <span class="math inline">\(R=X-3\)</span>. Par
+conséquent, <span class="math inline">\(F = \frac{Q}{(X^2+1)^2} +
+\frac{R}{(X^2+1)^3}\)</span>.</p>
+<p>Ensuite, on effectue la division euclidienne de <span
+class="math inline">\(Q\)</span> par <span class="math inline">\(X^2 +
+1\)</span> pour trouver un quotient <span
+class="math inline">\(Q_1\)</span> et un reste <span
+class="math inline">\(R_1\)</span> tels que <span
+class="math inline">\(Q = Q_1(X^2 + 1) + R_1\)</span> avec <span
+class="math inline">\(\deg(R_1) &lt; 2\)</span>. On trouve alors <span
+class="math inline">\(Q_1 = X - 3\)</span> et <span
+class="math inline">\(R_1 = -2X + 8\)</span>. Par conséquent, <span
+class="math inline">\(F = \frac{Q_1}{(X^2+1)} + \frac{R_1}{(X^2+1)^2} +
+\frac{R}{(X^2+1)^3}\)</span>.</p>
+</div>
+<div class="theorem">
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span> avec <span class="math inline">\(\deg(F) &lt;
+0\)</span> et <span class="math inline">\(A\wedge B = 1\)</span> et
+<span class="math inline">\(B\)</span> unitaire.</p>
+<p>On écrit <span class="math inline">\(B = \prod_{i=1}^r
+B_i^{\alpha_i}\)</span> avec <span class="math inline">\(\alpha_i \ge
+1\)</span> et <span class="math inline">\((B_i)_{1\le i \le r}\)</span>
+irréductibles deux à deux distincts.</p>
+<p>Alors, il existe un unique <span class="math inline">\(E \in
+\mathbb{K}[X]\)</span> et une unique famille <span
+class="math inline">\((A_{i,j})_{\underset{i \in [\![1,r]\!]}{j \in
+[\![1,\alpha_i]\!]}}\)</span> d’éléments de <span
+class="math inline">\(\mathbb{K}[X]\)</span> tels que :</p>
+<p><span class="math display">\[F = E + \sum_{i=1}^r
+\sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j} \text{ et }\forall i \in
+[\![1,r]\!], \forall j \in [\![1,\alpha_i]\!], \deg(A_{i,j}) &lt;
+\deg(B_i)\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Nous utilisons d’abord la division euclidienne de
+<span class="math inline">\(A\)</span> par <span
+class="math inline">\(B\)</span> pour trouver un quotient <span
+class="math inline">\(E\)</span> et un reste <span
+class="math inline">\(R\)</span> tels que <span class="math inline">\(A
+= EB + R\)</span> avec <span class="math inline">\(\deg(R) &lt;
+\deg(B)\)</span>. Par conséquent, <span class="math inline">\(F = E +
+\frac RB\)</span>, qui reste une fraction de degré négatif.</p>
+<p>Ensuite, on utilise la première propriété pour trouver des éléments
+<span class="math inline">\(A_{i,1}\)</span> tels que <span
+class="math inline">\(\frac RB = \sum_{i=1}^r
+\frac{A_{i,1}}{B_i}\)</span> avec <span
+class="math inline">\(\deg(A_{i,1}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(i \in [\![1,r]\!]\)</span>, sachant que
+<span class="math inline">\(B\)</span> peut être décomposé en un produit
+<span class="math inline">\(\prod_{i=1}^r B_i^{\alpha_i}\)</span> avec
+<span class="math inline">\(\deg(\frac{A_k}{B_k^{\alpha_k}}) &lt;
+0\)</span> pour tout <span class="math inline">\(k \in
+[\![1,r]\!]\)</span>. <span
+class="math display">\[\frac{R}{\prod_{i=1}^r B_i^{\alpha_i}} =
+\sum_{i=1}^r \frac{A_{i,1}}{B_i}\]</span> Ensuite, on utilise la seconde
+propriété pour trouver des éléments <span
+class="math inline">\(A_{i,j}\)</span> tels que <span
+class="math inline">\(\frac{A_{i,1}}{B_i} = \sum_{j=1}^{\alpha_i}
+\frac{A_{i,j}}{B_i^j}\)</span> avec <span
+class="math inline">\(\deg(A_{i,j}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(j \in [\![1,\alpha_i]\!]\)</span> et tout
+<span class="math inline">\(i \in [\![1,r]\!]\)</span>.</p>
+<p>En combinant toutes ces égalités, on trouve que <span
+class="math inline">\(F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i}
+\frac{A_{i,j}}{B_i^j}\)</span> avec les conditions de degrés sur les
+<span class="math inline">\(A_{i,j}\)</span>. ◻</p>
+</div>
+<div class="exercise">
+<p>Décomposer une fraction rationnelle générale dans <span
+class="math inline">\(\mathbb{C}(X)\)</span> puis dans <span
+class="math inline">\(\mathbb{R}(X)\)</span> en éléments simples.</p>
+<p><strong>Solution :</strong></p>
+<p>Dans <span class="math inline">\(\mathbb{C}(X)\)</span>, nous allons
+poser <span class="math inline">\(F = \frac AB\)</span> avec <span
+class="math inline">\(A, B \in \mathbb{C}[X]\)</span>, <span
+class="math inline">\(A \wedge B = 1\)</span>, <span
+class="math inline">\(B\)</span> unitaire et <span
+class="math inline">\(\deg(F) &lt; 0\)</span>.</p>
+<div class="outline">
+<p>On factorise le dénominateur <span class="math inline">\(B\)</span>
+en produit de facteurs irréductibles deux à deux distincts, c’est à dire
+<span class="math inline">\(B = \prod_{i=1}^r
+(X-x_i)^{\alpha_i}\)</span> avec <span class="math inline">\(\alpha_i
+\ge 1\)</span> et <span class="math inline">\((x_i)_{1\le i \le
+r}\)</span>. Ensuite, on utilise le théorème de D.E.S. pour trouver un
+unique élément <span class="math inline">\(E \in \mathbb{C}[X]\)</span>
+et une famille unique <span class="math inline">\((A_{i,j})_{\underset{i
+\in [\![1,r]\!]}{j \in [\![1,\alpha_i]\!]}}\)</span> d’éléments de <span
+class="math inline">\(\mathbb{C}[X]\)</span> tels que <span
+class="math inline">\(F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i}
+\frac{A_{i,j}}{B_i^j}\)</span> avec <span
+class="math inline">\(\deg(A_{i,j}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(i \in [\![1,r]\!]\)</span> et tout <span
+class="math inline">\(j \in [\![1,\alpha_i]\!]\)</span>.</p>
+</div>
+<p>Dans <span class="math inline">\(\mathbb{R}(X)\)</span>, la démarche
+est exactement la même, à la différence que les facteurs irréductibles
+de <span class="math inline">\(B\)</span> sont soit des polynômes du
+premier degré (ayant une racine réelle), soit des polynômes du second
+degré (ayant des racines complexes conjuguées).</p>
+<div class="outline">
+<p>On factorise le dénominateur <span class="math inline">\(B\)</span>
+en produit de facteurs irréductibles deux à deux distincts, c’est à dire
+<span class="math inline">\(B = \prod_{i=1}^r (X - \alpha_i)^{\alpha_i}
+\prod_{j=1}^s (X^2 + a_j X + b_j)^{\beta_j}\)</span> avec <span
+class="math inline">\(\alpha_i, a_j, b_j \in \mathbb{R}\)</span>, <span
+class="math inline">\(\alpha_i\)</span> distincts, <span
+class="math inline">\(a_j^2 - 4b_j &lt; 0\)</span> et <span
+class="math inline">\(j \in [\![1,s]\!]\)</span>. Ensuite, on utilise le
+théorème de D.E.S. pour trouver un unique élément <span
+class="math inline">\(E \in \mathbb{R}[X]\)</span> et une famille unique
+<span class="math inline">\((A_{i,j})_{\underset{i \in [\![1,r]\!]}{j
+\in [\![1,\alpha_i]\!]}}\)</span> d’éléments de <span
+class="math inline">\(\mathbb{R}[X]\)</span> et une famille unique <span
+class="math inline">\((B_{k,l})_{\underset{k \in [\![1,s]\!]}{l \in
+[\![1,\beta_k]\!]}}\)</span> d’éléments de <span
+class="math inline">\(\mathbb{R}[X]\)</span> tels que <span
+class="math inline">\(F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i}
+\frac{A_{i,j}}{(X - \alpha_i)^j} + \sum_{k=1}^s \sum_{l=1}^{\beta_k}
+\frac{B_{k,l}}{(X^2 + a_k X + b_k)^l}\)</span> avec <span
+class="math inline">\(\deg(A_{i,j}) &lt; 1\)</span> pour tout <span
+class="math inline">\(i \in [\![1,r]\!]\)</span> et tout <span
+class="math inline">\(j \in [\![1,\alpha_i]\!]\)</span>, et <span
+class="math inline">\(\deg(B_{k,l}) &lt; 2\)</span> pour tout <span
+class="math inline">\(k \in [\![1,s]\!]\)</span> et tout <span
+class="math inline">\(l \in [\![1,\beta_k]\!]\)</span>. On peut aussi
+utiliser le</p>
+</div>
+</div>
+<h2 id="techniques-de-décomposition-en-éléments-simples">Techniques de
+décomposition en éléments simples</h2>
+<h3 id="méthode-par-pôles-simples">Méthode par pôles simples</h3>
+<div class="property">
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span> avec <span class="math inline">\(A\wedge B =
+1\)</span> et <span class="math inline">\(B = \prod_{i=1}^n (X -
+a_i)\)</span> où les <span class="math inline">\((a_i)_{1\le i \le
+n}\)</span> sont deux à deux distincts.</p>
+<p>Alors, <span class="math inline">\(F\)</span> peut être décomposée de
+la manière suivante :</p>
+<p><span class="math display">\[F = E + \sum_{i=1}^{n}\frac{\lambda_i}{X
+- a_i}\]</span></p>
+<p>avec <span class="math inline">\(E \in \mathbb{K}[X]\)</span> et
+<span class="math inline">\(\lambda_i \in \mathbb{K}\)</span> pour tout
+<span class="math inline">\(i \in [\![1,n]\!]\)</span>.</p>
+<p>Alors <span class="math inline">\(\forall k \in \{1,\dots,n\},
+\lambda_k = \frac{A(a_k)}{B&#39;(a_k)}\)</span>.</p>
+<p><em>(On peut se permettre de “diviser” par <span
+class="math inline">\(B&#39;(a_k)\)</span> (en travaillant dans <span
+class="math inline">\(\mathbb{R}\)</span> ou <span
+class="math inline">\(\mathbb{C}\)</span>) car <span
+class="math inline">\(B&#39;(a_k) \neq 0\)</span> pour tout <span
+class="math inline">\(k \in [\![1,n]\!]\)</span>, étant donné que les
+<span class="math inline">\(a_i\)</span> sont deux à deux distincts, ce
+qui implique que <span class="math inline">\(B\)</span> n’admet pas de
+racine multiple (ne possède que des racines simples), et donc que <span
+class="math inline">\(B&#39;(a_k) \neq 0\)</span> pour tout <span
+class="math inline">\(k \in [\![1,n]\!]\)</span>).</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> recop ◻</p>
+</div>
+<div class="example">
+<div class="outline">
+<p>Décomposons la fraction rationnelle <span class="math inline">\(F =
+\frac{1}{X^n -1}\)</span> dans <span
+class="math inline">\(\mathbb{C}(X)\)</span> où <span
+class="math inline">\(n \in \mathbb{N}^*\setminus \{1\}\)</span>. On
+pose <span class="math inline">\(B= X^n - 1\)</span>. <span
+class="math inline">\(B\)</span> peut s’écrire comme le produit <span
+class="math inline">\(\prod_{k=0}^{n-1} (X - \omega^k)\)</span> où <span
+class="math inline">\(\omega = e^{\frac{2i\pi}{n}}\)</span> est une
+racine primitive <span class="math inline">\(n\)</span>-ième de l’unité.
+Comme la partie entière de <span class="math inline">\(F\)</span> est
+nulle parce que son degré est strictement négatif, on peut écrire <span
+class="math inline">\(F\)</span> sous la forme <span
+class="math inline">\(F = \sum_{k=0}^{n-1} \frac{\lambda_k}{X -
+\omega^k}\)</span> avec <span class="math inline">\(\lambda_k \in
+\mathbb{C}\)</span> pour tout <span class="math inline">\(k \in
+[\![0,n-1]\!]\)</span>. En utilisant la propriété précédente, on trouve
+que <span class="math inline">\(\lambda_k =
+\frac{1}{B&#39;(\omega^k)}\)</span> pour tout <span
+class="math inline">\(k \in [\![0,n-1]\!]\)</span>. En calculant <span
+class="math inline">\(B&#39;(\omega^k)\)</span>, on trouve que <span
+class="math inline">\(B&#39;(\omega^k) = n \cdot
+\omega^{k(n-1)}\)</span> pour tout <span class="math inline">\(k \in
+[\![0,n-1]\!]\)</span>. Donc <span
+class="math inline">\(\frac{1}{B&#39;(\omega^k)} = \frac{1}{n \cdot
+\omega^{k(n-1)}}\)</span>, qu’on pourra simplifier en <span
+class="math inline">\(\frac{\omega^k}{n}\)</span> (sans perte de
+généralité) pour tout <span class="math inline">\(k \in
+[\![0,n-1]\!]\)</span>. Par conséquent, <span class="math inline">\(F =
+\frac{1}{X^n - 1} = \sum_{k=0}^{n-1} \frac{\omega^k}{n(X -
+\omega^k)}\)</span>. On peut aussi la réécrire en considérant un nouveau
+<span class="math inline">\(\omega \in \mathbb{U}_n\)</span>, ce qui
+nous donne : <span class="math display">\[F = \frac1n \sum_{\omega \in
+\mathbb{U}_n} \frac{\omega}{X - \omega}\]</span> Calculons <span
+class="math inline">\(\int_1^2 \frac{dx}{x(x+1)(x+2)}\)</span> via une
+décomposition en éléments simples. On pose <span class="math inline">\(F
+= \frac{1}{X(X+1)(X+2)}\)</span>. On a <span class="math inline">\(F =
+\frac{a}{X} + \frac{b}{X+1} + \frac{c}{X+2}\)</span> avec <span
+class="math inline">\(a,b,c \in \mathbb{R}\)</span>. En multipliant
+l’égalité par <span class="math inline">\(X\)</span> et en évaluant à
+<span class="math inline">\(X=0\)</span>, on trouve que <span
+class="math inline">\(a = \frac12\)</span>. En multipliant l’égalité par
+<span class="math inline">\(X+1\)</span> et en évaluant à <span
+class="math inline">\(X=-1\)</span>, on trouve que <span
+class="math inline">\(b = -1\)</span>. En multipliant l’égalité par
+<span class="math inline">\(X+2\)</span> et en évaluant à <span
+class="math inline">\(X=-2\)</span>, on trouve que <span
+class="math inline">\(c = \frac12\)</span>. Par conséquent, <span
+class="math inline">\(F = \frac{1}{X(X+1)(X+2)} = \frac12 \cdot
+\frac{1}{X} - 1 \cdot \frac{1}{X+1} + \frac12 \cdot
+\frac{1}{X+2}\)</span>. L’intégration devient alors triviale.</p>
+</div>
+</div>
+<h2 id="méthode-par-pôles-doubles">Méthode par pôles doubles</h2>
+<div class="property">
+<p>Soit <span class="math inline">\(F = \frac AB \text{ avec }A \wedge B
+= 1\)</span> et <span class="math inline">\(B = (X - a)^2 \cdot
+Q\)</span> avec <span class="math inline">\(Q(a) \neq 0\)</span> et
+<span class="math inline">\(a \in \mathbb{K}\)</span>.</p>
+<p>Alors, <span class="math inline">\(F\)</span> peut être décomposée de
+la manière suivante :</p>
+<p><span class="math display">\[F = E + \frac{\alpha}{X - a} +
+\frac{\beta}{(X - a)^2} + \frac{A_1}{Q}\]</span></p>
+<p>avec <span class="math inline">\(\deg(A_1) &lt; \deg(Q)\)</span>,
+<span class="math inline">\((\alpha,\beta) \in
+\mathbb{K}^2\)</span>.</p>
+<p><span class="math display">\[\text{Et on a } \begin{cases}
+    \beta = \frac{A(a)}{Q(a)}\\
+    \alpha = \left(\frac AQ\right)&#39;(a)
+    \end{cases}\]</span></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> <span class="math display">\[\begin{align*}
+    F &amp;= \frac{A}{(X - a)^2 \cdot Q}
+    \\
+      &amp;= E + \frac{\alpha}{X - a} + \frac{\beta}{(X - a)^2} +
+\frac{A_1}{Q}
+    \\
+    (X - a)^2 \cdot F &amp;= \frac AQ
+    \\
+      &amp;= (X-a)^2(E+\frac{A_1}{Q}) + \alpha(X-a)+ \beta
+    \\
+    \implies [(X-a)^2 \cdot F]_{X=a} &amp;= \frac{A(a)}{Q(a)} = \beta
+    \\
+    \implies \left(\frac AQ\right)&#39; &amp;=
+(X-a)\big[2(E+\frac{A_1}{Q}) +
+(X-a)\cdot(E+\frac{A_1}{Q})&#39;\big]+\alpha
+    \\
+    \text{ donc }\left(\frac AQ\right)&#39;(a) &amp;= \alpha
+    \\
+    B = (X-a)^2 \cdot Q &amp;\implies B&#39;&#39; = 2Q + 4(X-a)Q&#39; +
+(X-a)^2 Q&#39;&#39; \implies B&#39;&#39;(a) = 2Q(a) \neq 0
+    \\
+    \implies \beta = \frac{2A(a)}{B&#39;&#39;(a)}
+\end{align*}\]</span> ◻</p>
+</div>
+<div class="example">
+<p>Décomposons <span class="math inline">\(F =
+\frac{X}{(X-1)^2(X-2)}\)</span> dans <span
+class="math inline">\(\mathbb{R}(X)\)</span>.</p>
+<p>On remarque très clairement que le “<span class="math inline">\(\frac
+AQ\)</span>” dans cet exemple est le <span
+class="math inline">\(\frac{X}{X-2}\)</span>.</p>
+<p>On a <span class="math inline">\(F = \frac{a}{X-1} +
+\frac{b}{(X-1)^2} + \frac{c}{X-2}\)</span> avec <span
+class="math inline">\(a,b,c \in \mathbb{R}\)</span>.</p>
+<p>En utilisant la même méthode que celle qui a été employée
+précédemment (multiplication de <span class="math inline">\(F\)</span>
+par... et évaluations aux racines...) on trouve que :</p>
+<p><span class="math display">\[\begin{cases}
+    [(X-2)F]_{X=2} = c = 2\\
+    [(X-1)^2 F]_{X=1} = b = -1\\
+    \left(\frac{X}{X-2}\right)&#39;(1) = a = -\frac12
+    \end{cases}\]</span></p>
+<p>On peut aussi trouver <span class="math inline">\(a\)</span> en
+multipliant <span class="math inline">\(F\)</span> par <span
+class="math inline">\(X\)</span> et en évaluant à <span
+class="math inline">\(X\to\infty\)</span>, mais cela marche dans ce
+seulement parce que le degré de <span class="math inline">\(F\)</span>
+est négatif (pas forcément strictement négatif).</p>
+</div>
+<h3 id="pôles-de-multiplicité-supérieure-ou-égale-à-3">Pôles de
+multiplicité supérieure ou égale à <span
+class="math inline">\(3\)</span></h3>
+<h4 id="cas-particulier">Cas particulier</h4>
+<p>Soit <span class="math inline">\(F = \frac{P}{(X-a)^s}\)</span> avec
+<span class="math inline">\(P \in \mathbb{K}[X]\)</span>, <span
+class="math inline">\(a \in \mathbb{K}\)</span> et <span
+class="math inline">\(s \in \mathbb{N}^* \mid s \ge 3\)</span>.</p>
+<p>D’après la formule de Taylor, on a <span class="math inline">\(P =
+\sum_{k=0}^{n}P^{(k)}(a) \cdot \frac{(X-a)^k}{k!}\)</span>.</p>
+<ul>
+<li><p>Si <span class="math inline">\(n &lt; s\)</span>, alors <span
+class="math inline">\(F = \sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} \cdot
+\frac{1}{(X-a)^{s-k}}\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(n \ge s\)</span>, alors <span
+class="math inline">\(F = \sum_{k=0}^{s-1} \frac{P^{(k)}(a)}{k!} \cdot
+\frac{1}{(X-a)^{s-k}} + \underbrace{\sum_{k=s}^{n} \frac{P^{(k)}(a)}{k!}
+\cdot (X-a)^{k-s}}_{\text{partie entière}}\)</span>.</p></li>
+</ul>
+<div class="example">
+<p>Décomposons <span class="math inline">\(F =
+\frac{X^5}{(X-1)^4}\)</span> dans <span
+class="math inline">\(\mathbb{R}(X)\)</span>.</p>
+</div>
+</body>
+</html>
