@@ -408,7 +408,13 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 \end{property}
 
 \begin{proof}
-    
+    On pose $F = \frac AB \in \Kset(X)$ avec $A, B \in \Kset[X]$ et $B \neq 0_\Kset[X]$.
+
+    On effectue la division euclidienne de $A$ par $B$, ce qui nous donne un quotient $E \in \Kset[X]$ et un reste $R \in \Kset[X]$ tels que $A = EB + R$ avec $\deg(R) < \deg(B)$.
+
+    Donc $F = \frac{EB + R}{B} = E + \frac RB$.
+
+    L'existence du couple $(E, G)$ est ainsi démontrée en posant $G = \frac RB$. L'unicité est démontrée implicitement, car le quotient et le reste de la division euclidienne sont uniques.
 \end{proof}
 
 \begin{remark}
@@ -482,7 +488,7 @@ On va préparer une généralisation du théorème de décomposition en élémen
     Nous utilisons d'abord la division euclidienne de $A$ par $B$ pour trouver un quotient $E$ et un reste $R$ tels que $A = EB + R$ avec $\deg(R) < \deg(B)$. Par conséquent, $F = E + \frac RB$, qui reste une fraction de degré négatif. 
     
     Ensuite, on utilise la première propriété pour trouver des éléments $A_{i,1}$ tels que $\frac RB = \sum_{i=1}^r \frac{A_{i,1}}{B_i}$ avec $\deg(A_{i,1}) < \deg(B_i)$ pour tout $i \in [\![1,r]\!]$, sachant que $B$ peut être décomposé en un produit $\prod_{i=1}^r B_i^{\alpha_i}$ avec $\deg(\frac{A_k}{B_k^{\alpha_k}}) < 0$ pour tout $k \in [\![1,r]\!]$.
-    $$\frac{R}{\prod_{i=1}^r B_i^{\alpha_i}} = \sum_{i=1}^r \frac{A_{i,1}}{B_i}$$
+    $$\frac{R}{\prod_{i=1}^r B_i^{\alpha_i}} = \sum_{i=1}^r \frac{A_{i,1}}{B_i^{\alpha_i}}$$
     Ensuite, on utilise la seconde propriété pour trouver des éléments $A_{i,j}$ tels que $\frac{A_{i,1}}{B_i} = \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}$ avec $\deg(A_{i,j}) < \deg(B_i)$ pour tout $j \in [\![1,\alpha_i]\!]$ et tout $i \in [\![1,r]\!]$.
     
     En combinant toutes ces égalités, on trouve que $F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}$ avec les conditions de degrés sur les $A_{i,j}$.
@@ -642,13 +648,13 @@ D'après la formule de Taylor, on a $P = \sum_{k=0}^{n}P^{(k)}(a) \cdot \frac{(X
 
 \subsubsection{Cas général}
 
-$F = \frac AB \in \Kset(X) \avec A \wedge B = 1$ et $B = (X-a)^5 \cdot Q$ avec $Q(a) \neq 0$ et $a \in \Kset$.
+$F = \frac AB \in \Kset(X) \avec A \wedge B = 1$ et $B = (X-a)^s \cdot Q$ avec $Q(a) \neq 0$ et $a \in \Kset$, $s \ge 3$.
 
 On définit la fonction rationnelle $f: x\mapsto \frac{A(x)}{Q(x)}$.
 
 Comme $Q(a) \neq 0$, $f$ est de classe $\cclas\infty$ dans un voisinage de $a$, et on peut donc effectuer un développement limité $DL_n(a)$ pour tout $n \in \N$ de $f$ au voisinage de $a$.
 
-Et en particulier, pour $n=s-1$, on trouve que $f(x)=\sum_{k=0}^{s-1} \alpha_k(x-a)^k + \negli{a}((x-a)^{s-1})$ avec $\alpha_k = \frac{f^{(k)}(a)}{k!}$ pour tout $k \in [\![0,s-1]\!]$.
+Et en particulier, pour $n=s-1$, on trouve que $f(x)=\sum_{k=0}^{s-1} \alpha_k(x-a)^k + \negli{x}{a}((x-a)^{s-1})$ avec $\alpha_k = \frac{f^{(k)}(a)}{k!}$ pour tout $k \in [\![0,s-1]\!]$.
 
 Par conséquent, $F(x) = \frac{A(x)}{B(x)} = \frac{f(x)}{(x-a)^s} = \sum_{k=0}^{s-1} \alpha_k \cdot \frac{1}{(x-a)^{s-k}} + \negli{x}{a}{\frac{1}{x-a}}$.
 
