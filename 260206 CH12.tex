@@ -206,7 +206,7 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
 \begin{property}
     Soient $a,b \in A[X]$. On a $a = b \iff \forall n, a_n = b_n$.
 
-    Donc, en particulier, $\sum_{a_k}\cdot X^k = \sum_{b_k}\cdot X^k \iff \forall k, a_k = b_k$.
+    Donc, en particulier, $\sum a_k\cdot X^k = \sum_{b_k}\cdot X^k \iff \forall k, a_k = b_k$.
 \end{property}
 
 \begin{definition}
@@ -291,7 +291,7 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
     Soit $P = \sum_{k=0}^{n}a_k X^k \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit le polynôme dérivé de $P$, noté $P'$, de la manière suivante :
     $$P' = \begin{cases}
     0 & \si \deg(P) = 0\\
-    \sum_{k=1}^{n} \underbrace{k \cdot a_k}_{\in \Kset[X]} X^{k-1} & \si \deg(P) \ne 0
+    \sum_{k=1}^{n} \underbrace{k \cdot a_k}_{\in \Kset} X^{k-1} & \si \deg(P) \ne 0
     \end{cases}$$
 \end{definition}
 
@@ -500,8 +500,6 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
         \2 On peut donc écrire $\exists P_0 \in I \setminus \{0\} \tq \deg(P_0) = d$.
 
         \2 Montrons que $I = \langle P_0 \rangle = P_0 \cdot \Kset[X]$.
-
-        \2 Montrons que $I = P_0 \cdot \Kset[X]$.
 
         \2 On a $\forall Q \in \Kset[X]$, $P_0 \cdot Q \in I$ car $P_0 \in I$ et $I$ est un idéal.
 
@@ -754,13 +752,13 @@ On peut utiliser la division euclidienne pour démontrer quelques autres propri�
     Soient $P_1,\dots,P_n \in \Kset[X]$.
     \begin{outline}[enumerate]
         \1 \textbf{PGCD :}
-        \2 $\exists ! D \in \Kset[X]$ avec $\begin{cases}D \text{ unitaire }\\D= 0\end{cases}$ tel que :\\ $\sum_{i=1}^{n}P_i \Kset[X] = D\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], D \mid P_i$.
+        \2 $\exists ! D \in \Kset[X]$ avec $\begin{cases}D \text{ unitaire }\\\ou\\D= 0\end{cases}$ tel que :\\ $\sum_{i=1}^{n}P_i \Kset[X] = D\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], D \mid P_i$.
         \2 Si $\exists \Delta \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], \Delta \mid P_i$, alors $\Delta \mid D$.
         
         $D$ est appelé le \textbf{plus grand commun diviseur} (PGCD) de $P_1,\dots,P_n$, et est noté $\pgcd(P_1,\dots,P_n)$.
 
         \1 \textbf{PPCM :}
-        \2 $\exists ! M \in \Kset[X]$ avec $\begin{cases}M \text{ unitaire }\\M= 0\end{cases}$ tel que :\\ $\bigcap_{i=1}^{n} P_i \cdot \Kset[X] = M\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], P_i \mid M$.
+        \2 $\exists ! M \in \Kset[X]$ avec $\begin{cases}M \text{ unitaire }\\\ou\\M= 0\end{cases}$ tel que :\\ $\bigcap_{i=1}^{n} P_i \cdot \Kset[X] = M\cdot\Kset[X]$ et $\forall i \in [\![1,n]\!], P_i \mid M$.
         \2 Si $\exists A \in \Kset[X]$ tel que $\forall i \in [\![1,n]\!], P_i \mid A$, alors $M \mid A$.
 
         $M$ est appelé le \textbf{plus petit commun multiple} (PPCM) de $P_1,\dots,P_n$, et est noté $\ppcm(P_1,\dots,P_n)$.
