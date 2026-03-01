@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fiche - CH13.</title>
+  <style>
+    /* Style épuré - inspiration Bibmath */
+    html {
+      color: #000;
+      background-color: #fff;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 45em;
+      padding: 1.5em 2em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    
+    /* Titres */
+    h1 {
+      color: #003366;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 0.3em;
+      font-size: 1.6em;
+    }
+    h2 {
+      color: #003366;
+      border-bottom: 1px solid #999;
+      padding-bottom: 0.2em;
+      margin-top: 2em;
+      font-size: 1.3em;
+      cursor: pointer;
+    }
+    h2::before {
+      content: "▼ ";
+      font-size: 0.7em;
+    }
+    h2.collapsed::before {
+      content: "► ";
+    }
+    h3 {
+      color: #333;
+      margin-top: 1.5em;
+      font-size: 1.1em;
+    }
+    h4 {
+      color: #333;
+      font-size: 1em;
+      font-style: italic;
+    }
+    
+    /* Liens */
+    a { color: #003366; }
+    a:visited { color: #551a8b; }
+    a:hover { text-decoration: underline; }
+    
+    /* Listes */
+    ul, ol {
+      padding-left: 1.5em;
+      margin: 0.8em 0;
+    }
+    li { margin: 0.4em 0; }
+    li > ul, li > ol { margin: 0.2em 0; }
+    
+    /* Encadrés pour notes */
+    blockquote {
+      margin: 1em 0;
+      padding: 0.8em 1em;
+      background: #fffde7;
+      border: 1px solid #e0d78c;
+      font-size: 0.95em;
+    }
+    
+    /* Important */
+    strong {
+      color: #8b0000;
+    }
+    
+    /* Formules */
+    .math.display {
+      overflow-x: auto;
+      padding: 0.5em 0;
+    }
+    
+    /* Code */
+    code {
+      font-family: "Courier New", monospace;
+      font-size: 0.9em;
+      background: #f5f5f5;
+      padding: 0.1em 0.3em;
+    }
+    
+    /* Tableaux */
+    table {
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 0.4em 0.8em;
+      text-align: left;
+    }
+    th { background: #f0f0f0; }
+    
+    /* Divers */
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 1.5em 0;
+    }
+    img, svg { max-width: 100%; }
+    
+    /* Table des matières */
+    #toc {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 1em 1.5em;
+      margin-bottom: 2em;
+    }
+    #toc h2 {
+      margin: 0 0 0.5em 0;
+      font-size: 1.1em;
+      border: none;
+      cursor: default;
+    }
+    #toc h2::before {
+      content: "";
+    }
+    #toc ul {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+    #toc li {
+      margin: 0.3em 0;
+    }
+    #toc a {
+      text-decoration: none;
+    }
+    #toc a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Sections pliables */
+    .section-content {
+      overflow: hidden;
+    }
+    .section-content.collapsed {
+      display: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      body { padding: 1em; font-size: 15px; }
+    }
+    
+    /* Impression */
+    @media print {
+      body { max-width: none; }
+      h2::before { content: ""; }
+      .section-content.collapsed { display: block; }
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="chapitre-13">Chapitre 13</h1>
+<p><em>Résumé primitif.</em></p>
+
+<nav id="toc">
+<h2>Table des matières</h2>
+<ul>
+<li><a href="#construction-du-corps-de-fractions">Construction du corps de fractions</a></li>
+<li><a href="#corps-des-fractions-rationnelles">Corps des fractions rationnelles</a>
+  <ul>
+    <li><a href="#degrés">Degrés</a></li>
+    <li><a href="#fraction-dérivée">Fraction dérivée</a></li>
+  </ul>
+</li>
+<li><a href="#zéros-et-pôles">Zéros et pôles</a></li>
+<li><a href="#forme-irréductible">Forme irréductible</a></li>
+<li><a href="#élément-simple">Élément simple</a></li>
+<li><a href="#partie-entière-et-fractionnaire">Partie entière et fractionnaire</a></li>
+<li><a href="#décomposition-en-éléments-simples">Décomposition en éléments simples</a>
+  <ul>
+    <li><a href="#décomposition-en-éléments-simples-de-fractions-rationnelles-à-dénominateur-produit-de-facteurs-premiers-entre-eux">Dénominateur produit de facteurs premiers entre eux</a></li>
+    <li><a href="#décomposition-en-éléments-simples-dune-fraction-rationnelle-de-la-forme-fracabn">Forme A/B^n</a></li>
+    <li><a href="#cas-général-théorème">Cas général (Théorème)</a></li>
+    <li><a href="#techniques-de-décomposition">Techniques de décomposition</a></li>
+  </ul>
+</li>
+</ul>
+</nav>
+
+<h2 id="construction-du-corps-de-fractions">Construction du corps de
+fractions</h2>
+<ul>
+<li>Construction d'une classe d'équivalence de fractions à partir d'un
+anneau intègre <span class="math inline">\(A\)</span>. <span
+class="math display">\[(N,D) \in A\times A\setminus\{0\}, (N,D) \sim
+(N&#39;,D&#39;) \iff N\cdot D&#39; = N&#39; \cdot D\]</span></li>
+<li>Définition du corps de fractions <span
+class="math inline">\(\mathbb{K} = \{Cl(N,D) \mid N\in A, D\in
+A\setminus\{0\}\}\)</span>.</li>
+<li>Propriétés sur les égalités et les opérations dans le corps de
+fractions.
+<ul>
+<li><span class="math inline">\(\begin{cases} Cl(N,D) =
+Cl(N&#39;,D&#39;) \\ Cl(A,B) = Cl(A&#39;,B&#39;) \end{cases} \implies
+\begin{cases} Cl(NB + AD, BD) = Cl(N&#39;B&#39; + A&#39;D&#39;,
+B&#39;D&#39;) \\ Cl(AN,BD) = Cl(A&#39;N&#39;, B&#39;D&#39;)
+\end{cases}\)</span></li>
+<li>Opération additive <span class="math inline">\(+\)</span> : <span
+class="math inline">\(Cl(N,D) + Cl(A,B) = Cl(NB + AD, BD)\)</span></li>
+<li>Opération multiplicative <span class="math inline">\(\times\)</span>
+: <span class="math inline">\(Cl(N,D) \times Cl(A,B) = Cl(AN,
+BD)\)</span></li>
+<li>Muni de ces deux opérations, <span
+class="math inline">\(\mathbb{K}\)</span> est un corps commutatif.</li>
+</ul></li>
+<li>Injection canonique de <span class="math inline">\(A\)</span> dans
+<span class="math inline">\(\mathbb{K}\)</span> : <span
+class="math inline">\(f : A \to \mathbb{K}, a \mapsto Cl(a,1) =
+\frac{a}{1}\)</span>.
+<ul>
+<li><span class="math inline">\(f\)</span> est un morphisme d'anneaux
+injectifs.</li>
+<li>On peut identifier <span class="math inline">\(A\)</span> à son
+image dans <span class="math inline">\(\mathbb{K}\)</span> notée <span
+class="math inline">\(f(A)\)</span>, et ainsi considérer <span
+class="math inline">\(A\)</span> comme un sous-anneau de <span
+class="math inline">\(\mathbb{K}\)</span>.</li>
+<li><span class="math inline">\(\mathbb{K}\)</span> est appelé le corps
+de fractions de <span class="math inline">\(A\)</span>.</li>
+<li>On peut bien le considérer comme une extension de <span
+class="math inline">\(A\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(\mathbb{K}\)</span> est le plus petit
+corps contenant <span class="math inline">\(A\)</span> : pour tout corps
+<span class="math inline">\(L\)</span> contenant <span
+class="math inline">\(A\)</span>, il existe un morphisme d'anneaux
+injectif de <span class="math inline">\(\mathbb{K}\)</span> dans <span
+class="math inline">\(L\)</span> qui fixe les éléments de <span
+class="math inline">\(A\)</span>.</li>
+<li>Si <span class="math inline">\(A\)</span> est un anneau de polynômes
+<span class="math inline">\(\mathbb{K}[X]\)</span>, alors son corps de
+fractions est le corps des fractions rationnelles <span
+class="math inline">\(\mathbb{K}(X)\)</span>. <span
+class="math display">\[\mathbb{K}(X) = \{Cl(P,Q) = \frac PQ \mid P\in
+\mathbb{K}[X], Q\in \mathbb{K}[X]\setminus\{0\}\}\]</span></li>
+</ul>
+<h2 id="corps-des-fractions-rationnelles">Corps des fractions
+rationnelles</h2>
+<h3 id="degrés">Degrés</h3>
+<ul>
+<li>Degré d'une fraction rationnelle <span class="math inline">\(F =
+\frac PQ\)</span> : <span class="math inline">\(\deg(F) = \deg(P) -
+\deg(Q)\)</span>.</li>
+<li>Propriétés sur les degrés :
+<ul>
+<li><span class="math inline">\(\deg(FG) = \deg(F) +
+\deg(G)\)</span></li>
+<li><span class="math inline">\(\deg(F + G) \leq \max(\deg(F),
+\deg(G))\)</span></li>
+<li><span class="math inline">\(\deg(F) = -\infty \iff F =
+0\)</span></li>
+<li><span class="math inline">\(\deg(F) \in
+\mathbb{Z}\cup\{-\infty\}\)</span></li>
+<li>Si <span class="math inline">\(F \in \mathbb{K}[X]^*\)</span>, alors
+<span class="math inline">\(\deg(F) \in \mathbb{N}\)</span>.
+<ul>
+<li>La réciproque est fausse : <span
+class="math inline">\(\deg(\frac{X^2}{X+1}) = 1\)</span> mais <span
+class="math inline">\(\frac{X^2}{X+1} \mathbb{N}otin
+\mathbb{K}[X]\)</span>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="fraction-dérivée">Fraction dérivée</h3>
+<ul>
+<li>Définition de la fraction dérivée : <span
+class="math inline">\(F&#39; = \frac{P&#39;Q -
+PQ&#39;}{Q^2}\)</span>.</li>
+<li>Propriétés sur la fraction dérivée :
+<ul>
+<li><span class="math inline">\(\deg(F&#39;) \leq \deg(F) - 1\)</span>.
+<ul>
+<li><em>Exemple pertinent :</em> <span
+class="math inline">\(F=\frac{X}{X+1}\)</span>, alors <span
+class="math inline">\(\deg(F) = 0\)</span> mais <span
+class="math inline">\(\deg(F&#39;) = -2 \le \deg(F) - 1\)</span>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="zéros-et-pôles">Zéros et pôles</h2>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> est un zéro de <span
+class="math inline">\(F\)</span> de multiplicité <span
+class="math inline">\(s\)</span> lorsque <span
+class="math inline">\(\alpha\)</span> est une racine du numérateur de
+<span class="math inline">\(F\)</span> de multiplicité <span
+class="math inline">\(s\)</span>.</li>
+<li><span class="math inline">\(\beta\)</span> est un pôle de <span
+class="math inline">\(F\)</span> de multiplicité <span
+class="math inline">\(t\)</span> lorsque <span
+class="math inline">\(\beta\)</span> est une racine du dénominateur de
+<span class="math inline">\(F\)</span> de multiplicité <span
+class="math inline">\(t\)</span>.</li>
+<li><strong>Important :</strong> Les zéros et les pôles d'une fraction
+rationnelle sont définis seulement lorsque le numérateur et le
+dénominateur sont premiers entre eux, i.e. <span class="math inline">\(F
+= \frac AB\)</span> avec <span class="math inline">\(A\wedge B =
+1\)</span>.</li>
+</ul>
+<h2 id="forme-irréductible">Forme irréductible</h2>
+<ul>
+<li>Toute fraction rationnelle <span class="math inline">\(F\)</span>
+peut s'écrire de manière unique sous la forme irréductible <span
+class="math inline">\(\frac AB\)</span> avec <span
+class="math inline">\(A\wedge B = 1\)</span> et <span
+class="math inline">\(B\)</span> unitaire.</li>
+</ul>
+<p><em>Preuve :</em></p>
+<ul>
+<li>Existence :
+<ul>
+<li>“Suppression” du coefficient dominant du dénominateur (ajout dans le
+numérateur, qui devient <span class="math inline">\(P_{cfd}\)</span>)
+pour que le dénominateur soit unitaire.</li>
+<li>Existence d'un PGCD <span class="math inline">\(D\)</span> de <span
+class="math inline">\(P\)</span> et <span
+class="math inline">\(Q\)</span> tel que <span
+class="math inline">\(P_{cfd} = DA\)</span> et <span
+class="math inline">\(Q = DB\)</span> avec <span
+class="math inline">\(A\wedge B = 1\)</span>.</li>
+<li>On réecrit donc <span class="math inline">\(F\)</span> sous la forme
+<span class="math inline">\(\frac{P_{cfd}}{Q} = \frac{DA}{DB} = \frac
+AB\)</span>.</li>
+</ul></li>
+<li>Unicité :
+<ul>
+<li>Supposons que <span class="math inline">\(F\)</span> puisse s'écrire
+sous la forme <span class="math inline">\(\frac AB\)</span> et <span
+class="math inline">\(\frac{A&#39;}{B&#39;}\)</span> avec <span
+class="math inline">\(A, B, A&#39;, B&#39; \in \mathbb{K}[X]\)</span>,
+<span class="math inline">\(A \wedge B = 1\)</span>, <span
+class="math inline">\(A&#39; \wedge B&#39; = 1\)</span>, <span
+class="math inline">\(B\)</span> unitaire et <span
+class="math inline">\(B&#39;\)</span> unitaire. Alors, on a :
+<ul>
+<li><span class="math inline">\(A&#39;B = AB&#39;\)</span> (en utilisant
+l'égalité <span class="math inline">\(\frac AB =
+\frac{A&#39;}{B&#39;}\)</span>).</li>
+<li>Comme <span class="math inline">\(B \mid A&#39; B\)</span>, alors en
+utilisant le théorème de Gauss, on trouve que <span
+class="math inline">\(B \mid B&#39;\)</span>. De même, <span
+class="math inline">\(B&#39; \mid A B&#39;\)</span>, donc <span
+class="math inline">\(B&#39; \mid B\)</span> (sachant que <span
+class="math inline">\(A\)</span> et <span
+class="math inline">\(B\)</span> sont premiers entre eux).</li>
+<li>Ainsi, <span class="math inline">\(B\)</span> et <span
+class="math inline">\(B&#39;\)</span> sont deux polynômes associés et
+unitaires alors <span class="math inline">\(B = B&#39;\)</span>.</li>
+<li>En remplaçant dans l'égalité, le résultat est démontré.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="élément-simple">Élément simple</h2>
+<ul>
+<li><span class="math inline">\(F\)</span> est un élément simple de
+<span class="math inline">\(\mathbb{K}(X)\)</span> soit lorsque…
+<ul>
+<li><span class="math inline">\(F = a\cdot X^k\)</span> avec <span
+class="math inline">\(a \in \mathbb{K}\)</span> et <span
+class="math inline">\(k \in \mathbb{Z}\)</span>. (<span
+class="math inline">\(F\)</span> est un monôme de degré <span
+class="math inline">\(k\)</span>)</li>
+</ul></li>
+<li>ou bien…
+<ul>
+<li><span class="math inline">\(F = \frac{A}{P^n}\)</span> avec :
+<ul>
+<li><span class="math inline">\(A \in \mathbb{K}[X]^*\)</span>,</li>
+<li><span class="math inline">\(P \in \mathbb{K}[X]\)</span>
+irréductible,</li>
+<li><span class="math inline">\(n \in \mathbb{N}^*\)</span>,</li>
+<li><span class="math inline">\(\deg(A) &lt; \deg(P)\)</span>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<blockquote>
+<p>Élément simple nul ? J'en suis pas encore sûr. Je dois
+demander au prof.</p>
+</blockquote>
+<h2 id="partie-entière-et-fractionnaire">Partie entière et
+fractionnaire</h2>
+<ul>
+<li>Il existe un unique couple <span class="math inline">\((E,G) \in
+\mathbb{K}[X] \times \mathbb{K}(X)\)</span> tel que <span
+class="math inline">\(F = E + G\)</span> et <span
+class="math inline">\(G\)</span> est une fraction rationnelle
+strictement fractionnaire (i.e. <span class="math inline">\(\deg(G) &lt;
+0\)</span>).</li>
+<li><span class="math inline">\(E\)</span> est appelé la partie entière
+de <span class="math inline">\(F\)</span> tandis que <span
+class="math inline">\(G\)</span> est appelé la partie fractionnaire de
+<span class="math inline">\(F\)</span>. <em>Démonstration via division
+euclidienne.</em></li>
+</ul>
+<h2 id="décomposition-en-éléments-simples">Décomposition en éléments
+simples</h2>
+<h3
+id="décomposition-en-éléments-simples-de-fractions-rationnelles-à-dénominateur-produit-de-facteurs-premiers-entre-eux">Décomposition
+en éléments simples de fractions rationnelles à dénominateur produit de
+facteurs premiers entre eux</h3>
+<p><span class="math display">\[F = \frac{A}{B_1 \cdots B_n}\]</span>
+avec :</p>
+<ul>
+<li><span class="math inline">\(A, B_1, \dots, B_n \in
+\mathbb{K}[X]\)</span>,</li>
+<li><span class="math inline">\(B_i\)</span> et <span
+class="math inline">\(B_j\)</span> sont deux à deux premiers entre
+eux,</li>
+<li><span class="math inline">\(\deg(F) &lt; 0\)</span>.</li>
+</ul>
+<p>Il existe un unique <span class="math inline">\(n\)</span>-uplet
+<span class="math inline">\((A_1, \dots, A_n) \in
+\mathbb{K}[X]^n\)</span> tel que <span class="math inline">\(F =
+\sum_{i=1}^n \frac{A_i}{B_i}\)</span> et <span
+class="math inline">\(\deg(A_i) &lt; \deg(B_i)\)</span> pour tout <span
+class="math inline">\(i \in \{1, \dots, n\}\)</span>.</p>
+<p><em>Démonstration par récurrence sur <span
+class="math inline">\(n\)</span>. Initialisation <span
+class="math inline">\(n=2\)</span> recommandée.</em></p>
+<h3
+id="décomposition-en-éléments-simples-dune-fraction-rationnelle-de-la-forme-fracabn">Décomposition
+en éléments simples d'une fraction rationnelle de la forme <span
+class="math inline">\(\frac{A}{B^n}\)</span></h3>
+<p><span class="math display">\[F = \frac{A}{B^n}\]</span> avec :</p>
+<ul>
+<li><span class="math inline">\(A, B \in \mathbb{K}[X]\)</span>,</li>
+<li><span class="math inline">\(n \in \mathbb{N}^*\)</span>,</li>
+<li><span class="math inline">\(\deg(F) &lt; 0\)</span>.</li>
+</ul>
+<p>Il existe un unique <span class="math inline">\(n\)</span>-uplet
+<span class="math inline">\((A_1, \dots, A_n) \in
+\mathbb{K}[X]^n\)</span> tel que : <span class="math display">\[F =
+\sum_{i=1}^n \frac{A_i}{B^i}\]</span> et <span
+class="math inline">\(\deg(A_i) &lt; \deg(B)\)</span> pour tout <span
+class="math inline">\(i \in \{1, \dots, n\}\)</span>.</p>
+<p><em>Démonstration par récurrence sur <span
+class="math inline">\(n\)</span>. Hérédité démontrée via division
+euclidienne et utilisation de l'H.R.</em></p>
+<h3 id="cas-général-théorème">Cas général (Théorème)</h3>
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span>,</p>
+<p>avec :</p>
+<ul>
+<li><span class="math inline">\(A, B \in \mathbb{K}[X]\)</span>,</li>
+<li><span class="math inline">\(A \wedge B = 1\)</span>,</li>
+<li><span class="math inline">\(B\)</span> unitaire.</li>
+</ul>
+<p>On écrit <span class="math inline">\(B\)</span> sous la forme <span
+class="math inline">\(B = \prod_{i=1}^r B_i^{\alpha_i}\)</span> avec
+:</p>
+<ul>
+<li><span class="math inline">\(B_i\)</span> et <span
+class="math inline">\(B_j\)</span> deux à deux distincts</li>
+<li><span class="math inline">\(B_i\)</span> irréductible pour tout
+<span class="math inline">\(i \in \{1, \dots, r\}\)</span>,
+<ul>
+<li>ce qui implique implicitement que les <span
+class="math inline">\(B_i\)</span> sont premiers entre eux,</li>
+</ul></li>
+<li><span class="math inline">\(\alpha_i \in \mathbb{N}^*\)</span> pour tout
+<span class="math inline">\(i \in \{1, \dots, r\}\)</span>.</li>
+</ul>
+<p>Il existe d'uniques :</p>
+<ul>
+<li><span class="math inline">\(E \in \mathbb{K}[X]\)</span>,</li>
+<li><span class="math inline">\(A_{i,j} \in \mathbb{K}[X]\)</span> pour
+tout <span class="math inline">\(i \in \{1, \dots, r\}\)</span> et tout
+<span class="math inline">\(j \in \{1, \dots, \alpha_i\}\)</span>,</li>
+</ul>
+<p>tels que : <span class="math display">\[F = E + \sum_{i=1}^r
+\sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}\]</span> et <span
+class="math inline">\(\deg(A_{i,j}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(i \in \{1, \dots, r\}\)</span> et tout <span
+class="math inline">\(j \in \{1, \dots, \alpha_i\}\)</span>.</p>
+<p><em>Démonstration :</em></p>
+<ol type="1">
+<li>Division euclidienne de <span class="math inline">\(A\)</span> par
+<span class="math inline">\(B\)</span> pour trouver un quotient <span
+class="math inline">\(E\)</span> et un reste <span
+class="math inline">\(R\)</span> tels que <span class="math inline">\(A
+= EB + R\)</span> avec <span class="math inline">\(\deg(R) &lt;
+\deg(B)\)</span>.</li>
+<li>Utilisation de la première propriété pour trouver des éléments <span
+class="math inline">\(A_{i,1}\)</span> tels que <span
+class="math inline">\(\frac RB = \sum_{i=1}^r
+\frac{A_{i,1}}{B_i^{\alpha_i}}\)</span> avec <span
+class="math inline">\(\deg(A_{i,1}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(i \in \{1, \dots, r\}\)</span>, sachant que
+<span class="math inline">\(B\)</span> peut être décomposé en un produit
+<span class="math inline">\(\prod_{i=1}^r B_i^{\alpha_i}\)</span> avec
+<span class="math inline">\(\deg(\frac{A_k}{B_k^{\alpha_k}}) &lt;
+0\)</span> pour tout <span class="math inline">\(k \in \{1, \dots,
+r\}\)</span>.</li>
+<li>Utilisation de la seconde propriété pour trouver des éléments <span
+class="math inline">\(A_{i,j}\)</span> tels que <span
+class="math inline">\(\frac{A_{i,1}}{B_i^{\alpha_i}} =
+\sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{B_i^j}\)</span> avec <span
+class="math inline">\(\deg(A_{i,j}) &lt; \deg(B_i)\)</span> pour tout
+<span class="math inline">\(j \in \{1, \dots, \alpha_i\}\)</span> et
+tout <span class="math inline">\(i \in \{1, \dots, r\}\)</span>.</li>
+<li>En combinant toutes ces égalités, on trouve que <span
+class="math inline">\(F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i}
+\frac{A_{i,j}}{B_i^j}\)</span> avec les conditions de degrés sur les
+<span class="math inline">\(A_{i,j}\)</span>.</li>
+</ol>
+<h3 id="techniques-de-décomposition">Techniques de décomposition</h3>
+<h4 id="méthode-par-pôles-simples">Méthode par pôles simples</h4>
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span> avec :</p>
+<ul>
+<li><span class="math inline">\(A \wedge B = 1\)</span>,</li>
+<li><span class="math inline">\(B = \prod_{i=1}^n (X - a_i)\)</span>
+<ul>
+<li><span class="math inline">\(a_i \in \mathbb{K}\)</span> pour tout
+<span class="math inline">\(i \in \{1, \dots, n\}\)</span></li>
+<li>les <span class="math inline">\(a_i\)</span> sont deux à deux
+distincts.</li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(F\)</span> peut être décomposée de la
+manière suivante :</p>
+<p><span class="math display">\[F = E + \sum_{i=1}^n \frac{\lambda_i}{X
+- a_i}\]</span> avec <span class="math inline">\(E \in
+\mathbb{K}[X]\)</span> et <span class="math inline">\(\lambda_i \in
+\mathbb{K}\)</span> pour tout <span class="math inline">\(i \in \{1,
+\dots, n\}\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\lambda_i =
+\frac{A(a_i)}{B&#39;(a_i)}\)</span> pour tout <span
+class="math inline">\(i \in \{1, \dots, n\}\)</span>.</li>
+</ul>
+<h4 id="méthode-par-pôles-doubles">Méthode par pôles doubles</h4>
+<p>Soit <span class="math inline">\(F = \frac AB \in
+\mathbb{K}(X)\)</span> avec :</p>
+<ul>
+<li><span class="math inline">\(A \wedge B = 1\)</span>,</li>
+<li><span class="math inline">\(B = (X - a)^2 \cdot Q\)</span> avec
+<span class="math inline">\(Q(a) \mathbb{N}eq 0\)</span> et <span
+class="math inline">\(a \in \mathbb{K}\)</span>.</li>
+</ul>
+<p><span class="math inline">\(F\)</span> peut être décomposée de la
+manière suivante : <span class="math display">\[F = E +
+\frac{\lambda_1}{X - a} + \frac{\lambda_2}{(X - a)^2} +
+\frac{A_1}{Q}\]</span></p>
+<p>avec <span class="math inline">\(\deg(A_1) &lt; \deg(Q)\)</span> et
+<span class="math inline">\(\lambda_1, \lambda_2 \in
+\mathbb{K}\)</span>.</p>
+<p>Et on a <span class="math inline">\(\begin{cases} \lambda_2 =
+\frac{A(a)}{Q(a)} \\ \lambda_1 = (\frac{A}{Q})&#39;(a)
+\end{cases}\)</span>.</p>
+<h4 id="méthode-par-pôles-multiples-s-ge-3">Méthode par pôles multiples
+(<span class="math inline">\(s \ge 3\)</span>)</h4>
+<p>Soit <span class="math inline">\(F = \frac{P}{(X - a)^s \cdot
+Q}\)</span> avec <span class="math inline">\(Q(a) \mathbb{N}eq 0\)</span> et
+<span class="math inline">\(a \in \mathbb{K}\)</span>, <span
+class="math inline">\(s \ge 3\)</span>.</p>
+<p>D'après la formule de Taylor, <span class="math inline">\(P\)</span>
+peut être décomposé de la manière suivante : <span
+class="math display">\[P = \sum_{k=0}^{n} P^{(k)}(a) \cdot \frac{(X -
+a)^k}{k!}\]</span></p>
+<ul>
+<li><p>Si <span class="math inline">\(n &lt; s\)</span>, alors <span
+class="math inline">\(F\)</span> peut être décomposée de la manière
+suivante : <span class="math display">\[F = \sum_{k=0}^{n}
+\frac{P^{(k)}(a)}{k!} \cdot \frac{1}{(X - a)^{s-k}}\]</span></p></li>
+<li><p>Si <span class="math inline">\(n \ge s\)</span>, alors <span
+class="math inline">\(F\)</span> peut être décomposée de la manière
+suivante : <span class="math display">\[F = \sum_{k=0}^{s-1}
+\frac{P^{(k)}(a)}{k!} \cdot \frac{1}{(X - a)^{s-k}} +
+\underbrace{\sum_{k=s}^{n} \frac{P^{(k)}(a)}{k!} \cdot (X -
+a)^{k-s}}_{\text{partie entière}}\]</span></p></li>
+</ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Récupérer tous les h2 (sauf celui du TOC)
+  var headings = document.querySelectorAll('h2:not(#toc h2)');
+  
+  headings.forEach(function(h2) {
+    // Collecter le contenu entre ce h2 et le prochain h2
+    var content = [];
+    var sibling = h2.nextElementSibling;
+    
+    while (sibling && sibling.tagName !== 'H2') {
+      content.push(sibling);
+      sibling = sibling.nextElementSibling;
+    }
+    
+    if (content.length > 0) {
+      // Créer un wrapper
+      var wrapper = document.createElement('div');
+      wrapper.className = 'section-content';
+      h2.parentNode.insertBefore(wrapper, content[0]);
+      
+      content.forEach(function(el) {
+        wrapper.appendChild(el);
+      });
+      
+      // Clic pour plier/déplier
+      h2.addEventListener('click', function() {
+        h2.classList.toggle('collapsed');
+        wrapper.classList.toggle('collapsed');
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
