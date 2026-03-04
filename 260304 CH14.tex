@@ -1,0 +1,154 @@
+\documentclass[12pt, a4paper]{report}
+
+% 
+
+\usepackage{elegant-cours}
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre XIV : Algèbre Linéaire}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{WIP. Peut contenir des erreurs ou des sections incomplètes.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces vectoriels, les applications linéaires, les matrices, les systèmes linéaires, les déterminants, 
+\vspace*{\fill}
+
+\chapter{Définitions}
+
+\begin{definition}[Espace vectoriel]
+    Soit $\Kset$ un corps commutatif.
+
+    $(E,+,\cdot)$ est dit $\Kset$-espace vectoriel (ou $\Kset$-ev.) lorsque :
+    \begin{enumerate}
+        \item $(E,+)$ est un groupe abélien.
+        \item $\cdot : \Kset \times E \to E$ est une loi de composition externe (LCE), donc une application vérifiant :
+        \begin{itemize}
+            \item $\forall \lambda, \mu \in \Kset, \forall u \in E, (\lambda + \mu) \cdot u = \lambda \cdot u + \mu \cdot u$.
+            \item $\forall \lambda \in \Kset, \forall u, v \in E, \lambda \cdot (u + v) = \lambda \cdot u + \lambda \cdot v$.
+            \item $\forall \lambda, \mu \in \Kset, \forall u \in E, (\lambda\mu) \cdot u = \lambda\cdot(\mu\cdot u)$.
+            \item $\forall u\in E, 1\cdot u = u$.
+        \end{itemize}
+    \end{enumerate}
+\end{definition}
+
+\begin{attention}
+    Il faut faire attention à ne pas confondre les notations $+$ et $\cdot$ dans $E$ et $\Kset$.
+\end{attention}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev. Alors :
+    \begin{itemize}
+        \item $\forall x \in E, \forall \alpha \in \Kset, \alpha \cdot x = 0_E \iff \alpha = 0_\Kset \ou x = 0_E$.
+        \item $\forall x \in E, -1_\Kset \cdot x = -x$.
+    \end{itemize}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration de la première propriété :
+            \2 Dans le sens indirect $\impliedby$, $0_\Kset \cdot x = (0_\Kset + 0_\Kset) \cdot x = 0_\Kset \cdot x + 0_\Kset \cdot x$, donc $(0_\Kset \cdot x) + (-0_\Kset \cdot x) = (0_\Kset \cdot x + 0_\Kset \cdot x) + (-0_\Kset \cdot x)$, donc $0_E = 0_\Kset \cdot x$.
+            \2 On a aussi $\forall \alpha \in \Kset$, $0_E \cdot \alpha = 0_E \implies 0_E = 0_E \cdot \alpha = (0_E + 0_E) \cdot \alpha = 0_E \cdot \alpha + 0_E \cdot \alpha$, donc $0_E = 0_E \cdot \alpha$.
+            \2 Dans le sens direct $\implies$, $0_E = \alpha \cdot x$
+    \end{outline}
+\end{proof}
+\todo{recop}
+
+\begin{remark}
+    \begin{enumerate}
+        \item On déduit de la première et deuxième propriété de la définition et de la deuxième propriété précédente que :
+        $$\forall \alpha,\beta \in \Kset, \forall x,y \in E,\\
+        \begin{cases}
+        (\alpha - \beta) \cdot x = \alpha \cdot x - \beta \cdot x\\
+        \alpha \cdot (x - y) = \alpha \cdot x - \alpha \cdot y
+        \end{cases}$$
+        \item Les éléments de $E$ sont appelés des vecteurs, les éléments de $\Kset$ sont appelés des scalaires.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item Si $\Kset$ est un corps commutatif, alors $\Kset^n$ avec $n\in \N^*$ est un $\Kset$-ev avec les lois de composition suivantes :
+        \begin{itemize}
+            \item $\forall u=(u_1,\dots,u_n), v=(v_1,\dots,v_n) \in \Kset^n, u+v = (u_1 + v_1, \dots, u_n + v_n)$.
+            \item $\forall \lambda \in \Kset, \forall u=(u_1,\dots,u_n) \in \Kset^n, \lambda\cdot u = (\lambda\cdot u_1, \dots, \lambda\cdot u_n)$.
+        \end{itemize}
+        \item Si $E$ est un corps et $\Kset$ est un sous-corps commutatif de $E$, alors $E$ est un $\Kset$-ev dont la loi de composition externe est la multiplication de $E$. Par exemple, $\C$ est un $\R$-ev.
+        $$\Kset\times E \to E, (\lambda, x) \mapsto \lambda\cdot x = \lambda x$$
+        \item Si $\Kset$ est un corps commutatif et $D$ est un ensemble non-vide, alors $(\Kset^D, +, \cdot)$ est un $\Kset$-ev, avec :
+        $$\forall x,y \in \Kset^D, \forall \lambda \in \Kset,\\
+        \begin{cases}
+        x+y:\begin{cases}
+        D\to\Kset\\
+        t\mapsto x(t)+y(t)
+        \end{cases}\\
+        \lambda\cdot x:\begin{cases}
+        D\to\Kset\\
+        t\mapsto \lambda\cdot x(t)
+        \end{cases}
+        \end{cases}$$
+    \end{enumerate}
+\end{example}
+
+\chapter{Sous-espaces vectoriels}
+
+\begin{definition}
+    Soit $E$ un $\Kset$-ev, et soit $F$ une partie de $E$.
+
+    On dit que $F$ est un sous-espace vectoriel (sous-ev.) de $E$ lorsque $F$ est lui-même un $\Kset$-ev pour les lois de composition induites par celles de $E$.
+\end{definition}
+
+\begin{property}[Caractérisation d'un sous-espace vectoriel]
+    Soit $E$ un $\Kset$-ev, et soit $F$ une partie de $E$.
+
+    Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $F$ est un sous-ev. de $E$.
+        \item $F \neq \emptyset$, et pour tous $x,y\in F$ et $\alpha,\beta \in\Kset$, on a $\alpha x + \beta y \in F$.
+        \item $0_E \in F$, et pour tous $x,y\in F$ et $\lambda \in\Kset$, on a $\lambda x + y \in F$ (très pratique pour montrer que $F$ est un sous-ev. de $E$).
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    Pour démontrer ces équivalences, on va suivre un raisonnement circulaire classique en montrant que $(1) \implies (2)$, $(2) \implies (3)$, et $(3) \implies (1)$.
+
+    \begin{outline}
+        \1 Montrons que $(1) \implies (2)$ :
+            \2 On a $F$ est un $\Kset$-ev., alors $(F,+)$ est un groupe abélien, donc $F \neq \empty$.
+            \2 Donc $\forall \alpha,\beta \in \Kset,\forall x,y \in F, \begin{cases}
+            \alpha x \in F\\
+            \beta y \in F
+            \end{cases}$
+            \2 Donc $\alpha x + \beta y \in F$.
+        \1 Montrons que $(2) \implies (3)$ :
+            \2 On sait que $F \neq \emptyset$.
+            \2 Donc pour $\alpha = \beta = 0_\Kset$, et $y = x \in F$, on a $0_E = 0_\Kset \cdot x + 0_\Kset \cdot x \in F$.
+            \2 Donc $\forall \alpha \beta \text{ qu'on fixe sur } (1_\Kset,\lambda) \in\Kset^2, \forall x,y \in F, \lambda x + y \in F$.
+        \1 Montrons que $(3) \implies (1)$ :
+            \2 $0_E \in F$, et pour tous $x,y \in F, x-y \in F$ (en prenant $\lambda = -1_\Kset$).
+            \2 Donc $F$ est un sous-groupe de $(E,+)$.
+            \2 Donc $(F,+)$ est un groupe abélien.
+            \2 On a pour $x = 0_E$, et pour tous $\lambda, y \in \Kset\times F, 0_E + \lambda \cdot y \in F$, donc $\lambda \cdot y \in F$.
+            \2 Donc $\cdot$ est une loi de composition externe de $F$.
+            \2 Les propriétés de la loi de composition externe sont vérifiées dans $F$ car elles sont vérifiées dans $E$.
+            \2 Donc $F$ est un $\Kset$-ev.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    \begin{outline}
+        \1 Soient $E$ un $\Kset$-ev. et $a \in E\setminus\{0_E\}$. L'ensemble $\Kset \cdot a = \{\lambda \cdot a \mid \lambda \in \Kset\}$ est appelé la droite vectorielle engendrée par $a$, et est un sous-ev. de $E$.
+        \1 $F = \{(x,y) \in \R^2 \mid xy = 0\}$ n'est pas un sous-ev. de $\R^2$, parce que $(1,0)$ et $(0,1)$ sont dans $F$, mais pas leur somme $(1,1)$.
+        \1 Soit $a = (a_1,\dots,a_n) \in \Kset^n$. On pose $H = \{x=(x_1,\dots,x_n) \in \Kset^n \mid \sum_{i=1}^{n} a_i x_i = 0\}$. Alors $H$ est un sous-ev. de $\Kset^n$, appelé l'hyperplan de $\Kset^n$ d'équation $\sum_{i=1}^n a_i x_i = 0$.
+            \2 On a bien $H \subset \Kset^n$.
+            \2 On a $\sum_{i=1}^{n}a_i \cdot 0_\Kset = 0_\Kset$, donc $0_{\Kset^n} \in H$.
+            \2 Soient $x=(x_1,\dots,x_n), y=(y_1,\dots,y_n) \in H$, et $\lambda \in \Kset$. Alors $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
+            \2 Et on a bien $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
+            \2 Donc $H$ est un sous-ev. de $\Kset^n$.
+        \2 
+    \end{outline}
+\end{example}
+\todo{recop}
+
+\end{document}
