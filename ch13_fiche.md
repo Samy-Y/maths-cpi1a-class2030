@@ -68,16 +68,13 @@ $$\mathbb{K}(X) = \{Cl(P,Q) = \frac PQ \mid P\in \mathbb{K}[X], Q\in \mathbb{K}[
 ## Élément simple
 
 * $F$ est un élément simple de $\mathbb{K}(X)$ soit lorsque...
-  * $F = a\cdot X^k$ avec $a \in \mathbb{K}$ et $k \in \Z$. ($F$ est un monôme de degré $k$)
+  * $F = a\cdot X^k$ avec $a \in \mathbb{K}^*$ et $k \in \Z$. ($F$ est un monôme de degré $k$)
 * ou bien...
   * $F = \frac{A}{P^n}$ avec :
     * $A \in \mathbb{K}[X]^*$,
     * $P \in \mathbb{K}[X]$ irréductible,
     * $n \in \N^*$,
     * $\deg(A) < \deg(P)$.
-
->[!NOTE] Élément simple nul ?
-> J'en suis pas encore sûr. Je dois demander au prof.
 
 ## Partie entière et fractionnaire
 
