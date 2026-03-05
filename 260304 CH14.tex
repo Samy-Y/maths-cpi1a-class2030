@@ -99,6 +99,8 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     On dit que $F$ est un sous-espace vectoriel (sous-ev.) de $E$ lorsque $F$ est lui-même un $\Kset$-ev pour les lois de composition induites par celles de $E$.
 \end{definition}
 
+\section{Caractérisation d'un sous-espace vectoriel}
+
 \begin{property}[Caractérisation d'un sous-espace vectoriel]
     Soit $E$ un $\Kset$-ev, et soit $F$ une partie de $E$.
 
@@ -146,9 +148,138 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             \2 Soient $x=(x_1,\dots,x_n), y=(y_1,\dots,y_n) \in H$, et $\lambda \in \Kset$. Alors $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
             \2 Et on a bien $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
             \2 Donc $H$ est un sous-ev. de $\Kset^n$.
-        \2 
+        \1 $\cclas{n}(I,\Kset)$ est un sous-ev. de $\Kset^I$.
+        \1 $\Kset[X]$ est un sous-ev. de $\Kset^{\N}$.
+        \1 $\Kset_n[X]$ est un sous-ev. de $\Kset[X]$.
     \end{outline}
 \end{example}
-\todo{recop}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev.
+    \begin{enumerate}
+        \item Si $(F_i)_{i\in I}$ est une famille de sous-ev. de $E$, alors $\bigcap_{i\in I} F_i$ est un sous-ev. de $E$.
+        \item Soient $F,G$ deux sous-ev. de $E$. Alors $F \cup G$ est un sous-ev. de $E$ si et seulement si $F \subset G$ ou $G \subset F$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration de la première propriété...
+            \2 \textbf{Inclusion : } $\bigcap_{i \in I} F_i \subset E$.
+            \2 On sait aussi que $\forall i \in I, 0_E \in F_i \implies 0_E \in \bigcap_{i\in I} F_i$.
+            \2 Soient $x,y \in \bigcap_{i\in I} F_i$, et $\lambda \in \Kset$. Alors $\forall i \in I, x,y \in F_i$, donc $\lambda x + y \in F_i$, donc $\lambda x + y \in \bigcap_{i\in I} F_i$, sachant que $F_i$ est un sous-ev. de $E$.
+            \2 On en déduit que $\bigcap_{i\in I} F_i$ est un sous-ev. de $E$.
+        \1 Démonstration de la deuxième propriété...
+            \2 Dans le sens indirect $\impliedby$, si $F \subset G$, alors $F \cup G = G$ est un sous-ev. de $E$. De même, si $G \subset F$, alors $F \cup G = F$ est un sous-ev. de $E$.
+            \2 Dans le sens direct $\implies$, on utilise la définition d'un sous-espace vectoriel.
+            \2 En effet, comme $F \cup G$ est un sous-ev. de $E$, alors $F \cup G$ est un sous-groupe de $(E,+)$.
+            \2 D'après les propriétés des groupes, on a bien $F \subset G$ ou $G \subset F$.
+    \end{outline}
+\end{proof}
+
+\section{Sous-espace vectoriel engendré}
+
+\begin{definition}[Sous-espace vectoriel engendré]
+    Soient $E$ un $\Kset$-ev. et $A$ une partie de $E$.
+
+    $\bigcap_{\substack{F \text{ sev. de } E\\ A \subset F}} F$ est appelé \textbf{sous-espace vectoriel engendré} par $A$, et est noté $\Vect(A)$.
+\end{definition}
+
+\begin{property}
+    Il s'agit du plus petit sous-ev. de $E$ contenant $A$.
+\end{property}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $F = \Vect(A)$, alors on dit que $A$ est une partie génératrice de $F$.
+        \item $\Vect(\emptyset) = \{0_E\}$, et $\Vect(\{x\}) = \Kset \cdot x$.
+        \item \textbf{Important :} Soit $E$ un $\Kset$-ev. et $A$ une partie non-vide de $E$.\\$x \in \Vect(A) \iff \exists n \in \N^*, \exists a_1,\dots,a_n \in A, \exists \lambda_1,\dots,\lambda_n \in \Kset \mid x = \sum_{i=1}^n \lambda_i a_i$\\Le terme $\sum_{i=1}^n \lambda_i a_i$ est appelé une combinaison linéaire de $a_1,\dots,a_n$.\\i.e. $\Vect(A) = \{ \sum_{i=1}^{n}\lambda_i a_i \tq n \in \N^*, a_1,\dots,a_n \in A, \lambda_1,\dots,\lambda_n \in \Kset\}$.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{outline}[enumerate]
+        \1 Si $A = \{a_1,\dots,a_n\}$, alors $\Vect(A)$ est noté $\Vect(a_1,\dots,a_n)$, et est égal à $\{\sum_{i=1}^n \lambda_i a_i \tq \lambda_1,\dots,\lambda_n \in \Kset\}$.
+        \1 Soit $F = \{(x,y,z) \in \R^3 \tqp x-2y+z=0\}$.
+        \2 On a $F = \{(2y - z, y, z) \tqp y,z \in \R\}$.
+        \2 Donc $F = \{y(2,1,0) + z(-1,0,1) \tq y,z \in \R\}$.
+        \2 Donc $F = \Vect((2,1,0), (-1,0,1))$.
+        \1 On a $\Kset^n = \{x = (x_1,\dots,x_n) \tq x_1,\dots,x_n \in \Kset\} = \{\sum_{i=1}^n x_i e_i \tq x_1,\dots,x_n \in \Kset\}$, où $e_i$ est le vecteur de $\Kset^n$ dont la $i$-ème composante est égale à $1_\Kset$, et les autres composantes sont égales à $0_\Kset$ (donc $e_k = (0,\dots,\underbrace{0}_{\text{pos. } k},0,\dots,0)$).
+        \1 $\Kset[X] = \Vect((X^k)_{k \in \N})$.
+        \2 En effet, $\exists d \in \N, \exists \alpha_0,\dots,\alpha_d \in \Kset \tq P = \sum_{k=0}^{d}\alpha_k X^k$.
+        \1 $\Kset_n[X] = \Vect(1,X,\dots,X^n) = \Vect((X^k)_{0 \leq k \leq n})$.
+        \1 $F = \{ f \in \cclas\infty(\R,\R) \tqf f'' + 2f' - 3f = 0\}$
+        \2 Donc $F = \{f:t\mapsto \alpha e^t + \beta e^{-t} \tq \alpha,\beta \in \R\}$.
+        \2 Donc $F = \Vect(e^t, e^{-t})$.
+    \end{outline}
+\end{example}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $A$,$B$ deux parties de $E$. Alors :
+    \begin{enumerate}
+        \item $\Vect(A) = A \iff A \text{ est un sous-ev. de } E$.
+        \item $\Vect(\Vect(A)) = \Vect(A)$.
+        \item $A \subset B \implies \Vect(A) \subset \Vect(B)$.
+        \item $\Vect(A) = \Vect(B) \iff \begin{cases}
+        A \subset \Vect(B)\\
+        B \subset \Vect(A)
+        \end{cases}$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration de la quatrième propriété.
+            \2 Dans le sens direct $(\implies)$, $A \subset \Vect(A) = \Vect(B)$, et $B \subset \Vect(B) = \Vect(A)$.
+            \2 Dans le sens indirect $(\impliedby)$
+                \3 $A \subset \Vect(B) \implies^{(3)} \Vect(A) \subset \Vect(\Vect(B)) \implies^{(2)} \Vect(A) \subset \Vect(B)$,
+                \3 et $B \subset \Vect(A) \implies^{(3),(2)} \Vect(B) \subset \Vect(A)$, 
+                \3 donc $\Vect(A) = \Vect(B)$.
+    \end{outline}
+\end{proof}
+
+\chapter{Famille génératrice, libre et bases}
+
+\section{Famille génératrice}
+
+\begin{definition}
+    Soient $E$ un $\Kset$-ev. et $(e_i)_{i \in I}$ une famille d'éléments de $E$.
+
+    On dit que $(e_i)_{i \in I}$ est une famille génératrice de $E$ lorsque $\Vect(e_i, i \in I) = E$.
+
+    i.e. lorsque $\forall x \in E, \exists J \text{ sous-ensemble fini de } I, \exists (\lambda_j)_{j \in J} \in \Kset^\card{J} \tq x = \sum_{j \in J} \lambda_j e_j$.
+
+    \textit{Note : on ne peut pas définir cette famille génératrice à partir de la combinaison linéaire de tous les éléments de la famille, car il peut y en avoir une infinité.}
+\end{definition}
+
+\begin{remark}
+    Si $I$ est fini tel que $\card{I} = p \in \N^*$, alors :
+    $$(e_i)_{i \in I} \text{ famille génératrice de } E \iff \forall x \in E, \exists (\lambda_k)_{k\in I} \in \Kset^p \tqp x = \sum_{k \in I}^p \lambda_k e_k$$
+
+    Si $I = \{1,\dots,p\}$, alors :
+    $$(e_1,\dots,e_p) \text{ famille génératrice de } E \iff \forall x \in E, \exists (\lambda_1,\dots,\lambda_p) \in \Kset^p \tq x = \sum_{k=1}^p \lambda_k e_k$$
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\Kset^n = \Vect(e_1,\dots,e_n)$, donc $(e_1,\dots,e_n)$ est une famille génératrice de $\Kset^n$.
+        \item $\Kset[X] = \Vect((X^k)_{k \in \N})$, donc $((X^k)_{k \in \N})$ est une famille génératrice de $\Kset[X]$.
+        \item $\Kset_n[X] = \Vect(1,X,\dots,X^n)$, donc $(1,X,\dots,X^n)$ est une famille génératrice de $\Kset_n[X]$.
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Toute surfamille d'une famille génératrice est une famille génératrice.
+    
+    i.e. si $(e_i)_{i \in I}$ est une famille génératrice de $E$, et $J$ est un sous-ensemble de $I$ tel que $I \subset I'$, alors $(e_i)_{i \in I'}$ est une famille génératrice de $E$.
+\end{property}
+
+\begin{proof}
+    On a $\forall x \in E, \exists J \subset I \text{ fini}, \exists (\lambda_j)_{j \in J} \in \Kset^\card{J} \tq x = \sum_{j \in J} \lambda_j e_j$, or $I \subset I'$, donc $J$ est aussi un sous-ensemble de $I'$, donc $(e_i)_{i \in I'}$ est une famille génératrice de $E$.
+\end{proof}
+
+\begin{exercise}
+    Montrer que $F = \{ P \in \R_3[X] \tq \int_{0}^{1} P(t) dt = 0\}$ est un sous-ev. de $\R_3[X]$, puis trouver une famille génératrice de $F$.
+\end{exercise}
 
 \end{document}
