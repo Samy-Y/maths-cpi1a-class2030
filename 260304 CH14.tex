@@ -232,9 +232,8 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
         \1 Démonstration de la quatrième propriété.
             \2 Dans le sens direct $(\implies)$, $A \subset \Vect(A) = \Vect(B)$, et $B \subset \Vect(B) = \Vect(A)$.
             \2 Dans le sens indirect $(\impliedby)$
-                \3 $A \subset \Vect(B) \implies^{(3)} \Vect(A) \subset \Vect(\Vect(B)) \implies^{(2)} \Vect(A) \subset \Vect(B)$,
-                \3 et $B \subset \Vect(A) \implies^{(3),(2)} \Vect(B) \subset \Vect(A)$, 
-                \3 donc $\Vect(A) = \Vect(B)$.
+                \3 $A \subset \Vect(B) \overset{\text{(3)}}\implies \Vect(A) \subset \Vect(\Vect(B)) \overset{\text{(2)}}\implies \Vect(A) \subset \Vect(B)$,
+                \3 et $B \subset \Vect(A) \overset{\text{(3),(2)}}\implies \Vect(B) \subset \Vect(A)$, donc $\Vect(A) = \Vect(B)$.
     \end{outline}
 \end{proof}
 
@@ -247,7 +246,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 
     On dit que $(e_i)_{i \in I}$ est une famille génératrice de $E$ lorsque $\Vect(e_i, i \in I) = E$.
 
-    i.e. lorsque $\forall x \in E, \exists J \text{ sous-ensemble fini de } I, \exists (\lambda_j)_{j \in J} \in \Kset^\card{J} \tq x = \sum_{j \in J} \lambda_j e_j$.
+    i.e. lorsque $\forall x \in E, \exists J \text{ sous-ensemble fini de } I, \exists (\lambda_j)_{j \in J} \in \Kset^{\card{J}} \tq x = \sum_{j \in J} \lambda_j e_j$.
 
     \textit{Note : on ne peut pas définir cette famille génératrice à partir de la combinaison linéaire de tous les éléments de la famille, car il peut y en avoir une infinité.}
 \end{definition}
@@ -281,5 +280,238 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 \begin{exercise}
     Montrer que $F = \{ P \in \R_3[X] \tq \int_{0}^{1} P(t) dt = 0\}$ est un sous-ev. de $\R_3[X]$, puis trouver une famille génératrice de $F$.
 \end{exercise}
+
+\section{Famille libre}
+
+\begin{definition}[Famille libre et famille liée]
+    Soit $E$ un $\Kset$-ev.
+    \begin{enumerate}
+        \item Une famille $(e_i)_{1 \le i \le n}$ d'éléments de $E$ est dite \textbf{libre} lorsque :
+        $$\forall (\lambda_1,\dots,\lambda_n) \in \Kset^n, \sum_{i=1}^n \lambda_i e_i = 0_E \implies \forall i \in \{1,\dots,n\}, \lambda_i = 0_\Kset$$
+        \\Dans le cas contraire, la famille est dite liée.
+        \item \textbf{S'il y a une infinité d'éléments}, Une famille $(e_i)_{i \in I}$ d'éléments de $E$ est dite libre lorsque :
+        $$\forall J \text{ sous-ensemble fini de } I, \forall (\lambda_j)_{j \in J} \in \Kset^{\card{J}}, \sum_{j \in J} \lambda_j e_j = 0_E \implies \forall j \in J, \lambda_j = 0_\Kset$$
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Toute famille qui contient le $0_E$ est liée, car $1_\Kset \cdot 0_E = 0_E$.
+        \item $(e_i)_{1 \le i \le n}$ est liée si et seulement si $\exists \lambda_1,\dots,\lambda_n \in \Kset$, pas tous nuls, tels que $\sum_{i=1}^n \lambda_i e_i = 0_E$. Cela équivaut aussi à dire que $\exists i_0 \in \{1,\dots,n\}$ tel que $e_{i_0} \in \Vect(e_1,\dots,e_{i_0-1}, e_{i_0+1},\dots,e_n)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{consequence}
+    On a $\exists (\lambda_1,\dots,\lambda_n) \in \Kset^\N\setminus\{0_\Kset^\N\} \tq \sum_{k=1}^n \lambda_k e_k = 0$.
+
+    Donc $\exists i_0 \in \{1,\dots,n\} \tq \lambda_{i_0} \neq 0$, alors :
+    
+    $$e_{i_0} = -\lambda_{i_0}^{-1} \sum_{\substack{k=1\\k\neq i_0}}^n \lambda_k e_k \in \Vect(e_1,\dots,e_{i_0-1}, e_{i_0+1},\dots,e_n)$$
+
+\end{consequence}
+
+\begin{example}
+    \begin{enumerate}
+        \item Dans $\Kset^n$, la famille $(e_1,\dots,e_n)$ est libre, car :
+        $$
+            \forall \lambda_1,\dots,\lambda_n \in \Kset, \sum_{k=1}^n \lambda_k e_k = 0_E \implies \forall k \in \{1,\dots,n\}, \lambda_k = 0_\Kset
+        $$
+        \item $(X^k)_{k \in \N}$ est une famille libre de $\Kset[X]$.
+        \begin{itemize}
+            \item Soit $J$ un sous-ensemble fini de $\N$, par exemple $J = \{0,\dots,d\} \tq d \in \N$.
+            \item Soient $\lambda_0,\dots,\lambda_d \in \Kset, \tqp \sum_{k=0}^d \lambda_k X^k = 0_E \implies \forall k \in \{0,\dots,d\}, \lambda_k = 0_\Kset$ (car les polynômes sont égaux si et seulement si leurs coefficients sont égaux)
+        \end{itemize}
+        \item $(X^k)_{0 \le k \le n}$ est une famille libre de $\Kset_n[X]$.
+        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts (pour simplifier les calculs).\\Soit $l_k = \prod_{\substack{j=0\\j\neq k}}^n \frac{X-x_j}{x_k - x_j}$ le polynôme de Lagrange associé à $x_k$. Alors $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
+        $$
+            \text{Soit } (\lambda_0,\dots,\lambda_n) \in \Kset^{n+1}, \tqp \sum_{k=0}^n \lambda_k l_k = 0_E\\
+            \forall i \in \{0,\dots,n\}, \sum_{k=0}^n \lambda_k \underbrace{l_k(x_i)}_{= \delta_{i,k}} = \lambda_i = 0_\Kset
+        $$
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Soient $P_0,\dots,P_r \in \Kset_n[X]$ tels que $r \le n$, et $0 \le \deg(P_0) < \dots < deg(P_r) \le n$. 
+    
+    La famille $(P_0,\dots,P_r)$ est dite famille échelonnée dans $\Kset_n[X]$.
+    
+    Montrer que $(P_0,\dots,P_r)$ est une famille libre de $\Kset_n[X]$.
+
+    \textbf{Solution :}
+
+    Nous allons procéder par récurrence inverse sur $k \in \{0,\dots,r\}$.
+
+    Soient $\lambda_0,\dots,\lambda_r \in \Kset$ tels que $\sum_{k=0}^r \lambda_k P_k = 0$.
+
+    Donc $\lambda_r P_r = -\sum_{k=0}^{r-1} \lambda_k P_k$.
+
+    Si $\lambda_r \ne 0$, alors :
+
+    $$\deg(\lambda_r P_r) = \deg(P_r) \et \deg(-\sum_{k=0}^{r-1} \lambda_k P_k) \le \max_{0 \le k \le r-1} \deg(P_k) = \deg(P_{r-1}) < \deg(P_r)$$
+
+    Ce qui est absurde, donc $\lambda_r = 0$.
+    
+    Donc $\sum_{k=0}^{r-1} \lambda_k P_k = 0$.
+
+    D'après le principe de récurrence, on a $\lambda_{r-1} = 0$, puis $\lambda_{r-2} = 0$, et ainsi de suite jusqu'à $\lambda_0 = 0$.
+
+    \textbf{Solution plus rigoureuse :}
+
+    Nous allons raisonner par absurde.
+
+    \begin{outline}
+        \1 Supposons que $(P_0,\dots,P_r)$ n'est pas une famille libre de $\Kset_n[X]$.
+        \1 Donc $\exists (\lambda_0,\dots,\lambda_r) \in \Kset^{r+1}\setminus\{0_\Kset^{r+1}\} \tq \sum_{k=0}^r \lambda_k P_k = 0$.
+        \1 On pose $s = \max(\{ k \in \{0,\dots,r\} \tq \lambda_k \ne 0\})$.
+        \1 Donc $\lambda_s P_s = -\sum_{k=0}^{s-1} \lambda_k P_k$ et $\forall k > s, \lambda_k = 0$.
+        \1 Donc $\sum_{k=0}^s \lambda_k P_k = 0$.
+        \1 Donc $\lambda_s P_s = -\sum_{k=0}^{s-1} \lambda_k P_k$.
+        \1 Donc $\deg(\lambda_s P_s) = \deg(P_s)$, et $\deg(-\sum_{k=0}^{s-1} \lambda_k P_k) \le \max_{0 \le k \le s-1} \deg(P_k) = \deg(P_{s-1}) < \deg(P_s)$.
+        \1 Ce qui est absurde, donc $(P_0,\dots,P_r)$ est une famille libre de $\Kset_n[X]$.
+    \end{outline}
+\end{exercise}
+
+\begin{example}
+    On pose $\forall \alpha \in \R, f_\alpha : \begin{cases} \R \to \R \\ x \mapsto e^{\alpha x} \end{cases}$
+
+    $(f_\alpha)_{\alpha \in \R}$ est une famille libre de $\R^\R$.
+
+    \textbf{Justification :}
+
+    \begin{outline}
+        \1 Soit $n \in \N^*$, et soient $\alpha_1,\dots,\alpha_n \in \R$ tels que $\alpha_1<\dots<\alpha_n$.
+        \1 On suppose que $(f_{\alpha_k})_{1 \le k \le n}$ n'est pas une famille libre de $\R^\R$.
+        \1 Donc $\exists (\lambda_1,\dots,\lambda_n) \in \R^n\setminus\{0_\R^n\} \tq \sum_{k=1}^n \lambda_k f_{\alpha_k} = 0$.
+        \1 Donc $\forall x \in \R, \sum_{k=1}^n \lambda_k e^{\alpha_k x} = 0$.
+        \1 Soit $s = \max(\{ k \in \{1,\dots,n\} \tq \lambda_k \ne 0\})$.
+        \1 Donc $\lambda_s \ne 0$ et $\forall k > s, \lambda_k = 0$.
+        \1 Donc $\forall x \in \R, \sum_{k=1}^s \lambda_k e^{\alpha_k x} = 0$.
+        \1 Donc $\forall x \in \R, \lambda_s e^{\alpha_s x} = -\sum_{k=1}^{s-1} \lambda_k e^{\alpha_k x}$.
+        \1 Donc $\forall x \in \R, \lambda_s = -\sum_{k=1}^{s-1} \lambda_k e^{\underbrace{(\alpha_k - \alpha_s)}_{\le 0} x}$.
+        \1 Par passage à la limite $x \to +\infty$, on a $\lambda_s = 0$, ce qui est absurde, donc $(f_{\alpha_k})_{1 \le k \le n}$ est une famille libre de $\cclas\infty(\R,\R)$.
+    \end{outline}
+\end{example}
+
+\begin{property}
+    Toute sous-famille d'une famille libre est une famille libre.
+
+    i.e. si $(e_i)_{i \in I}$ est une famille libre de $E$, et $I' \subset I$, alors $(e_i)_{i \in I'}$ est une famille libre de $E$.
+\end{property}
+
+\begin{proof}
+    Supposons que $(e_i)_{i \in I}$ est libre et soit $I' \subset I$.
+    
+    Soit $J \subset I'$ un sous-ensemble fini de $I'$, alors $J \subset I$ et comme $(e_i)_{i \in I}$ est libre, alors $(e_j)_{j \in J}$ est libre, donc $(e_i)_{i \in I'}$ est libre.
+\end{proof}
+
+\begin{theorem}
+    Soient $e_1,\dots,e_{n+1}$ des éléments de $E$, un $\Kset$-ev.
+
+    $(e_1,\dots,e_n,e_{n+1})$ est une famille libre de $E$ si et seulement si :
+    
+    $$(e_1,\dots,e_n) \text{ est une famille libre de } E \et e_{n+1} \notin \Vect(e_1,\dots,e_n)$$
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration dans le sens direct :}
+            \2 On a $(e_1,\dots,e_n)$ est une sous-famille de $(e_1,\dots,e_n,e_{n+1})$, donc $(e_1,\dots,e_n)$ est une famille libre de $E$.
+            \2 Si $e_{n+1} \in \Vect(e_1,\dots,e_n)$, alors $\exists \lambda_1,\dots,\lambda_n \in \Kset \tq e_{n+1} = \sum_{k=1}^n \lambda_k e_k$, donc $\sum_{k=1}^n (-\lambda_k) e_k + 1_\Kset e_{n+1} = 0$, ce qui est absurde, donc $e_{n+1} \notin \Vect(e_1,\dots,e_n)$.
+        \1 \textbf{Démonstration dans le sens indirect :}
+            \2 Soit 
+        
+    \end{outline}
+\end{proof}
+
+\section{Bases}
+
+\begin{definition}
+    Soient $E$ un $\Kset$-ev. et $(e_i)_{i \in I}$ une famille d'éléments de $E$.
+
+    On dit que $(e_i)_{i \in I}$ est une base de $E$ lorsque :
+    \begin{enumerate}
+        \item $(e_i)_{i \in I}$ est une famille libre de $E$.
+        \item $(e_i)_{i \in I}$ est une famille génératrice de $E$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $(e_1,\dots,e_n)$ est une base de $\Kset^n$.
+        \item $(X^k)_{k \in \N}$ est une base de $\Kset[X]$.
+        \item $(1,X,\dots,X^n)$ est une base de $\Kset_n[X]$.
+        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts. Alors les polynômes de Lagrange associés à $x_0,\dots,x_n$ forment une base de $\Kset_n[X]$.
+        \begin{outline}
+            \1 En effet, on sait déjà que $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
+            \1 Montrons maintenant qu'il s'agit d'une famille libre.
+                \2 Soit $P \in \Kset_n[X]$, alors $\deg(P) \le n$, donc $P$ est déterminé par ses valeurs en $n+1$ points distincts, par exemple $x_0,\dots,x_n$.
+                \2 Donc $\forall k \in \{0,\dots,n\}, P(x_k) = \sum_{i=0}^n P(x_i) l_i(x_k) = P(x_k)$, donc $P = \sum_{i=0}^n P(x_i) l_i$, donc $(l_0,\dots,l_n)$ est une famille génératrice de $\Kset_n[X]$.
+                \2 Sinon, on peut poser $Q = \sum_{i=0}^n P(x_i) l_i$, calculer sa différence avec $P$, montrer qu'il admet $n+1$ racines distinctes, et conclure que la différence est nulle, donc $P = Q$.
+                \2 Donc $\forall P \in \Kset_n[X], P \in \Vect(l_0,\dots,l_n)$, donc $(l_0,\dots,l_n)$ est une famille génératrice de $\Kset_n[X]$.
+        \end{outline}
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev.
+    \begin{enumerate}
+        \item $B = (e_1,\dots,e_n)$ est une base de $E$ si et seulement si : 
+        $$\forall x \in E, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$$
+        \item $B$ est une base de $E$ si et seulement si : 
+        $$\forall x \in E, \exists n\in \N^*, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x= \sum_{i=1}^{n}\lambda_i e_i$$
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration de la première propriété :}
+            \2 $\implies$ : Soit $B$ une famille génératrice de $E$. On a donc $\forall x \in E, \exists (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$. Si $\exists \beta_1,\dots,\beta_n \in \Kset$ tels que $x = \sum_{k=1}^n \beta_k e_k$, alors $\sum_{k=1}^n (\lambda_k - \beta_k) e_k = 0$, donc $\forall k \in \{1,\dots,n\}, \lambda_k - \beta_k = 0$, donc $\lambda_k = \beta_k$ (sachant que $B$ est une famille libre).
+            \2 $\impliedby$ : On a $\forall x \in E$, $\exists (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$, donc $B$ est une famille génératrice de $E$. De plus, si $\sum_{k=1}^n \lambda_k e_k = 0$, alors $\sum_{k=1}^n \lambda_k e_k = \sum_{k=1}^n 0 \cdot e_k = 0$, (par unicité des scalaires) donc $\forall k \in \{1,\dots,n\}, \lambda_k = 0$, donc $B$ est une famille libre.
+        \1 \textbf{Démonstration de la deuxième propriété :}
+            
+    \end{outline}
+\end{proof}
+
+\begin{theorem}
+    Soient $n \in \N^*$, $E$ un $\Kset$-ev. et $e_1,\dots,e_n$ des éléments de $E$.
+
+    Si $v_1,\dots,v_{n+1} \in \Vect(e_1,\dots,e_n)$ alors $(v_1,\dots,v_{n+1})$ est liée.
+\end{theorem}
+
+\begin{proof}
+    La démonstration se fait par récurrence sur $n$.
+
+    \textbf{Initialisation :} $n=1$
+\end{proof}
+
+\begin{consequence}
+    Si $(e_1,\dots,e_n)$ est libre dans $E$, un $\Kset$-ev., et $(g_1,\dots,g_{m})$ est une famille génératrice de $E$, alors $n \le m$.
+\end{consequence}
+
+\begin{proof}
+    Supposons que $n > m$.
+
+    Donc $e_1,\dots,e_n \in \Vect(g_1,\dots,g_m)$, donc $(e_1,\dots,e_n)$ est liée, ce qui est absurde, donc $n \le m$.
+\end{proof}
+
+\begin{consequence}
+    Soient $E$ un $\Kset$-ev. et $L$ une famille libre, $G$ une famille génératrice et $B$ une base de $E$.
+
+    Alors $\card{L} \le \card{B} \le \card{G}$.
+\end{consequence}
+
+\chapter{Espace vectoriel de dimension finie}
+
+\begin{definition}[Espace vectoriel de dimension finie]
+    Un espace vectoriel est dit de dimension finie si et seulement si il admet une famille génératrice finie.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $\Kset^n$ est un $\Kset$-ev. de dimension finie, car $(e_1,\dots,e_n)$ est une famille génératrice finie de $\Kset^n$.
+        \item $\Kset_n[X]$ est un $\Kset$-ev. de dimension finie, car $(1,X,\dots,X^n)$ est une famille génératrice finie de $\Kset_n[X]$.
+        \item 
+    \end{itemize}
+\end{example}
 
 \end{document}
