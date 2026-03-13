@@ -3,6 +3,7 @@
 % 
 
 \usepackage{elegant-cours}
+\makeindex
 
 \begin{document}
 
@@ -12,7 +13,7 @@
 \clearpage
 
 \vspace*{\fill}
-Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces vectoriels, les applications linéaires, les matrices, les systèmes linéaires, les déterminants, 
+Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces vectoriels.
 \vspace*{\fill}
 
 \chapter{Définitions}
@@ -140,9 +141,9 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 
 \begin{example}
     \begin{outline}
-        \1 Soient $E$ un $\Kset$-ev. et $a \in E\setminus\{0_E\}$. L'ensemble $\Kset \cdot a = \{\lambda \cdot a \mid \lambda \in \Kset\}$ est appelé la droite vectorielle engendrée par $a$, et est un sous-ev. de $E$.
+        \1 Soient $E$ un $\Kset$-ev. et $a \in E\setminus\{0_E\}$. L'ensemble $\Kset \cdot a = \{\lambda \cdot a \mid \lambda \in \Kset\}$ est appelé la droite vectorielle\index{droite vectorielle} engendrée par $a$, et est un sous-ev. de $E$.
         \1 $F = \{(x,y) \in \R^2 \mid xy = 0\}$ n'est pas un sous-ev. de $\R^2$, parce que $(1,0)$ et $(0,1)$ sont dans $F$, mais pas leur somme $(1,1)$.
-        \1 Soit $a = (a_1,\dots,a_n) \in \Kset^n$. On pose $H = \{x=(x_1,\dots,x_n) \in \Kset^n \mid \sum_{i=1}^{n} a_i x_i = 0\}$. Alors $H$ est un sous-ev. de $\Kset^n$, appelé l'hyperplan de $\Kset^n$ d'équation $\sum_{i=1}^n a_i x_i = 0$.
+        \1 Soit $a = (a_1,\dots,a_n) \in \Kset^n$. On pose $H = \{x=(x_1,\dots,x_n) \in \Kset^n \mid \sum_{i=1}^{n} a_i x_i = 0\}$. Alors $H$ est un sous-ev. de $\Kset^n$, appelé l'hyperplan\index{hyperplan} de $\Kset^n$ d'équation $\sum_{i=1}^n a_i x_i = 0$.
             \2 On a bien $H \subset \Kset^n$.
             \2 On a $\sum_{i=1}^{n}a_i \cdot 0_\Kset = 0_\Kset$, donc $0_{\Kset^n} \in H$.
             \2 Soient $x=(x_1,\dots,x_n), y=(y_1,\dots,y_n) \in H$, et $\lambda \in \Kset$. Alors $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
@@ -268,7 +269,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 \end{example}
 
 \begin{property}
-    Toute surfamille d'une famille génératrice est une famille génératrice.
+    Toute surfamille\index{surfamille} d'une famille génératrice est une famille génératrice.
     
     i.e. si $(e_i)_{i \in I}$ est une famille génératrice de $E$, et $J$ est un sous-ensemble de $I$ tel que $I \subset I'$, alors $(e_i)_{i \in I'}$ est une famille génératrice de $E$.
 \end{property}
@@ -322,7 +323,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             \item Soient $\lambda_0,\dots,\lambda_d \in \Kset, \tqp \sum_{k=0}^d \lambda_k X^k = 0_E \implies \forall k \in \{0,\dots,d\}, \lambda_k = 0_\Kset$ (car les polynômes sont égaux si et seulement si leurs coefficients sont égaux)
         \end{itemize}
         \item $(X^k)_{0 \le k \le n}$ est une famille libre de $\Kset_n[X]$.
-        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts (pour simplifier les calculs).\\Soit $l_k = \prod_{\substack{j=0\\j\neq k}}^n \frac{X-x_j}{x_k - x_j}$ le polynôme de Lagrange associé à $x_k$. Alors $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
+        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts (pour simplifier les calculs).\\Soit $l_k = \prod_{\substack{j=0\\j\neq k}}^n \frac{X-x_j}{x_k - x_j}$ le polynôme de Lagrange\index{polynôme de Lagrange} associé à $x_k$. Alors $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
         $$
             \text{Soit } (\lambda_0,\dots,\lambda_n) \in \Kset^{n+1}, \tqp \sum_{k=0}^n \lambda_k l_k = 0_E\\
             \forall i \in \{0,\dots,n\}, \sum_{k=0}^n \lambda_k \underbrace{l_k(x_i)}_{= \delta_{i,k}} = \lambda_i = 0_\Kset
@@ -333,7 +334,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 \begin{exercise}
     Soient $P_0,\dots,P_r \in \Kset_n[X]$ tels que $r \le n$, et $0 \le \deg(P_0) < \dots < deg(P_r) \le n$. 
     
-    La famille $(P_0,\dots,P_r)$ est dite famille échelonnée dans $\Kset_n[X]$.
+    La famille $(P_0,\dots,P_r)$ est dite famille échelonnée\index{famille échelonnée} dans $\Kset_n[X]$.
     
     Montrer que $(P_0,\dots,P_r)$ est une famille libre de $\Kset_n[X]$.
 
@@ -369,6 +370,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
         \1 Donc $\deg(\lambda_s P_s) = \deg(P_s)$, et $\deg(-\sum_{k=0}^{s-1} \lambda_k P_k) \le \max_{0 \le k \le s-1} \deg(P_k) = \deg(P_{s-1}) < \deg(P_s)$.
         \1 Ce qui est absurde, donc $(P_0,\dots,P_r)$ est une famille libre de $\Kset_n[X]$.
     \end{outline}
+    \label{exo:famille_echelonnee_libre}
 \end{exercise}
 
 \begin{example}
@@ -410,6 +412,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     $(e_1,\dots,e_n,e_{n+1})$ est une famille libre de $E$ si et seulement si :
     
     $$(e_1,\dots,e_n) \text{ est une famille libre de } E \et e_{n+1} \notin \Vect(e_1,\dots,e_n)$$
+    \label{thm:famille_libre_ajout_element}
 \end{theorem}
 
 \begin{proof}
@@ -510,8 +513,227 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     \begin{itemize}
         \item $\Kset^n$ est un $\Kset$-ev. de dimension finie, car $(e_1,\dots,e_n)$ est une famille génératrice finie de $\Kset^n$.
         \item $\Kset_n[X]$ est un $\Kset$-ev. de dimension finie, car $(1,X,\dots,X^n)$ est une famille génératrice finie de $\Kset_n[X]$.
-        \item 
+        \item $\Kset[X]$ et $\cclas\infty(\R,\R)$ ne sont pas des $\Kset$-ev. de dimension finie, car ils n'admettent pas de famille génératrice finie.
     \end{itemize}
 \end{example}
 
+\section{Théorème de la base incomplète}
+
+Nous allons initier le théorème de la base incomplète en utilisant deux propriétés.
+\begin{itemize}
+    \item Nous allons voir que tout espace vectoriel de dimension finie admet une base.
+    \item Nous allons aussi montrer qu'à partir d'une famille libre, on peut construire une base.
+\end{itemize}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. de dimension finie et $G = \{g_1,\dots,g_m\}$ une génératrice de $E$.
+
+    Si $L_0$ est une famille libre telle que $L_0 \subset G$, alors il existe $B$ une base de $E$ telle que $L_0 \subset B \subset G$.
+    \label{prop:base_incomplete_famille_libre_subset_generatrice}
+\end{property}
+
+\begin{proof}
+    On pose $I = \{\card{L} \tq L \text{ famille libre de } E, L_0 \subset L \subset G\}$.
+
+    \begin{outline}
+        \1 On a $\card{L_0} \in I$, et $\forall L$ libre dans $E$, $\card{L} \le \card G = m$.
+
+        \1 Donc $I$ est un ensemble non-vide de $\N$, et majoré par $m$, donc $I$ admet une borne supérieure, que nous allons noter $\max(I) = n$.
+
+        \1 D'où $\exists B$ libre dans $E$ et $L_0 \subset B \subset G$ tel que $\card{B} = n$.
+
+        \1 Montrons que $B$ est génératrice de $E$, i.e. $\Vect(B) = E = \Vect(g_1,\dots,g_m)$.
+            \2 Il faut donc montrer que
+            $$\begin{cases}
+            B \subset \Vect(g_1,\dots,g_m)\\
+            g_1,\dots,g_m \in \Vect(B)
+            \end{cases}$$
+            \2 On sait déjà que $B \subset \Vect(g_1,\dots,g_m)$, car $B \subset G$ et $G$ est une famille génératrice de $E$.
+            \2 Il faut maintenant montrer que $\{g_1,\dots,g_m\} \in \Vect(B)$.
+            \3 Nous allons procéder par absurde en supposant qu'il existe un $k$ dans $\{1,\dots,m\}$ tel que $g_k \notin \Vect(B)$.
+            \3 Alors, comme $B$ est libre, alors d'après le théorème précédent (Th. \ref{thm:famille_libre_ajout_element}), la famille $B' = B\cup \{g_k\}$ est libre, avec $L_0 \subset B \subset B\cup\{g_k\} \subset G$.
+            \3 Donc $\underbrace{\card{B\cup\{g_k\}}}_{=n+1} \in I$, ce qui est absurde.
+        \2 D'où $\forall i \in \{1,\dots,m\}, g_i \in \Vect(B)$, donc $\Vect(B) = E \implies B$ est génératrice de $E$.
+        \2 On en conclut que $B$ est une base de $E$ avec $L_0 \subset B \subset G$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Tout espace vectoriel \textit{(non-nul)} de dimension finie admet une base.
+    \label{rem:ev_dim_finie_admet_base}
+\end{remark}
+
+\begin{proof}
+    Soit $G = \{g_1,\dots,g_m\}$ une famille génératrice de $E$.
+
+    La famille $G$ peut contenir des $g_k$ nuls. Mais, comme $E$ est non-nul (et donc non réduit au singleton $\{0_E\}$), alors il existe au moins un $g_k$ non nul, que nous allons noter $g_{k_0}$.
+
+    Alors $\{g_k\}$ est libre avec $\{g_k\} \subset G$, donc d'après la propriété précédente, il existe une base $B$ de $E$ telle que $\{g_{k_0}\} \subset B \subset G$.
+\end{proof}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. de dimension finie et $G$ une famille génératrice de $E$.
+
+    Si $L_0$ est une famille libre de $E$ alors il existe forcément $B$ une base de $E$ telle que $L_0 \subset B \subset L_0\cup G$.
+    \label{prop:base_incomplete_famille_libre}
+\end{property}
+
+\begin{proof}
+    $G$ est une famille génératrice de $E$, alors $L_0 \cup G$ est aussi une famille génératrice de $E$, avec $L_0 \subset L_0 \cup G$. On réutilise alors la propriété précédente pour conclure qu'il existe une base $B$ de $E$ telle que $L_0 \subset B \subset L_0 \cup G$.
+\end{proof}
+
+\begin{theorem}[Théorème de la base incomplète/extraite]
+    Soit $E$ un $\Kset$-ev. de dimension finie non réduit au singleton $\{0_E\}$.
+    \begin{enumerate}
+        \item Si $L$ est une famille libre de $E$, alors on peut la ``compléter'' en une base de $E$.\\Autrement dit, il existe $B$ une base de $E$ telle que $L \subset B$.
+        \item Si $G$ est une famille génératrice de $E$, alors on peut en extraire une base de $E$.\\Autrement dit, il existe $B$ une base de $E$ telle que $B \subset G$.
+    \end{enumerate}
+    \label{thm:base_incomplete}
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration de la première partie :}
+            \2 $G$ est une famille génératrice de $E$, alors d'après la propriété \ref{prop:base_incomplete_famille_libre}, il existe une base $B$ de $E$ telle que $L \subset B \subset L \cup G$.
+        \1 \textbf{Démonstration de la deuxième partie :}
+            \2 $L = \emptyset$ est une famille libre de $E$, alors d'après la propriété \ref{prop:base_incomplete_famille_libre_subset_generatrice} et la remarque \ref{rem:ev_dim_finie_admet_base}, il existe une base $B$ de $E$ telle que $\emptyset \subset B \subset G$, donc $B \subset G$.
+    \end{outline}
+\end{proof}
+
+\section{Dimension d'un $\Kset$-ev.}
+
+\begin{definition}[Dimension d'un espace vectoriel de dimension finie]
+    Soit $E$ un $\Kset$-ev. de dimension finie.
+
+    La dimension de $E$ est le cardinal de toute base de $E$, noté $\underset\Kset\dim E$.
+
+    Par convention, on pose $\underset{\Kset}\dim \{0_E\} = 0$.
+\end{definition}
+
+\begin{theorem}
+    Toutes les bases de $E$ ont le même cardinal, donc la dimension de $E$ est bien définie.
+\end{theorem}
+
+\begin{proof}
+    On pose arbitrairement $B_1$ et $B_2$ deux bases de $E$.
+    \begin{outline}
+        \1 On a $B_1$ est libre et génératrice de $E$, et $B_2$ est une base de $E$, alors :
+        $$\card{B_1} \le \card{B_2} \et \card{B_2} \le \card{B_1}$$
+        \1 Donc $\card{B_1} = \card{B_2}$.
+    \end{outline}
+    On en déduit que toutes les bases de $E$ ont le même cardinal, donc la dimension de $E$ est bien définie.
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\underset\Kset\dim \Kset^n = n$, car $(e_1,\dots,e_n)$ est une base de $\Kset^n$.
+        \item $\underset\C\dim \C = 1$, et $\underset\R\dim \C = 2$, car $(1,i)$ est une base de $\C$ en tant que $\R$-ev.
+        \item $\underset\Kset\dim \Kset_n[X] = n+1$, car $(1,X,\dots,X^n)$ est une base de $\Kset_n[X]$ (attention à l'erreur classique de la poser $n$ au lieu de $n+1$).
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Soit $H = \{x = (x_1,\dots,x_4) \in \R^4 \tq x_1 - 2x_2 + x_3 - 3x_4 = 0\}$.
+
+    Montrer que $H$ est un sous-ev. de $\R^4$ de dimension finie et donner la dimension de $H$.
+
+    \textbf{Solution :}
+
+    \begin{align*}
+        x \in H &\iff \begin{cases}
+        x = x_1 \cdot e_1 + x_2 \cdot e_2 + x_3 \cdot e_3 + x_4 \cdot e_4\\
+        x_1 - 2x_2 + x_3 - 3x_4 = 0
+        \end{cases}\\
+        &\iff x = x_2\underbrace{(2e_1 + e_2)}_{=V_1} + x_3\underbrace{(-e_1 + e_3)}_{=V_2} + x_4\underbrace{(3e_1 + e_4)}_{=V_3}\\
+    \end{align*}
+
+    Donc $H = \Vect(V_1,V_2,V_3)$, donc $H$ est un sous-ev. de $\R^4$ de dimension finie, et $(V_1,V_2,V_3)$ est une famille génératrice de $H$.
+
+    Nous allons maintenant montrer que cette famille est libre.
+
+    Soient $\lambda_1,\lambda_2,\lambda_3 \in \R$ tels que $\lambda_1 V_1 + \lambda_2 V_2 + \lambda_3 V_3 = 0$.
+
+    Comme $(e_1,e_2,e_3,e_4)$ est une base de $\R^4$, on a :
+    $$\lambda_1 V_1 + \lambda_2 V_2 + \lambda_3 V_3 = 0 \iff \lambda_1 = \lambda_2 = \lambda_3 = 0.$$
+    Donc $(V_1,V_2,V_3)$ est une famille libre de $H$.
+
+    Ainsi, $(V_1,V_2,V_3)$ est une base de $H$, et donc $\dim H = 3$.
+
+    \textbf{Conclusion :} $H$ est un sous-ev. de $\R^4$ de dimension finie, et $\underset\R\dim H = 3$.
+\end{exercise}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev. de dimension finie avec $\underset\Kset\dim E = n \in \N^*$.
+
+    \begin{outline}[enumerate]
+        \1 $\begin{cases}
+        L \text{ est une famille libre de } E \\
+        \card L = n
+        \end{cases} \iff L \text{ est une base de } E$
+        \1 $\begin{cases}
+        G \text{ est une famille génératrice de } E \\
+        \card G = n
+        \end{cases} \iff G \text{ est une base de } E$
+    \end{outline}
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item ($\impliedby$) Dans le sens indirect, le résultat est clair (si une famille est une base, alors elle est génératrice et dans un espace vectoriel de dimension $n$, elle est de cardinal $n$).
+        \item ($\implies$) Dans le sens direct, on applique le théorème de la base incomplète (Th. \ref{thm:base_incomplete}) à la famille libre $L$ et à la famille génératrice $G$ pour construire une base $B$ de $E$ telle que $L \subset B \subset G$. Comme $\card L = n$ et $\card B = n$, alors $L = B$, donc $L$ est une base de $E$. De même, comme $\card G = n$ et $\card B = n$, alors $G = B$, donc $G$ est une base de $E$.
+    \end{itemize}
+\end{proof}
+
+\begin{exercise}
+    Soit $(T_n)_n$ la famille de polynômes définie par :
+
+    $$T_0 = 1, T_1 = X, \et \forall n, T_{n+2} = 2XT_{n+1} - T_n$$
+
+    \textit{(Polynômes de Tchebychev\index{polynômes de Tchebychev})}
+
+    Montrer que $(T_0,T_1,\dots,T_n)$ est une base de $\R_n[X]$.
+
+    \textbf{Solution :}
+
+    \begin{outline}        
+        \1 \textbf{Famille libre :} $(T_0,T_1,\dots,T_n)$ est une famille échelonnée de $\R_n[X]$, alors d'après l'exercice \ref{exo:famille_echelonnee_libre}, $(T_0,T_1,\dots,T_n)$ est une famille libre de $\R_n[X]$.
+
+        \2 Attention, il s'agit d'un cas particulier de famille échelonnée\index{famille échelonnée}.
+
+        \1 \textbf{Cardinal :} $(T_0,T_1,\dots,T_n)$ est une famille de cardinal $n+1$. La dimension de $\R_n[X]$ est aussi $n+1$.
+
+        \1 \textbf{Conclusion :} $(T_0,T_1,\dots,T_n)$ est une famille libre de $\R_n[X]$ de cardinal $n+1$, et $\underset\R\dim \R_n[X] = n+1$, alors $(T_0,T_1,\dots,T_n)$ est une base de $\R_n[X]$.
+    \end{outline}
+\end{exercise}
+
+\section{Dimension d'un sous-espace vectoriel}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. de dimension finie et non réduit au singleton $\{0_E\}$, et $F$ un sous-ev. de $E$.
+
+    Alors $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F \le \underset\Kset\dim E$.
+\end{property}
+
+\begin{proof}
+    On pose $n = \underset\Kset\dim E$ et $B = \{\eps_1,\dots,\eps_n\}$ une base de $E$.
+
+    \begin{outline}
+        \1 Si $F = \{0_E\}$, alors $\underset\Kset\dim F = 0 \le n$.
+        \1 Si $F \ne \{0_E\}$, alors on considère :
+        $$I = \{\card L \tq L \text{ famille libre de } F\}$$
+        \2 On a $F \ne \{0_E\}$, alors il existe $x \in F\setminus\{0_E\}$, alors $\{x\}$ est une famille libre de $F$, donc $\card{\{x\}} = 1 \in I$.
+        \2 De plus, $\forall L$ famille libre de $F$, $L$ est aussi une famille libre de $E$, alors $\card L \le n$, donc $I$ est majoré par $n$.
+        \2 Et comme $I \subset N$, alors $I$ admet une borne supérieure, que nous allons noter $\max(I) = d$.
+        \2 Soit $B_F$ une famille libre de $F$ telle que $\card{B_F} = d$. Montrons que $B_F$ est une base de $F$, i.e. $F = \Vect(B_F)$.
+            \3 On a $\Vect(B_F) \subset F$, car $B_F \subset F$ et $F$ est un sev. de $E$.
+            \3 Supposons qu'il existe $y \in F$ tel que $y \notin \Vect(B_F)$.
+            \3 Cela impliquerait que $B_F \cup \{y\}$ est une famille libre de $F$, alors $\card{B_F \cup \{y\}} = d+1 \in I$, ce qui est absurde, donc $\Vect(B_F) = F$.
+            \3 Donc $\forall y \in F, y \in \Vect(B_F)$, donc $F = \Vect(B_F)$, et $B_F$ est une base de $F$.
+            \2 Donc $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F = \card{B_F} = d \le n = \underset\Kset\dim E$.
+            \2 Or $B_F$ est une base de $F$ alors $\underset\Kset\dim F = \card{B_F} = d \le n = \underset\Kset\dim E$.
+            \2 D'où $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F \le \underset\Kset\dim E$.
+    \end{outline}
+\end{proof}
+
+\printindex
 \end{document}

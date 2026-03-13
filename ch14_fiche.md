@@ -35,3 +35,9 @@ $$\begin{align*}
 F \text{ est un sous-ev de } E &\iff \begin{cases}F \neq \emptyset\\\forall \lambda,\gamma \in \mathbb{K}, \forall x,y \in F, \lambda x + \gamma y \in F\end{cases}\\
 &\iff \begin{cases}0_E  \in F \\ \forall \lambda \in \mathbb{K}, \forall x,y \in F, \lambda x + y \in F\end{cases} ~\text{(important)}\\
 \end{align*}$$
+
+## Famille libre, génératrice et base
+
+## Sous-espace vectoriel engendré par une partie
+
+## Espace vectoriel de dimension finie
