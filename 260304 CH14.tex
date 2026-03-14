@@ -210,7 +210,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
         \2 En effet, $\exists d \in \N, \exists \alpha_0,\dots,\alpha_d \in \Kset \tq P = \sum_{k=0}^{d}\alpha_k X^k$.
         \1 $\Kset_n[X] = \Vect(1,X,\dots,X^n) = \Vect((X^k)_{0 \leq k \leq n})$.
         \1 $F = \{ f \in \cclas\infty(\R,\R) \tqf f'' + 2f' - 3f = 0\}$
-        \2 Donc $F = \{f:t\mapsto \alpha e^t + \beta e^{-t} \tq \alpha,\beta \in \R\}$.
+        \2 Donc $F = \{f:t\mapsto \alpha e^t + \beta e^{-t} \tq \alpha,\beta \in \R\}$
         \2 Donc $F = \Vect(e^t, e^{-t})$.
     \end{outline}
 \end{example}
@@ -374,7 +374,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 \end{exercise}
 
 \begin{example}
-    On pose $\forall \alpha \in \R, f_\alpha : \begin{cases} \R \to \R \\ x \mapsto e^{\alpha x} \end{cases}$
+    On pose $\forall \alpha \in \R, f_\alpha : \begin{cases} \R \to \R \\ x \mapsto e^{\alpha x} \end{cases}$ (fonction exponentielle de base $e^\alpha$)\index{fonction exponentielle de base $e^\alpha$}.
 
     $(f_\alpha)_{\alpha \in \R}$ est une famille libre de $\R^\R$.
 
@@ -734,6 +734,204 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
             \2 D'où $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F \le \underset\Kset\dim E$.
     \end{outline}
 \end{proof}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev. et $F,G$ deux sous-ev. de $E$ tels que $G$ est de dimension finie.
+
+    Si $F \subset G$, alors $F$ est de dimension finie et $\underset\Kset\dim F \le \underset\Kset\dim G$...
+    
+    \textit{avec égalité si et seulement si $F = G$.}
+\end{property}
+
+\begin{proof}
+    $F$ et $G$ sont deux $\Kset$-ev, avec $F \subset G$ et $G$ de dimension finie ($\underset\Kset\dim G < \infty$).
+
+    Donc $F$ est de dimension finie, avec $\underset\Kset\dim F \le \underset\Kset\dim G$.
+
+    \textbf{Démonstration du cas de l'égalité :}
+    \begin{outline}
+        \1 Dans le sens indirect ($\impliedby$), si $F = G$, alors $\underset\Kset\dim F = \underset\Kset\dim G$.
+        \1 Dans le sens direct ($\implies$), on pose $d = \underset\Kset\dim F = \underset\Kset\dim G$.
+        \2 Soit $B = (e_1,\dots,e_d)$ une base de $F$.
+        \2 Comme $F \subset G$, alors $B$ est une famille libre de $G$.
+        \2 Or $\card B = d = \underset\Kset\dim G$, alors $B$ est une base de $G$.
+        \2 Donc $F = \Vect(B) = G$, donc $F = G$.
+    \end{outline}
+\end{proof}
+
+\begin{methodbox}
+    Pour montrer l'égalité de deux $\Kset$-ev. de dimension finie, il suffit de montrer que l'un est inclus dans l'autre, et que les deux espaces ont la même dimension.
+\end{methodbox}
+
+\begin{exercise}
+    On pose $F = \{P(X+1) - P(X) \tq P \in \R_n[X]\}$.
+
+    Montrer que $F = \R_{n-1}[X]$.
+
+    \textbf{Solution :}
+
+    Soit $P = \sum_{k=0}^n a_k X^k \in \R_n[X]$, alors $P(X+1) - P(X) = \sum_{k=0}^n a_k ((X+1)^k - X^k)$.
+
+    \begin{align*}
+        P(X+1) - P(X) &= \sum_{k=0}^n a_k \left( (X+1)^k - X^k \right)\\
+        &= a_n(\underbrace{(X+1)^n - X^n}_{=\sum_{k=0}^{n-1} \legbinom{k}{n} X^k}) + \underbrace{\sum_{k=0}^{n-1} a_k ((X+1)^k - X^k)}_{\in \R_{n-1}[X]}\\
+        &\in \R_{n-1}[X]
+    \end{align*}
+
+    On en déduit que $F \subset \R_{n-1}[X]$.
+
+    On a aussi :
+
+    $P(X+1)-P(X) = \sum_{k=1}^{n} a_k ((X+1)^k - X^k)$.
+
+    Donc $F = \Vect((X+1)^k - X^k)_{1 \le k \le n}$.
+
+    Montrons que $((X+1)^k - X^k)_{1 \le k \le n}$ est une famille libre de $\R_{n-1}[X]$.
+
+    Pour cela, on peut utiliser deux méthodes\dots
+
+    \begin{outline}
+        \1 \textbf{Première méthode :} $\forall k \in [\![1,n]\!], \deg((X+1)^k - X^k) = k-1$, alors $((X+1)^k - X^k)_{1 \le k \le n}$ est une famille échelonnée\index{famille échelonnée} de $\R_{n-1}[X]$, alors d'après l'exercice \ref{exo:famille_echelonnee_libre}, $((X+1)^k - X^k)_{1 \le k \le n}$ est une famille libre de $\R_{n-1}[X]$.
+        \1 \textbf{Deuxième méthode :} Soient $\lambda_1,\dots,\lambda_n \in \R$ tels que $\sum_{k=1}^n \lambda_k ((X+1)^k - X^k) = 0$, alors $\sum_{k=1}^n \lambda_k ((X+1)^k - X^k) = \sum_{k=1}^n \lambda_k (X+1)^k - \sum_{k=1}^n \lambda_k X^k$, donc $\sum_{k=1}^n \lambda_k (X+1)^k = \sum_{k=1}^n \lambda_k X^k$.
+        \2 On pose $A(X) = \sum_{k=1}^n \lambda_k X^k$, alors $A(X+1) = A(X)$, donc $A$ admet une infinité de racines (tous les éléments de $\R$, en commençant par $0$, puis $1$, puis $2$...), donc $A$ est le polynôme nul, donc $\forall k \in [\![1,n]\!], \lambda_k = 0$, donc $((X+1)^k - X^k)_{1 \le k \le n}$ est une famille libre de $\R_{n-1}[X]$.
+    \end{outline}
+
+    On en déduit que $((X+1)^k - X^k)_{1 \le k \le n}$ est une base de $F$, donc $\underset\R\dim F = n$.
+
+    Or $\underset\R\dim \R_{n-1}[X] = n$, alors $F$ et $\R_{n-1}[X]$ sont deux $\R$-ev. de dimension finie de même dimension, avec $F \subset \R_{n-1}[X]$, alors $F = \R_{n-1}[X]$.
+\end{exercise}
+
+\begin{property}
+    Soit $E$ un $\Kset$-ev.
+
+    $E$ est de dimension infinie si et seulement si $E$ admet une famille libre infinie.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 $\impliedby$ : Si $\underset\Kset\dim E < \infty$ ($E$ est de dimension finie), alors $E$ admet une famille génératrice finie de cardinal $d$. Donc $\forall L$ famille libre de $E$, $\card L \le d$, donc $E$ n'admet pas de famille libre infinie, ce qui est absurde, donc $E$ est de dimension infinie.
+        \1 $\implies$ : Supposons que $E$ est de dimension infinie.
+            \2 Comme $E \ne \{0_E\}$, alors il existe $e_1 \in E\setminus\{0_E\}$, alors $\{e_1\}$ est une famille libre de $E$.
+            \2 On a aussi $E \ne \Vect(e_1)$ car $E$ est de dimension infinie et il ne peut pas avoir de famille génératrice finie, alors il existe $e_2 \in E\setminus\Vect(e_1)$, alors $\{e_1,e_2\}$ est une famille libre de $E$.
+            \2 On a aussi $E \ne \Vect(e_1,e_2)$, et on continue ainsi de suite pour construire une famille libre infinie de $E$.
+            \2 Pour démontrer cela rigoureusement, nous allons procéder par récurrence pour construire une famille libre de cardinal $n$ pour tout $n \in \N^*$, et ainsi construire une famille libre infinie de $E$.
+                \3 \textbf{Initialisation :} $n=1$, on a déjà construit une famille libre de cardinal $1$ de $E$, à savoir $\{e_1\}$.
+                \3 \textbf{Hérédité :} Supposons que nous avons construit une famille libre de cardinal $n$, à savoir $\{e_1,\dots,e_n\}$, alors comme $E$ est de dimension infinie, alors $E \ne \Vect(e_1,\dots,e_n)$, alors il existe $e_{n+1} \in E\setminus\Vect(e_1,\dots,e_n)$, alors $\{e_1,\dots,e_n,e_{n+1}\}$ est une famille libre de cardinal $n+1$ de $E$.
+            \2 Donc $\forall n \in \N^*$, il existe une famille libre de cardinal $n$ de $E$, alors il existe une famille libre infinie de $E$.
+        \1 Donc $E$ est de dimension infinie si et seulement si $E$ admet une famille libre infinie.
+    \end{outline}
+\end{proof}
+
+\begin{exercise}
+    On pose $E = \mathcal{C}([0,1],\Kset)$. Montrer que $E$ est de dimension infinie.
+
+    \textbf{Solution :}
+
+    On va s'aider de la fonction exponentielle de base $e^\alpha$\index{fonction exponentielle de base $e^\alpha$} pour construire une famille libre infinie de $E$.
+
+    On pose $\forall \alpha \in \R, f_\alpha : [0,1] \to \R, f_\alpha(x) = e^{\alpha x}$.
+
+    On sait déjà que $(f_\alpha)_{\alpha \in \R}$ est une famille libre, et infinie, donc $E$ est de dimension infinie.
+
+    Sinon, on peut aussi utiliser une fonction polynomiale pour construire une famille libre infinie de $E$, en posant :
+
+    $$\forall n \in \N, e_n : [0,1] \to \R, e_n(x) = x^n$$
+\end{exercise}
+
+\section{Espace produit}
+
+\begin{definition}
+    Soient $E,F$ deux $\Kset$-ev.
+
+    On pose $E\times F = \{(x,y) \tq x \in E, y \in F\}$.
+
+    $E \times F$ est un $\Kset$-ev. pour les lois suivantes :
+    
+    $$\forall (x_1,y_1),(x_2,y_2) \in E\times F, \forall \lambda \in \Kset, (x_1,y_1) + (x_2,y_2) = (x_1+x_2,y_1+y_2)$$
+    $$\forall (x,y) \in E\times F, \forall \lambda \in \Kset, \lambda (x,y) = (\lambda x, \lambda y)$$
+\end{definition}
+
+\begin{remark}
+    \begin{outline}
+        \1 L'élément neutre de la loi $+$ dans $E\times F$ est $(0_E,0_F)$.
+        \1 Le symétrique de $(x,y)$ par rapport à $+$ dans $E\times F$ est $(-x,-y)$.
+    \end{outline}
+\end{remark}
+
+\begin{property}
+    Si $E$ et $F$ sont deux $\Kset$-ev. de dimension finie, alors $E\times F$ est aussi de dimension finie, et $\underset\Kset\dim (E\times F) = \underset\Kset\dim E + \underset\Kset\dim F$.
+\end{property}
+
+\begin{proof}
+    Soient $n = \underset\Kset\dim E$ et $m = \underset\Kset\dim F$, et $B_E = (e_1,\dots,e_n)$ une base de $E$, et $B_F = (f_1,\dots,f_m)$ une base de $F$.
+
+    Donc $\forall (x,y) \in E\times F, \exists ! \lambda_1,\dots,\lambda_n \in \Kset, \exists ! \mu_1,\dots,\mu_m \in \Kset$ tels que :
+    
+    \begin{align*}
+        (x,y) = (x,0_F) + (0_E,y) = (\sum_{i=1}^n \lambda_i e_i,0_F) + (0_E, \sum_{i=1}^m \mu_i f_i) = (\sum_{i=1}^n \lambda_i e_i, \sum_{i=1}^m \mu_i f_i)
+    \end{align*}
+    
+    Donc $B_{E\times F} = (e_i,0_F)_{1\le i\le n} \cup (0_E,f_j)_{1\le j\le m}$ est une base de $E\times F$.
+
+    On en déduit que $E\times F$ est de dimension finie,
+    
+    et $\underset\Kset\dim (E\times F) = \card{B_{E\times F}} = n + m = \underset\Kset\dim E + \underset\Kset\dim F$.
+\end{proof}
+
+\begin{remark}
+    En général, si $E_1,\dots,E_n$ sont des $\Kset$-ev., alors
+    $E_1 \times \cdots \times E_n$ est aussi un $\Kset$-ev. pour les lois suivantes :
+    $\forall x = (x_1,\dots,x_r) \in \prod_{k=1}^r E_k, \forall y = (y_1,\dots,y_r) \in \prod_{k=1}^r E_k, \forall \lambda \in \Kset, x+y = (x_1+y_1,\dots,x_r+y_r)$ et $\lambda x = (\lambda x_1,\dots,\lambda x_r)$.
+
+    Si, de plus, les $(E_k)_{1\le k \le r}$ sont de dimension finie, alors $\underset\Kset\dim (\prod_{k=1}^r E_k) = \sum_{k=1}^r \underset\Kset\dim E_k$.
+\end{remark}
+
+\begin{example}
+    $\Kset$ est un $\Kset$-ev. de dimension $1$, alors $\Kset^n = \prod_{k=1}^n \Kset$ est un $\Kset$-ev. de dimension $\sum_{i=1}^n 1 = n$.
+\end{example}
+
+\section{Rang d'une famille de vecteurs}
+
+\begin{definition}
+    Soit $E$ un $\Kset$-ev. et $(V_1,\dots,V_p)$ une famille de vecteurs de $E$.
+
+    On appelle rang de la famille $(V_1,\dots,V_p)$, noté $\rang(V_1,\dots,V_p)$, le nombre $r = \underset\Kset\dim \Vect(V_1,\dots,V_p)$.
+\end{definition}
+
+\begin{example}
+    Pour $E = \R^4$, et $V_1 = (1,2,1,-1)$, $V_2 = (-1,-2,2,-2)$, $V_3 = (2,4,0,0)$.
+
+\end{example}
+\todo{recop}
+
+\begin{property}
+    Soient $V_1,\dots,V_p \in E$, alors $\rang(V_1,\dots,V_p) \le p$, avec égalité si et seulement si $(V_1,\dots,V_p)$ est une famille libre de $E$, i.e. $\rang(V_1,\dots,V_p) = p \iff (V_1,\dots,V_p) \text{ est une famille libre de } E$.
+\end{property}
+
+\begin{proof}
+    On pose $F = \Vect(V_1,\dots,V_p)$, alors $\underset\Kset\dim F = \rang(V_1,\dots,V_p) = r$.
+
+    Donc $r = \underset\Kset\dim F \le \underset\Kset\dim \Vect(V_1,\dots,V_p) \le \card{V_1,\dots,V_p} = p$.
+
+    \textbf{Démonstration dans le sens indirect : }
+
+    Si $(V_1,\dots,V_p)$ est une famille libre, alors $\Vect(V_1,\dots,V_p)$ est une base de $F$ et donc $\underset\Kset\dim F = \card{V_1,\dots,V_p} = p$, alors $\rang(V_1,\dots,V_p) = p$.
+
+    \textbf{Démonstration dans le sens direct : }
+
+    Si $(V_1,\dots,V_p)$ est une famille génératrice de $F$, avec $\card{V_1,\dots,V_p} = p = \rang(V_1,\dots,V_p)$, alors $\Vect(V_1,\dots,V_p)$ est une base de $F$ (en particulier, elle est libre) et donc $\underset\Kset\dim F = \card{V_1,\dots,V_p} = p$, ce qui donne $\rang(V_1,\dots,V_p) = p$.
+
+    Ainsi, $\rang(V_1,\dots,V_p) = p \iff (V_1,\dots,V_p) \text{ est une famille libre de } E$.
+\end{proof}
+
+\begin{property}
+    Soient $V_1,\dots,V_p \in E$.
+
+    \begin{enumerate}
+        \item $\rang(0_E,V_1,\dots,V_p) = \rang(V_1,\dots,V_p)$
+        \item $\forall \sigma \in$
+    \end{enumerate}
+\end{property}
 
 \printindex
 \end{document}
