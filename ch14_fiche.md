@@ -38,6 +38,10 @@ F \text{ est un sous-ev de } E &\iff \begin{cases}F \neq \emptyset\\\forall \lam
 
 ## Famille libre, génératrice et base
 
+| Famille $(V_1,\dots,V_p)$ de $E$ | Famille libre | Famille liée | Famille génératrice | Base |
+| --- | --- | --- | --- | --- |
+| Définition | $\forall \lambda_1,\dots,\lambda_p \in \mathbb{K}, \sum_{k=1}^p \lambda_k V_k = 0_E \implies \forall k, \lambda_k = 0$ | $\exists \lambda_1,\dots,\lambda_p \in \mathbb{K}, (\lambda_1,\dots,\lambda_p) \neq (0,\dots,0) \text{ et } \sum_{k=1}^p \lambda_k V_k = 0_E$ | $\Vect(V_1,\dots,V_p) = E$ | Famille libre et génératrice |
+
 ## Sous-espace vectoriel engendré par une partie
 
 ## Espace vectoriel de dimension finie

@@ -51,10 +51,11 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
         \1 Démonstration de la première propriété :
             \2 Dans le sens indirect $\impliedby$, $0_\Kset \cdot x = (0_\Kset + 0_\Kset) \cdot x = 0_\Kset \cdot x + 0_\Kset \cdot x$, donc $(0_\Kset \cdot x) + (-0_\Kset \cdot x) = (0_\Kset \cdot x + 0_\Kset \cdot x) + (-0_\Kset \cdot x)$, donc $0_E = 0_\Kset \cdot x$.
             \2 On a aussi $\forall \alpha \in \Kset$, $0_E \cdot \alpha = 0_E \implies 0_E = 0_E \cdot \alpha = (0_E + 0_E) \cdot \alpha = 0_E \cdot \alpha + 0_E \cdot \alpha$, donc $0_E = 0_E \cdot \alpha$.
-            \2 Dans le sens direct $\implies$, $0_E = \alpha \cdot x$
+            \2 Dans le sens direct $\implies$, on suppose que $\alpha \cdot x = 0_E$. Si $\alpha \ne 0_\Kset$, alors $\alpha^{-1} \cdot (\alpha \cdot x) = \alpha^{-1} \cdot 0_E$, donc $1_\Kset \cdot x = 0_E$, donc $x = 0_E$.
+        \1 Démonstration de la deuxième propriété :
+            \2 On a $-1_\Kset \cdot x + x = (-1_\Kset + 1_\Kset) \cdot x = 0_\Kset \cdot x = 0_E$, donc $-1_\Kset \cdot x = -x$.
     \end{outline}
 \end{proof}
-\todo{recop}
 
 \begin{remark}
     \begin{enumerate}
@@ -421,8 +422,13 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             \2 On a $(e_1,\dots,e_n)$ est une sous-famille de $(e_1,\dots,e_n,e_{n+1})$, donc $(e_1,\dots,e_n)$ est une famille libre de $E$.
             \2 Si $e_{n+1} \in \Vect(e_1,\dots,e_n)$, alors $\exists \lambda_1,\dots,\lambda_n \in \Kset \tq e_{n+1} = \sum_{k=1}^n \lambda_k e_k$, donc $\sum_{k=1}^n (-\lambda_k) e_k + 1_\Kset e_{n+1} = 0$, ce qui est absurde, donc $e_{n+1} \notin \Vect(e_1,\dots,e_n)$.
         \1 \textbf{Démonstration dans le sens indirect :}
-            \2 Soit 
-        
+            \2 Soient $\lambda_1,\dots,\lambda_{n+1} \in \Kset$ tels que $\sum_{k=1}^{n+1} \lambda_k e_k = 0$.
+
+            \2 Si $\lambda_{n+1} \ne 0$, alors $e_{n+1} = -\lambda_{n+1}^{-1} \sum_{k=1}^n \lambda_k e_k \in \Vect(e_1,\dots,e_n)$, ce qui est absurde, donc $\lambda_{n+1} = 0$.
+
+            \2 Alors $\lambda_{n+1} = 0$, donc $\sum_{k=1}^n \lambda_k e_k = 0$, et comme $(e_1,\dots,e_n)$ est une famille libre de $E$, alors $\forall k \in \{1,\dots,n\}, \lambda_k = 0$.
+
+            \2 Donc $\forall k \in \{1,\dots,n+1\}, \lambda_k = 0$, donc $(e_1,\dots,e_n,e_{n+1})$ est une famille libre de $E$.
     \end{outline}
 \end{proof}
 
@@ -901,11 +907,19 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
 \begin{example}
     Pour $E = \R^4$, et $V_1 = (1,2,1,-1)$, $V_2 = (-1,-2,2,-2)$, $V_3 = (2,4,0,0)$.
 
+    La famille $(V_1,V_2,V_3)$ est une famille de vecteurs de $E$.
+
+    On a $\Vect(V_1,V_2,V_3) = \Vect(V_1,V_2)$, car $V_3 = 2V_1 - V_2$, alors $\underset\R\dim \Vect(V_1,V_2,V_3) = \underset\R\dim \Vect(V_1,V_2)$. De plus, $V_1$ et $V_2$ sont linéairement indépendants, alors $\underset\R\dim \Vect(V_1,V_2) = 2$. Donc $\rang(V_1,V_2,V_3) = 2$.
 \end{example}
-\todo{recop}
 
 \begin{property}
-    Soient $V_1,\dots,V_p \in E$, alors $\rang(V_1,\dots,V_p) \le p$, avec égalité si et seulement si $(V_1,\dots,V_p)$ est une famille libre de $E$, i.e. $\rang(V_1,\dots,V_p) = p \iff (V_1,\dots,V_p) \text{ est une famille libre de } E$.
+    Soient $V_1,\dots,V_p \in E$.
+    
+    $$\rang(V_1,\dots,V_p) \le p$$
+    
+    avec égalité si et seulement si $(V_1,\dots,V_p)$ est une famille libre de $E$,
+    
+    i.e. $\rang(V_1,\dots,V_p) = p \iff (V_1,\dots,V_p) \text{ est une famille libre de } E$.
 \end{property}
 
 \begin{proof}
@@ -929,9 +943,17 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
 
     \begin{enumerate}
         \item $\rang(0_E,V_1,\dots,V_p) = \rang(V_1,\dots,V_p)$
-        \item $\forall \sigma \in$
+        \item $\forall \sigma \in S_p, \rang(V_{\sigma(1)},\dots,V_{\sigma(p)}) = \rang(V_1,\dots,V_p)$ où $S_p$ est l'ensemble des permutations de $\{1,\dots,p\}$.
+        \item $\forall \lambda \in \Kset^*, \rang(\lambda V_1,V_2,\dots,V_p) = \rang(V_1,V_2,\dots,V_p)$
+        \item $\forall \lambda_2,\dots,\lambda_p \in \Kset, \rang(V_1 + \sum_{k=2}^p \lambda_k V_k, V_2,\dots,V_p) = \rang(V_1,V_2,\dots,V_p)$
     \end{enumerate}
 \end{property}
+
+\begin{proof}
+    \textbf{Démonstration de la quatrième propriété :}
+
+    On pose $V_1' = V_1 + \sum_{k=2}^p \lambda_k V_k$, alors $\Vect(V_1',V_2,\dots,V_p) = \Vect(V_1,V_2,\dots,V_p)$, donc $\underset\Kset\dim \Vect(V_1',V_2,\dots,V_p) = \underset\Kset\dim \Vect(V_1,V_2,\dots,V_p)$, donc $\rang(V_1',V_2,\dots,V_p) = \rang(V_1,V_2,\dots,V_p)$.
+\end{proof}
 
 \printindex
 \end{document}
