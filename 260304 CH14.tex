@@ -736,8 +736,8 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
             \3 Supposons qu'il existe $y \in F$ tel que $y \notin \Vect(B_F)$.
             \3 Cela impliquerait que $B_F \cup \{y\}$ est une famille libre de $F$, alors $\card{B_F \cup \{y\}} = d+1 \in I$, ce qui est absurde, donc $\Vect(B_F) = F$.
             \3 Donc $\forall y \in F, y \in \Vect(B_F)$, donc $F = \Vect(B_F)$, et $B_F$ est une base de $F$.
-            \2 Donc $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F = \card{B_F} = d \le n = \underset\Kset\dim E$.
-            \2 Or $B_F$ est une base de $F$ alors $\underset\Kset\dim F = \card{B_F} = d \le n = \underset\Kset\dim E$.
+            \2 Donc $F$ est un $\Kset$-ev. de dimension finie.
+            \2 Et comme $B_F$ est une base de $F$ alors $\underset\Kset\dim F = \card{B_F} = d \le n = \underset\Kset\dim E$.
             \2 D'où $F$ est un $\Kset$-ev. de dimension finie, et $\underset\Kset\dim F \le \underset\Kset\dim E$.
     \end{outline}
 \end{proof}
@@ -781,7 +781,7 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
 
     \begin{align*}
         P(X+1) - P(X) &= \sum_{k=0}^n a_k \left( (X+1)^k - X^k \right)\\
-        &= a_n(\underbrace{(X+1)^n - X^n}_{=\sum_{k=0}^{n-1} \legbinom{k}{n} X^k}) + \underbrace{\sum_{k=0}^{n-1} a_k ((X+1)^k - X^k)}_{\in \R_{n-1}[X]}\\
+        &= a_n(\underbrace{(X+1)^n - X^n}_{=\sum_{k=0}^{n-1} \legbinom{n}{k} X^k}) + \underbrace{\sum_{k=0}^{n-1} a_k ((X+1)^k - X^k)}_{\in \R_{n-1}[X]}\\
         &\in \R_{n-1}[X]
     \end{align*}
 
