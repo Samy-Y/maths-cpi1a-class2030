@@ -330,6 +330,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             \forall i \in \{0,\dots,n\}, \sum_{k=0}^n \lambda_k \underbrace{l_k(x_i)}_{= \delta_{i,k}} = \lambda_i = 0_\Kset
         $$
     \end{enumerate}
+    \label{ex:lagrange_libre}
 \end{example}
 
 \begin{exercise}
@@ -449,10 +450,10 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
         \item $(e_1,\dots,e_n)$ est une base de $\Kset^n$.
         \item $(X^k)_{k \in \N}$ est une base de $\Kset[X]$.
         \item $(1,X,\dots,X^n)$ est une base de $\Kset_n[X]$.
-        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts. Alors les polynômes de Lagrange associés à $x_0,\dots,x_n$ forment une base de $\Kset_n[X]$.
+        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts. Alors les polynômes de Lagrange\index{polynôme de Lagrange} associés à $x_0,\dots,x_n$ forment une base de $\Kset_n[X]$.
         \begin{outline}
-            \1 En effet, on sait déjà que $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
-            \1 Montrons maintenant qu'il s'agit d'une famille libre.
+            \1 En effet, on sait déjà que $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$ (voir l'exemple \ref{ex:lagrange_libre}).
+            \1 Montrons maintenant qu'il s'agit d'une famille génératrice.
                 \2 Soit $P \in \Kset_n[X]$, alors $\deg(P) \le n$, donc $P$ est déterminé par ses valeurs en $n+1$ points distincts, par exemple $x_0,\dots,x_n$.
                 \2 Donc $\forall k \in \{0,\dots,n\}, P(x_k) = \sum_{i=0}^n P(x_i) l_i(x_k) = P(x_k)$, donc $P = \sum_{i=0}^n P(x_i) l_i$, donc $(l_0,\dots,l_n)$ est une famille génératrice de $\Kset_n[X]$.
                 \2 Sinon, on peut poser $Q = \sum_{i=0}^n P(x_i) l_i$, calculer sa différence avec $P$, montrer qu'il admet $n+1$ racines distinctes, et conclure que la différence est nulle, donc $P = Q$.
