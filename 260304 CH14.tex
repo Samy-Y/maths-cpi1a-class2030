@@ -263,7 +263,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 
 \begin{example}
     \begin{enumerate}
-        \item $\Kset^n = \Vect(e_1,\dots,e_n)$, donc $(e_1,\dots,e_n)$ est une famille génératrice de $\Kset^n$.
+        \item $\Kset^n = \Vect(e_1,\dots,e_n)$, donc $(e_1,\dots,e_n)$ (la base canonique) est une famille génératrice de $\Kset^n$.
         \item $\Kset[X] = \Vect((X^k)_{k \in \N})$, donc $((X^k)_{k \in \N})$ est une famille génératrice de $\Kset[X]$.
         \item $\Kset_n[X] = \Vect(1,X,\dots,X^n)$, donc $(1,X,\dots,X^n)$ est une famille génératrice de $\Kset_n[X]$.
     \end{enumerate}
@@ -324,11 +324,9 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             \item Soient $\lambda_0,\dots,\lambda_d \in \Kset, \tqp \sum_{k=0}^d \lambda_k X^k = 0_E \implies \forall k \in \{0,\dots,d\}, \lambda_k = 0_\Kset$ (car les polynômes sont égaux si et seulement si leurs coefficients sont égaux)
         \end{itemize}
         \item $(X^k)_{0 \le k \le n}$ est une famille libre de $\Kset_n[X]$.
-        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts (pour simplifier les calculs).\\Soit $l_k = \prod_{\substack{j=0\\j\neq k}}^n \frac{X-x_j}{x_k - x_j}$ le polynôme de Lagrange\index{polynôme de Lagrange} associé à $x_k$. Alors $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.
-        $$
-            \text{Soit } (\lambda_0,\dots,\lambda_n) \in \Kset^{n+1}, \tqp \sum_{k=0}^n \lambda_k l_k = 0_E\\
-            \forall i \in \{0,\dots,n\}, \sum_{k=0}^n \lambda_k \underbrace{l_k(x_i)}_{= \delta_{i,k}} = \lambda_i = 0_\Kset
-        $$
+        \item Soient $x_0,\dots,x_n \in \Kset$ deux à deux distincts (pour simplifier les calculs).\\Soit $l_k = \prod_{\substack{j=0\\j\neq k}}^n \frac{X-x_j}{x_k - x_j}$ le polynôme de Lagrange\index{polynôme de Lagrange} associé à $x_k$. Alors $(l_0,\dots,l_n)$ est une famille libre de $\Kset_n[X]$.\\
+        Soit $(\lambda_0,\dots,\lambda_n) \in \Kset^{n+1}, \tqp \sum_{k=0}^n \lambda_k l_k = 0_E$.\\
+        On a donc $\forall i \in \{0,\dots,n\}, \sum_{k=0}^n \lambda_k \underbrace{l_k(x_i)}_{= \delta_{i,k}} = \lambda_i = 0_\Kset$.
     \end{enumerate}
     \label{ex:lagrange_libre}
 \end{example}
@@ -481,6 +479,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
             
     \end{outline}
 \end{proof}
+\todo{recop}
 
 \begin{theorem}
     Soient $n \in \N^*$, $E$ un $\Kset$-ev. et $e_1,\dots,e_n$ des éléments de $E$.
@@ -493,6 +492,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
 
     \textbf{Initialisation :} $n=1$
 \end{proof}
+\todo{a recop, imp}
 
 \begin{consequence}
     Si $(e_1,\dots,e_n)$ est libre dans $E$, un $\Kset$-ev., et $(g_1,\dots,g_{m})$ est une famille génératrice de $E$, alors $n \le m$.
@@ -682,6 +682,8 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
         \card G = n
         \end{cases} \iff G \text{ est une base de } E$
     \end{outline}
+
+    \label{prop:base_iff_libre_card_dim}
 \end{property}
 
 \begin{proof}
@@ -921,6 +923,8 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
     avec égalité si et seulement si $(V_1,\dots,V_p)$ est une famille libre de $E$,
     
     i.e. $\rang(V_1,\dots,V_p) = p \iff (V_1,\dots,V_p) \text{ est une famille libre de } E$.
+
+    \label{prop:rang_famille_libre_iff_rang_egal_card}
 \end{property}
 
 \begin{proof}
@@ -955,6 +959,259 @@ Nous allons initier le théorème de la base incomplète en utilisant deux propr
 
     On pose $V_1' = V_1 + \sum_{k=2}^p \lambda_k V_k$, alors $\Vect(V_1',V_2,\dots,V_p) = \Vect(V_1,V_2,\dots,V_p)$, donc $\underset\Kset\dim \Vect(V_1',V_2,\dots,V_p) = \underset\Kset\dim \Vect(V_1,V_2,\dots,V_p)$, donc $\rang(V_1',V_2,\dots,V_p) = \rang(V_1,V_2,\dots,V_p)$.
 \end{proof}
+
+\section{Famille échelonnée}
+
+\begin{definition}[Famille échelonnée]
+    Soit $E$ un $\Kset$-ev. de dimension finie, et $(e_1,\dots,e_n)$ une base de $E$ (donc $\underset\Kset\dim E = n$).
+
+    Soient $p\le n$ et $v_1,\dots,v_p \in E$ une famille de vecteurs.
+
+    On a $\forall 1 \le i \le p, v_i = \sum_{j=1}^n \lambda_{i,j} e_j$ (tous ces vecteurs peuvent s'écrire comme une combinaison linéaire de la base de $E$).
+
+    Si $\exists \varphi : [\![1,p]\!] \to [\![1,n]\!]$ strictement croissante telle que $\forall i \in [\![1,p]\!], v_i = \sum_{j=\varphi(i)}^{n} \lambda_{i,j} e_j$ avec $\forall i, \lambda_{i,\varphi(i)} \ne 0$, alors on dit que $(v_1,\dots,v_p)$ est une famille échelonnée de $E$.
+\end{definition}
+
+Plus concrètement, si le vecteur $v_1 = \lambda_1 e_1 + \lambda_2 e_2 + \cdots + \lambda_n e_n$, on aura aussi $v_1 = \lambda_{1,\varphi(1)} e_{\varphi(1)} + \cdots + \lambda_{1,n} e_n$.
+
+Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' e_n$, on aura aussi $v_2 = \lambda_{2,\varphi(2)} e_{\varphi(2)} + \cdots + \lambda_{2,n} e_n$, et on ne retrouvera pas de composante de $e_{\varphi(1)}$ dans $v_2$, et ainsi de suite pour les autres vecteurs de la famille, parce que l'application $\varphi$ est strictement croissante.
+
+\textit{Il s'agit d'une généralisation des familles de vecteurs échelonnés\index{famille de vecteurs échelonnés} dans $\Kset^n$ à n'importe quel $\Kset$-ev, qu'on avait déjà utilisée dans l'exercice \ref{exo:famille_echelonnee_libre}.}
+
+\begin{example}
+    Dans $E = \R^4$, la famille de vecteurs $((1,2-1,-3),(0,-1,3,0),(0,0,0,2))$ est une famille échelonnée de $E$.
+
+    \begin{outline}
+        \1 En effet, on a :
+        \2 $v_1 = (1,2,-1,-3) = 1\cdot e_1 + 2\cdot e_2 - 1\cdot e_3 - 3\cdot e_4$, alors $\varphi(1) = 1$ et $\lambda_{1,\varphi(1)} = \lambda_{1,1} = 1 \ne 0$.
+        \2 $v_2 = (0,-1,3,0) = 0\cdot e_1 - 1\cdot e_2 + 3\cdot e_3 + 0\cdot e_4$, alors $\varphi(2) = 2$ et $\lambda_{2,\varphi(2)} = \lambda_{2,2} = -1 \ne 0$.
+        \2 $v_3 = (0,0,0,2) = 0\cdot e_1 + 0\cdot e_2 + 0\cdot e_3 + 2\cdot e_4$, alors $\varphi(3) = 3$ et $\lambda_{3,\varphi(3)} = \lambda_{3,3} = 2 \ne 0$.
+        \1 On peut construire l'application $\varphi : [\![1,3]\!] \to [\![1,4]\!]$ strictement croissante telle que $\varphi(1) = 1$, $\varphi(2) = 2$, $\varphi(3) = 4$ et $\lambda_{1,\varphi(1)} = 1 \ne 0$, $\lambda_{2,\varphi(2)} = -1 \ne 0$, $\lambda_{3,\varphi(3)} = 2 \ne 0$.
+    \end{outline}
+\end{example}
+
+\begin{property}
+    Toute famille échelonnée de $E$ est une famille libre de $E$.
+\end{property}
+
+\begin{proof}
+    Soit $(v_1,\dots,v_p)$ une famille échelonnée de $E$.
+
+    Supposons que $(v_1,\dots,v_p)$ n'est pas une famille libre de $E$.
+    
+    Alors il existe $\lambda_1,\dots,\lambda_p \in \Kset$, pas tous nuls, tels que $\sum_{i=1}^p \lambda_i v_i = 0_E$.
+
+    Soit $i_0 = \min\{i \in [\![1,p]\!] \tq \lambda_i \ne 0\}$, alors $\alpha_{i_0} \ne 0$ et $\forall i < i_0, \lambda_i = 0$.
+
+    On isole la somme à partir de $i_0$ : $\sum_{i=i_0}^p \lambda_i v_i = 0_E$.
+
+    Donc $\alpha_{i_0} v_{i_0} + \sum_{i=i_0+1}^p \lambda_i v_i = 0_E$.
+
+    Donc $\alpha_{i_0} \lambda_{i_0,\varphi(i_0)} e_{\varphi(i_0)} + \underbrace{\alpha_{i_0} \sum_{j=\varphi(i_0)+1}^n \lambda_{i_0,j} e_j + \sum_{i=i_0+1}^p \lambda_i v_i}_{\in \Vect(e_{\varphi(i_0)+1},\dots,e_n)} = 0_E$ (sachant que $\varphi(i_0) + 1 > \varphi(i_0)$.
+
+    Or $(e_{\varphi(i_0)}, e_{\varphi(i_0)+1},\dots,e_n)$ est une famille libre de $E$, alors $\alpha_{i_0} \lambda_{i_0,\varphi(i_0)} = 0$, ce qui est absurde, car $\alpha_{i_0} \ne 0$ et $\lambda_{i_0,\varphi(i_0)} \ne 0$.
+
+    D'où $(v_1,\dots,v_p)$ est une famille libre de $E$.
+\end{proof}
+
+\begin{remark}[Ordre]
+    Si, $\forall 1 \le i \le p, v_i = \sum_{j=1}^{\varphi(i)} \lambda_{i,j} e_j$ avec $\varphi : [\![1,p]\!] \to [\![1,n]\!]$ strictement croissante et $\forall i, \lambda_{i,\varphi(i)} \ne 0$, alors $(v_1,\dots,v_p)$ est aussi une famille échelonnée de $E$.
+
+    Les $(\lambda_{i,\varphi(i)})_{1 \le i \le p}$ sont appelés les pivots de la famille échelonnée $(v_1,\dots,v_p)$.
+\end{remark}
+
+\begin{example}
+    Soit $(e_1,\dots,e_n)$ la base canonique de $\Kset^n$.
+
+    On pose $\forall 1 \le i \le n, v_i = \sum_{k=i}^{n}e_k$.
+
+    La famille de vecteurs $(v_1,\dots,v_n)$ est une base de $\Kset^n$.
+
+    \textbf{Démonstration :}
+
+    \begin{itemize}
+        \item La famille est libre car $(v_1,\dots,v_n)$ est une famille échelonnée de $\Kset^n$.
+        \item Son cardinal est égal à $n$, qui est aussi la dimension de $\Kset^n$.
+        \item Donc $(v_1,\dots,v_n)$ est une famille libre de $\Kset^n$ de cardinal $n$, et $\underset\Kset\dim \Kset^n = n$, alors $(v_1,\dots,v_n)$ est une base de $\Kset^n$ (voir propriété \ref{prop:base_iff_libre_card_dim}).
+    \end{itemize}
+\end{example}
+
+\begin{methodbox}
+    Pour trouver le rang d'une famille de vecteurs $(v_1,\dots,v_p)$, on peut faire des combinaisons linéaires de ces vecteurs pour construire une famille échelonnée de $E$, et le rang de la famille $(v_1,\dots,v_p)$ sera égal au nombre de vecteurs de la famille échelonnée que nous avons construite.
+\end{methodbox}
+
+\begin{example}
+    Dans $E = \R^4$, on considère la famille de vecteurs :
+
+    $$V_1 = (1,-1,-1,-1)$$
+    $$V_2 = (1,1,-1,-1)$$
+    $$V_3 = (1,1,1,-1)$$
+    $$V_4 = (3,1,-1,-3)$$
+
+    Pour déterminer le rang de la famille $(V_1,V_2,V_3,V_4)$, on suit les étapes suivantes :
+
+    \begin{outline}
+        \1 On pose :
+            \2 $V_2' = V_2 - V_1 = (0,2,0,0)$,
+            \2 $V_3' = V_3 - V_1 = (0,2,2,0)$,
+            \2 $V_4' = V_4 - 3V_1 = (0,4,2,0)$.
+        \1 On continue et on pose :
+            \2 $V_3'' = V_3' - V_2' = (0,0,2,0)$,
+            \2 $V_4'' = V_4' - 2V_2' = (0,0,2,0)$.
+        \1 On a construit la famille échelonnée $(V_1,V_2',V_3'',V_4'')=(V_1,V_2',V_3'')$ de $E$, dont le rang est $3$ (sachant que le rang d'une famille libre est égal à son cardinal, voir propriété \ref{prop:rang_famille_libre_iff_rang_egal_card}), alors $\rang(V_1,V_2,V_3,V_4) = 3$.
+    \end{outline}
+\end{example}
+
+\chapter{Somme d'une famille de sous-espaces vectoriels}
+
+\section{Somme de deux sous-espaces vectoriels}
+
+\begin{definition}[Somme de deux sous-espaces vectoriels]
+    Soient $E$ un $\Kset$-ev. et $F,G$ deux sous-ev. de $E$.
+
+    On définit l'ensemble $F+G = \{x+y \tq x \in F, y \in G\} \subset E$ comme la somme de $F$ et $G$.
+\end{definition}
+
+\begin{property}
+    \begin{outline}
+    \1 $F+G$ est un sev. de $E$.
+    \1 $F+G = \Vect(F \cup G)$.
+    \end{outline}
+\end{property}
+
+\begin{proof}
+    \textbf{Démonstration de la première propriété :}
+
+    \begin{outline}
+        \1 $F+G \subset E$, car $F \subset E$ et $G \subset E$.
+        \1 $0_E = 0_E + 0_E \in F+G$, alors $F+G \ne \emptyset$.
+        \1 Soient $u,v \in F+G$, alors $\exists x_1,x_2 \in F, y_1,y_2 \in G$ tels que $u = x_1 + y_1$ et $v = x_2 + y_2$, alors $u+v = (x_1+x_2) + (y_1+y_2) \in F+G$.
+        \1 On a aussi $\forall \lambda \in \Kset, \forall u,v \in F+G, u + \lambda v = (x_1 + y_1) + \lambda (x_2 + y_2) = (x_1 + \lambda x_2) + (y_1 + \lambda y_2) \in F+G$, sachant que $F$ et $G$ sont des sev. de $E$.
+        \1 Soient $\lambda \in \Kset$ et $u \in F+G$, alors $\exists x \in F, y \in G$ tels que $u = x+y$, alors $\lambda u = (\lambda x) + (\lambda y) \in F+G$.
+        \1 Donc $F+G$ est un sev. de $E$.
+    \end{outline}
+
+    \textbf{Démonstration de la deuxième propriété :}
+
+    \begin{outline}
+        \1 $F+G \subset \Vect(F \cup G)$, car, par définition $\Vect(F \cup G)$ est le plus petit sous-espace vectoriel de $E$ contenant $F \cup G$.
+        \1 On sait que $F \subset F+G$ et $G \subset F+G$, alors $F \cup G \subset F+G$, alors $\Vect(F \cup G) \subset F+G$.
+        \1 \textit{Méthode alternative : On peut considérer les combinaisons linéaires de $F \cup G$ pour construire $\Vect(F \cup G)$, et on peut montrer que toutes ces combinaisons linéaires sont aussi des éléments de $F+G$, alors $\Vect(F \cup G) \subset F+G$.}
+        \1 Donc $F+G = \Vect(F \cup G)$.
+    \end{outline}
+\end{proof}
+
+\begin{attention}
+    On ne peut pas sommer deux sous-espaces vectoriels d'espaces vectoriels différents.
+\end{attention}
+
+\begin{definition}[Somme directe de deux sous-espaces vectoriels]
+    Soient $E$ un $\Kset$-ev. et $F,G$ deux sous-ev. de $E$.
+
+    La somme $F+G$ est une somme directe de $F$ et $G$ si $F \cap G = \{0_E\}$, c'est à dire si $F$ et $G$ n'ont que le vecteur nul en commun.
+\end{definition}
+
+\begin{definition}[Sous-espace vectoriel supplémentaire]
+    Soient $E$ un $\Kset$-ev. et $F$ un sev. de $E$.
+
+    On dit que $G$ est un sev. supplémentaire de $F$ dans $E$ si $E = F \oplus G$, c'est à dire si $E = F+G$ et $F \cap G = \{0_E\}$.
+\end{definition}
+
+\begin{attention}
+    Il ne faut pas confondre ``supplémentaire'' et ``complémentaire''. En effet, si $F$ est un sev. de $E$, alors $C_E(F)$ (le complémentaire de $F$ dans $E$) n'est pas un sev. car $0_E \notin C_E(F)$, alors $C_E(F)$ ne peut pas être un sev. supplémentaire de $F$ dans $E$.
+\end{attention}
+
+\begin{remark}
+    Si $E = F \oplus G$, alors $G \subset C_E(F)\cup\{0_E\}$, car, en posant $x \in G\setminus\{0_E\}$, alors si $x \in F$ on a $x \in F\cap G = \{0_E\}$, ce qui est absurde, alors $x \notin F$.
+\end{remark}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $F,G$ deux sous-ev. de $E$.
+
+    Les propriétés suivantes sont équivalentes :
+
+    \begin{outline}
+        \1 $E = F \oplus G$.
+        \1 $E = F + G$ et $F \cap G = \{0_E\}$.
+        \1 $\forall x \in E, \exists ! (y,z) \in F\times G, x = y+z$.
+    \end{outline}
+\end{property}
+
+\begin{proof}
+    \textbf{Démonstration de la première équivalence :} [(1) $\iff$ (2)]
+
+    $E = F \oplus G$ signifie que $E = F + G$ et que $F \cap G = \{0_E\}$, donc $E = F + G$ et $F \cap G = \{0_E\}$.
+
+    Réciproquement, si $E = F + G$ et $F \cap G = \{0_E\}$, alors $E = F \oplus G$.
+
+    \textit{Finalement, on a simplement utilisé la définition de la somme directe de $F$ et $G$ pour démontrer la première équivalence.}
+    
+    \textbf{Démonstration de la deuxième équivalence :} [(2) $\iff$ (3)]
+
+    Supposons que $E = F + G$ et que $F \cap G = \{0_E\}$.
+
+    \begin{outline}
+    \1 \textbf{Démonstration de l'existence de la décomposition :} Soit $x \in E$, alors $\exists y \in F, z \in G$ tels que $x = y+z$, car $E = F + G$.
+
+    \1 \textbf{Démonstration de l'unicité de la décomposition :}
+    
+    \2 \textbf{Dans le sens direct $\implies$ :} Supposons qu'il existe aussi $y' \in F, z' \in G$ tels que $x = y' + z'$, alors on a $(y-y') + (z-z') = 0_E$, alors $(y-y') = -(z-z')$, alors $(y-y') \in F\cap G$, alors $(y-y') = 0_E$, alors $y=y'$ et aussi $z=z'$, donc $\exists ! (y,z) \in F\times G, x=y+z$.
+
+    \2 \textbf{Réciproquement}, supposons que $\forall x \in E, \exists ! (y,z) \in F\times G, x=y+z$, alors $\forall x \in E, \exists (y,z) \in F\times G, x=y+z$, alors $E=F+G$. De plus, supposons qu'il existe un élément non nul de $F\cap G$, alors il existe un élément non nul de $F$ qui est aussi dans $G$, ce qui contredit l'unicité de la décomposition de cet élément en somme d'un élément de $F$ et d'un élément de $G$. Donc $F\cap G=\{0_E\}$.
+    \end{outline}
+
+    Ainsi, les propriétés sont équivalentes.
+\end{proof}
+
+\begin{remark}
+    $E = F \oplus G \iff \psi : \begin{matrix}
+            F \times G & \to & E \\
+            (y,z) & \mapsto & y+z
+    \end{matrix}$ est bijective.
+\end{remark}
+
+\begin{methodbox}
+    Pour montrer que $E = F + G$, on peut :
+
+    \begin{outline}
+    \1 Fixer $x \in E$.
+    \1 Puis chercher un élément $y \in F$ tel que $x-y \in G$.
+    \end{outline}
+\end{methodbox}
+
+\begin{example}
+    \begin{outline}
+        \1 Dans $E = \Kset^n$, on pose : $H = \{x = (x_1,\dots,x_n) \in \Kset^n \tq \sum_{i=1}^n x_i = 0\}$ et $D = \Kset \cdot \underbrace{(1,1,\dots,1)}_{=e}$. On a $\Kset^n = H \oplus D$.
+            \2 On va suivre la méthode mentionnée précédemment pour montrer que $\Kset^n = H + D$.
+                \3 Soit $x = (x_1,\dots,x_n) \in \Kset^n$.
+                \3 On cherche un élément $y \in D$ tel que $x-y \in H$ (c'est plus simple de trouver un élément de $D$ que de trouver un élément de $H$).
+                \3 On a $y \in D \implies \exists \lambda \in \Kset \tq y = \lambda e$.
+                \3 Alors $x-y = (x_1 - \lambda, \dots, x_n - \lambda)$.
+                \3 Et on a
+                \begin{align*}
+                    x-y \in H &\iff \sum_{i=1}^n (x_i - \lambda) = 0 \\
+                    &\iff \sum_{i=1}^n x_i - n\lambda = 0 \\
+                    &\iff \lambda = \frac{1}{n} \sum_{i=1}^n x_i
+                \end{align*}
+                \3 \textit{On peut aussi noter $\lambda$ par $\lambda_x$ pour montrer que $\lambda$ dépend de $x$.}
+                \3 Donc $x = \underbrace{(x- \lambda_x\cdot e)}_{\in H} + \underbrace{\lambda_x \cdot e}_{\in D}$.
+                \3 D'où $\Kset^n = H + D$.
+            \2 Montrons maintenant que l'intersection de $H$ et $D$ est réduite à $\{0_E\}$.
+                \3 Soit $x \in H\cap D$, alors $x \in D \implies \exists \lambda \in \Kset \tq x = \lambda e$.
+                \3 De plus, $x \in H \implies \sum_{i=1}^n x_i = 0$, alors $\sum_{i=1}^n \lambda = 0$, alors $n\cdot\lambda = 0$, donc $\lambda = 0$, alors $x = 0\cdot e = 0_E$.
+                \3 Donc $H\cap D = \{0_E\}$.
+    \end{outline}
+\end{example}
+
+\begin{exercise}
+    \begin{outline}
+        \1 \textbf{Exercice 1 :} Montrer que $E = H \oplus F$, avec :
+        \2 $E = \mathcal{C}([a,b],\R) \avec a < b$.
+        \2 $H = \{f \in E \tqf \int_a^b f(x) dx = 0\}$.
+        \2 $F = \{f \in E \tqf f \text{ est constante}\}$.
+        \1 \textbf{Exercice 2 :} Donner un supplémentaire de $\Kset[X]$ dans $\Kset(X)$.
+    \end{outline}
+\end{exercise}
 
 \printindex
 \end{document}
