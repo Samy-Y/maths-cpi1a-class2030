@@ -1201,6 +1201,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
                 \3 De plus, $x \in H \implies \sum_{i=1}^n x_i = 0$, alors $\sum_{i=1}^n \lambda = 0$, alors $n\cdot\lambda = 0$, donc $\lambda = 0$, alors $x = 0\cdot e = 0_E$.
                 \3 Donc $H\cap D = \{0_E\}$.
     \end{outline}
+    \label{exa:K^n_somme_directe_H_D}
 \end{example}
 
 \begin{exercise}
@@ -1211,7 +1212,170 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
         \2 $F = \{f \in E \tqf f \text{ est constante}\}$.
         \1 \textbf{Exercice 2 :} Donner un supplémentaire de $\Kset[X]$ dans $\Kset(X)$.
     \end{outline}
+
+    \textbf{Solution de l'exercice 1 :}
+
+    On utilise la méthode mentionnée précédemment pour montrer que $E = H + F$. Ensuite, on montre que $H\cap F = \{0_E\}$. On cherchera un $y \in F$ tel que $f-y \in H$ (c'est plus simple).
+
+    \textbf{Solution de l'exercice 2 :}
+
+    On cherche un ensemble candidat $S$ tel que $\Kset(X) = \Kset[X] + S$ et $\Kset[X] \cap S = \{0_E\}$. On va donc le définir à partir de la recherche d'un élément $Y \in S$ tel que $P-Y \in \Kset[X]$ pour tout $P \in \Kset(X)$, ce qui nous rappelle facilement la DES de $P$, avec $P-Y$ la partie entière de $P$ et $Y$ la partie fractionnaire de $P$.
+    
+    Donc on peut poser $S = \{R \in \Kset(X) \tq R(0) = 0\}$. On montre que c'est un sev. de $\Kset(X)$, que $\Kset(X) = \Kset[X] + S$ et que $\Kset[X] \cap S = \{0_E\}$, ce qui nous permettra de conclure que $S$ est un sev. supplémentaire de $\Kset[X]$ dans $\Kset(X)$.
 \end{exercise}
+
+\begin{remark}[Unicité du supplémentaire]
+    Le supplémentaire n'est pas unique.
+
+    En effet, en reprenant l'exemple \ref{exa:K^n_somme_directe_H_D}, on peut aussi montrer que $\Kset^n = H \oplus D'$, avec $D' = \Kset \cdot (1,0,\dots,0)$, et $D' \ne D$.
+\end{remark}
+
+\section{Somme d'une famille finie de sous-espaces vectoriels}
+
+\begin{definition}[Somme d'une famille de sous-espaces vectoriels]
+    Soient $E$ un $\Kset$-ev. et $F_1,\dots,F_n$ des sev. de $E$.
+
+    \begin{enumerate}
+        \item On définit la somme des $(F_k)_{1\le k \le n}$ par $\sum_{k=1}^n F_k = \{\sum_{k=1}^n x_k \tq x_k \in F_k\} \subset E$.
+        \item La somme des $(F_k)_{1\le k \le n}$ est dite directe si $\forall (x_1,\dots,x_n) \in \prod_{k=1}^n F_k, \sum_{k=1}^n x_k = 0_E \implies \forall k, x_k = 0_E$.\\Dans ce cas, on note la somme par $\bigoplus_{k=1}^n F_k$.
+    \end{enumerate}
+\end{definition}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $F_1,\dots,F_n$ des sev. de $E$.
+    \begin{enumerate}
+        \item $\sum_{k=1}^{n}F_k$ est un sev. de $E$.
+        \item $\sum_{k=1}^n F_k = \bigoplus_{k=1}^n F_k \iff \forall x \in \sum_{k=1}^n F_k, \exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k \tq x = \sum_{k=1}^n x_k$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}[enumerate]
+        \1 \textbf{Démonstration de la première propriété :} La première démonstration est facile. On utilise simplement la caractérisation d'un sous-espace vectoriel, sans oublier de mentionner que la somme est incluse dans $E$.
+        \1 \textbf{Démonstration de la deuxième propriété :}
+            \2 Dans le sens direct ($\implies$) :
+                \3 Pour démontrer l'existence, on prend $x \in \sum_{k=1}^n F_k$, alors $\exists (x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n x_k$.
+                
+                \3 Pour démontrer l'unicité, supposons qu'il existe aussi $(y_1,\dots,y_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n y_k$, alors $\sum_{k=1}^n (x_k - y_k) = 0_E$, alors $\forall k, x_k - y_k = 0_E$, alors $\forall k, x_k = y_k$ (parce que la somme est directe), donc $\exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n x_k$.
+
+            \2 Dans le sens indirect ($\impliedby$) :
+                \3 Soient $(x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $\sum_{k=1}^n x_k = 0_E$.
+                \3 Alors, par unicité de la décomposition, on a $\forall k, x_k = 0_E$, donc $\sum_{k=1}^n F_k$ est directe.
+    \end{outline}
+\end{proof}
+
+\begin{definition}
+    Soient $E$ un $\Kset$-ev. et $F_1,\dots,F_n$ des sev. de $E$.
+
+    On dit que $E$ est la somme directe de $F_1,\dots,F_n$ si $E = \bigoplus_{k=1}^n F_k$, donc si et seulement si $\forall x \in E, \exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n x_k$.
+
+    (\textit{Il s'agit du cas particulier où la somme de $F_1,\dots,F_n$ est égale à $E$ et que cette somme est directe.})
+\end{definition}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $F_1,\dots,F_n$ des sev. de $E$.
+
+    Les propriétés suivantes sont équivalentes :
+
+    \begin{enumerate}
+        \item $\sum_{k=1}^n F_k = \bigoplus_{k=1}^n F_k$.
+        \item $\forall i \in [\![1,n]\!], F_i \cap \sum_{\substack{k=1 \\ k \ne i}}^n F_k = \{0_E\}$.
+        \item $\forall i \in [\![2,n]\!], F_i \cap \sum_{k=1}^{i-1} F_k = \{0_E\}$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    La démonstration se fait par raisonnement circulaire : (1) $\implies$ (2) $\implies$ (3) $\implies$ (2).
+
+    \begin{outline}
+
+        \1 \textbf{Démonstration de la troisième implication :} [(3) $\implies$ (2)]
+
+        On va raisonner par absurde.
+
+        Supposons que $\exists i \in [\![1,n]\!]$ tel que $x_i \ne 0$.
+
+
+        On pose $S = \{ k \in [\![1,n]\!] \tq x_k \ne 0\}$.
+
+
+        Alors $\begin{cases}
+            S \text{ est majorée.}\\
+            S \text{ est non vide.}\\
+            \implies S \text{ admet une valeur maximale.}
+        \end{cases}$
+
+        Posons $s = \max S$, alors $s \in S$ et $x_s \ne 0$.
+        
+        On a $\sum_{k=1}^n x_k = 0_E$.
+
+        On décompose la somme $\sum_{k=1}^n x_k$ en trois parties :
+        
+        $$\sum_{k=1}^n x_k = \underbrace{\sum_{k=1}^{s-1} x_k}_{\in \sum_{k=1}^{s-1} F_k} + \underbrace{x_s}_{\in F_s} + \underbrace{\sum_{k=s+1}^n x_k}_{= 0_E}$$
+
+        Alors : $\sum_{k=1}^{s-1} x_k = -x_s$.
+
+        Donc $x_s \in F_s \cap \sum_{k=1}^{s-1} F_k$, et comme l'intersection est réduite au vecteur nul $\{0_E\}$, alors $x_s = 0_E$, ce qui est absurde.
+    \end{outline}
+\end{proof}
+\todo{recop}
+
+\begin{remark}
+    $\forall 1 \le i \ne j \le n, F_i \cap F_j = \{0_E\}$ n'implique pas que $\sum_{k=1}^n F_k = \bigoplus_{k=1}^n F_k$.
+
+    Par exemple, dans $E = \R^2$, on pose $F_1 = \R \cdot \underbrace{(1,0)}_{=e_1}$, $F_2 = \R \cdot \underbrace{(0,1)}_{=e_2}$ et $F_3 = \R \cdot \underbrace{(1,1)}_{=e}$.
+
+    On a $e_1 + e_2 - e = 0_E$, alors $F_1 + F_2 + F_3$ n'est pas une somme directe, même si $F_1 \cap F_2 = \{0_E\}$, $F_1 \cap F_3 = \{0_E\}$ et $F_2 \cap F_3 = \{0_E\}$.
+\end{remark}
+
+\section{Dimension de la somme de sous-espaces vectoriels}
+
+\begin{theorem}
+    Soient $E$ un $\Kset$-ev. et $F_1,\dots,F_n$ des sev. de $E$ de dimension finie.
+
+    On pose $\forall 1 \le i \le n, B_i$ est une base de $F_i$.
+
+    Alors $B = \bigcup_{i=1}^n B_i$ est une base de $\bigoplus_{k=1}^n F_k$, et $\underset\Kset\dim(\bigoplus_{k=1}^n F_k) = \sum_{i=1}^n \underset\Kset\dim(F_i)$.
+\end{theorem}
+
+\begin{proof}
+    Pour tout $1 \le i \le n$, on pose $B_i = (e_{i,j})_{1 \le j \le n_i}$, avec $n_i = \card B_i = \underset\Kset\dim(F_i)$.
+
+    Soit $x \in \bigoplus_{k=1}^n F_k$, alors $\exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n x_k$.
+
+    Et on a $\forall 1 \le i \le n, x_i \in F_i = \Vect(B_i)$, alors $\exists ! (\lambda_{i,j})_{1 \le j \le n_i} \in \Kset^{n_i}$ tels que $x_i = \sum_{j=1}^{n_i} \lambda_{i,j} e_{i,j}$.
+
+    Donc $x = \sum_{i=1}^n\sum_{j=1}^{n_i} \lambda_{i,j} e_{i,j}$.
+
+    Et donc $B = (e_i,j)_{\substack{1 \le i \le n \\ 1 \le j \le n_i}}$ est une famille génératrice de $\bigoplus_{k=1}^n F_k$.
+\end{proof}
+
+\begin{remark}
+    La base $B$ est appelée la base adaptée à la somme directe.
+
+    Et on écrit $B \overset{\text{noté}}= (B_1,\dots,B_n)$ pour montrer que $B$ est constituée de la réunion des bases $B_1,\dots,B_n$, au lieu de $B = \bigcup_{i=1}^n B_i$.
+\end{remark}
+
+\begin{attention}
+    La notation $B = (B_1,\dots,B_n)$ ne signifie pas que $B$ est un $n$-uplet de bases, mais plutôt que $B$ est constituée de la réunion des bases $B_1,\dots,B_n$. C'est la notation de la \textbf{base adaptée} à la somme directe.
+\end{attention}
+
+\begin{consequence}
+    Si $E$ est $\Kset$-ev. et $F_1,\dots,F_n$ sont des sev. de dimensions finies de $E$ tels que $E = \bigoplus_{k=1}^n F_k$,
+    alors $E$ est de dimension finie et $\underset\Kset\dim(E) = \sum_{i=1}^n \underset\Kset\dim(F_i)$.
+\end{consequence}
+
+\begin{theorem}[Lemme]
+    Soient $E$ un $\Kset$-ev.de dimension finie, et $F$ un sev. de $E$.
+
+    $F$ admet un supplémentaire dans $E$, i.e.:
+
+    $\forall F \text{ sev. de } E, \exists G \text{ sev. de } E, E = F \oplus G$.
+\end{theorem}
+
+\begin{proof}
+    Soient $(e_1,\dots,e_p)$.
+\end{proof}
 
 \printindex
 \end{document}
