@@ -491,8 +491,64 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     La démonstration se fait par récurrence sur $n$.
 
     \textbf{Initialisation :} $n=1$
+
+    Donc $\exists \lambda_1,\lambda_2 \in \Kset$ tels que : $\displaystyle\begin{cases}
+    v_1 = \lambda_1 e_1\\
+    v_2 = \lambda_2 e_1
+    \end{cases}$
+
+    Si $\lambda_1 = 0$, alors $v_1 = 0$, donc $(v_1,v_2)$ est liée.
+
+    Si $\lambda_1 \ne 0$, alors $v_1 = \lambda_1 e_1$, donc $e_1 = \lambda_1^{-1} v_1$, donc $v_2 = \lambda_2 e_1 = \lambda_2 \lambda_1^{-1} v_1$, donc $(v_1,v_2)$ est liée.
+
+    \textbf{Hérédité :} Supposons que la propriété est vérifiée pour $n-1 \in \N^*$, et montrons qu'elle est vérifiée pour $n$.
+
+    \begin{outline}
+        \1 Soient $v_1,\dots,v_{n+1} \in \Vect(e_1,\dots,e_n)$.
+    
+        \1 Donc $\forall j \in \{1,\dots,n+1\}, v_j \in \Vect(e_1,\dots,e_n)$.
+
+        \1 Donc $\forall j \in \{1,\dots,n+1\}, \exists (\lambda_{i,j})_{1 \le i \le n} \in \Kset^n \tqp v_j = \sum_{i=1}^n \lambda_{i,j} e_i$, i.e. :
+
+        $$\begin{cases}
+v_1 = \lambda_{1,1} e_1 + \dots + \lambda_{n,1} e_n\\
+v_2 = \lambda_{1,2} e_1 + \dots + \lambda_{n,2} e_n\\
+\vdots\\
+v_{n+1} = \lambda_{1,n+1} e_1 + \dots + \lambda_{n,n+1} e_n (*)
+        \end{cases}$$
+
+        \1 Si $\forall k \in \{1,2,\dots,n+1\}, \lambda_{n,k} = 0$, alors $v_1,\dots,v_{n+1} \in \Vect(e_1,\dots,e_{n-1})$, donc d'après l'hypothèse de récurrence, $(v_1,\dots,v_{n+1})$ est liée.
+
+        \1 Sinon, il existe $j_0 \in \{1,2,\dots,n+1\}$ tel que $\lambda_{n,j_0} \ne 0$.
+
+        \1 Comme les $v_j$ jouent des rôles symétriques, on peut prendre $j_0 = n+1$ sans perte de généralité, donc $\lambda_{n,n+1} \ne 0$.
+
+        \1 Alors, d'après l'équation $(*)$, on a $e_n = \lambda_{n,n+1}^{-1} \left(v_{n+1} - \sum_{i=1}^{n-1} \lambda_{i,n+1} e_i\right)$.
+
+        \1 Donc, pour tout $j \in \{1,2,\dots,n\}$, on a :
+        $$\begin{aligned}
+v_j &= \sum_{i=1}^n \lambda_{i,j} e_i\\
+&= \sum_{i=1}^{n-1} \lambda_{i,j} e_i + \lambda_{n,j} e_n\\
+&= \left(\sum_{i=1}^{n-1} \lambda_{i,j} e_i\right) + \lambda_{n,j} \lambda_{n,n+1}^{-1} \left(v_{n+1} - \sum_{i=1}^{n-1} \lambda_{i,n+1} e_i\right)\\
+\end{aligned}$$
+
+    \1 On pose $w_j = v_j - \lambda_{n,j} \lambda_{n,n+1}^{-1} v_{n+1}$.
+
+    \1 On remarque que $(w_1,\dots,w_n) \in \Vect(e_1,\dots,e_{n-1})$.
+
+    \1 Donc, d'après l'hypothèse de récurrence, la famille $(w_1,\dots,w_n)$ est liée.
+
+    \1 Donc $\exists (\alpha_1,\dots,\alpha_n) \in \Kset^n\setminus\{0_\Kset^n\} \tq \sum_{j=1}^n \alpha_j w_j = 0$.
+
+    \1 Donc $\sum_{j=1}^n \alpha_j v_j + \left(-\sum_{j=1}^n \alpha_j\lambda_{n,j} \lambda_{n,n+1}^{-1}\right) = \alpha_{n+1} v_{n+1}$, avec $\alpha_{n+1} = -\sum_{j=1}^n \alpha_j\lambda_{n,j} \lambda_{n,n+1}^{-1}$.
+
+    \1 Donc $\sum_{j=1}^{n+1} \alpha_j v_j = 0$, avec $\alpha_{n+1} = -\sum_{j=1}^n \alpha_j\lambda_{n,j} \lambda_{n,n+1}^{-1}$.
+
+    \1 Alors $(\alpha_1,\dots,\alpha_{n+1}) \in \Kset^{n+1}\setminus\{0_\Kset^{n+1}\}$.
+
+    \1 Donc $(v_1,\dots,v_{n+1})$ est liée. La propriété est vérifiée pour $n$, d'où la propriété est vérifiée pour tout $n \in \N^*$.
+    \end{outline}
 \end{proof}
-\todo{a recop, imp}
 
 \begin{consequence}
     Si $(e_1,\dots,e_n)$ est libre dans $E$, un $\Kset$-ev., et $(g_1,\dots,g_{m})$ est une famille génératrice de $E$, alors $n \le m$.
