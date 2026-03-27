@@ -7,7 +7,7 @@
 
 \begin{document}
 
-\MaPageDeGarde{Chapitre XIV : Algèbre Linéaire}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{WIP. Peut contenir des erreurs ou des sections incomplètes.}
+\MaPageDeGarde{Chapitre XIV-A : Algèbre Linéaire}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{WIP. Peut contenir des erreurs ou des sections incomplètes.}
 
 \tableofcontents
 \clearpage
@@ -1539,9 +1539,54 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
         \1 Démonstration dans le sens indirect $(\impliedby)$ : En utilisant la définition.
         \1 Démonstration de le sens direct $(\implies)$ :
         \2 $H$ est un hyperplan de $E$, alors $\exists a \in E\setminus\{0_E\}$ tel que $E = H \oplus \Kset \cdot a$.
-        \2 Prenons $b \in E\setminus H$, alors $b \in E = H \oplus \Kset \cdot a$, alors $\exists ! (h,\lambda) \in H\times\Kset$ tels que $b = h + \lambda a$.
+        \2 Prenons $b \in E\setminus H$.
+        \2 Comme $b \in E = H \oplus \Kset \cdot a$.
+        \2 Alors $\exists ! (h_1,\lambda_1) \in H\times\Kset$ tels que : 
+        $$b = h_1 + \lambda_1 a$$
+        \2 Si $\lambda_1 = 0$, alors $b = h_1 \in H$, ce qui est absurde, alors $\lambda_1 \ne 0$.
+        \2 Et on a, $\forall x \in E, \exists ! (h_2,\lambda_2) \in H\times\Kset$ tels que :
+        \begin{align*}
+            x &= h_2 + \lambda_2 a \\
+            &= h_2 + \lambda_2 \cdot \lambda_1^{-1} (b - h_1) \\
+            &= (h_2 - \lambda_2 \cdot \lambda_1^{-1} h_1) + \lambda_2 \cdot \lambda_1^{-1} b
+        \end{align*}
+        \2 Donc $E = H \oplus \Kset \cdot b$.
+        \2 Si $x \in H_1 \cap \Kset \cdot b$, alors $\exists \lambda \in \Kset$ tel que $x = \lambda b$ et $x\in H$.
+        \2 Mais comme $b \notin H$ alors $\lambda = 0$ alors $x = 0_E$.
+        \2 Alors $H \cap \Kset \cdot b = \{0_E\}$, alors $E = H \oplus \Kset \cdot b$. CQFD.
     \end{outline}
 \end{proof}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $\underset\Kset\dim(E) = n \in \N^*$, et $H$ un sous-espace vectoriel de $E$.
+
+    $H$ est un hyperplan de $E$ $\iff$ $\underset\Kset\dim(H) = n-1$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Dans le sens direct $\implies$ la démonstration est facile et se fait en utilisant la définition de l'hyperplan et la dimension d'une somme directe.
+        \1 Dans le sens indirect $\impliedby$ :
+        \2 On pose $H$ un sous-espace vectoriel de $E$ de dimension $n-1$.
+        \2 On sait que $E = H \oplus F$.
+        \2 Donc $\underbrace{\underset\Kset\dim(E)}_{=n} = \underbrace{\underset\Kset\dim(H)}_{=n-1} + \underset\Kset\dim(F)$.
+        \2 Alors $\underset\Kset\dim(F) = 1$.
+        \2 Donc $\exists a \in E\setminus\{0_E\}$ tel que $F = \Kset \cdot a$.
+        \2 Donc $E = H \oplus \Kset \cdot a$, alors $H$ est un hyperplan de $E$.
+    \end{outline}
+\end{proof}
+
+\begin{attention}
+    Il faut toujours s'assurer que l'hyperplan ``candidat'' est bel et bien un sev. de $E$, avant de chercher à étudier sa dimension.
+
+    Par exemple, $\R^{n-1}$ n'est pas un hyperplan de $\R^n$, même si $\underset\R\dim(\R^{n-1}) = n-1$, parce que $\R^{n-1}$ n'est pas un sev. de $\R^n$.
+\end{attention}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}\\
+    Fin du Chapitre XIV-A.\\
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \printindex
 \end{document}
