@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -78,6 +78,31 @@
         .chapter:hover {
             transform: translateY(-2px); /* Petit effet au survol */
         }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .quality-badge {
+            font-weight: bold;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: help;
+            display: inline-block;
+            user-select: none;
+            flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Modifiez la classe dans le HTML : badge-A, badge-B ou badge-C */
+        .badge-A { background-color: #28a745; } /* Vert : Complet/Bon */
+        .badge-B { background-color: #fd7e14; } /* Orange : Moyen/A relire */
+        .badge-C { background-color: #dc3545; } /* Rouge : Incomplet */
 
         .chapter-name {
             font-weight: bold;
@@ -212,7 +237,11 @@
         <div class="chapters" id="chapters-grid">
             <!-- Les chapitres -->
             <div class="chapter" data-id="1">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-C" title="Qualité C : Cours incomplet, premier jet">C</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./250910 CH01.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -224,7 +253,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="2">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 2 : Nombres complexes</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./250924 CH02.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -236,7 +269,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="3">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 3 : Nombres réels</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251001 CH03.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -248,7 +285,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="4">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 4 : Suites numériques</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading, mise en page expérimentale">B</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251009 CH04.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -260,7 +301,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="5">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 5 : Équations différentielles</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-B" title="Qualité B : Cours incomplet, mise en page expérimentale">B</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251022 CH05.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -272,7 +317,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="6">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 6 : Limites et continuité</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-C" title="Qualité C : Cours très incomplet, danger">!</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251113 CH06.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -284,7 +333,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="7">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 7 : Dérivation</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251128 CH07.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -296,7 +349,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="8">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 8 : Intégration</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-B" title="Qualité B : Cours incomplet">B</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251212 CH08.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -308,7 +365,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="9">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 9 : Analyse asymptotique</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet, corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./251219 CH09.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -320,7 +381,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="10">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 10 : Structures algébriques</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./260109 CH10.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -332,7 +397,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="11">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 11 : Arithmétiques</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./260128 CH11.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
@@ -344,7 +413,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="12">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 12 : Polynômes</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./260206 CH12.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <a href="./ch12_fiche.pdf"><button class="btn-icon btn-summary" title="Résumé ALPHA">
@@ -356,7 +429,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="13">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 13 : Fractions rationnelles</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./260220 CH13.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <a href="./ch13_fiche.html"><button class="btn-icon btn-summary" title="Fiche de révision BETA (web)">
@@ -368,7 +445,11 @@
                 </div>
             </div>
             <div class="chapter" data-id="14">
+                <div class="chapter-header">
                 <span class="chapter-name">Chapitre 14 : Algèbre Linéaire</span>
+                <!-- Modifiez "badge-A" en "badge-B" ou "badge-C" selon votre choix et ajustez le message du "title" -->
+                <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
+            </div>
                 <div class="chapter-buttons">
                     <a href="./260304 CH14.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">

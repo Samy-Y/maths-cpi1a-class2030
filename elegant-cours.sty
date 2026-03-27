@@ -42,6 +42,8 @@
 \RequirePackage{wasysym}
 \RequirePackage{mathtools}
 \RequirePackage{makeidx}
+\RequirePackage{lastpage}
+\RequirePackage{dsfont}
 
 % Hyperref doit souvent être chargé en dernier
 \RequirePackage[
@@ -159,13 +161,13 @@
             -- ++(\textwidth,0);
     \end{tikzpicture}%
     \vspace{8pt}%
-    {\sffamily\color{mainBlue}\bfseries\thepage}%
+    {\sffamily\color{mainBlue}\bfseries\thepage/\pageref{LastPage}}%
 }
 
 \fancypagestyle{plain}{%
     \fancyhf{}%
     \fancyfoot[C]{%
-        {\sffamily\color{mainBlue}\bfseries\thepage}%
+        {\sffamily\color{mainBlue}\bfseries\thepage/\pageref{LastPage}}%
     }%
     \renewcommand{\headrulewidth}{0pt}%
     \renewcommand{\footrulewidth}{0pt}%

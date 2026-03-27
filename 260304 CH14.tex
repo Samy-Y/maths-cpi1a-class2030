@@ -1278,6 +1278,8 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
     On cherche un ensemble candidat $S$ tel que $\Kset(X) = \Kset[X] + S$ et $\Kset[X] \cap S = \{0_E\}$. On va donc le définir à partir de la recherche d'un élément $Y \in S$ tel que $P-Y \in \Kset[X]$ pour tout $P \in \Kset(X)$, ce qui nous rappelle facilement la DES de $P$, avec $P-Y$ la partie entière de $P$ et $Y$ la partie fractionnaire de $P$.
     
     Donc on peut poser $S = \{R \in \Kset(X) \tq R(0) = 0\}$. On montre que c'est un sev. de $\Kset(X)$, que $\Kset(X) = \Kset[X] + S$ et que $\Kset[X] \cap S = \{0_E\}$, ce qui nous permettra de conclure que $S$ est un sev. supplémentaire de $\Kset[X]$ dans $\Kset(X)$.
+
+    \label{exo:supplementaires_divers}
 \end{exercise}
 
 \begin{remark}[Unicité du supplémentaire]
@@ -1422,15 +1424,123 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 \end{consequence}
 
 \begin{theorem}[Lemme]
-    Soient $E$ un $\Kset$-ev.de dimension finie, et $F$ un sev. de $E$.
+    Tout sous-espace vectoriel $R$ d'un $\Kset$-ev. de dimension finie $E$ admet un supplémentaire dans $E$, c'est à dire que :
 
-    $F$ admet un supplémentaire dans $E$, i.e.:
-
-    $\forall F \text{ sev. de } E, \exists G \text{ sev. de } E, E = F \oplus G$.
+    $$\forall F \text{ sev. de } E, \exists G \text{ sev. de } E, E = F \oplus G$$
+    \label{lem:sous_espace_vectoriel_admet_suppl}
 \end{theorem}
 
 \begin{proof}
-    Soient $(e_1,\dots,e_p)$.
+    Soit $F$ un sous-espace vectoriel de $E$. On admettra que celui-ci est différent de $\{0_E\}$, sinon $E = \{0_E\} \oplus E$ et la propriété est vérifiée.
+
+    \textbf{Montrons que $\exists H$ sev. de $E$ tel que $F \oplus H = E$.}
+
+    \begin{outline}
+        \1 On sait que $F$ est de dimension finie (parce que $E$ est de dimension finie). On pose $p = \underset\Kset\dim(F)$ et on considère une base $B_1 = (e_1,\dots,e_p)$ de $F$.
+        \1 $B_1$ est une famille libre de $E$, alors on peut compléter $B_1$ en une base $B = (e_1,\dots,e_p,e_{p+1},\dots,e_n)$ de $E$, en posant $n = \underset\Kset\dim(E) \ge p$, en utilisant le théorème de la base incomplète (voir théorème \ref{thm:base_incomplete}).
+        \1 On pose $H = \Vect(e_{p+1},\dots,e_n)$, alors $H$ est un sev. de $E$.
+        \1 On a donc $\forall x \in E, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n$ tels que $x = \sum_{i=1}^n \lambda_i e_i$.
+        \1 Alors $x = \underbrace{\sum_{i=1}^p \lambda_i e_i}_{\in F} + \underbrace{\sum_{i=p+1}^n \lambda_i e_i}_{\in H}$.
+        \1 Donc $\forall x \in E, \exists ! (y,z) \in F\times H, x = y+z$, alors $E = F \oplus H$.
+    \end{outline}
+\end{proof}
+
+\begin{theorem}[Formule de Grassmann]
+    Soient $E$ un $\Kset$-ev. et $F,G$ des sev. de $E$ de dimension finie.
+
+    Alors $\underset\Kset\dim(F+G) = \underset\Kset\dim(F) + \underset\Kset\dim(G) - \underset\Kset\dim(F \cap G)$.
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 On a $F= \Vect(B_1)$ et $G = \Vect(B_2)$, avec $B_1$ et $B_2$ des bases de $F$ et $G$ respectivement.
+        \1 Donc $F+G = \Vect(B_1) + \Vect(B_2) = \Vect(B_1 \cup B_2)$.
+        \1 Donc $F+G$ est de dimension finie.
+        \1 On a $F \cap G$ est un sev. de $F$, avec $F$ de dimension finie.
+        \1 Alors, d'après le lemme \ref{lem:sous_espace_vectoriel_admet_suppl}, $F \cap G$ admet un supplémentaire dans $F$, c'est à dire que $\exists H$ sev. de $F$ tel que $F = (F \cap G) \oplus H$.
+        \1 Montrons alors que $F+G = H \oplus G$.
+        \2 On a $G \cap H = G \cap (F \cap H) = (F \cap G) \cap H = \{0_E\}$, sachant que $H \subset F$. (1)
+        \2 Soit $x \in F+G$, alors $\exists y \in F, z \in G$ tels que $x = y+z$.
+        \2 Or $y \in F \implies \exists ! (z_1,h) \in (F\cap G)\times H$ tels que $y = z_1 + h$, alors $x = h + (z_1 + z)$, avec $h \in H$ et $z_1 + z \in G$, alors $x \in H + G$. (2)
+        \2 De (1) et (2), on a $F+G = H \oplus G$.
+        \1 Donc $\underset\Kset\dim(F+G) = \underset\Kset\dim(H) + \underset\Kset\dim(G)$, et $\underset\Kset\dim(F) = \underset\Kset\dim(F \cap G) + \underset\Kset\dim(H)$, alors $\underset\Kset\dim(F+G) = \underset\Kset\dim(F) + \underset\Kset\dim(G) - \underset\Kset\dim(F \cap G)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Soient $F,G$ deux sous-espaces vectoriels de dimensions finies d'un $\Kset$-ev. $E$.
+
+    Si $H$ est un supplémentaire de $F\cap G$ dans $F$, alors $H$ est un supplémentaire de $G$ dans $F+G$, i.e. : $F+G = H \oplus G$.
+\end{remark}
+
+\begin{consequence}
+    Soient $E$ un $\Kset$-ev (de dimension finie) et $F,G$ des sous-espaces vectoriels de $E$ de dimension finie.
+
+    Les propriétés suivantes sont équivalentes :
+
+    \begin{enumerate}
+        \item $E = F \oplus G$.
+        \item $\displaystyle\begin{cases}
+        F\cap G = \{0_E\}\\
+        \underset\Kset\dim(E) = \underset\Kset\dim(F) + \underset\Kset\dim(G)
+        \end{cases}$
+        \item $\displaystyle\begin{cases} E = F + G \\ \underset\Kset\dim(E) = \underset\Kset\dim(F) + \underset\Kset\dim(G)\end{cases}$
+    \end{enumerate}
+
+    \label{conseq:carac_somme_directe}
+\end{consequence}
+
+\begin{proof}
+    La démonstration se fait par raisonnement circulaire : (1) $\implies$ (2) $\implies$ (3) $\implies$ (1).
+
+    \begin{outline}
+        \1 La première implication [(1) $\implies$ (2)] est facile à démontrer. On utilise simplement la définition de la somme directe et la formule de Grassmann pour montrer que $F\cap G = \{0_E\}$ et que $\underset\Kset\dim(E) = \underset\Kset\dim(F) + \underset\Kset\dim(G)$.
+        \1 Démonstration de la deuxième implication [(2) $\implies$ (3)] :
+        
+            \2 On sait que la dimension de $F+G$ est égale à $\underset\Kset\dim(F) + \underset\Kset\dim(G) - \underset\Kset\dim(F \cap G)$, or $F \cap G$ est réduit au singleton vecteur nul $\{0_E\}$.
+            \2 Alors $\underset\Kset\dim(F \cap G) = 0$, alors $\underset\Kset\dim(F+G) = \underset\Kset\dim(F) + \underset\Kset\dim(G) = \underset\Kset\dim(E)$.
+            \2 Et on sait que $F + G \subset E$, alors $E = F + G$.
+
+        \1 Démonstration de la troisième implication [(3) $\implies$ (1)] :
+            \2 On sait que $E = F+G$, donc $\underset\Kset\dim(E) = \underset\Kset\dim(F+G)$.
+            \2 C'est-à-dire que $\underset\Kset\dim(E) = \underset\Kset\dim(F) + \underset\Kset\dim(G) - \underset\Kset\dim(F \cap G)$, alors $\underset\Kset\dim(F \cap G) = 0$, alors $F \cap G = \{0_E\}$ (c'est le seul sous-espace vectoriel de dimension nulle), alors $E = F \oplus G$.
+    \end{outline}
+\end{proof}
+
+\chapter{Hyperplans}
+
+\begin{definition}[Hyperplan]
+    Soient $E$ un $\Kset$-ev. et $H$ un sev. de $E$.
+
+    On dit que $H$ est un hyperplan de $E$ lorsque $\exists a \in E\setminus\{0_E\}$ tel que $E = H \oplus \Kset \cdot a$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item $H = \{ x \in \Kset^n \tq \sum_{i=1}^n x_i = 0\}$ est un hyperplan de $\Kset^n$, sachant qu'on a déjà montré $\Kset^n = H \oplus \Kset \cdot e_1$.
+        \item $\Kset_{n-1}[X]$ est un hyperplan de $\Kset_n[X]$, sachant que $\Kset_n[X] = \Kset_{n-1}[X] \oplus \Kset \cdot X^n$ (on peut le démontrer en utilisant la conséquence \ref{conseq:carac_somme_directe}).
+        \item Soit $E =\mathcal{C}([a,b],\C)$. On pose $H = \{ f \in E \tqf \int_a^b f(x) dx = 0\}$ et $D = \{ f \in E \tqf f \text{ est constante}\}$. On a $D = \C\cdot\mathds{1}$ avec $\mathds{1} : \begin{matrix}
+            [a,b] & \to & \C \\
+            x & \mapsto & 1
+        \end{matrix}$, et on a $E = H \oplus \C\cdot\mathds{1}$. En effet, on a déjà montré que $E = H \oplus D$ (exercice \ref{exo:supplementaires_divers}).
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $H$ un sev. de $E$ tel que $H \ne E$. Alors :
+
+    $H$ est un hyperplan de $E$ $\iff$ $\forall b \in E\setminus H, E = H \oplus \Kset \cdot b$.
+\end{property}
+
+% колле спесиал =)
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration dans le sens indirect $(\impliedby)$ : En utilisant la définition.
+        \1 Démonstration de le sens direct $(\implies)$ :
+        \2 $H$ est un hyperplan de $E$, alors $\exists a \in E\setminus\{0_E\}$ tel que $E = H \oplus \Kset \cdot a$.
+        \2 Prenons $b \in E\setminus H$, alors $b \in E = H \oplus \Kset \cdot a$, alors $\exists ! (h,\lambda) \in H\times\Kset$ tels que $b = h + \lambda a$.
+    \end{outline}
 \end{proof}
 
 \printindex
