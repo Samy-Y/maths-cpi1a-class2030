@@ -279,6 +279,7 @@
 \newcommand{\cfd}{\mathrm{CD}} % coefficient dominant
 \newcommand{\Vect}{\mathrm{Vect}}
 \newcommand{\rang}{\mathrm{rg}}
+\newcommand{\GL}{\mathrm{GL}}
 
 % Macro textuelles
 
@@ -414,7 +415,7 @@
   \refstepcounter{definition}%
   \begin{tcolorbox}[
     elegant base=definitionColor,
-    title={\deficon\quad Définition \thechapter.\thesection.\thedefinition%
+    title={\deficon\quad Définition \thedefinition%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -425,7 +426,7 @@
   \refstepcounter{proposition}%
   \begin{tcolorbox}[
     elegant base=propositionColor,
-    title={\propicon\quad Proposition \thechapter.\thesection.\theproposition%
+    title={\propicon\quad Proposition \theproposition%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -436,7 +437,7 @@
   \refstepcounter{theorem}%
   \begin{tcolorbox}[
     elegant base=theoremColor,
-    title={\thmicon\quad Théorème \thechapter.\thesection.\thetheorem%
+    title={\thmicon\quad Théorème \thetheorem%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -447,7 +448,7 @@
   \refstepcounter{property}%
   \begin{tcolorbox}[
     elegant base=propertyColor,
-    title={\propertyicon\quad Propriété \thechapter.\thesection.\theproperty%
+    title={\propertyicon\quad Propriété \theproperty%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -461,7 +462,7 @@
     before skip=\bigskipamount,
     after skip=\bigskipamount,
   ]%
-  {\sffamily\bfseries\color{remarkColor}\remarkicon\quad Remarque \thechapter.\thesection.\theremark%
+  {\sffamily\bfseries\color{remarkColor}\remarkicon\quad Remarque \theremark%
     \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
   \normalfont
 }{\end{tcolorbox}}
@@ -472,7 +473,7 @@
   \begin{tcolorbox}[
     modern bar=exampleColor,
   ]%
-  {\sffamily\bfseries\color{exampleColor}\exampleicon\quad Exemple \thechapter.\thesection.\theexample%
+  {\sffamily\bfseries\color{exampleColor}\exampleicon\quad Exemple \theexample%
     \ifx&#1&\else\quad\textit{(#1)}\fi}\par\smallskip
   \normalfont
 }{\end{tcolorbox}}
@@ -482,7 +483,7 @@
   \refstepcounter{exercise}%
   \begin{tcolorbox}[
     elegant base=exerciseColor,
-    title={\exerciseicon\quad Exercice \thechapter.\thesection.\theexercise%
+    title={\exerciseicon\quad Exercice \theexercise%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -493,7 +494,7 @@
   \refstepcounter{consequence}%
   \begin{tcolorbox}[
     elegant base=consequenceColor,
-    title={\consequenceicon\quad Conséquence \thechapter.\thesection.\theconsequence%
+    title={\consequenceicon\quad Conséquence \theconsequence%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -528,7 +529,7 @@
   \refstepcounter{application}%
   \begin{tcolorbox}[
     elegant base=applicationColor,
-    title={\applicationicon\quad Application \thechapter.\thesection.\theapplication%
+    title={\applicationicon\quad Application \theapplication%
       \ifx&#1&\else\quad\textit{(#1)}\fi}
   ]%
   \normalfont
@@ -545,7 +546,7 @@
     boxrule=2pt,
     arc=5pt,
     outer arc=5pt,
-    title={\synthesisicon\quad Résumé \thechapter.\thesection.\thesynthesis%
+    title={\synthesisicon\quad Résumé \thesynthesis%
       \ifx&#1&\else\quad\textit{(#1)}\fi},
     fonttitle=\sffamily\bfseries\large,
     colbacktitle=accentOrange,

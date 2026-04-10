@@ -144,7 +144,7 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     \begin{outline}
         \1 Soient $E$ un $\Kset$-ev. et $a \in E\setminus\{0_E\}$. L'ensemble $\Kset \cdot a = \{\lambda \cdot a \mid \lambda \in \Kset\}$ est appelé la droite vectorielle\index{droite vectorielle} engendrée par $a$, et est un sous-ev. de $E$.
         \1 $F = \{(x,y) \in \R^2 \mid xy = 0\}$ n'est pas un sous-ev. de $\R^2$, parce que $(1,0)$ et $(0,1)$ sont dans $F$, mais pas leur somme $(1,1)$.
-        \1 Soit $a = (a_1,\dots,a_n) \in \Kset^n$. On pose $H = \{x=(x_1,\dots,x_n) \in \Kset^n \mid \sum_{i=1}^{n} a_i x_i = 0\}$. Alors $H$ est un sous-ev. de $\Kset^n$, appelé l'hyperplan\index{hyperplan} de $\Kset^n$ d'équation $\sum_{i=1}^n a_i x_i = 0$.
+        \1 Soit $a = (a_1,\dots,a_n) \in \Kset^n$. On pose $H = \{x=(x_1,\dots,x_n) \in \Kset^n \mid \sum_{i=1}^{n} a_i x_i = 0\}$. Alors $H$ est un sous-ev. de $\Kset^n$, appelé l'hyperplan\index{hyperplan d'équation} de $\Kset^n$ d'équation $\sum_{i=1}^n a_i x_i = 0$.
             \2 On a bien $H \subset \Kset^n$.
             \2 On a $\sum_{i=1}^{n}a_i \cdot 0_\Kset = 0_\Kset$, donc $0_{\Kset^n} \in H$.
             \2 Soient $x=(x_1,\dots,x_n), y=(y_1,\dots,y_n) \in H$, et $\lambda \in \Kset$. Alors $\sum_{i=1}^{n} a_i (\lambda x_i + y_i) = \lambda \sum_{i=1}^{n} a_i x_i + \sum_{i=1}^{n} a_i y_i = 0_\Kset$, donc $\lambda x + y \in H$.
@@ -1174,7 +1174,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 \end{definition}
 
 \begin{attention}
-    Il ne faut pas confondre ``supplémentaire'' et ``complémentaire''. En effet, si $F$ est un sev. de $E$, alors $C_E(F)$ (le complémentaire de $F$ dans $E$) n'est pas un sev. car $0_E \notin C_E(F)$, alors $C_E(F)$ ne peut pas être un sev. supplémentaire de $F$ dans $E$.
+    Il ne faut pas confondre ``supplémentaire'' et ``complémentaire''. En effet, si $F$ est un sev. de $E$, alors $C_E(F)$ (le complémentaire\index{complémentaire} de $F$ dans $E$) n'est pas un sev. car $0_E \notin C_E(F)$, alors $C_E(F)$ ne peut pas être un sev. supplémentaire de $F$ dans $E$.
 \end{attention}
 
 \begin{remark}
@@ -1409,7 +1409,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 \end{proof}
 
 \begin{remark}
-    La base $B$ est appelée la base adaptée à la somme directe.
+    La base $B$ est appelée la base adaptée\index{base adaptée} à la somme directe.
 
     Et on écrit $B \overset{\text{noté}}= (B_1,\dots,B_n)$ pour montrer que $B$ est constituée de la réunion des bases $B_1,\dots,B_n$, au lieu de $B = \bigcup_{i=1}^n B_i$.
 \end{remark}
