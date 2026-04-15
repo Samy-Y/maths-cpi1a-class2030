@@ -346,5 +346,125 @@ Ce chapitre est consacré aux applications linéaires, qui sont des fonctions en
     \end{outline}
 \end{exercise}
 
+\textbf{Solutions :}
+
+\textit{Exercice 1 :}
+
+\begin{outline}
+    \1 La démonstration de la linéarité de $f$ est triviale et se fait en utilisant la définition de base.
+    \1 $\Ker(f) = \{(x,y,z) \in \R^3 : x+y-z = 0 \text{ et } 2x+y+z = 0\}$. En résolvant ce système d'équations linéaires, on trouve que $\Ker(f) = \{(-2t,3t,t) : t \in \R\}=\R\cdot v$ avec $v = (-2,3,1)$. On procède par équivalences pour démontrer implicitement l'égalité.
+    \1 L'image de $f$ est l'ensemble des éléments de $\R^2$ de la forme $(x+y-z, 2x+y+z)$ pour $(x,y,z) \in \R^3$. On peut poser deux vecteurs $u_1 = (1,2) = f(e_1)$ et $u_2 = (1,1) = f(e_2)$, et on voit que $\Vect(u_1,u_2) \subset \Imf(f) \subset \R^2$, or $(u_1,u_2)$ est libre alors $\dim(\Vect(u_1,u_2)) = 2$, donc $\Vect(u_1,u_2) = \R^2$. Donc $\Imf(f) = \R^2$. $f$ est donc surjective.
+\end{outline}
+
+\textit{Exercice 2 :} On suit la même démarche... (pas corrigé en classe).
+
+\textit{Exercice 3 :}
+
+\begin{outline}
+    \1 L'injectivité de $\varphi$ est démontrée en utilisant le fait que les $a_i$ sont deux à deux distincts, donc le polynôme admettra $n+1$ racines distinctes, et par conséquent, il sera nul.
+    \1 La surjectivité de $\varphi$ est démontrée en utilisant les polynômes de Lagrange (interpolation lagrangienne)\index{polynômes de Lagrange}.
+    \2 On pose $l_k = \prod_{\substack{i=0 \\ i \ne k}}^n \frac{X - a_i}{a_k - a_i}$ pour $k = 0,\dots,n$. Alors $l_k(a_j) = \delta_{jk}$ (le symbole de Kronecker), c'est-à-dire que $l_k(a_j) = 1$ si $j=k$ et $l_k(a_j) = 0$ sinon.
+    \2 Soit $(y_0,\dots,y_n) \in \Kset$, alors on pose $P = \sum_{k=0}^n y_k l_k$. On a $P(a_j) = \sum_{k=0}^n y_k l_k(a_j) = y_j$ pour $j=0,\dots,n$. Donc $\varphi(P) = (P(a_0),\dots,P(a_n)) = (y_0,\dots,y_n)$, et par conséquent, $\varphi$ est surjective.
+    \1 On en déduit que $\varphi$ est un isomorphisme de $\Kset_n[X]$ vers $\Kset^{n+1}$, et par conséquent, $\varphi \in \Isom(\Kset_n[X],\Kset^{n+1})$.
+    \1 \textit{Note additionnelle :} On peut aussi déterminer la bijection réciproque de $\varphi$. On a donc $\varphi^{-1} : \begin{matrix}
+\Kset^{n+1} &\to &\Kset_n[X]\\
+(y_0,\dots,y_n) &\mapsto &\sum_{k=0}^n y_k l_k
+\end{matrix}$.
+    \2 Et on voit que $\sum_{k=0}^n l_k = \varphi^{-1}(1,\dots,1) = \varphi^{-1}(\varphi(1)) = 1$. Donc $l_0 + \dots + l_n = 1$.
+    \2 C'est donc un résultat assez puissant : la somme des polynômes élémentaires de Lagrange est égale à 1.
+\end{outline}
+
+Le reste des exercices est laissé en tant que preuve des propriétés suivantes.
+
+\begin{property}
+    Soient $f \in \mathcal L(E,F)$ et $B$ une base de $E$ (pas forcément finie).
+
+    \begin{enumerate}
+        \item $f$ est injective $\iff$ $f(B)$ est libre.
+        \item $f$ est surjective $\iff$ $f(B)$ est génératrice de $F$.
+        \item $f \in \Isom(E,F) \iff f(B)$ est une base de $F$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Démonstration de la première équivalence :
+        \2 ($\implies$) Dans le sens direct :
+        \3 On a $f(B) = \{f(e) \tq e \in B\}$.
+        \3 Soient $u_1,\dots,u_n \in f(B)$ avec $n \in \N^*$. Alors $\exists e_1,\dots,e_n \in B$ tels que $u_i = f(e_i)$ pour $i=1,\dots,n$.
+        \3 Soient $\lambda_1,\dots,\lambda_n \in \Kset$ tels que $\sum_{k=1}^{n}\lambda_k u_k = 0_F$.
+        \begin{align*}
+            \implies \sum_{k=1}^{n}\lambda_k u_k = 0_F &\implies \sum_{k=1}^{n}\lambda_k f(e_k) = 0_F\\
+            &\implies f\left(\sum_{k=1}^{n}\lambda_k e_k\right) = 0_F\\
+            &\implies \sum_{k=1}^{n}\lambda_k e_k \in \Ker(f)\\
+            &\implies \sum_{k=1}^{n}\lambda_k e_k = 0_E \text{ (car $f$ est injective)}\\
+            &\implies \lambda_1 = \dots = \lambda_n = 0
+        \end{align*}
+        \3 Donc $(u_1,\dots,u_n)$ est libre, et par conséquent, $f(B)$ est libre.
+        \2 ($\impliedby$) Dans le sens inverse :
+        \3 Soit $x \in \Ker(f)$, alors $x\in E$ et $f(x) = 0_F$.
+        \3 Comme $x \in E$ et $B$ est une base de $E$, alors $\exists e_1,\dots,e_n \in B$ et $\lambda_1,\dots,\lambda_n \in \Kset$ tels que $x = \sum_{k=1}^{n}\lambda_k e_k$.
+    \end{outline}
+\end{proof}
+\todo{recop}
+
+\begin{exercise}
+    Soit $n \in \N$. Montrer que $\exists! P \in \R_{n+1}[X]$ tel que $P(0) = 0$ et $P(X+1) - P(X) = X^n$.
+
+    \textbf{Solution :}
+
+    On pose $E = \{P \in \R_{n+1}[X] : P(0) = 0\}$.
+
+    $E$ est un sev de $\R_{n+1}[X]$ (car $E$ est non vide, et stable par addition et multiplication par un scalaire).
+
+    On pose $f: \begin{matrix}
+    E &\to &\R_n[X]\\
+    P &\mapsto &P(X+1) - P(X)
+    \end{matrix}$.
+
+    \begin{outline}
+        \1 \textbf{L'application est bien définie} parce que $\forall P \in E$, $\deg(P) \le n+1$ donc $\deg(P(X+1) - P(X)) \le n$ (coefficients dominants s'annulent).
+
+        \1 Donc $f(P) \in \R_n[X]$ pour tout $P \in E$, et par conséquent, $f$ est une application de $E$ vers $\R_n[X]$.
+
+        \1 $f$ est linéaire (démontré facilement).
+
+        \1 On pose $\forall P \in E, P = \sum_{k=1} a_k X^k$ (le terme constant est nul car $P(0) = 0$), alors $f(P) = \sum_{k=1} a_k ((X+1)^k - X^k)$.
+
+        \1 Or $B = (X,\dots,X^{n+1})$ est de degré échelonné, donc $B$ est libre, et par conséquent, $B$ est une base de $E$.
+
+        \1 On a $f(B) = \{(X+1) - X, (X+1)^2 - X^2, \dots, (X+1)^{n+1} - X^{n+1}\}$. Donc $f(B)$ est de degré échelonné, et par conséquent, $f(B)$ est libre, et comme $\card(f(B)) = \card(B) = n+1 = \dim(\R_n[X])$, alors $f(B)$ est une base de $\R_n[X]$.
+
+        \1 Alors $f$ est un isomorphisme de $E$ vers $\R_n[X]$, et par conséquent, $f$ est bijective. Donc $\exists! P \in E$ tel que $f(P) = X^n$, c'est-à-dire tel que $P(X+1) - P(X) = X^n$ et $P(0) = 0$.
+    \end{outline}
+\end{exercise}
+
+\begin{application}
+    Calculer $\sum_{k=0}^{n}k^3$ pour $n \in \N^*$.
+
+    \textbf{Solution :}
+
+    \begin{align*}
+        f(X^4) &= (X+1)^4 - X^4\\
+        &= 4X^3 + 6X^2 + 4X + 1\\
+        f(X^3) &= (X+1)^3 - X^3\\
+        &= 3X^2 + 3X + 1\\
+        f(X^2) &= (X+1)^2 - X^2\\
+        &= 2X + 1
+    \end{align*}
+
+    \begin{align*}
+        f(X^4) - 2f(X^3) + f(X^2) &= (4X^3 + 6X^2 + 4X + 1) - 2(3X^2 + 3X + 1) + (2X + 1)\\
+        &= 4X^3 + 6X^2 + 4X + 1 - 6X^2 - 6X - 2 + 2X + 1\\
+        &= 4X^3 + 0X^2 + 0X + 0\\
+        &= 4X^3
+    \end{align*}
+
+    Donc $X^3 = \frac{1}{4}(f(X^4) - 2f(X^3) + f(X^2))$.
+
+    Par linéarité de $f$, on a :
+    $$X^3 = f(\underbrace{\frac14 X^2(X-1)^2}_{=P})$$
+\end{application}
+
 \printindex
 \end{document}

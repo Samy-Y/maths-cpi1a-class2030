@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résumé : Algèbre Linéaire (Chapitre XIV-A)</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --box-bg: #ffffff;
+            --border-color: #003366;
+            --text-main: #212529;
+            --accent: #00509e;
+            --proof-bg: #f1f8ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: sticky;
+            top: 20px;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            z-index: 1000;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        #search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        #search-results li {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        #search-results li:hover {
+            background-color: var(--proof-bg);
+            color: var(--accent);
+        }
+
+        /* Diagram Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .concept-box {
+            background: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 4px 4px 0px var(--border-color);
+            transition: transform 0.2s;
+            scroll-margin-top: 100px; /* Offset for sticky search */
+        }
+
+        .concept-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .concept-box h3 {
+            margin-top: 0;
+            color: var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .proof-box {
+            background-color: var(--proof-bg);
+            border-left: 4px solid var(--accent);
+            padding: 10px 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .proof-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--accent);
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+    </style>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Rechercher un concept, un théorème, une définition..." autocomplete="off">
+        <ul id="search-results"></ul>
+    </div>
+
+    <div class="grid-container" id="content-grid">
+
+        <div class="concept-box" id="espace-vectoriel" data-keywords="espace vectoriel groupe abélien lce loi de composition scalaire vecteur">
+            <h3>Espace Vectoriel</h3>
+            <p>Un ensemble $(E, +, \cdot)$ est un $\mathbb{K}$-espace vectoriel si et seulement si :</p>
+            <ul>
+                <li>$(E, +)$ est un groupe abélien.</li>
+                <li>La loi de composition externe $\cdot : \mathbb{K} \times E \to E$ vérifie la distributivité par rapport à l'addition des scalaires et des vecteurs, l'associativité mixte, et $1_{\mathbb{K}} \cdot u = u$.</li>
+            </ul>
+            <p><strong>Propriétés fondamentales :</strong> $\alpha \cdot x = 0_E \iff \alpha = 0_{\mathbb{K}}$ ou $x = 0_E$.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Sens indirect :</strong> Développer $0_{\mathbb{K}} \cdot x = (0_{\mathbb{K}} + 0_{\mathbb{K}}) \cdot x$ en utilisant la distributivité pour isoler $0_E$.</li>
+                    <li><strong>Sens direct :</strong> Supposer $\alpha \cdot x = 0_E$. Si $\alpha \neq 0_{\mathbb{K}}$, multiplier par $\alpha^{-1}$ pour obtenir $1_{\mathbb{K}} \cdot x = 0_E$, d'où $x = 0_E$.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="sous-espace-vectoriel" data-keywords="sous-espace vectoriel sev caractérisation intersection union">
+            <h3>Sous-espace Vectoriel (SEV)</h3>
+            <p>Une partie $F$ de $E$ est un sous-espace vectoriel si elle est elle-même un espace vectoriel pour les lois induites.</p>
+            <p><span class="highlight">Caractérisation :</span> $F$ est un SEV si et seulement si $0_E \in F$ et pour tous $x, y \in F$ et $\lambda \in \mathbb{K}$, $\lambda x + y \in F$.</p>
+            <p><strong>Propriétés :</strong> L'intersection de SEV est un SEV. L'union de deux SEV est un SEV si et seulement si l'un est inclus dans l'autre.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Équivalences :</strong> Utiliser un raisonnement circulaire. Montrer que la stabilité par combinaison linéaire implique l'existence du neutre et du symétrique (en fixant des scalaires spécifiques comme $0$ ou $-1$).</li>
+                    <li><strong>Union de SEV :</strong> Procéder par l'absurde. Si $F \not\subset G$ et $G \not\subset F$, prendre $x \in F \setminus G$ et $y \in G \setminus F$. Évaluer $x+y \in F \cup G$ pour aboutir à une contradiction.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="espace-engendre" data-keywords="sous-espace vectoriel engendré vect combinaison linéaire plus petit">
+            <h3>Sous-espace Engendré (Vect)</h3>
+            <p>Le sous-espace engendré par une partie $A \subset E$, noté $Vect(A)$, est le plus petit sous-espace vectoriel de $E$ contenant $A$.</p>
+            <p>Il correspond à l'ensemble de toutes les <span class="highlight">combinaisons linéaires</span> finies des éléments de $A$ : $\sum_{i=1}^{n} \lambda_i a_i$.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Égalité de sous-espaces :</strong> Pour montrer $Vect(A) = Vect(B)$, procéder par double inclusion en démontrant que $A \subset Vect(B)$ et $B \subset Vect(A)$.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="familles" data-keywords="famille libre génératrice base liée combinaison linéaire echelonee">
+            <h3>Familles Libres, Génératrices et Bases</h3>
+            <ul>
+                <li><strong>Génératrice :</strong> Tout vecteur de $E$ peut s'écrire comme combinaison linéaire des éléments de la famille.</li>
+                <li><strong>Libre :</strong> Une combinaison linéaire nulle implique que tous les coefficients sont nuls ($\sum \lambda_i e_i = 0 \implies \lambda_i = 0$). Sinon, la famille est liée.</li>
+                <li><strong>Base :</strong> Une famille à la fois libre et génératrice. Tout vecteur s'exprime de manière <span class="highlight">unique</span> dans une base.</li>
+            </ul>
+            <p><strong>Famille échelonnée :</strong> Famille de vecteurs dont les composantes non nulles commencent à des indices strictement croissants. Toute famille échelonnée est libre.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Liberté (famille échelonnée) :</strong> Raisonner par l'absurde ou par récurrence. Isoler le coefficient non nul associé au degré le plus élevé (ou à l'indice pivot) et montrer que cela force l'égalité à zéro.</li>
+                    <li><strong>Théorème d'ajout :</strong> Si $L$ est libre et $x \notin Vect(L)$, alors $L \cup \{x\}$ est libre. Supposer la combinaison nulle, isoler le coefficient de $x$, et montrer qu'il doit être nul pour éviter une contradiction.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="dimension-finie" data-keywords="dimension finie cardinal base incomplete theoreme">
+            <h3>Dimension Finie</h3>
+            <p>Un espace est de dimension finie s'il admet une famille génératrice finie. Le <span class="highlight">Théorème de la dimension</span> affirme que toutes les bases ont le même cardinal. Ce cardinal est appelé la dimension de $E$, noté $\dim(E)$.</p>
+            <p><strong>Théorème de la base incomplète :</strong> De toute famille génératrice, on peut extraire une base. Toute famille libre peut être complétée en une base.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Base incomplète :</strong> Considérer l'ensemble des cardinaux des familles libres incluses dans la famille génératrice. Cet ensemble est majoré. Prendre la famille libre maximale et prouver qu'elle engendre l'espace entier par l'absurde.</li>
+                    <li><strong>Égalité de sous-espaces :</strong> Si $F \subset G$ et $\dim(F) = \dim(G)$ (en dimension finie), alors $F = G$. Démontrer en montrant qu'une base de $F$ devient une base de $G$.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="somme-sev" data-keywords="somme directe sous-espace supplementaire grassmann intersection">
+            <h3>Somme de Sous-espaces</h3>
+            <p>La somme $F+G$ est l'ensemble $\{x+y \mid x \in F, y \in G\}$. C'est le plus petit SEV contenant $F \cup G$.</p>
+            <p><strong>Somme directe :</strong> $F \oplus G$ si et seulement si $F \cap G = \{0_E\}$ et chaque élément de la somme s'écrit de manière unique.</p>
+            <p><strong>Supplémentaire :</strong> $G$ est un supplémentaire de $F$ dans $E$ si $E = F \oplus G$.</p>
+            <p><span class="highlight">Formule de Grassmann :</span> $\dim(F+G) = \dim(F) + \dim(G) - \dim(F \cap G)$.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Grassmann :</strong> Prendre une base de l'intersection $F \cap G$, la compléter en une base de $F$ d'une part, et en une base de $G$ d'autre part. Prouver que la réunion de ces bases forme une base de $F+G$.</li>
+                    <li><strong>Somme directe multiple :</strong> Démontrer par l'absurde que l'intersection d'un SEV avec la somme des précédents est obligatoirement réduite au vecteur nul pour garantir l'unicité.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept-box" id="hyperplans" data-keywords="hyperplan dimension droite vectorielle">
+            <h3>Hyperplans</h3>
+            <p>Un sous-espace vectoriel $H$ de $E$ est un hyperplan s'il admet une droite vectorielle comme supplémentaire : $\exists a \in E \setminus \{0_E\} \text{ tel que } E = H \oplus \mathbb{K} \cdot a$.</p>
+            <p><strong>En dimension finie :</strong> $H$ est un hyperplan si et seulement si $\dim(H) = \dim(E) - 1$.</p>
+            <div class="proof-box">
+                <h4>Idées de démonstration</h4>
+                <ul>
+                    <li><strong>Équivalence avec la dimension :</strong> Appliquer directement la formule de la dimension pour une somme directe. Si $E = H \oplus \mathbb{K} \cdot a$, alors $\dim(E) = \dim(H) + 1$.</li>
+                    <li><strong>Supplémentarité avec tout vecteur extérieur :</strong> Montrer que pour tout $b \notin H$, l'intersection $H \cap (\mathbb{K} \cdot b)$ est nulle et que l'association des dimensions (ou la décomposition) couvre $E$.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const conceptBoxes = document.querySelectorAll('.concept-box');
+
+        // Préparer les données pour la recherche
+        const data = Array.from(conceptBoxes).map(box => {
+            return {
+                id: box.id,
+                title: box.querySelector('h3').innerText,
+                keywords: box.getAttribute('data-keywords').toLowerCase(),
+                element: box
+            };
+        });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            searchResults.innerHTML = '';
+
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const matches = data.filter(item => {
+                return item.title.toLowerCase().includes(query) || item.keywords.includes(query);
+            });
+
+            if (matches.length > 0) {
+                searchResults.style.display = 'block';
+                matches.forEach(match => {
+                    const li = document.createElement('li');
+                    li.textContent = match.title;
+                    li.addEventListener('click', () => {
+                        match.element.scrollIntoView({ behavior: 'smooth' });
+                        searchResults.style.display = 'none';
+                        searchInput.value = '';
+                        
+                        // Optionnel : Effet de surbrillance temporaire
+                        match.element.style.borderColor = '#ff9900';
+                        match.element.style.boxShadow = '4px 4px 0px #ff9900';
+                        setTimeout(() => {
+                            match.element.style.borderColor = '';
+                            match.element.style.boxShadow = '';
+                        }, 2000);
+                    });
+                    searchResults.appendChild(li);
+                });
+            } else {
+                searchResults.style.display = 'block';
+                const li = document.createElement('li');
+                li.textContent = 'Aucun résultat trouvé.';
+                li.style.color = '#999';
+                li.style.cursor = 'default';
+                searchResults.appendChild(li);
+            }
+        });
+
+        // Fermer les résultats si on clique ailleurs
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

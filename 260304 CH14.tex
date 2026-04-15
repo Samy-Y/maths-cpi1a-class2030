@@ -1424,7 +1424,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 \end{consequence}
 
 \begin{theorem}[Lemme]
-    Tout sous-espace vectoriel $R$ d'un $\Kset$-ev. de dimension finie $E$ admet un supplémentaire dans $E$, c'est à dire que :
+    Tout sous-espace vectoriel $F$ d'un $\Kset$-ev. de dimension finie $E$ admet un supplémentaire dans $E$, c'est à dire que :
 
     $$\forall F \text{ sev. de } E, \exists G \text{ sev. de } E, E = F \oplus G$$
     \label{lem:sous_espace_vectoriel_admet_suppl}
@@ -1568,7 +1568,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
         \1 Dans le sens direct $\implies$ la démonstration est facile et se fait en utilisant la définition de l'hyperplan et la dimension d'une somme directe.
         \1 Dans le sens indirect $\impliedby$ :
         \2 On pose $H$ un sous-espace vectoriel de $E$ de dimension $n-1$.
-        \2 On sait que $E = H \oplus F$.
+        \2 On sait que $E = H \oplus F$, sachant que tout sous-espace vectoriel de $E$ admet un supplémentaire dans $E$ (voir le lemme \ref{lem:sous_espace_vectoriel_admet_suppl}).
         \2 Donc $\underbrace{\underset\Kset\dim(E)}_{=n} = \underbrace{\underset\Kset\dim(H)}_{=n-1} + \underset\Kset\dim(F)$.
         \2 Alors $\underset\Kset\dim(F) = 1$.
         \2 Donc $\exists a \in E\setminus\{0_E\}$ tel que $F = \Kset \cdot a$.
