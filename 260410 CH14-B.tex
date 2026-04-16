@@ -466,5 +466,225 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
     $$X^3 = f(\underbrace{\frac14 X^2(X-1)^2}_{=P})$$
 \end{application}
 
+\section{Rang d'une application linéaire}
+
+\begin{definition}
+    Soient $E,F$ deux $\Kset$-ev. et $f \in \mathcal L(E,F)$.
+
+    Si $\Imf(f)$ est de dimension finie, alors on appelle rang de $f$ la dimension de $\Imf(f)$, et on note $\rang(f) = \underset\Kset\dim(\Imf(f))$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $F$ est de dimension finie, alors la dimension de $\Imf(f)$ est forcément finie, et par conséquent, le rang de $f$ existe et $\rang(f) \le \underset\Kset\dim(F)$. 
+        \item Si $E$ est de dimension finie, alors $\rang(f)$ existe.
+        \item Si $\underset\Kset\dim(E) = n \in \N^*$ et $\underset\Kset\dim(F) = p \in \N^*$, alors $\rang(f) \le \min(n,p)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}[2e remarque précédente]
+    \begin{outline}
+        \1 On pose $B = (e_1,\dots,e_n)$ une base de $E$ avec $n = \dim(E)$.
+        \1 Donc $\Imf(f) = f(E) = f(\Vect(e_1,\dots,e_n))$ et $\Imf(f) = \Vect(f(e_1),\dots,f(e_n))$.
+        \1 Donc $\Imf(f)$ est de dimension finie ($< \infty$), et par conséquent, le rang de $f$ existe.
+    \end{outline}
+\end{proof}
+
+\begin{methodbox}
+    La deuxième remarque est particulièrement utile dans la pratique pour prouver que le rang d'une application linéaire existe.
+\end{methodbox}
+
+\begin{example}
+    Soit $f : \begin{matrix}
+    \Kset_2[X] &\to &\Kset_2[X]\\
+    P &\mapsto XP' - P
+    \end{matrix}$.
+
+    Pour déterminer le rang de $f$, on peut utiliser la méthode suivante :
+    \begin{outline}
+        \1 On sait que $(1,X,X^2)$ est une base de $\Kset_2[X]$.
+        \1 Le rang de $f$ est $\rang(f) = \rang(f(1),f(X),f(X^2))$.
+        \1 On a $f(1) = -1$, $f(X) = 0$ et $f(X^2) = 2X^2$.
+        \1 Donc $\rang(f) = \rang(-1,0,2X^2) = \rang(-1,X^2) = 2$.
+        \1 D'où $\rang(f) = 2$.
+        \1 \textit{Note additionnelle :}
+        \2 On voit aussi que $\Imf(f)$ est un hyperplan\index{hyperplan} de $\Kset_2[X]$ (car il est de dimension 2 dans un espace de dimension 3).
+        \2 i.e. $\exists Q \in \Kset_2[X]\setminus\Imf(f)$ tel que $\Kset_2[X] = \Imf(f) \oplus \Kset\cdot Q$.
+        \2 Par exemple, on peut prendre $Q = X$ (car $X \notin \Imf(f)$), et alors $\Kset_2[X] = \Imf(f) \oplus \Kset\cdot X$.
+        \2 C'est un résultat assez intéressant parce qu'il nous permet de trouver une nouvelle base de $\Kset_2[X]$ à partir d'une base de $\Imf(f)$, et d'un vecteur $Q$ qui n'est pas dans $\Imf(f)$.
+    \end{outline}
+\end{example}
+
+\begin{property}
+    Soient $E,F$ deux $\Kset$-ev. et $f \in \mathcal L(E,F)$.
+
+    Si $H$ est un supplémentaire de $\Ker(f)$ dans $E$, alors $H$ est isomorphe à $\Imf(f)$, donc :
+    $$H \sim \Imf(f)$$
+\end{property}
+
+\begin{proof}
+    Soit $H$ un supplémentaire de $\Ker(f)$ dans $E$. Alors $E = \Ker(f) \oplus H$.
+
+    On cherche à déterminer une application linéaire bijective de $H$ vers $\Imf(f)$.
+
+    On pose $g : \begin{matrix}
+    H &\to &\Imf(f)\\
+    x &\mapsto &f(x)
+    \end{matrix}$
+
+    \textit{Au final, cela revient à considérer la restriction de $f$ à $H$.}
+
+    \begin{outline}
+        \1 $\forall x \in H$, $g(x) = f(x) \in \Imf(f)$, donc $g$ est une application de $H$ vers $\Imf(f)$.
+        \1 Comme $f$ est linéaire, alors $g$ est linéaire $\in \mathcal L(H, \Imf(f))$.
+        \1 Soit $x \in \Ker(g)$. Cela équivaut à dire que $x\in H et g(x) = f(x) = 0_F$, c'est-à-dire que $x \in \Ker(f)$, ce qui équivaut à dire que $H \cap \Ker(f) = \{0_E\}$, alors $x = 0_E$. Donc $g$ est injective.
+        \1 On a $E = H \oplus \Ker(f)$, donc $f(E) = f(H) + f(\Ker(f)) = f(H) + \{0_F\} = f(H)$, donc $g$ est surjective, car $g(H) = f(H) = f(E) = \Imf(f)$.
+        \1 Donc $g$ est bijective, et par conséquent, $H$ est isomorphe à $\Imf(f)$.
+    \end{outline}
+\end{proof}
+
+\begin{theorem}[Théorème du rang]
+    Soient $E,F$ deux $\Kset$-ev. et $f \in \mathcal L(E,F)$, et $\underset\Kset\dim(E) = n \in \N^* < \infty$.
+    
+    Alors $\underset\Kset\dim(\Ker(f)) < \infty$, et $\rang(f) = n - \underset\Kset\dim(\Ker(f))$.
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 $\Ker(f)$ est un sev de $E$, donc $\Ker(f)$ est de dimension finie, et $H \subset E$ est un supplémentaire de $\Ker(f)$ dans $E$, alors $E = \Ker(f) \oplus H$.
+        \1 D'après la propriété précédente, $H$ est isomorphe à $\Imf(f)$, donc $\underset\Kset\dim(H) = \underset\Kset\dim(\Imf(f)) = \rang(f)$.
+        \1 Or on sait que $E = \Ker(f) \oplus H$, donc $\underset\Kset\dim(E) = \underset\Kset\dim(\Ker(f)) + \underset\Kset\dim(H)$, et par conséquent, $\rang(f) = \underset\Kset\dim(H) = n - \underset\Kset\dim(\Ker(f))$.
+    \end{outline}
+\end{proof}
+
+\begin{theorem}
+    Si $f \in \mathcal L(E,F)$ avec $\underset\Kset\dim(E) = \underset\Kset\dim(F) = n < \infty$, alors :
+    $$f \text{ est injective} \iff f \textrm{ est surjective} \iff f \in \Isom(E,F)$$
+\end{theorem}
+
+\begin{methodbox}
+    Ce théorème est particulièrement utile pour démontrer qu'une application linéaire injective liant deux ensembles de même dimension est un isomorphisme, par exemple une application injective de $\Kset_n[X]$ vers $\Kset^{n+1}$ est un isomorphisme...
+\end{methodbox}
+
+\begin{proof}
+    \begin{align*}
+    f \text{ est injective} &\iff \Ker(f) = \{0_E\}\\
+    &\iff \rang(f) = n - \underset\Kset\dim(\Ker(f)) = n - 0 = n\\
+    &\iff \dim(\Imf(f)) = n = \dim(F)\\
+    &\iff \Imf(f) = F\\
+    &\iff f \text{ est surjective}
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    Soit $\Delta : \begin{matrix}
+    \Kset_n[X] &\to &\Kset_n[X]\\
+    P &\mapsto &P(X+1) - P(X)
+    \end{matrix}$
+
+    \begin{outline}
+        \1 $\Delta$ est linéaire $\in \mathcal L(\Kset_n[X])$.
+        \1 Soit $P \in \Ker(\Delta)$. Cela signifie que $\Delta(P) = 0$, donc $P(X+1) - P(X) = 0$.
+        \1 Donc $\forall k \in \N, P(k) = P(0)$, et par conséquent, $P$ est constant, et $P \in \Kset$.
+        \1 Donc $\Ker(\Delta) = \Kset_0[X]$.
+        \1 Donc $\underset\Kset\dim(\Ker(\Delta)) = 1$.
+        \1 Donc $\forall P \in \Kset_n[X]$, on a $\deg(P(X+1) - P(X)) \le n-1$, et par conséquent, $\Imf(\Delta) \subset \Kset_{n-1}[X]$.
+        \1 Or  $\rang(\Delta) = n+1 - \underset\Kset\dim(\Ker(\Delta)) = n+1 - 1 = n$.
+        \1 D'où $\Imf(\Delta) = \Kset_{n-1}[X]$ et $\rang(\Delta) = n$.
+    \end{outline}
+\end{example}
+
+\begin{attention}
+    Dans l'exemple précédent, on n'a pas $\Kset_n[X] = \Imf(\Delta) \oplus \Ker(\Delta)$, car $\Imf(\Delta) \cap \Ker(\Delta) = \{0_{\Kset_n[X]}\}$.
+
+    En général, la somme directe n'est pas vérifiée !
+\end{attention}
+
+\begin{consequence}
+    Soit $f \in \mathcal L(E)$ avec $\underset\Kset\dim(E) = n < \infty$. Alors $f$ est injective $\iff$ $f$ est surjective $\iff$ $f \in \GL(E)$.
+\end{consequence}
+
+\begin{property}[Rang d'une composée d'applications linéaires]
+    Soient $E, F, G$ trois $\Kset$-ev. et $f \in \mathcal L(E,F)$, $g \in \mathcal L(F,G)$, tels que $\underset\Kset\dim(E) < \infty$ et $\underset\Kset\dim(F) < \infty$.
+
+    \begin{enumerate}
+        \item $\rang(g\circ f) = \rang(f) - \underset\Kset\dim(\underbrace{\Ker(g) \cap \Imf(f)}_{=\Ker(g\circ f)})$.
+        \item Si $g$ est injective, alors $\rang(g\circ f) = \rang(f)$.
+        \item Si $f$ est surjective, alors $\rang(g\circ f) = \rang(g)$.
+        \item \textbf{Les applications linéaires bijectives ne changent pas le rang :} Si $f \in \Isom(E,F)$ et $g \in \Isom(F,G)$, alors $\rang(g\circ f) = \rang(f) = \rang(g)$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}[enumerate]
+    \1 On peut considérer $g\circ f$ comme l'application linéaire partant de $\Imf(f)$ vers $G$, et $\Imf(f)$ est de dimension finie, donc le rang de $g\circ f$ existe, et on applique donc le théorème du rang à $g\circ f$ pour retrouver le résultat.
+    \1 Si $g$ est injective, alors $\Ker(g) = \{0_F\}$, donc $\Ker(g) \cap \Imf(f) = \{0_F\}$, et par conséquent, $\rang(g\circ f) = \rang(f)$.
+    \1 Si $f$ est surjective, alors $\Imf(f) = F$, donc $\Ker(g) \cap \Imf(f) = \Ker(g)$, et par conséquent, $\rang(g\circ f) = \rang(f) - \underset\Kset\dim(\Ker(g)) = \underset\Kset\dim(F) - \underset\Kset\dim(\Ker(g)) = \rang(g)$.
+    \end{outline}
+\end{proof}
+
+\chapter{Projections et symétries}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $(E_i)_{1\le i \le n}$ une famille de sev de $E$ tels que $E = \bigoplus_{i=1}^n E_i$.
+
+    Soient $u_i \in \mathcal L(E_i,F)$ pour $i=1,\dots,n$.
+
+    Alors $\exists! u \in \mathcal L(E,F)$ tel que $U_{|E_i} = u_i$ pour $i=1,\dots,n$ (on note $u_{|E_i}$ la restriction de $u$ à $E_i$).
+
+    $u$ est donnée par $u : \begin{matrix}
+    E &\to &F\\
+    \sum_{i=1}^n x_i &\mapsto &\sum_{i=1}^n u_i(x_i)
+    \end{matrix}$ avec $x_i \in E_i$ pour $i=1,\dots,n$.
+\end{property}
+
+\begin{proof}
+    À faire en tant qu'exercice
+
+    (il faut montrer que $u$ est bien définie, linéaire, que sa restriction à $E_i$ est bien égale à $u_i$, et que $u$ est la seule application linéaire vérifiant ces propriétés).
+\end{proof}
+\todo{17/04 FAIRE URGENT}
+
+\section{Projections et projecteurs}
+
+\begin{definition}[Projection]
+    Soient $E$ un $\Kset$-ev. et $F,G$ deux sous-espaces vectoriels de $E$ tels que $E = F \oplus G$.
+
+    On appelle projection de $E$ sur $F$ parallèlement à $G$ l'endomorphisme $p$ de $E$ vérifiant :
+    $$\begin{cases}
+    \forall x \in F, p(x) = x\\
+    \forall x \in G, p(x) = 0_E
+    \end{cases}$$
+\end{definition}
+
+\begin{remark}
+    On sait que $\forall x \in E, \exists! (x_1,x_2) \in F \times G$ tel que $x = x_1 + x_2$, et alors $p(x) = p(x_1 + x_2) = p(x_1) + p(x_2) = x_1 + 0_E = x_1$.
+\end{remark}
+
+\begin{definition}[Projecteur]
+    Soit $f \in \mathcal L(E)$. $f$ est dit projecteur de $E$ si $f^2 = f$.
+\end{definition}
+
+\begin{remark}
+    $f$ est une projection sur $F$ parallèlement à $G$ implique que $f$ est un projecteur, mais la réciproque n'est pas forcément vérifiée.
+\end{remark}
+
+\begin{proof}
+    Comme on sait que $p(x) = x_1$ pour $x = x_1 + x_2$ avec $x_1 \in F$ et $x_2 \in G$, alors $p^2(x) = p(p(x)) = p(x_1) = x_1 = p(x)$, et par conséquent, $p^2 = p$, donc $p$ est un projecteur.
+\end{proof}
+
+\begin{consequence}
+    Si $f$ est un projecteur, alors $\forall k \le 1, f^k = f$.
+\end{consequence}
+
+\begin{exercise}
+    Montrer que:
+    \begin{itemize}
+        \item $f \in \mathcal L(E)$ est un projecteur $\implies$ $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$.
+        \item $f \in \mathcal L(E)$ est un projecteur $\iff$ $E = \Imf(f) \oplus \Ker(f)$.
+    \end{itemize}
+\end{exercise}
+\todo{17/04 FAIRE URGENT}
+
 \printindex
 \end{document}
