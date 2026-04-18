@@ -210,6 +210,7 @@ Ce chapitre est consacré aux applications linéaires, qui sont des fonctions en
 
     \textit{Note additionnelle (Théorème de Cayley-Hamilton) : Tout endomorphisme $f$ de $E$ admet un polynôme annulateur, et même plus précisément, le polynôme caractéristique de $f$ est un polynôme annulateur de $f$.}
 \end{remark}
+\todo{recop}
 
 \subsection{Endomorphismes nilpotents}
 
@@ -429,11 +430,11 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
 
         \1 $f$ est linéaire (démontré facilement).
 
-        \1 On pose $\forall P \in E, P = \sum_{k=1} a_k X^k$ (le terme constant est nul car $P(0) = 0$), alors $f(P) = \sum_{k=1} a_k ((X+1)^k - X^k)$.
+        \1 On pose $\forall P \in E, P = \sum_{k=1}^n a_k X^k$ (le terme constant est nul car $P(0) = 0$), alors $f(P) = \sum_{k=1} a_k ((X+1)^k - X^k)$.
 
         \1 Or $B = (X,\dots,X^{n+1})$ est de degré échelonné, donc $B$ est libre, et par conséquent, $B$ est une base de $E$.
 
-        \1 On a $f(B) = \{(X+1) - X, (X+1)^2 - X^2, \dots, (X+1)^{n+1} - X^{n+1}\}$. Donc $f(B)$ est de degré échelonné, et par conséquent, $f(B)$ est libre, et comme $\card(f(B)) = \card(B) = n+1 = \dim(\R_n[X])$, alors $f(B)$ est une base de $\R_n[X]$.
+        \1 On a $f(B) = \{(X+1) - X, (X+1)^2 - X^2, \dots, (X+1)^{n+1} - X^{n+1}\}$. Donc $f(B)$ est de degré échelonné, et par conséquent, $f(B)$ est libre, et comme $\card{f(B)} = \card B = n+1 = \dim(\R_n[X])$, alors $f(B)$ est une base de $\R_n[X]$.
 
         \1 Alors $f$ est un isomorphisme de $E$ vers $\R_n[X]$, et par conséquent, $f$ est bijective. Donc $\exists! P \in E$ tel que $f(P) = X^n$, c'est-à-dire tel que $P(X+1) - P(X) = X^n$ et $P(0) = 0$.
     \end{outline}
@@ -465,6 +466,7 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
     Par linéarité de $f$, on a :
     $$X^3 = f(\underbrace{\frac14 X^2(X-1)^2}_{=P})$$
 \end{application}
+\todo{detail}
 
 \section{Rang d'une application linéaire}
 
@@ -643,7 +645,6 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
 
     (il faut montrer que $u$ est bien définie, linéaire, que sa restriction à $E_i$ est bien égale à $u_i$, et que $u$ est la seule application linéaire vérifiant ces propriétés).
 \end{proof}
-\todo{17/04 FAIRE URGENT}
 
 \section{Projections et projecteurs}
 
@@ -674,17 +675,250 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
 \end{proof}
 
 \begin{consequence}
-    Si $f$ est un projecteur, alors $\forall k \le 1, f^k = f$.
+    Si $f$ est un projecteur, alors $\forall k \ge 1, f^k = f$.
 \end{consequence}
 
+% \begin{exercise}
+%     Montrer que:
+%     \begin{itemize}
+%         \item $f \in \mathcal L(E)$ est un projecteur $\implies$ $E = \Imf(f) \oplus \Ker(f)$.
+%         \item $f \in \mathcal L(E)$ est un projecteur $\implies$ $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$.  
+%     \end{itemize}
+% \end{exercise}
+
+\begin{property}
+    Soit $f \in \mathcal L(E)$.
+    
+    Alors $f$ est un projecteur $\implies$ $E = \Imf(f) \oplus \Ker(f)$.
+\end{property}
+
+\begin{proof}
+    Réalisée en tant qu'exercice.
+
+    \begin{outline}
+        \1 On montre que l'intersection de $\Imf(f)$ et $\Ker(f)$ est réduite au vecteur nul.
+        \2 On prend $x \in \Imf(f) \cap \Ker(f)$, alors $\exists y \in E$ tel que $x = f(y)$, et $f(x) = 0_E$, donc $f(f(y)) = 0_E$, donc $f(y) = 0_E$, donc $x = f(y) = 0_E$.
+        \1 On montre que $E = \Imf(f) + \Ker(f)$.
+        \2 On remarque directement que $\forall x \in E, f^2(x) = f(x) \implies f(f(x)) = f(x) \implies f(f(x)-x)=0_E \implies f(x)-x \in \Ker(f)$. Donc $x = f(x) + (x - f(x))$ avec $f(x) \in \Imf(f)$ et $x - f(x) \in \Ker(f)$, et par conséquent, $E = \Imf(f) + \Ker(f)$.
+        \1 Donc $E = \Imf(f) \oplus \Ker(f)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $f$ est un projecteur, alors $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$.
+\end{remark}
+
+\begin{proof}
+    On a $\forall x \in \Ker(f), f(x) = 0_E$ (par définition) et $\forall x \in \Imf(f), \exists y \in E$ tel que $x = f(y)$, donc $f(x) = f(f(y)) = f(y) = x$ (car $f$ est un projecteur), et par conséquent, sachant que $E = \Imf(f) \oplus \Ker(f)$, $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$.
+\end{proof}
+
+\begin{remark}
+    Si $f$ est un projecteur, alors $\Imf(f) = \Ker(f - \Id_E)$.
+\end{remark}
+
+\begin{proof}
+    La démonstration se fait en utilisant le lemme des noyaux, qui sera vu prochainement. On peut passer de $f^2 = f$ à un polynôme annulateur de $f$ qui est $X^2 - X$, et alors on peut factoriser ce polynôme annulateur en $(X)(X-1)$, et alors on peut appliquer le lemme des noyaux pour trouver que $E = \Ker(f) \oplus \Ker(f - \Id_E)$, et par conséquent, $\Imf(f) = \Ker(f - \Id_E)$.
+\end{proof}
+
+\begin{remark}[Bijectivité d'une projection]
+    Si $f$ est un projecteur, alors $f$ est bijective $\iff$ $f = \Id_E$. Pour que $f$ soit bijective, il faut que $\Ker(f) = \{0_E\}$, et alors $E = \Imf(f)$, et par conséquent, $f$ est une projection sur $E$ parallèlement à $\{0_E\}$, et alors $f = \Id_E$ ($f(x) = x$ pour tout $x \in E$).
+    
+\end{remark}
+
+\section{Symétrie et involution}
+
+\begin{definition}[Symétrie]
+    Soient $E$ un $\Kset$-ev. et $F,G$ deux sous-espaces vectoriels de $E$ tels que $E = F \oplus G$.
+
+    On appelle symétrie par rapport à $F$ parallèlement à $G$ l'endomorphisme $s$ de $E$ vérifiant :
+    $$\begin{cases}
+    \forall x \in F, s(x) = x\\
+    \forall x \in G, s(x) = -x
+    \end{cases}$$
+\end{definition}
+
+\begin{remark}
+    On sait que $\forall x \in E, \exists! (x_1,x_2) \in F \times G$ tel que $x = x_1 + x_2$, et alors $s(x) = s(x_1 + x_2) = s(x_1) + s(x_2) = x_1 - x_2$.
+
+    Donc $s^2(x) = s(x_1 - x_2) = s(x_1) - s(x_2) = x_1 + x_2 = x$, et par conséquent, $\boxed{s^2 = \Id_E}$.
+\end{remark}
+
+\begin{remark}
+    Soit $p$ la projection de $E$ sur $F$ parallèlement à $G$, et soit $q$ la projection de $E$ sur $G$ parallèlement à $F$.
+
+    On a donc $p+q = \Id_E$ (car $p(x) + q(x) = x_1 + x_2 = x$ pour tout $x \in E$), et $\boxed{s = p - q}$ (car $p(x) - q(x) = x_1 - x_2 = s(x)$ pour tout $x \in E$).
+\end{remark}
+
+\begin{remark}
+    On a aussi $\Ker(s-\Id_E) = F$ et $\Ker(s+\Id_E) = G$ (car $s(x) = x$ pour tout $x \in F$, et $s(x) = -x$ pour tout $x \in G$).
+\end{remark}
+
+\begin{definition}[Involution]
+    Soit $f \in \mathcal L(E)$. $f$ est dit involution de $E$ si $f^2 = \Id_E$.
+\end{definition}
+
+\begin{remark}
+    Toute symétrie est une involution.
+\end{remark}
+
+\begin{property}
+    Soit $f \in \mathcal L(E)$. Alors $f$ est une involution $\implies$ $E = \Ker(f - \Id_E) \oplus \Ker(f + \Id_E)$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Montrons que $\Ker(f - \Id_E) \cap \Ker(f + \Id_E) = \{0_E\}$.
+        \2 Soit $x \in \Ker(f - \Id_E) \cap \Ker(f + \Id_E)$, alors $f(x) = x$ et $f(x) = -x$, donc $x = 0_E$, et par conséquent, $\Ker(f - \Id_E) \cap \Ker(f + \Id_E) = \{0_E\}$.
+        \1 Montrons que $E = \Ker(f - \Id_E) + \Ker(f + \Id_E)$.
+        \2 Soit $x \in E$. On va procéder par analyse-synthèse.
+        \2 \textit{Analyse :}
+        \3 On suppose que $x = x_1 + x_2$ avec $x_1 \in \Ker(f - \Id_E)$ et $x_2 \in \Ker(f + \Id_E)$.
+        \3 Alors $f(x) = f(x_1) + f(x_2) = x_1 - x_2$.
+        \3 Donc $\begin{cases}x_1 + x_2 = x\\ x_1 - x_2 = f(x)\end{cases}$, et par conséquent, $\begin{cases}x_1 = \frac{x + f(x)}{2}\\ x_2 = \frac{x - f(x)}{2}\end{cases}$.
+        \2 \textit{Synthèse :}
+        \3 On pose $x_1 = \frac{x + f(x)}{2}$ et $x_2 = \frac{x - f(x)}{2}$.
+        \3 Alors $f(x_1) = \frac{f(x) + f^2(x)}{2} = \frac{f(x) + x}{2} = x_1$.
+        \3 Et $f(x_2) = \frac{f(x) - f^2(x)}{2} = \frac{f(x) - x}{2} = -x_2$.
+        \3 Donc $x_1 \in \Ker(f - \Id_E)$ et $x_2 \in \Ker(f + \Id_E)$.
+        \3 Alors $x = x_1 + x_2$.
+        \1 Donc $E = \Ker(f - \Id_E) \oplus \Ker(f + \Id_E)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $f$ est une involution, alors $f$ est une symétrie par rapport à $\Ker(f - \Id_E)$ parallèlement à $\Ker(f + \Id_E)$.
+\end{remark}
+
+\begin{theorem}[Lemme]
+    Soient $E$ un $\Kset$-ev. et $f,g \in \mathcal L(E)$.
+    $$f \circ g = 0 \iff \Imf(g) \subset \Ker(f)$$
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 ($\implies$) Soit $y \in \Imf(g)$, alors $\exists x \in E$ tel que $y = g(x)$, et alors $f(y) = f(g(x)) = 0_E$, et par conséquent, $y \in \Ker(f)$, et par conséquent, $\Imf(g) \subset \Ker(f)$.
+        \1 ($\impliedby$) Soit $x \in E$, alors $g(x) \in \Imf(g)$, et par conséquent, $g(x) \in \Ker(f)$, donc $f(g(x)) = 0_E$, et par conséquent, $f\circ g = 0$.
+    \end{outline}
+\end{proof}
+
+\begin{theorem}[Lemme de la décomposition des noyaux]
+    Soient $E$ un $\Kset$-ev. et $f \in \mathcal L(E)$ et $P \in \Kset[X]$ tel que $P = P_1\cdot P_2$ avec $P_1$ et $P_2$ deux polynômes annulateurs de $f$ tels que $\pgcd(P_1,P_2) = 1$.
+    $$E = \Ker(P_1(f)) \oplus \Ker(P_2(f))$$
+\end{theorem}
+
+\begin{proof}
+    \begin{outline}
+        \1 En utilisant le théorème de Bézout, on trouve $U,V \in \Kset[X]$ tels que $UP_1 + VP_2 = 1$.
+        \1 On passe au polynôme d'endomorphisme pour trouver $(UP_1)(f) + (VP_2)(f) = \Id_E$.
+        \1 Cela nous donne :
+        $$\begin{cases}
+        U(f)\circ P_1(f) + V(f)\circ P_2(f) = \Id_E\\
+        P_1(f)\circ U(f) + P_2(f)\circ V(f) = \Id_E
+        \end{cases}$$
+        \1 Soit $x \in \Ker(P_1(f)) \cap \Ker(P_2(f))$.
+        \1 Donc $x \in E$ et $\begin{cases} P_1(f)(x) = 0_E\\ P_2(f)(x) = 0_E\end{cases}$.
+        \1 Donc 
+    \end{outline}
+\end{proof}
+\todo{recop}
+
+\begin{remark}[Généralisation du lemme de la décomposition des noyaux]
+    Si $P$ n'est pas forcément annulateur de $f$, alors :
+    $$\Ker(P(f)) = \Ker(P_1(f)) \oplus \Ker(P_2(f))$$
+
+    Si $P(f) = 0$, alors :
+    $$\Ker(0_{\mathcal L(E)}) = E = \Ker(P_1(f)) \oplus \Ker(P_2(f))$$
+\end{remark}
+
+\begin{remark}
+    Par récurrence, si $P = \prod_{i=1}^{r}P_k$ avec $P_1,\dots,P_r$ des polynômes annulateurs de $f$ tels que $\pgcd(P_i,P_j) = 1$ pour $i \neq j$, alors :
+$$E = \bigoplus_{i=1}^{r} \Ker(P_i(f))$$
+\end{remark}
+
 \begin{exercise}
-    Montrer que:
-    \begin{itemize}
-        \item $f \in \mathcal L(E)$ est un projecteur $\implies$ $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$.
-        \item $f \in \mathcal L(E)$ est un projecteur $\iff$ $E = \Imf(f) \oplus \Ker(f)$.
-    \end{itemize}
+    On pose $f : \begin{matrix}
+        R^2 &\to &R^2\\
+        (x,y) &\mapsto &(4x-y, 2x+y)
+    \end{matrix}$
+    \begin{enumerate}
+        \item Montrer que $X^2-5X+6$ est un polynôme annulateur de $f$.
+        \item Calculer $f^n$ pour $n \in \N^*$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    \begin{outline}
+        \1 \textbf{1.} Simple.
+        \1 \textbf{2.} On effectue la division euclidienne de $X^n$ par $P$. 
+        \2 On trouve $X^n = Q_n(X)(X^2 - 5X + 6) + a_n X + b_n$ avec $Q_n \in \R_n[X]$ et $a_n,b_n \in \R$.
+        \2 Pour $X=2$, on a $2^n = a_n \cdot 2 + b_n$.
+        \2 Pour $X=3$, on a $3^n = a_n \cdot 3 + b_n$.
+        \2 En résolvant ce système de deux équations à deux inconnues, on trouve $a_n = 3^n - 2^n$ et $b_n = 2 \cdot 3^n - 3 \cdot 2^n$.
+        \2 Donc $X^n = Q_n(X)(X^2 - 5X + 6) + (3^n - 2^n)X + (2 \cdot 3^n - 3 \cdot 2^n)$.
+        \1 Donc $f^n = (3^n - 2^n)f + (2 \cdot 3^n - 3 \cdot 2^n)\Id_{R^2}$, sachant que $P(f) = 0$ donc le terme $Q_n(f)(f^2 - 5f + 6\Id_{R^2})$ est égal à $0$.
+        \1 On a aussi le résultat suivant :
+        $$R^2 = \Ker(f - 2\Id_{R^2}) \oplus \Ker(f - 3\Id_{R^2})$$
+        (en décomposant $P$, et sachant que $(X-2) \wedge (X-3) = 1$).
+    \end{outline}
+
+    Une méthode alternative consiste à procéder par récurrence à partir de l'expression $f^2 = 5f - 6\Id_{R^2}$, et à trouver une relation de récurrence pour $a_n$ et $b_n$ à partir de l'expression $f^n = a_n f + b_n \Id_{R^2}$. On trouvera lors de la récurrence $\begin{cases} a_{n+1} = 5a_n + b_n\\ b_{n+1} = -6a_n\end{cases}$, et alors on peut résoudre ce système de récurrence pour trouver les expressions de $a_n$ et $b_n$ (qui seront les mêmes que celles trouvées précédemment).
 \end{exercise}
-\todo{17/04 FAIRE URGENT}
+
+\chapter{Formes linéaires}
+
+\begin{definition}
+    Soit $E$ un $\Kset$-ev.
+
+    Toute application linéaire $\varphi$ de $E$ vers $\Kset$ est appelée forme linéaire de $E$.
+
+    On note $E^*$ l'ensemble des formes linéaires, i.e. $E^* = \mathcal L(E,\Kset)$, et il est appelé \textit{espace dual} de $E$.
+\end{definition}
+
+\begin{attention}
+    Il ne faut pas confondre la notation $E^*$ pour l'espace dual de $E$ avec la notation $E^*$ pour l'ensemble $E$ privé du vecteur nul (i.e. $E^* = E \setminus \{0_E\}$) (ou des éléments inversibles...).
+\end{attention}
+
+\begin{example}
+    L'application $\varphi : \begin{matrix}
+    \mathcal C([a,b],\Kset) \to \Kset\\
+    f \mapsto \int_a^b f(t) dt
+    \end{matrix}$ avec $a < b$ est une forme linéaire de $\mathcal C([a,b],\Kset)$, et par conséquent, $\varphi \in \mathcal C([a,b],\Kset)^*$.
+\end{example}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. et $H$ un sev. de $E$.
+
+    $H$ est un hyperplan de $E$ $\iff$ $\exists \varphi \in E^* \setminus \{0_{E^*}\}$ telle que $H = \Ker(\varphi)$.
+    
+    i.e. : Tout hyperplan $H$ de $E$ est le noyau d'une forme linéaire non nulle de $E$.
+\end{property}
+
+% kholle spetsialne
+
+\begin{proof}
+    recop
+
+    % si x in e tq x in ker phi, alors phi x = 0
+    % donc ** implique x = h_x + 0_E in H
+    % c/c ker phi = H
+\end{proof}
+
+\begin{exercise}
+    On pose $H = \{(x,y,z) \in \R^3 | x -y + z = 0\}$ et $D = \R\cdot(1,1,2)$.
+    \begin{enumerate}
+        \item Montrer que $R^3 = H \oplus D$.
+        \item Donner l'expression de la projection de $H$ parallèlement à $D$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    \begin{outline}
+        \1 La première question est simple. On vérifie que $\underset{\R^3}\dim(H) = 2$ et que $(1,1,2) \notin H$, donc $R^3 = H \oplus D$.
+        \1 Sinon, on peut aussi poser $\varphi : (x,y,z) \mapsto x - y + z$, alors $\varphi$ est une forme linéaire de $\R^3$, et $H = \Ker(\varphi)$, et alors $D$ est un supplémentaire de $H$ dans $\R^3$.
+        \1 Soit $(x,y,z) \in \R^3$.
+        \2 
+    \end{outline}
+\end{exercise}
 
 \printindex
 \end{document}
