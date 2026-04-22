@@ -919,6 +919,120 @@ $$E = \bigoplus_{i=1}^{r} \Ker(P_i(f))$$
         \2 
     \end{outline}
 \end{exercise}
+\todo{recop}
+
+\chapter{Compléments}
+
+\begin{definition}[Valeur propre, vecteur propre]
+    Soient $E$ un $\Kset$-ev, $f \in \mathcal L(E)$ et $\lambda \in \Kset$.
+
+    $\lambda$ est dite \textbf{valeur propre} de $f$ s'il existe un vecteur non nul $u \in E\setminus\{0_E\}$ tel que $f(u) = \lambda u$.
+
+    Le vecteur $u$ est alors appelé \textbf{vecteur propre} de $f$ associé à la valeur propre $\lambda$.
+\end{definition}
+
+\begin{definition}[Spectre]
+    On appelle l'ensemble des valeurs propres de $f$ le spectre de $f$, et on le note $\Sp_\Kset(f)$.
+\end{definition}
+
+\begin{definition}[Sous-espace propre]
+    Si $\lambda$, une valeur propre de $f$, appartient à $\Sp_\Kset(f)$, alors $\Ker(f-\lambda \Id_E)$ est appelé le \textbf{sous-espace propre} de $f$ associé à la valeur propre $\lambda$, et on le note $E_\lambda = \Ker(f - \lambda \Id_E)$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\lambda \in \Sp_\Kset(f) \iff \Ker(f - \lambda \Id_E) \neq \{0_E\}$.
+        \item Si $\underset\Kset\dim(E) < +\infty$, alors $\lambda \in \Sp_\Kset(f) \iff f - \lambda \Id_E$ n'est pas bijective.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \begin{outline}
+        $f : \begin{matrix}
+        \R^2 &\to &\R^2\\
+        (x,y) &\mapsto &(4x-y, 2x+y)
+        \end{matrix}$
+
+        \1 Soit $\lambda \in \Sp_\R(f)$.
+        
+        \1 Cela équivaut à dire que $\exists (u,v) \in \R^2 \setminus \{(0,0)\}$ tel que $f(u,v) = \lambda (u,v)$, c'est à dire que $\begin{cases}4u - v = \lambda u\\ 2u + v = \lambda v\end{cases}$, et alors $\begin{cases} (4-\lambda)u - v = 0\\ 2u + (1-\lambda)v = 0\end{cases}$.
+
+        \1 Si $u = 0$, alors $v = 0$, ce qui est impossible, donc $u \neq 0$, et alors $v = (4-\lambda)u$.
+
+        \1 On trouve alors $2u + (1-\lambda)(4-\lambda)u = 0$, et alors $2 + (1-\lambda)(4-\lambda) = 0$, et alors $\lambda^2 - 5\lambda + 6 = 0$, et alors $\lambda \in \{2,3\}$.
+
+        \1 Donc $\Sp_\R(f) \subset \{2,3\}$ (l'équivalence n'est plus valable à un certain point dans notre raisonnement).
+
+        \1 Soient $(a,b) \in \Ker(f - 2\Id_{\R^2})$ et $(c,d) \in \Ker(f - 3\Id_{\R^2})$.
+
+        \begin{align*}
+            \ona f(a,b) = 2(a,b) &\iff \begin{cases}4a - b = 2a\\ 2a + b = 2b\end{cases}\\
+            &\iff \begin{cases} 2a - b = 0\\ 2a - b = 0\end{cases}\\
+            &\iff b = 2a
+        \end{align*}
+
+        \1 i.e. $E_2 = \Ker(f - 2\Id_{\R^2}) = \R\cdot(1,2)$. N'importe quel vecteur de $E_2$ est un vecteur propre de $f$ associé à la valeur propre $2$.
+
+        \begin{align*}
+            \ona f(c,d) = 3(c,d) &\iff \begin{cases}4c - d = 3c\\ 2c + d = 3d\end{cases}\\
+            &\iff \begin{cases} c - d = 0\\ 2c - 2d = 0\end{cases}\\
+            &\iff d = c
+        \end{align*}
+
+        \1 i.e. $E_3 = \Ker(f - 3\Id_{\R^2}) = \R\cdot(1,1)$. N'importe quel vecteur de $E_3$ est un vecteur propre de $f$ associé à la valeur propre $3$.
+    \end{outline}
+\end{example}
+
+\begin{example}
+    \begin{outline}
+        $f : \begin{matrix}
+            \R^2 &\to &\R^2\\
+            (x,y) &\mapsto &(-y,x)
+        \end{matrix}$
+        \1 Soit $\lambda \in \Sp_\R(f)$.
+        \1 Cela équivaut à dire que $\exists (u,v) \in \R^2 \setminus \{(0,0)\}$ tel que $f(u,v) = \lambda (u,v)$, c'est à dire que $\begin{cases}-v = \lambda u\\ u = \lambda v\end{cases}$, et alors $\begin{cases} -v - \lambda u = 0\\ u - \lambda v = 0\end{cases}$.
+        \1 Si $u = 0$, alors $v = 0$, ce qui est impossible, donc $u \neq 0$, et alors $v = -\lambda u$.
+        \1 On trouve alors $u - \lambda(-\lambda u) = 0$, et alors $1 + \lambda^2 = 0$, ce qui est impossible, donc $\Sp_\R(f) = \emptyset$.
+        \1 On a $f^2(x,y) = f(-y,x) = (-x,-y) = -\Id_{\R^2}(x,y)$, et alors $f^2 + \Id_{\R^2} = 0$, donc $P(X) = X^2 + 1$ est un polynôme annulateur de $f$. $P$ n'est pas scindé sur $\R$.\index{Polynôme annulateur non scindé dans $\R$}
+        Si on travaille dans $\C$, alors $\Sp_\C(f) = \{i,-i\}$.
+    \end{outline}
+\end{example}
+
+\begin{definition}[Algèbre]
+    Soit $A$ un ensemble non-vide muni de deux LCI $+$ et $\times$ et d'une LCE $\cdot$.
+    $(A,+,\times,\cdot)$ est dit \textbf{$\Kset$-algèbre} si :
+    \begin{enumerate}
+        \item $(A,+,\times)$ est un anneau.
+        \item $(A,+,\cdot)$ est un $\Kset$-ev.
+        \item $\forall \lambda \in \Kset, \forall x,y \in A, \begin{cases} \lambda(x\times y) = (\lambda x)\times y = x \times (\lambda y) \\ (\alpha\lambda)x = \alpha(\lambda x) = \lambda(\alpha x)\end{cases}$.
+    \end{enumerate}
+
+    Si, de plus, la loi $\times$ est commutative dans $A$, alors on dit que $A$ est une $\Kset$-algèbre commutative.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $\C$ est une $\R$-algèbre commutative.
+        \item $(\Kset[X],+,\times,\cdot)$ est une $\Kset$-algèbre commutative.
+        \item $(\Kset^\R, +, \times, \cdot)$ est une $\Kset$-algèbre commutative.
+        \item Si $E$ est un $\Kset$-ev., alors $(\mathcal L(E), +, \circ, \cdot)$ est une $\Kset$-algèbre (non commutative).
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Sous-algèbre]
+    Soit $A$ une $\Kset$-algèbre et $B \subset A$.
+    $B$ est une \textbf{sous-algèbre} de $A$ si :
+    \begin{enumerate}
+        \item $1_A \in B$.
+        \item $\forall x,y \in B, \forall \lambda \in \Kset, \begin{cases} x + \lambda y \in B\\ x \times y \in B\end{cases}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}\\
+    Fin du Chapitre XIV-B.\\
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \printindex
 \end{document}
