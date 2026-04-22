@@ -1,0 +1,99 @@
+\documentclass[12pt, a4paper]{report}
+
+% 
+
+\usepackage{elegant-cours}
+\makeindex
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre XIV-C : Matrices}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{WIP. Peut contenir des erreurs ou des sections incomplètes.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en algèbre linéaire. Nous allons introduire les définitions de base, les propriétés essentielles, et quelques applications importantes des matrices dans le contexte de l'algèbre linéaire.
+\vspace*{\fill}
+
+\chapter{Définitions}
+
+\begin{importantbox}
+    $\Kset$ désigne un corps commutatif dans le reste de cette section.
+\end{importantbox}
+
+\begin{definition}[Matrice]
+    Soient $n,p \in \N^*$.
+    \begin{enumerate}
+        \item On appelle matrice à $n$ lignes et $p$ colonnes toute application :
+        $$A : \begin{matrix}
+        [\![1,n]\!] \times [\![1,p]\!] &\to &\Kset
+        \\ (i,j) &\mapsto &A(i,j) \overset{\text{noté}}= a_{i,j}
+        \end{matrix}$$
+        qu'on note aussi $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}}$.
+        \begin{itemize}
+            \item On peut écrire $\left(\begin{matrix}
+            a_{1,1} & \cdots & a_{1,p}
+            \\
+            a_{2,1} & \cdots & a_{2,p}
+            \\
+            \vdots & & \vdots
+            \\
+            a_{n,1} & \cdots & a_{n,p}
+            \end{matrix}\right)$
+            \item $a_{i,j}$ est appelé le coefficient de $A$ situé à la ligne $i$ et à la colonne $j$.
+            \item $(n,p)$ est appelé la \textit{taille} de $A$.
+        \end{itemize}
+        \item On note $\mathcal M_{n,p}(\Kset)$ l'ensemble de toutes les matrices à $n$ lignes et $p$ colonnes à coefficients dans $\Kset$.
+        \item Si $n=p$, on dit que $A$ est une matrice carrée de taille $n$. On note $\mathcal M_n(\Kset) = \mathcal M_{n,n}(\Kset)$ l'ensemble des matrices carrées de taille $n$ à coefficients dans $\Kset$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\mathcal M_{n,1}(\Kset)$ est l'ensemble des matrices ``colonnes'' à $n$ lignes.
+        \item $\mathcal M_{1,p}(\Kset)$ est l'ensemble des matrices ``lignes'' à $p$ colonnes.
+    \end{enumerate}
+    \textit{On ne peut pas encore les identifier à des éléments de $\Kset^n$ ou $\Kset^p$. Pour cela, on doit d'abord définir un isomorphisme entre ces ensembles.}
+\end{remark}
+
+\begin{example}
+    \begin{outline}
+        \1 Soient $\lambda_1,\dots,\lambda_n \in \Kset$. On pose $V = \left(\lambda_{i}^{j-1}\right)_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $V$ est appelée la matrice de Vandermonde associée à $\lambda_1,\dots,\lambda_n$. Cette matrice est de taille $n$.
+        \2 On peut expliciter $V$ :
+        $$V = \left(\begin{matrix}
+1 & \lambda_1 & \lambda_1^2 & \cdots & \lambda_1^{n-1}
+\\
+1 & \lambda_2 & \lambda_2^2 & \cdots & \lambda_2^{n-1}
+\\
+\vdots & \vdots & \vdots & & \vdots
+\\
+1 & \lambda_n & \lambda_n^2 & \cdots & \lambda_n^{n-1}
+\end{matrix}\right)$$
+        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,n]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire de taille $n$ associée à $(s,q)$.
+            \2 On peut expliciter $E_{s,q}(n,p)$ :
+            $$E_{s,q}(n,p) = \left(\begin{matrix}
+\delta_{1,s}\delta_{1,q} & \delta_{1,s}\delta_{2,q} & \cdots & \delta_{1,s}\delta_{n,q}
+\\
+\delta_{2,s}\delta_{1,q} & \delta_{2,s}\delta_{2,q} & \cdots & \delta_{2,s}\delta_{n,q}
+\\
+\vdots & \vdots & & \vdots
+\\
+\delta_{n,s}\delta_{1,q} & \delta_{n,s}\delta
+{2,q} & \cdots & \delta_{n,s}\delta_{n,q}
+\end{matrix}\right)$$
+            \2 Ce qui donne $E_{s,q}(n,p) = \left(\begin{matrix}
+0 & \cdots & 0 & \cdots & 0
+\\
+\vdots & & \vdots & & \vdots
+\\
+0 & \cdots & 1 & \cdots & 0 \\
+\vdots & & \vdots & & \vdots
+\\
+0 & \cdots & 0 & \cdots & 0
+\end{matrix}\right)_{(n,p)}$ ($1$ est en ligne $s$, colonne $q$)
+    \end{outline}
+\end{example}
+
+\printindex
+\end{document}
