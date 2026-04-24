@@ -3,6 +3,8 @@
 % 
 
 \usepackage{elegant-cours}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
 \makeindex
 
 \begin{document}
@@ -59,7 +61,7 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 
 \begin{example}
     \begin{outline}
-        \1 Soient $\lambda_1,\dots,\lambda_n \in \Kset$. On pose $V = \left(\lambda_{i}^{j-1}\right)_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $V$ est appelée la matrice de Vandermonde associée à $\lambda_1,\dots,\lambda_n$. Cette matrice est de taille $n$.
+        \1 Soient $\lambda_1,\dots,\lambda_n \in \Kset$. On pose $V = \left(\lambda_{i}^{j-1}\right)_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $V$ est appelée la matrice de Vandermonde\index{Vandermonde (Matrice de)} associée à $\lambda_1,\dots,\lambda_n$. Cette matrice est de taille $n$.
         \2 On peut expliciter $V$ :
         $$V = \left(\begin{matrix}
 1 & \lambda_1 & \lambda_1^2 & \cdots & \lambda_1^{n-1}
@@ -70,7 +72,7 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 \\
 1 & \lambda_n & \lambda_n^2 & \cdots & \lambda_n^{n-1}
 \end{matrix}\right)$$
-        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,n]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire de taille $n$ associée à $(s,q)$.
+        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,n]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire\index{Élémentaire (Matrice)} de taille $n$ associée à $(s,q)$.
             \2 On peut expliciter $E_{s,q}(n,p)$ :
             $$E_{s,q}(n,p) = \left(\begin{matrix}
 \delta_{1,s}\delta_{1,q} & \delta_{1,s}\delta_{2,q} & \cdots & \delta_{1,s}\delta_{n,q}
@@ -79,21 +81,366 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 \\
 \vdots & \vdots & & \vdots
 \\
-\delta_{n,s}\delta_{1,q} & \delta_{n,s}\delta
-{2,q} & \cdots & \delta_{n,s}\delta_{n,q}
+\delta_{n,s}\delta_{1,q} & \delta_{n,s}\delta_{2,q} & \cdots & \delta_{n,s}\delta_{n,q}
 \end{matrix}\right)$$
             \2 Ce qui donne $E_{s,q}(n,p) = \left(\begin{matrix}
 0 & \cdots & 0 & \cdots & 0
 \\
 \vdots & & \vdots & & \vdots
 \\
-0 & \cdots & 1 & \cdots & 0 \\
+0 & \cdots & 1 & \cdots & 0
+\\
 \vdots & & \vdots & & \vdots
 \\
 0 & \cdots & 0 & \cdots & 0
-\end{matrix}\right)_{(n,p)}$ ($1$ est en ligne $s$, colonne $q$)
+\end{matrix}\right)_{(n,p)}$ ($1$ est en ligne $s$, col. $q$)
+    \2 La famille $(E_{s,q}(n,p))_{\substack{1 \leq s \leq n\\ 1\leq q \leq p}}$ est appelée la famille des matrices élémentaires de $\mathcal M_{n,p}(\Kset)$.
     \end{outline}
 \end{example}
+
+\begin{definition}[Matrice triangulaire et diagonale]
+    Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
+
+    \begin{outline}[enumerate]
+        \1 Les $(a_{1,1},\dots,a_{n,n})$ sont appelés les coefficients diagonaux de $A$.
+        \1 $A$ est dite triangulaire supérieure si $a_{i,j} = 0$ pour tout $1 \leq j < i \leq n$.
+        \begin{itemize}
+            \item On note $T_{n,s}(\Kset)$ l'ensemble des matrices triangulaires supérieures de taille $n$ à coefficients dans $\Kset$.
+        \end{itemize}
+        \1 $A$ est dite triangulaire inférieure si $a_{i,j} = 0$ pour tout $1 \leq i < j \leq n$.
+        \begin{itemize}
+            \item On note $T_{n,i}(\Kset)$ l'ensemble des matrices triangulaires inférieures de taille $n$ à coefficients dans $\Kset$.
+        \end{itemize}
+        \1 $A$ est dite diagonale si $a_{i,j} = 0$ pour tout $1 \leq i \neq j \leq n$. C'est-à-dire que $A$ est à la fois triangulaire supérieure et triangulaire inférieure.
+        \begin{itemize}
+            \item On note $\diag(a_{1,1},\dots,a_{n,n})$ la matrice diagonale de taille $n$ ayant pour coefficients diagonaux $a_{1,1},\dots,a_{n,n}$.
+            \item On note $D_n(\Kset)$ l'ensemble des matrices diagonales de taille $n$ à coefficients dans $\Kset$.
+        \end{itemize}
+    \end{outline}
+\end{definition}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \matrix[matrix of math nodes,left delimiter=(,right delimiter=),
+        nodes in empty cells, row sep=2pt, column sep=4pt] (U) {
+            a_{11} & a_{12} & a_{13} & a_{14} \\
+            0 & a_{22} & a_{23} & a_{24} \\
+            0 & 0 & a_{33} & a_{34} \\
+            0 & 0 & 0 & a_{44} \\
+        };
+        \node[below=6pt of U] {Triangulaire superieure};
+    \end{tikzpicture}
+    \hspace{1.5cm}
+    \begin{tikzpicture}
+        \matrix[matrix of math nodes,left delimiter=(,right delimiter=),
+        nodes in empty cells, row sep=2pt, column sep=4pt] (L) {
+            a_{11} & 0 & 0 & 0 \\
+            a_{21} & a_{22} & 0 & 0 \\
+            a_{31} & a_{32} & a_{33} & 0 \\
+            a_{41} & a_{42} & a_{43} & a_{44} \\
+        };
+        \node[below=6pt of L] {Triangulaire inferieure};
+    \end{tikzpicture}
+    \\
+    \vspace{0.4cm}
+    \begin{tikzpicture}
+        \matrix[matrix of math nodes,left delimiter=(,right delimiter=),
+        nodes in empty cells, row sep=2pt, column sep=4pt] (D) {
+            a_{11} & 0 & 0 & 0 \\
+            0 & a_{22} & 0 & 0 \\
+            0 & 0 & a_{33} & 0 \\
+            0 & 0 & 0 & a_{44} \\
+        };
+        \node[below=6pt of D] {Diagonale};
+    \end{tikzpicture}
+    \caption{Representations schematiques des matrices triangulaires et diagonales.}
+\end{figure}
+
+
+\begin{attention}
+    Les matrices triangulaires n'imposent aucune condition sur les coefficients inférieurs/supérieurs à la diagonale. Ils peuvent aussi être nuls. Dans une matrice diagonale, les coefficients diagonaux peuvent aussi être nuls. La matrice nulle est, par exemple, à la fois triangulaire supérieure, triangulaire inférieure et diagonale.
+\end{attention}
+
+\begin{remark}
+    L'intersection de $T_{n,s}(\Kset)$ et $T_{n,i}(\Kset)$ est exactement $D_n(\Kset)$.
+    $$T_{n,s}(\Kset) \cap T_{n,i}(\Kset) = D_n(\Kset)$$
+\end{remark}
+
+\begin{definition}[Transposée d'une matrice]
+    Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
+    
+    La transposée de $A$ est la matrice $A^T = (a_{j,i})_{\substack{1 \leq j \leq p\\ 1\leq i \leq n}} \in \mathcal M_{p,n}(\Kset)$.
+
+    On note cette transposée $A^T$ ou $^tA$.
+\end{definition}
+
+\begin{remark}
+    Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
+    
+    % on veut recréer cette notation
+    %     L_1 (------)
+    %     L_2 |------|
+    % A = L_3 |------|
+    %     L_4 |------|
+    %     L_5 (------)
+
+    On peut aussi noter $A$ de la manière suivante
+    
+    (uhhh uhhh \LaTeX is not for the weak)
+
+    où $L_i = (a_{i,1},\dots,a_{i,p})$ est la $i$-ème ligne de $A$ pour tout $1 \leq i \leq n$.
+
+    et où $C_i = \left(\begin{matrix} a_{1,i} \\ \vdots \\ a_{n,i} \end{matrix}\right)$ est la $i$-ème colonne de $A$ pour tout $1 \leq i \leq p$.
+
+    Donc $^tL_i = \left(\begin{matrix} a_{i,1} \\ \vdots \\ a_{i,p} \end{matrix}\right)$ et $^tC_i = (a_{1,i},\dots,a_{n,i})$.
+\end{remark}
+\todo{ECRIRE MATRICES}
+
+\begin{attention}
+    La transposée n'est pas une rotation de la matrice. Dans le cas d'une matrice carrée (lignes = colonnes), c'est une symétrie par rapport à la diagonale.
+\end{attention}
+
+\begin{example}
+    \begin{outline}
+        \1 Soit $A = \left(\begin{matrix}
+            1 & 2 & 3
+            \\
+            4 & 5 & 6
+        \end{matrix}\right)$. Alors $^tA = \left(\begin{matrix}
+            1 & 4
+            \\
+            2 & 5
+            \\
+            3 & 6
+        \end{matrix}\right)$.
+        \1 Soit $A = \left(\begin{matrix}
+            1 & 0 & 0
+            \\
+            i & 2 & 0
+            \\
+            0 & j & 3
+        \end{matrix}\right)$. Alors $^tA = \left(\begin{matrix}
+            1 & i & 0
+            \\
+            0 & 2 & j
+            \\
+            0 & 0 & 3
+        \end{matrix}\right)$.
+    \end{outline}
+\end{example}
+
+\begin{remark}
+    Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
+    
+    \begin{outline}[enumerate]
+        \1 $\forall A \in D_n(\Kset), ^tA = A$.
+        \1 $\forall A \in \mathcal M_{n,p}(\Kset), ^t(^tA) = A$.
+        \1 L'application $T : \begin{matrix} \mathcal M_{n}(\Kset) &\to &\mathcal M_{n}(\Kset) \\ A &\mapsto &^tA \end{matrix}$ vérifie $T\circ T=\mathrm{Id}_{\mathcal M_n(\Kset)}$.
+    \end{outline}
+\end{remark}
+
+\begin{definition}[Matrice symétrique et antisymétrique]
+    Soit $A = (a_{i,j})_{1 \leq i, j \leq n} \in \mathcal M_{n}(\Kset)$.
+    
+    \begin{outline}
+        \1 On dit que $A$ est symétrique si $^tA = A$. C'est-à-dire que $\forall 1 \leq i,j \leq n, a_{i,j} = a_{j,i}$.
+            \2 \textit{Pour cela, $A$ doit être une matrice carrée.}
+            \2 On note $S_n(\Kset)$ l'ensemble des matrices symétriques de taille $n$ à coefficients dans $\Kset$.
+        \1 On dit que $A$ est antisymétrique si $^tA = -A$, donc que $\forall 1 \leq i,j \leq n, a_{i,j} = -a_{j,i}$.
+            \2 On note $A_n(\Kset)$ l'ensemble des matrices antisymétriques de taille $n$ à coefficients dans $\Kset$.
+    \end{outline}
+\end{definition}
+
+\begin{remark}
+    Dans le cas d'une matrice antisymétrique, on a $a_{i,i} = -a_{i,i}$ pour tout $1 \leq i \leq n$, donc $2 a_{i,i} = 0$ pour tout $1 \leq i \leq n$. En particulier, si $\mathrm{car}(\Kset) \neq 2$, alors $a_{i,i} = 0$ pour tout $1 \leq i \leq n$. Donc la diagonale de la matrice antisymétrique est nulle.
+\end{remark}
+
+\begin{example}
+    \begin{outline}
+        \1 $A = \left(\begin{matrix}
+            1 & i & 2 \\
+            i & -2 & j \\
+            2 & j & 0 \\
+        \end{matrix}\right)$, est une matrice symétrique $\in S_3(\C)$.
+        \1 $A = \left(\begin{matrix}
+            0 & -1 & -2 & 1 \\
+            1 & 0 & -3 & -1 \\
+            2 & 3 & 1 & -4 \\
+            -1 & 1 & 4 & 0 \\
+        \end{matrix}\right)$, n'est pas une matrice antisymétrique, car $a_{3,3} = 1 \neq 0$. En le remplaçant par $0$, on obtient une matrice antisymétrique $\in A_4(\R)$.
+    \end{outline}
+\end{example}
+
+\begin{definition}[Matrice de coordonnées]
+    Soient $E$ un $\Kset$-ev. de dimension $n$ et $B = (e_1,\dots,e_n)$ une base de $E$.
+
+    \begin{enumerate}
+        \item $\forall x \in E, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n, x = \sum_{i=1}^n \lambda_i e_i$. 
+        \\On note $\Mat_{B}(x) = \left(\begin{matrix}
+            \lambda_1 \\ \vdots \\ \lambda_n
+        \end{matrix}\right)$ la matrice de coordonnées de $x$ dans la base $B$.
+        \item Soient $u_1,\dots,u_p \in E$. Pour tout $j \in \{1,\dots,p\}$, il existe d'uniques $(a_{i,j})_{1 \leq i \leq n} \in \Kset^n$ tels que $u_j = \sum_{i=1}^n a_{i,j} e_i$.\\On note $\Mat_B(u_1,\dots,u_p) = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}}$ la matrice de coordonnées de $(u_1,\dots,u_p)$ dans la base $B$.\\i.e. : $\Mat_B(u_1,\dots,u_p) = \left(\begin{matrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,p}
+\\ a_{2,1} & a_{2,2} & \cdots & a_{2,p}
+\\ \vdots & \vdots & & \vdots
+\\ a_{n,1} & a_{n,2} & \cdots & a_{n,p}
+\end{matrix}\right)$\\Pour réobtenir les $u_j$, on multiplie par $\left(\begin{matrix}e_1 \\ \vdots \\ e_n
+\end{matrix}\right)$ : $\Mat_B(u_1,\dots,u_p) \cdot \left(\begin{matrix}e_1 \\ \vdots \\ e_n
+\end{matrix}\right) = \left(\begin{matrix}u_1 \\ \vdots \\ u_p
+\end{matrix}\right)$.
+    \end{enumerate}
+    
+\end{definition}
+
+\begin{example}
+    Dans $\Kset_2[X]$, soient $P_1 = (X-1)^2$, $P_2 = X^2 - X$, $P_3 = 2X^2 - 1$ et $B = (1,X,X^2)$ la base canonique de $\Kset_2[X]$. Alors :
+    $$\Mat_{B_{C}}(P_1,P_2,P_3) = \left(\begin{matrix}
+        -1 & 0 & -1 \\
+        2 & -1 & 0 \\
+        1 & 1 & 2
+    \end{matrix}\right)$$
+\end{example}
+
+\begin{definition}[Matrice d'une application linéaire]
+    Soient $E,F$ deux $\Kset$-ev de dimensions respectives $n$ et $p$.
+    
+    Soient $B = (e_1,\dots,e_n)$ une base de $E$ et $C = (c_1,\dots,c_p)$ une base de $F$.
+
+    Soit $f \in \mathcal L(E,F)$.
+
+    On appelle matrice de $f$ relativement aux bases $B$ et $C$ la matrice notée $\Mat_{B,C}(f)$ ou $\Mat(f,B,C)$ égale à $\Mat_C(f(e_1),\dots,f(e_n)) \in \mathcal M_{n,p}(\Kset)$.
+\end{definition}
+
+\begin{remark}
+    Si $f \in \mathcal L(E)$ et $B$ est une base de $E$, alors on écrit $\Mat(f,B,B)=[f]_B$. 
+\end{remark}
+
+\begin{example}
+    \begin{outline}
+        \1 Soit $f : \begin{matrix} \Kset_3[X] &\to &\Kset_3[X] \\ P &\mapsto &XP'+(X^2-1)P'' + 3P \end{matrix}$ qui associe à tout $P \in \Kset_3[X]$ l'image.\\On souhaite déterminer $[f]_{B_C}$ où $B_C$ est la base canonique de $\Kset_3[X]$.
+        $$[f]_B = \left(\begin{matrix}
+        3 & 0 & -2 & 0 \\
+        0 & 4 & 0 & -6 \\
+        0 & 0 & 7 & 0 \\
+        0 & 0 & 0 & 12 \\
+        \end{matrix}\right)$$
+        Sachant que $f(1) = 3$, $f(X) = 4X$, $f(X^2) = 7X^2 - 2$ et $f(X^3) = 12X^3 - 6X$.
+        \1 Soient $a_1,\dots,a_n \in \Kset$. On pose $\varphi : \begin{matrix} \Kset_{n-1}[X] &\to &\Kset^n \\ P &\mapsto &(P(a_1),\dots,P(a_n)) \end{matrix}$.\\On souhaite déterminer $\Mat(\varphi,B_{C_1},B_{C_2})$ où $B_{C_1}$ et $B_{C_2}$ sont les bases canoniques de $\Kset_{n-1}[X]$ et $\Kset^n$ respectivement.
+        $$\Mat(\varphi,B_{C_1},B_{C_2}) = \left(\begin{matrix}
+        1 & a_1 & \cdots & a_1^{n-1}\\
+        1 & a_2 & \cdots & a_2^{n-1}\\
+        \vdots & \vdots & \vdots & \vdots \\
+        1 & a_n & \cdots & a_n^{n-1}
+        \end{matrix}\right)$$
+        Cette matrice est égale à la matrice de Vandermonde\index{Vandermonde (Matrice de)} $V(a_1,\dots,a_n)$.
+    \end{outline}
+\end{example}
+
+\chapter{Opérations sur les matrices}
+
+\begin{definition}
+    On munit $\mathcal M_{n,p}(\Kset)$ de la LCI + et de la LCE $\cdot$ définies par :
+    
+    $$\forall A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}}, B = (b_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset), \forall \lambda \in \Kset :$$
+
+    $$\begin{cases}
+    A + B = (a_{i,j} + b_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}}\\ \lambda \cdot  A = (\lambda a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}}
+    \end{cases}$$
+
+    En plus, $\mathcal M_{n,p}(\Kset)$ est de dimension finie, avec $\underset\Kset\dim(\mathcal M_{n,p}(\Kset)) = n\cdot p$.
+
+    La base canonique de $\mathcal M_{n,p}(\Kset)$ est $B_C = (E_{i,j}(n,p))_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.\index{Élémentaire (Matrice)}
+\end{definition}
+
+\begin{proof}
+    Pour montrer que $\mathcal M_{n,p}(\Kset)$ est un $\Kset$-ev., il faut montrer que :
+    \begin{outline}
+        \1 $(\mathcal M_{n,p}(\Kset),+)$ est un groupe abélien.
+        \2 ... et donc que $+$ est bien une LCI\dots
+        \2 qu'elle est associative et commutative...
+        \2 que $\mathcal O_{n,p} = (0)_{\substack{1 \le i \le n \\ 1 \le j \le p}}$ est élément neutre pour la loi + dans $\mathcal M_{n,p}(\Kset)$.
+        \2 Enfin, que les éléments de $\mathcal M_{n,p}(\Kset)$ sont symétrisables par loi +.
+        \1 Ensuite, $\cdot$ est bien une LCE et qu'elles vérifient les propriétés d'une LCE pour un espace vectoriel comme énoncées dans le chapitre 14-A en page 3.
+    \end{outline}
+\end{proof}
+\todo{recop}
+
+\begin{theorem}
+    Soient $E,F$ deux $\Kset$-ev. tels que $\begin{cases}
+    \underset\Kset\dim E = p\\ \underset\Kset\dim F = n
+    \end{cases}$
+
+    Soient $\begin{cases}
+    B = (e_1,\dots,e_p) \text{ base de } E\\
+    C = (c_1,\dots,c_c) \text{ base de } F
+    \end{cases}$
+
+    Alors $\psi : \begin{matrix}
+    \mathcal{L}(E,F) &\to &\mathcal M_{n,p}(\Kset)\\
+    f &\mapsto & \Mat(f,B,C)
+    \end{matrix}$ est un isomorphisme de $\Kset$-ev.
+\end{theorem}
+
+\begin{methodbox}
+    Pour démontrer la surjectivité : ``\textit{Une application linéaire de $E$ vers $F$ est caractérisée par les images de la base de $E$}''.
+\end{methodbox}
+
+\begin{proof}
+    Pour montrer que $\psi$ est un isomorphisme de $E$ vers $F$, il faut vérifier que :
+    \begin{itemize}
+        \item $\psi$ est bien définie.
+        \item $\psi$ est une application linéaire.
+        \item $\psi$ est injective.
+        \item $\psi$ est surjective.
+    \end{itemize}
+
+    \textbf{$\psi$ est bien définie :}
+
+    \begin{itemize}
+        \item On a $\forall f \in \mathcal L(E,F)$.
+        \item On a $\Mat(f,B,C) = \psi(f) \in \mathcal M_{n,p}(\Kset)$.
+        \item Donc $\psi$ est définie.
+    \end{itemize}
+
+    \textbf{$\psi$ est une application linéaire :}
+
+    \begin{outline}
+    \1 On pose $N = \Mat(f,B,C) = (a_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+    \2 On a donc $N = \left(\begin{matrix} f(e_1) & \cdots & f(e_p)\\
+    a_{1,1} & \cdots & a_{1,p} \\
+    \vdots & & \vdots \\
+    a_{n,1} & \cdots & a_{n,p}
+    \end{matrix}\right)$.
+    \1 On pose $M = \Mat(g,B,C) = (b_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+    \2 Donc $\forall j \in [\![1,p]\!], g(e_j) = \sum_{i=1}^{n}b_{i,j}c_i$.
+    \1 Donc $N + \lambda M = (a_{i,j} + b_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+    \1 Or $\forall j \in [\![1,p]\!], (f+\lambda g)(e_j)$.
+    \begin{align*}
+        (f+ \lambda g)(e_j) &= f(e_j) + \lambda g(e_j)\\
+        &= \sum_{i=1}^n a_{i,j} c_i + \lambda \sum_{i=1}^{n}b_{i,j}c_i\\
+        &= \sum_{i=1}^{n}(a_{i,j}+\lambda b_{i,j})\cdot c_i
+    \end{align*}
+    \1 Cela implique que $\underbrace{\Mat(f+\lambda g,B,C)}_{=\psi(f+\lambda g)}= \underbrace{N}_{\psi(g)} + \lambda \underbrace{M}_{\psi(g)}$.
+    \1 Donc $\psi \in \mathcal L(\mathcal L(E,F), \mathcal M_{n,p}(\Kset))$.
+    \end{outline}
+
+    \textbf{$\psi$ est injective :}
+
+    \begin{outline}
+    \1 Soit $f \in \Ker(\psi)$. Donc $\psi(f) = \mathcal O_{n,p}$.
+    \2 i.e. : (matrices en latex ehhh)
+    \1 Donc $\forall 1 \le j \le p, f(e_j) = 0_F$.
+    \1 Or $f(E) = \Vect(f(B)) = \{0_F\}$.
+    \1 Donc $f = 0_{\mathcal L(E,F)}$.
+    \1 i.e. $\Ker\psi = 0_{\mathcal L(E,F)}$.
+    \1 Et donc $\psi$ est injective !
+    \end{outline}
+\end{proof}
+\todo{ECRIRE MATRICES}
+\todo{recop}
+
+% khollen spetzialen
 
 \printindex
 \end{document}
