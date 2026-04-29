@@ -72,16 +72,16 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 \\
 1 & \lambda_n & \lambda_n^2 & \cdots & \lambda_n^{n-1}
 \end{matrix}\right)$$
-        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,n]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire\index{Élémentaire (Matrice)} de taille $n$ associée à $(s,q)$.
+        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,p]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire\index{Élémentaire (Matrice)} de taille $n$ associée à $(s,q)$.
             \2 On peut expliciter $E_{s,q}(n,p)$ :
             $$E_{s,q}(n,p) = \left(\begin{matrix}
-\delta_{1,s}\delta_{1,q} & \delta_{1,s}\delta_{2,q} & \cdots & \delta_{1,s}\delta_{n,q}
+\delta_{s,1}\delta_{q,1} & \delta_{s,1}\delta_{q,2} & \cdots & \delta_{s,1}\delta_{q,p}
 \\
-\delta_{2,s}\delta_{1,q} & \delta_{2,s}\delta_{2,q} & \cdots & \delta_{2,s}\delta_{n,q}
+\delta_{s,2}\delta_{q,1} & \delta_{s,2}\delta_{q,2} & \cdots & \delta_{s,2}\delta_{q,p}
 \\
 \vdots & \vdots & & \vdots
 \\
-\delta_{n,s}\delta_{1,q} & \delta_{n,s}\delta_{2,q} & \cdots & \delta_{n,s}\delta_{n,q}
+\delta_{s,s}\delta_{q,1} & \delta_{s,s}\delta_{q,2} & \cdots & \delta_{s,s}\delta_{q,p}
 \end{matrix}\right)$$
             \2 Ce qui donne $E_{s,q}(n,p) = \left(\begin{matrix}
 0 & \cdots & 0 & \cdots & 0
@@ -187,7 +187,24 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 
     On peut aussi noter $A$ de la manière suivante
     
-    (uhhh uhhh \LaTeX is not for the weak)
+        $$A = \begin{matrix}
+            L_1 \\
+            L_2 \\
+            L_3 \\
+            \vdots \\
+            L_n
+        \end{matrix}
+        \overset{\begin{matrix} C_1 & C_2 & \cdots & C_p \end{matrix}}{\left(\begin{matrix}
+        a_{1,1} & a_{1,2} & \cdots & a_{1,p}
+        \\
+        a_{2,1} & a_{2,2} & \cdots & a_{2,p}
+        \\
+        a_{3,1} & a_{3,2} & \cdots & a_{3,p}
+        \\
+        \vdots & \vdots & & \vdots
+        \\
+        a_{n,1} & a_{n,2} & \cdots & a_{n,p}
+        \end{matrix}\right)}$$
 
     où $L_i = (a_{i,1},\dots,a_{i,p})$ est la $i$-ème ligne de $A$ pour tout $1 \leq i \leq n$.
 
@@ -195,7 +212,6 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 
     Donc $^tL_i = \left(\begin{matrix} a_{i,1} \\ \vdots \\ a_{i,p} \end{matrix}\right)$ et $^tC_i = (a_{1,i},\dots,a_{n,i})$.
 \end{remark}
-\todo{ECRIRE MATRICES}
 
 \begin{attention}
     La transposée n'est pas une rotation de la matrice. Dans le cas d'une matrice carrée (lignes = colonnes), c'est une symétrie par rapport à la diagonale.
@@ -286,9 +302,11 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \\ \vdots & \vdots & & \vdots
 \\ a_{n,1} & a_{n,2} & \cdots & a_{n,p}
 \end{matrix}\right)$\\Pour réobtenir les $u_j$, on multiplie par $\left(\begin{matrix}e_1 \\ \vdots \\ e_n
-\end{matrix}\right)$ : $\Mat_B(u_1,\dots,u_p) \cdot \left(\begin{matrix}e_1 \\ \vdots \\ e_n
-\end{matrix}\right) = \left(\begin{matrix}u_1 \\ \vdots \\ u_p
-\end{matrix}\right)$.
+\end{matrix}\right)$ :
+
+$$\Mat_B(u_1,\dots,u_p) \cdot \left(\begin{matrix}e_1 & \cdots & e_n
+\end{matrix}\right) = \left(\begin{matrix}u_1 & \cdots & u_p
+\end{matrix}\right)$$
     \end{enumerate}
     
 \end{definition}
@@ -296,8 +314,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \begin{example}
     Dans $\Kset_2[X]$, soient $P_1 = (X-1)^2$, $P_2 = X^2 - X$, $P_3 = 2X^2 - 1$ et $B = (1,X,X^2)$ la base canonique de $\Kset_2[X]$. Alors :
     $$\Mat_{B_{C}}(P_1,P_2,P_3) = \left(\begin{matrix}
-        -1 & 0 & -1 \\
-        2 & -1 & 0 \\
+        1 & 0 & -1 \\
+        -2 & -1 & 0 \\
         1 & 1 & 2
     \end{matrix}\right)$$
 \end{example}
@@ -359,7 +377,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
         \1 $(\mathcal M_{n,p}(\Kset),+)$ est un groupe abélien.
         \2 ... et donc que $+$ est bien une LCI\dots
         \2 qu'elle est associative et commutative...
-        \2 que $\mathcal O_{n,p} = (0)_{\substack{1 \le i \le n \\ 1 \le j \le p}}$ est élément neutre pour la loi + dans $\mathcal M_{n,p}(\Kset)$.
+        \2 que $0_{n,p} = (0)_{\substack{1 \le i \le n \\ 1 \le j \le p}}$ est élément neutre pour la loi + dans $\mathcal M_{n,p}(\Kset)$.
         \2 Enfin, que les éléments de $\mathcal M_{n,p}(\Kset)$ sont symétrisables par loi +.
         \1 Ensuite, $\cdot$ est bien une LCE et qu'elles vérifient les propriétés d'une LCE pour un espace vectoriel comme énoncées dans le chapitre 14-A en page 3.
     \end{outline}
@@ -428,7 +446,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     \textbf{$\psi$ est injective :}
 
     \begin{outline}
-    \1 Soit $f \in \Ker(\psi)$. Donc $\psi(f) = \mathcal O_{n,p}$.
+    \1 Soit $f \in \Ker(\psi)$. Donc $\psi(f) = 0_{n,p}$.
     \2 i.e. : (matrices en latex ehhh)
     \1 Donc $\forall 1 \le j \le p, f(e_j) = 0_F$.
     \1 Or $f(E) = \Vect(f(B)) = \{0_F\}$.
@@ -436,9 +454,22 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     \1 i.e. $\Ker\psi = 0_{\mathcal L(E,F)}$.
     \1 Et donc $\psi$ est injective !
     \end{outline}
+
+    \textbf{$\psi$ est surjective :}
+
+    \begin{outline}
+        \1 Soit $A = (a_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$.
+        \1 On pose $f : \begin{matrix} E &\to &F \\ e_j &\mapsto &\sum_{i=1}^n a_{i,j} c_i \end{matrix}$ pour tout $1 \le j \le p$.
+        \1 $f$ est bien définie, car $B$ est une base de $E$.
+        \1 $f$ est linéaire, car $C$ est une base de $F$.
+        \1 Donc $f \in \mathcal L(E,F)$.
+        \1 Or $\psi(f) = \Mat(f,B,C) = A$.
+        \1 Donc $\psi$ est surjective !
+    \end{outline}
+
+    On a montré que $\psi$ est un isomorphisme de $\Kset$-ev. entre $\mathcal L(E,F)$ et $\mathcal M_{n,p}(\Kset)$.
 \end{proof}
 \todo{ECRIRE MATRICES}
-\todo{recop}
 
 % khollen spetzialen
 
