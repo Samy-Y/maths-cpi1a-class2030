@@ -352,7 +352,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 
 \chapter{Opérations sur les matrices}
 
-\begin{definition}
+\begin{definition}[Espace vectoriel de matrices]
     On munit $\mathcal M_{n,p}(\Kset)$ de la LCI + et de la LCE $\cdot$ définies par :
     
     $$\forall A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}}, B = (b_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset), \forall \lambda \in \Kset :$$
@@ -379,14 +379,14 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \end{proof}
 \todo{recop}
 
-\begin{theorem}
+\begin{theorem}[Isomorphisme entre $\mathcal L(E,F)$ et $\mathcal M_{n,p}(\Kset)$]
     Soient $E,F$ deux $\Kset$-ev. tels que $\begin{cases}
     \underset\Kset\dim E = p\\ \underset\Kset\dim F = n
     \end{cases}$
 
     Soient $\begin{cases}
     B = (e_1,\dots,e_p) \text{ base de } E\\
-    C = (c_1,\dots,c_c) \text{ base de } F
+    C = (c_1,\dots,c_n) \text{ base de } F
     \end{cases}$
 
     Alors $\psi : \begin{matrix}
@@ -511,7 +511,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     $$E \sim F \iff \underset\Kset\dim(E) = \underset\Kset\dim(F)$$
 \end{consequence}
 
-\begin{definition}
+\begin{definition}[Application linéaire associée canoniquement à une matrice]
     Soit $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$.
 
     L'application $f \in \mathcal L(\Kset^p,\Kset^n)$ telle que $\Mat(f,B_{C_1},B_{C_2}) = A$ est appelée l'application linéaire associée canoniquement à $A$.
@@ -668,6 +668,291 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     \item Donc $A = (\alpha_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le q}}$ tels que $\alpha_{i,j} = \sum_{k=1}^p a_{i,k} b_{k,j}$.
 \end{itemize}
 \end{proof}
+
+\begin{definition}[Produit de matrices]
+    Soit $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$.
+    Soit $B = (b_{i,j})_{\substack{1 \le i \le p \\ 1 \le j \le q}} \in \mathcal M_{p,q}(\Kset)$.
+    
+    On appelle produit de $A$ par $B$ la matrice notée :
+    
+    $$AB = A\times B = (c_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le q}} \in \mathcal M_{n,q}(\Kset)$$
+    
+    tels que : 
+    $$\forall 1 \le i \le n, \forall 1 \le j \le q, c_{i,j} = \sum_{k=1}^p a_{i,k} b_{k,j}$$
+\end{definition}
+
+\begin{attention}
+    Le produit de deux matrices n'est défini que si le nombre de colonnes de la première matrice est égal au nombre de lignes de la deuxième matrice.
+\end{attention}
+
+\begin{figure}[H]
+    % Styles TikZ pour le diagramme
+\tikzset{
+    % Style pour les éléments mis en évidence (blocs roses)
+    highlighted-element/.style={
+        draw=none,
+        fill=pink!50,
+        inner sep=3pt,
+        rounded corners=1pt
+    },
+    % Style pour les flèches d'interaction de multiplication
+    connect-arrow/.style={
+        -Stealth,
+        red!80!black,
+        thick
+    },
+    % Style pour les flèches d'étiquette en pointillé
+    dotted-arrow/.style={
+        densely dotted,
+        -Stealth,
+        blue!70!black
+    },
+    % Style pour les étiquettes i et j
+    label-text/.style={
+        font=\large,
+        blue!70!black
+    }
+}
+
+\begin{tikzpicture}[>=Stealth]
+
+    % --- MATRICE A (Gauche, Ligne i) ---
+    \matrix (A) [
+        matrix of math nodes,
+        left delimiter=(,
+        right delimiter=),
+        row sep=0.5cm,
+        column sep=0.2cm,
+        nodes={anchor=center}
+    ]
+    {
+        \dots & \dots & \dots & & \dots & \dots & \dots \\
+        |[highlighted-element]| a_{i,1} & |[highlighted-element]| a_{i,2} & |[highlighted-element]| a_{i,3} & \cdots & |[highlighted-element]| a_{i,k} & |[highlighted-element]| a_{i,p-1} & |[highlighted-element]| a_{i,p} \\
+        \dots & \dots & \dots & & \dots & \dots & \dots \\
+    };
+
+    % Étiquette de ligne 'i' à gauche
+    \node (ilabel) [left=1.5cm of A-2-1.west, label-text] {i};
+    \draw[dotted-arrow] (ilabel) -- (A-2-1.west);
+
+    % Dimensions de la Matrice A
+    \node [below right=0.2cm and 0.1cm of A.south east, font=\scriptsize, cyan!70!black] {(n,p)};
+
+    % --- SYMBOLE MULTIPLICATION ---
+    \node (times) [right=1cm of A.east, scale=1.5] {$\times$};
+
+    % --- MATRICE B (Droite, Colonne j) ---
+    \matrix (B) [
+        matrix of math nodes,
+        left delimiter=(,
+        right delimiter=),
+        row sep=0.2cm,
+        column sep=0.5cm,
+        right=1cm of times,
+        nodes={anchor=center}
+    ]
+    {
+        \vdots & |[highlighted-element]| b_{1,j} & \vdots \\
+        \vdots & |[highlighted-element]| b_{2,j} & \vdots \\
+        \vdots & |[highlighted-element]| b_{3,j} & \vdots \\
+        & \vdots & \\
+        \vdots & |[highlighted-element]| b_{k,j} & \vdots \\
+        & \vdots & \\
+        \vdots & |[highlighted-element]| b_{p-1,j} & \vdots \\
+        \vdots & |[highlighted-element]| b_{p,j} & \vdots \\
+    };
+
+    % Étiquette de colonne 'j' en haut
+    \node (jlabel) [above=1cm of B-1-2.north, label-text] {j};
+    \draw[dotted-arrow] (jlabel) -- (B-1-2.north);
+
+    % Dimensions de la Matrice B
+    \node [below right=0.2cm and 0.1cm of B.south east, font=\scriptsize, cyan!70!black] {(p,q)};
+
+    % --- FLÈCHES D'INTERACTION DE MULTIPLICATION ---
+    % Relier les éléments correspondants de A et B
+    \draw[connect-arrow] (A-2-1.north) to[out=45, in=135] (B-1-2.north west);
+    \draw[connect-arrow] (A-2-3.north) to[out=30, in=150] (B-3-2.north west);
+    \draw[connect-arrow] (A-2-5.north) to[out=25, in=155] (B-5-2.north west);
+
+\end{tikzpicture}
+    \caption{Illustration du produit de matrices $AB$ avec les éléments $a_{i,k}$ et $b_{k,j}$ mis en évidence.}
+\end{figure}
+
+\begin{consequence}
+    Avec les hypothèses de la propriété précédente, on a :
+    $$\Mat(g \circ f, B, D) = \Mat(g,C,D) \times \Mat(f,B,C)$$
+\end{consequence}
+
+\begin{consequence}
+    \begin{enumerate}
+        \item Soient $E$ un $\Kset$-ev. de dimension $n$ et $B$ une base de $E$. Soient $f,g \in \mathcal L(E)$ alors $[g\circ f]_B = [g]_B \times [f]_B$.
+        \item Soient $E$ un $\Kset$-ev. de dimension $n$ et $B$ une base de $E$. Soit $f \in \mathcal L(E)$ alors $[f^k]_B = [f]_B^k$ pour tout $k \in \N^*$. \textit{Cela peut être utile pour déterminer le polynôme annulateur\index{Polynôme annulateur} de l'application $f$.}
+    \end{enumerate}
+\end{consequence}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\left(\begin{matrix} 1 & -2 & 0 \\ -1 & 3 & 2 \end{matrix}\right) \times \left(\begin{matrix} 4 & 1 \\ -1 & -2 \\ 2 & 0 \end{matrix}\right) = \left(\begin{matrix} 1\cdot 4 + (-2)\cdot (-1) + 0\cdot 2 & 1\cdot 1 + (-2)\cdot (-2) + 0\cdot 0 \\ -1\cdot 4 + 3\cdot (-1) + 2\cdot 2 & -1\cdot 1 + 3\cdot (-2) + 2\cdot 0 \end{matrix}\right) = \left(\begin{matrix} 6 & 5 \\ -3 & -7 \end{matrix}\right)$.
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Soit $\theta \in \R$. On pose :
+    $$R_\theta = \left(\begin{matrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{matrix}\right)$$
+
+    \begin{enumerate}
+        \item Calculer $R_\theta \times R_\theta'$ pour tout $\theta' \in \R$.
+        \item Calculer $R_\theta^k$ pour tout $k \in \N^*$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+    \begin{enumerate}
+        \item Après calculs, on trouve que $R_\theta \times R_\theta' = R_{\theta + \theta'}$.
+        \item Par récurrence, on trouve que $R_\theta^k = R_{k\theta}$ pour tout $k \in \N^*$.
+    \end{enumerate}
+
+    \textit{On remarque aussi que $R_{-\theta} = \,^tR_\theta$.}
+\end{exercise}
+
+\begin{definition}[Matrice identité]
+    Pour $n \in \N^*$, on pose :
+    $$I_n = (\delta_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$$
+    (Il s'agit d'une matrice diagonale où les éléments de la diagonale sont égaux à $1$ et les autres éléments sont égaux à $0$.)
+
+    Si $E$ est un $\Kset$-ev. de dimension $n$ et $B=(e_1,\dots,e_n)$ une base de $E$, alors l'application linéaire associée canoniquement à $I_n$ est appelée l'application identité de $E$ et est notée $\Id_E$.
+
+    $$[\Id_E]_B = I_n$$
+\end{definition}
+
+\begin{property}
+    Soit $n \ge 2$. $\mathcal M_n(\Kset)$ muni de $+$ et $\times$ (produit matriciel) est un anneau non commutatif. L'élément neutre de $\times$ est $I_n$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 On sait que $(\mathcal M_n(\Kset),+,\cdot)$ est un $\Kset$-ev. 
+        \1 Donc $(\mathcal M_n(\Kset),+)$ est un groupe abélien.
+        \1 Soient $A,B,C \in \mathcal M_n(\Kset)$ et $a,b,c$ les endomorphismes associés canoniquement à $A,B,C$ respectivement.
+        $$[a]_{B_C} = A,~~[b]_{B_C} = B,~~[c]_{B_C} = C$$
+        \1 On a $A \times (B \times C) = A \times [b\circ c]_{B_C} = [a \circ (b \circ c)]_{B_C}$.
+        \1 Comme $\circ$ est associative, on a $[a \circ (b \circ c)]_{B_C} = [(a \circ b) \circ c]_{B_C} = [(a \circ b)]_{B_C} \times C = (A \times B) \times C$.
+        \1 Donc $\times$ est associative.
+        \1 On a $A\times(B+C) = [a]_{B_C} \times [b+c]_{B_C} = [a \circ (b+c)]_{B_C} = [a\circ b + a \circ c]_{B_C} = [a\circ b]_{B_C} + [a \circ c]_{B_C} = A\times B + A \times C$.
+        \2 On peut séparer $[a \circ b + a \circ c]_{B_C}$ en $[a\circ b]_{B_C} + [a \circ c]_{B_C}$ en se référant à $\psi$, l'application considérée précédemment dans la section sur les applications linéaires entre espaces de matrices, qui est un isomorphisme de $\Kset$-ev. entre $\mathcal L(E,F)$ et $\mathcal M_{n,p}(\Kset)$.
+        \1 Donc $\times$ est distributive par rapport à $+$.
+        \1 Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$. On pose :
+        $$\left|~\begin{matrix}
+        A\times I_n = (\alpha_{i,j})_{1 \le i,j \le n} \\
+        I_n \times A = (\beta_{i,j})_{1 \le i,j \le n}
+        \end{matrix}\right.$$
+        \1 On a $\forall 1 \le i,j \le n, \alpha_{i,j} = \sum_{k=1}^n a_{i,k} \delta_{k,j} = a_{i,j}$.
+        \1 Et $\forall 1 \le i,j \le n, \beta_{i,j} = \sum_{k=1}^n \delta_{i,k} a_{k,j} = a_{i,j}$.
+        \1 Donc $A\times I_n = A$ et $I_n \times A = A$.
+        \1 Donc $I_n$ est l'élément neutre de $\times$.
+    \end{outline}
+    À ce stade-là, on a montré que $(\mathcal M_n(\Kset),+,\times)$ est un anneau. Il reste à montrer que $\times$ n'est pas commutatif. On va procéder par contre-exemple, qui seront plus du domaine des propriétés que de la preuve.
+\end{proof}
+
+\begin{property}
+    Soient $p,q,r,s \in [\![1,n]\!]$ des indices.
+
+    On pose $A = E_{p,q}$ et $B = E_{r,s}$.\index{Élémentaire (Matrice)}.
+
+    Pour expliciter, on aura :
+    $$\begin{cases}
+    A = E_{p,q} = (\underbrace{\delta_{i,p}\delta_{j,q}}_{a_{i,j}})_{1 \le i,j \le n}\\
+    B = E_{r,s} = (\underbrace{\delta_{i,r}\delta_{j,s}}_{b_{i,j}})_{1 \le i,j \le n}
+    \end{cases}$$
+
+    On pose :
+    
+    $$\begin{cases}A\times B = (c_{i,j})_{1 \le i,j \le n}
+    \\
+    B\times A = (d_{i,j})_{1 \le i,j \le n}\end{cases}$$
+
+    On a $\forall 1 \le i,j \le n$ :
+    
+    $$c_{i,j} = \sum_{k=1}^n a_{i,k} b_{k,j} = \sum_{k=1}^n \delta_{i,p}\delta_{k,q} \delta_{k,r}\delta_{j,s}$$
+    
+    $$\implies \boxed{c_{i,j} = \delta_{i,p}\delta_{j,s}}$$
+
+    De même, $\forall 1 \le i,j \le n$,
+    
+    $$d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j} = \sum_{k=1}^n \delta_{i,r}\delta_{k,s} \delta_{k,p}\delta_{j,q}$$
+    
+    $$\implies \boxed{d_{i,j} = \delta_{i,r}\delta_{j,q}}$$
+
+    Donc $A\times B = E_{p,s}$ si $q=r$ et $A\times B = 0_{\mathcal M_n(\Kset)}$ sinon.
+
+    $$A\times B = \delta_{q,r} E_{p,s}$$
+
+    De même, $B\times A = E_{r,q}$ si $s=p$ et $B\times A = 0_{\mathcal M_n(\Kset)}$ sinon.
+
+    $$B\times A = \delta_{s,p} E_{r,q}$$
+
+    Alors, si par exemple, $r \ne q$ et $p=s$, on a $A\times B = 0_{\mathcal M_n(\Kset)}$ et $B\times A = E_{r,q} \ne 0_{\mathcal M_n(\Kset)}$.
+
+    Donc $A\times B \ne B\times A$.
+
+    Cela montre que $\times$ n'est pas commutatif.
+\end{property}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\forall p,q,r,s \in [\![1,n]\!], E_{p,q} \times E_{r,s} = \delta_{q,r} E_{p,s}$.
+        \item $(\mathcal M_n(\Kset),+,\times,\cdot)$ est une $\Kset$-algèbre non commutative.
+    \end{enumerate}
+\end{remark}
+
+\begin{exercise}
+    Soit $A \in \mathcal M_n(\Kset)$ telle que $\forall B \in \mathcal M_n(\Kset)$ $A\times B = B \times A$.
+
+    Montrer que $\exists \lambda \in \Kset, A = \lambda I_n$.
+\end{exercise}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. de dimension $n$ et $B$ une base de $E$. Alors :
+    $$\psi : \begin{matrix} (\mathcal L(E),+,\circ,\cdot) &\to &(\mathcal M_n(\Kset),+, \times, \cdot) \\ f &\mapsto &[f]_B \end{matrix}$$
+    est un isomorphisme de $\Kset$-algèbres.
+\end{property}
+
+\begin{property}
+    Soient $E,F$ deux $\Kset$-ev. de dimensions respectives $p$ et $n$. Soient $B=(e_1,\ldots,e_p)$ une base de $E$ et $C=(c_1,\ldots,c_n)$ une base de $F$. Soit $f \in \mathcal L(E,F)$.
+
+    Soit $x \in E$. On pose :
+    $$\begin{cases}
+    X = \Mat_B(x)\\
+    A = \Mat(f,B,C)\\
+    Y = \Mat_C(f(x))
+    \end{cases}$$
+
+    $$\text{Alors } Y = A \times X$$
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item On a $\exists ! \lambda_1, \dots, \lambda_p \in \Kset$ tels que $x = \sum_{i=1}^p \lambda_i e_i$.
+        \item Donc $X = \Mat_B(x) = (\begin{matrix} \lambda_1 \\ \vdots \\ \lambda_p \end{matrix})$.
+        \item On pose $A = \Mat(f,B,C) = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}}$.
+        \item Donc $\forall i \in [\![1,n]\!], f(e_i) = \sum_{j=1}^p a_{i,j} c_j$.
+        \item Donc $f(x) = f\left(\sum_{i=1}^p \lambda_i e_i\right) = \sum_{i=1}^p \lambda_i f(e_i) = \sum_{i=1}^p \lambda_i \left(\sum_{j=1}^p a_{i,j} c_j\right) = \sum_{j=1}^p \left(\sum_{i=1}^p a_{i,j} \lambda_i\right) c_j$.
+        \item Donc $Y = \Mat_C(f(x)) = (\begin{matrix} \sum_{i=1}^p a_{1,j} \lambda_i \\ \vdots \\ \sum_{i=1}^p a_{n,j} \lambda_i \end{matrix})$.
+        \item Or $A \times X = \left(\begin{matrix} a_{1,1} & \cdots & a_{1,p} \\ \vdots & & \vdots \\ a_{n,1} & \cdots & a_{n,p} \end{matrix}\right) \times \left(\begin{matrix} \lambda_1 \\ \vdots \\ \lambda_p \end{matrix}\right) = \left(\begin{matrix} \sum_{i=1}^p a_{1,j} \lambda_i \\ \vdots \\ \sum_{i=1}^p a_{n,j} \lambda_i \end{matrix}\right)$.
+        \item Donc $Y = A \times X$.
+    \end{itemize}
+\end{proof}
+\todo{a corriger}
+
+\begin{example}
+    Soit $E$ un $\R$-ev. de dimension $3$.
+
+    Soient $B$ une base de $E$ et $f\in \mathcal L(E)$ telle que $[f]_B = \left(\begin{matrix} 2 & -1 & -1 \\ 1 & 0 & 1 \\ 1 & -1 & 0 \end{matrix}\right)$.
+    \begin{itemize}
+        \item Déterminer $g \in \mathcal L(\R^3)$ telle que $A = [g]_{B_C}$.
+        \item Montrer que $f$ est un projecteur de $E$.
+    \end{itemize}
+\end{example}
 
 \printindex
 \end{document}
