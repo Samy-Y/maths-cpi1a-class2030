@@ -569,7 +569,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 
 \begin{property}
     \begin{enumerate}
-        \item $T_{n,s}(\Kset)$ et $T_{n,i}(\Kset)$ sont des sous-espaces vectoriels supplémentaires isomorphes de $\mathcal M_n(\Kset)$ avec $\underset\Kset\dim(T_{n,s}(\Kset)) = \underset\Kset\dim(T_{n,i}(\Kset)) = \frac{n(n+1)}{2}$.
+        \item $S_{n}(\Kset)$ et $A_{n}(\Kset)$ sont des sous-espaces vectoriels supplémentaires isomorphes de $\mathcal M_n(\Kset)$.
         \item $S_n(\Kset)$ et $A_n(\Kset)$ sont des sous-espaces vectoriels de $\mathcal M_n(\Kset)$ avec $\underset\Kset\dim(S_n(\Kset)) = \frac{n(n+1)}{2}$ et $\underset\Kset\dim(A_n(\Kset)) = \frac{n(n-1)}{2}$.
         \item $D_n(\Kset)$ est un sous-espace vectoriel de $\mathcal M_n(\Kset)$ avec $\underset\Kset\dim(D_n(\Kset)) = n$.
     \end{enumerate}
@@ -953,6 +953,187 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
         \item Montrer que $f$ est un projecteur de $E$.
     \end{itemize}
 \end{example}
+
+\begin{definition}[Groupe $\GL_n(\Kset)$]
+    On appelle groupe linéaire de degré $n$ sur $\Kset$ le groupe des éléments inversibles de l'anneau $(\mathcal M_n(\Kset),+,\times)$.
+
+    $$\GL_n(\Kset) = \{A \in \mathcal M_n(\Kset)~|~\exists B \in \mathcal M_n(\Kset), A\times B = B \times A = I_n\}$$
+\end{definition}
+
+\begin{property}
+    Soit $A \in \mathcal M_n(\Kset)$. Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $A \in \GL_n(\Kset)$ est inversible.
+        \item L'application linéaire $f \in \mathcal L(\Kset^n)$ associée canoniquement à $A$ est un isomorphisme (application bijective).
+        \item $\forall X \in \mathcal M_{n,1}(\Kset), AX = 0_{\mathcal M_{n,1}(\Kset)} \implies X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \item $\forall Y \in \mathcal M_{n,1}(\Kset), \exists ! X \in \mathcal M_{n,1}(\Kset), AX = Y$.
+        \item $\exists ! B \in \mathcal M_n(\Kset) \tqf AB = I_n$.
+        \item $\exists ! B \in \mathcal M_n(\Kset) \tqf BA = I_n$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \textit{Seule l'équivalence entre les propriétés 1 et 3 sera démontrée. Les autres équivalences sont plus faciles (il suffit d'utiliser les propriétés de l'application linéaire associée canoniquement à $A$).}
+
+    \begin{outline}
+        \1 Montrons que $1 \implies 3$.
+        \2 Soit $X \in \mathcal M_{n,1}(\Kset)$ tel que $AX = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \2 Cela implique que $A^{-1} \times (AX) = A^{-1} \times 0_{\mathcal M_{n,1}(\Kset)}$ (sachant que $A^{-1}$ existe parce que $A$ est inversible).
+        \2 Donc $(A^{-1} \times A) \times X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \2 Donc $I_n \times X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \2 Donc $X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \1 Montrons que $3 \implies 1$.
+        \2 Soit $f \in \mathcal L(\Kset^n)$ l'application linéaire associée canoniquement à $A$.
+        \2 On a $\forall X \in \mathcal M_{n,1}(\Kset), AX = 0_{\mathcal M_{n,1}(\Kset)} \implies X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \2 Alors $\forall x \in \Kset^n, f(x) = 0_{\Kset^n} \implies x = 0_{\Kset^n}$.
+        \2 Donc le noyau de $f$ est réduit à $\{0_{\Kset^n}\}$.
+        \2 Donc $f$ est injective.
+        \2 Or $\Kset^n$ est de dimension finie, donc $f$ est bijective.
+        \2 Donc $f$ est un isomorphisme.
+        \2 Donc $A$ est inversible, $\in \GL_n(\Kset)$.
+    \end{outline}
+\end{proof}
+
+\begin{remark}
+    Si $A \in \mathcal M_{n,p}(\Kset)$, on note :
+    $$\Ker(A) = \{X \in \mathcal M_{p,1}(\Kset)~|~AX = 0_{\mathcal M_{n,1}(\Kset)}\}$$
+    $$\Imf(A)  = \{Y \in \mathcal M_{n,1}(\Kset)~|~\exists X \in \mathcal M_{p,1}(\Kset), AX = Y\}$$
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item On souhaite voir si $A = \left(\begin{matrix} 1 & -1 \\ 2 & 1 \end{matrix}\right)$ est inversible.
+        On a $A\times\left(\begin{matrix} x \\ y \end{matrix}\right) = \left(\begin{matrix} 1 & -1 \\ 2 & 1 \end{matrix}\right) \times \left(\begin{matrix} x \\ y \end{matrix}\right) = \left(\begin{matrix} x - y \\ 2x + y \end{matrix}\right)$.
+        Donc $\begin{cases} x = \frac13 (a+b) \\ y = -\frac13(2a-b) \end{cases}$. Donc $A$ est inversible et $A^{-1} = \frac13 \left(\begin{matrix} 1 & 1 \\ -2 & 1 \end{matrix}\right)$.
+    \end{enumerate}
+\end{example}
+
+\begin{exercise}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\C)$ telle que :
+    $$\forall i \in [\![1,n]\!], \abs{a_{i,i}} > \sum_{\substack{j=1 \\ j \ne i}}^n \abs{a_{i,j}}$$
+    $A$ est appelée une matrice à diagonale dominante. Montrer que $A$ est inversible.
+\end{exercise}
+\todo{a faire}
+
+\begin{property}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in T_{n,s}(\Kset)$ (matrice triangulaire supérieure). Alors $A$ est inversible si et seulement si $\forall i \in [\![1,n]\!], a_{i,i} \ne 0$.
+
+    Dans ce cas, $\forall i \in [\![1,n]\!], [A^{-1}]_{i,i} = \frac{1}{a_{i,i}}$.
+\end{property}
+
+\begin{remark}
+    On note $[A^{-1}]_{i,j}$ l'élément $a_{i,j}$ de la matrice $A^{-1}$.
+\end{remark}
+
+\begin{proof}
+    \begin{outline}
+        \1[$\impliedby$] Dans le sens indirect, on suppose que $\forall i \in [\![1,n]\!], a_{i,i} \ne 0$.
+        \2 Soit $X = \left(\begin{matrix} x_1 \\ \vdots \\ x_n \end{matrix}\right) \in \mathcal M_{n,1}(\Kset)$ tel que $AX = 0_{\mathcal M_{n,1}(\Kset)}$, i.e. :
+        $$\left(\begin{matrix} a_{1,1} & \cdots & \cdots & a_{1,n} \\ 0 & a_{2,2} & \cdots & a_{2,n} \\ \vdots & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & a_{n,n} \end{matrix}\right) \times \left(\begin{matrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{matrix}\right) = 0_{\mathcal M_{n,1}(\Kset)}$$
+        \2 Donc $\begin{cases} a_{1,1} x_1 + a_{1,2} x_2 + \cdots + a_{1,n} x_n = 0 \\ a_{2,2} x_2 + \cdots + a_{2,n} x_n = 0 \\ \vdots \\ a_{n,n} x_n = 0 \end{cases}$.
+        \2 Cela implique directement que $x_n = x_{n-1} = \cdots = x_1 = 0$.
+        \2 Donc $X = 0_{\mathcal M_{n,1}(\Kset)}$.
+        \2 Donc $A$ est inversible, $\in \GL_n(\Kset)$.
+        \1[$\implies$] Dans le sens direct, on suppose que $A$ est inversible, $\in \GL_n(\Kset)$.
+        \2 On suppose que $\exists i_0 \in [\![1,n]\!], a_{i_0,i_0} = 0$.
+        \2 Soit $f \in \mathcal L(\Kset^n)$ associée canoniquement à $A$. i.e. :
+        % faire apparaitre i_0 dans la matrice
+        $$[f]_{B_C} = A = \left(\begin{matrix} a_{1,1} & a_{1,2} & \cdots & \cdots & a_{1,n} \\ 0 & a_{2,2} & \cdots & a_{2,n} \\ \vdots & \ddots & a_{i_0,i_0} & \cdots & a_{i_0,n} \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & 0 & a_{n,n} \end{matrix}\right)$$
+        \2 On peut donc écrire $(f(e_1),\dots,f(e_{i_0})) \in \Vect(e_1,\dots,e_{i_0-1})$.
+        \2 Or le cardinal de $(f(e_1),\dots,f(e_{i_0}))$ est égal à $i_0$ et le cardinal de $\Vect(e_1,\dots,e_{i_0-1})$ est égal à $i_0-1$.
+        \2 Donc $(f(e_1),\dots,f(e_{i_0}))$ est une famille liée.
+        \2 Donc toute surfamille de $(f(e_1),\dots,f(e_{i_0}))$ est liée, donc la base $f(e_1),\dots,f(e_n)$ de $\Kset^n$ est liée, ce qui est absurde.
+        \2 Donc $\forall i \in [\![1,n]\!], a_{i,i} \ne 0$.
+    \end{outline}
+\end{proof}
+
+\begin{property}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$ et $B \in \mathcal M_{p,q}(\Kset)$. Alors :
+    $$\underbrace{^t(AB)}_{\in \mathcal M_{q,n}(\Kset)} = \underbrace{\underbrace{(^tB)}_{\in \mathcal M_{q,p}(\Kset)} \cdot \underbrace{(^tA)}_{\in \mathcal M_{p,n}(\Kset)}}_{\in \mathcal M_{q,n}(\Kset)}$$
+\end{property}
+
+\begin{proof}
+.
+\end{proof}
+\todo{recop}
+
+\begin{consequence}
+    Si $A \in \GL_n(\Kset)$, alors $^tA \in \GL_n(\Kset)$ et $(^tA)^{-1} = ^t(A^{-1})$.
+
+    (En effet, $^tA \cdot ^t(A^{-1}) = ^t(A^{-1} \cdot A) = ^tI_n = I_n$ et $^t(A^{-1}) \cdot ^tA = ^t(A \cdot A^{-1}) = ^tI_n = I_n$.)
+\end{consequence}
+
+\begin{consequence}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in T_{n,i}(\Kset)$.
+    
+    $$A \in \GL_n(\Kset) \iff \forall i \in [\![1,n]\!], a_{i,i} \ne 0$$
+
+    Et dans ce cas, $\forall i \in [\![1,n]\!], [A^{-1}]_{i,i} = \frac{1}{a_{i,i}}$.
+\end{consequence}
+
+\begin{remark}[Polynôme de Matrice (programme Spé.)]
+    Soit $A \in \mathcal M_n(\Kset)$ et $P(X) = a_0 + a_1 X + \cdots + a_k X^k \in \Kset[X]$ un polynôme à coefficients dans $\Kset$. On définit le polynôme de matrice $P(A)$ de $A$ par :
+    $$P(A) = a_0 I_n + a_1 A + \cdots + a_k A^k$$
+    $P(A)$ est appelé polynôme de matrice $A$.
+
+    Si $P(A) = 0_{\mathcal M_n(\Kset)}$, alors $P$ est appelé un polynôme annulateur de $A$.
+
+    \begin{itemize} \item[$\rightarrow$] Si de plus $a_0 \ne 0$, alors $A \in \GL_n(\Kset)$ avec $A^{-1} = -\frac{1}{a_0}(a_1 A + \cdots + a_k A^k)$. \end{itemize}
+
+    Si $Q$ est un autre polynôme de $\Kset[X]$ alors $P(A) \times Q(A) = (P \cdot Q)(A)$.
+\end{remark}
+
+\begin{example}
+    Soit $A = \left(\begin{matrix} -1 & -2 \\ 3 & 4 \end{matrix}\right) \in \mathcal M_2(\R)$.
+
+    Calculer $A^2-3A$ puis montrer que $A \in \GL_2(\R)$ en donnant $A^{-1}$.
+
+    \textbf{Solution :}
+
+    $A^2 = \left(\begin{matrix} -1 & -2 \\ 3 & 4 \end{matrix}\right) \times \left(\begin{matrix} -1 & -2 \\ 3 & 4 \end{matrix}\right) = $
+
+    $3A = 3 \times \left(\begin{matrix} -1 & -2 \\ 3 & 4 \end{matrix}\right) = \left(\begin{matrix} -3 & -6 \\ 9 & 12 \end{matrix}\right)$.
+
+    On trouve $A^2 - 3A = 2I_2$.
+
+    Donc $X^2 - 3X - 2$ est un polynôme annulateur de $A$.
+
+    Donc $A \in \GL_2(\R)$ avec $A^{-1} = -\frac{1}{2}(-3A - 2I_2) = \frac{3}{2} A + I_2 = \left(\begin{matrix} \frac{1}{2} & -3 \\ \frac{9}{2} & 7 \end{matrix}\right)$.es
+\end{example}
+
+\begin{exercise}
+    Soit $A = \left(\begin{matrix} 2 & 1 & \cdots & \cdots & 1 \\ 1 & 2 & 1 & \cdots & 1 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 1 & \cdots & 1 & 2 & 1 \\ 1 & \cdots & \cdots & 1 & 2 \end{matrix}\right)_{(n)} \in \mathcal M_n(\R)$.
+
+    Montrer que $A \in \GL_n(\R)$ et calculer $A^{-1}$.
+
+    \textit{Indice : écrire $A = I_n + B$}.
+
+    On trouve facilement que $B = \left(\begin{matrix} 1 & 1 & \cdots & \cdots & 1 \\ 1 & 1 & 1 & \cdots & 1 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 1 & \cdots & 1 & 1 & 1 \\ 1 & \cdots & \cdots & 1 & 1 \end{matrix}\right)_{(n)}$.
+
+    On remarque que $B^2 = nB$.
+
+    Donc $(A-I_n)^2 = n(A-I_n)$.
+
+    On peut appliquer la formule du binôme de Newton parce que $I_n$ commute avec $A$.
+
+    Donc $A^2 - 2A + I_n = nA - nI_n$.
+
+    Donc $X^2 - (n+2)X + (n+1)$ est un polynôme annulateur de $A$.
+
+    Et $n+1 \ne 0$ donc $A \in \GL_n(\R)$ avec $A^{-1} = -\frac{1}{n+1}(-(n+2)A + (n+1)I_n) = \frac{n+2}{n+1} A - I_n$.
+\end{exercise}
+
+\begin{definition}[Matrice nilpotente]
+    Soit $A \in \mathcal M_n(\Kset)$. On dit que $A$ est nilpotente lorsqu'il existe $k \in \N^*$ tel que $A^k = 0_{\mathcal M_n(\Kset)}$ et $p = \min\{k \in \N^*~|~A^k = 0_{\mathcal M_n(\Kset)}\}$ est appelé indice de nilpotence de $A$.
+\end{definition}
+
+\begin{example}
+    $A = \left(\begin{matrix} 2 & -4 \\ 1 & -2 \end{matrix}\right)$ est nilpotente d'indice de nilpotence égal à $2$.
+\end{example}
+
+\begin{remark}
+    Si $A$ est nilpotente d'indice $p$ alors $I_n - A \in \GL_n(\Kset)$ avec $(I_n - A)^{-1} = I_n + A + A^2 + \cdots + A^{p-1}$.
+\end{remark}
 
 \printindex
 \end{document}
