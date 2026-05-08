@@ -20,6 +20,8 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 
 \chapter{Définitions}
 
+\section{Matrice}
+
 \begin{importantbox}
     $\Kset$ désigne un corps commutatif dans le reste de cette section.
 \end{importantbox}
@@ -61,7 +63,7 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 
 \begin{example}
     \begin{outline}
-        \1 Soient $\lambda_1,\dots,\lambda_n \in \Kset$. On pose $V = \left(\lambda_{i}^{j-1}\right)_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $V$ est appelée la matrice de Vandermonde\index{Vandermonde (Matrice de)} associée à $\lambda_1,\dots,\lambda_n$. Cette matrice est de taille $n$.
+        \1 Soient $\lambda_1,\dots,\lambda_n \in \Kset$. On pose $V = \left(\lambda_{i}^{j-1}\right)_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}}$. $V$ est appelée la matrice de Vandermonde\index{matrice!Vandermonde} associée à $\lambda_1,\dots,\lambda_n$. Cette matrice est de taille $n$.
         \2 On peut expliciter $V$ :
         $$V = \left(\begin{matrix}
 1 & \lambda_1 & \lambda_1^2 & \cdots & \lambda_1^{n-1}
@@ -72,7 +74,7 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
 \\
 1 & \lambda_n & \lambda_n^2 & \cdots & \lambda_n^{n-1}
 \end{matrix}\right)$$
-        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,p]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire\index{Élémentaire (Matrice)} de taille $n$ associée à $(s,q)$.
+        \1 Pour tout $(s,q) \in [\![1,n]\!] \times [\![1,p]\!]$, on a $E_{s,q} = (\delta_{s,i}\cdot \delta_{q,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}}$. $E_{s,q}(n,p)$ est appelée la matrice élémentaire\index{matrice!élémentaire} de taille $n$ associée à $(s,q)$.
             \2 On peut expliciter $E_{s,q}(n,p)$ :
             $$E_{s,q}(n,p) = \left(\begin{matrix}
 \delta_{s,1}\delta_{q,1} & \delta_{s,1}\delta_{q,2} & \cdots & \delta_{s,1}\delta_{q,p}
@@ -97,6 +99,8 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
     \2 La famille $(E_{s,q}(n,p))_{\substack{1 \leq s \leq n\\ 1\leq q \leq p}}$ est appelée la famille des matrices élémentaires de $\mathcal M_{n,p}(\Kset)$.
     \end{outline}
 \end{example}
+
+\section{Matrices triangulaires et diagonales}
 
 \begin{definition}[Matrice triangulaire et diagonale]
     Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq n}} \in \mathcal M_{n}(\Kset)$.
@@ -166,6 +170,8 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
     L'intersection de $T_{n,s}(\Kset)$ et $T_{n,i}(\Kset)$ est exactement $D_n(\Kset)$.
     $$T_{n,s}(\Kset) \cap T_{n,i}(\Kset) = D_n(\Kset)$$
 \end{remark}
+
+\section{Transposées}
 
 \begin{definition}[Transposée d'une matrice]
     Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n\\ 1\leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
@@ -256,6 +262,8 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
     \end{outline}
 \end{remark}
 
+\section{Matrices symétriques et antisymétriques}
+
 \begin{definition}[Matrice symétrique et antisymétrique]
     Soit $A = (a_{i,j})_{1 \leq i, j \leq n} \in \mathcal M_{n}(\Kset)$.
     
@@ -288,6 +296,8 @@ Ce chapitre est consacré aux matrices, qui sont des outils fondamentaux en alg�
     \end{outline}
 \end{example}
 
+\section{Matrices de coordonnées}
+
 \begin{definition}[Matrice de coordonnées]
     Soient $E$ un $\Kset$-ev. de dimension $n$ et $B = (e_1,\dots,e_n)$ une base de $E$.
 
@@ -314,6 +324,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
         1 & 1 & 2
     \end{matrix}\right)$$
 \end{example}
+
+\section{Matrices d'applications linéaires}
 
 \begin{definition}[Matrice d'une application linéaire]
     Soient $E,F$ deux $\Kset$-ev de dimensions respectives $n$ et $p$.
@@ -346,11 +358,13 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
         \vdots & \vdots & \vdots & \vdots \\
         1 & a_n & \cdots & a_n^{n-1}
         \end{matrix}\right)$$
-        Cette matrice est égale à la matrice de Vandermonde\index{Vandermonde (Matrice de)} $V(a_1,\dots,a_n)$.
+        Cette matrice est égale à la matrice de Vandermonde\index{matrice!Vandermonde} $V(a_1,\dots,a_n)$.
     \end{outline}
 \end{example}
 
 \chapter{Opérations sur les matrices}
+
+\section{Espace vectoriel de matrices}
 
 \begin{definition}[Espace vectoriel de matrices]
     On munit $\mathcal M_{n,p}(\Kset)$ de la LCI + et de la LCE $\cdot$ définies par :
@@ -363,7 +377,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 
     En plus, $\mathcal M_{n,p}(\Kset)$ est de dimension finie, avec $\underset\Kset\dim(\mathcal M_{n,p}(\Kset)) = n\cdot p$.
 
-    La base canonique de $\mathcal M_{n,p}(\Kset)$ est $B_C = (E_{i,j}(n,p))_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.\index{Élémentaire (Matrice)}
+    La base canonique de $\mathcal M_{n,p}(\Kset)$ est $B_C = (E_{i,j}(n,p))_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.\index{matrice!élémentaire}
 \end{definition}
 
 \begin{proof}
@@ -510,6 +524,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 
     $$E \sim F \iff \underset\Kset\dim(E) = \underset\Kset\dim(F)$$
 \end{consequence}
+
+\section{Applications linéaires canoniquement associées}
 
 \begin{definition}[Application linéaire associée canoniquement à une matrice]
     Soit $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$.
@@ -669,6 +685,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \end{itemize}
 \end{proof}
 
+\section{Produits matriciels}
+
 \begin{definition}[Produit de matrices]
     Soit $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$.
     Soit $B = (b_{i,j})_{\substack{1 \le i \le p \\ 1 \le j \le q}} \in \mathcal M_{p,q}(\Kset)$.
@@ -766,7 +784,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     \node (jlabel) [above=1cm of B-1-2.north, label-text] {j};
     \draw[dotted-arrow] (jlabel) -- (B-1-2.north);
 
-    % Dimensions de la Matrice B
+    Dimensions de la Matrice B
     \node [below right=0.2cm and 0.1cm of B.south east, font=\scriptsize, cyan!70!black] {(p,q)};
 
     % --- FLÈCHES D'INTERACTION DE MULTIPLICATION ---
@@ -954,6 +972,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     \end{itemize}
 \end{example}
 
+\section{Groupes linéaires}
+
 \begin{definition}[Groupe $\GL_n(\Kset)$]
     On appelle groupe linéaire de degré $n$ sur $\Kset$ le groupe des éléments inversibles de l'anneau $(\mathcal M_n(\Kset),+,\times)$.
 
@@ -1011,9 +1031,8 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \begin{exercise}
     Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\C)$ telle que :
     $$\forall i \in [\![1,n]\!], \abs{a_{i,i}} > \sum_{\substack{j=1 \\ j \ne i}}^n \abs{a_{i,j}}$$
-    $A$ est appelée une matrice à diagonale dominante. Montrer que $A$ est inversible.
+    $A$ est appelée une matrice à diagonale dominante\index{matrice!à diagonale dominante}. Montrer que $A$ est inversible.
 \end{exercise}
-\todo{a faire}
 
 \begin{property}
     Soit $A = (a_{i,j})_{1 \le i,j \le n} \in T_{n,s}(\Kset)$ (matrice triangulaire supérieure). Alors $A$ est inversible si et seulement si $\forall i \in [\![1,n]\!], a_{i,i} \ne 0$.
@@ -1134,6 +1153,242 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
 \begin{remark}
     Si $A$ est nilpotente d'indice $p$ alors $I_n - A \in \GL_n(\Kset)$ avec $(I_n - A)^{-1} = I_n + A + A^2 + \cdots + A^{p-1}$.
 \end{remark}
+
+\begin{property}
+    \begin{enumerate}
+        \item $T_{n,s}(\Kset)$ et $T_{n,i}(\Kset)$ sont des sous-algèbres de $\mathcal M_n(\Kset)$. En particulier, $T_{n,s}(\Kset)$ et $T_{n,i}(\Kset)$ sont stables par produit matriciel.
+        \item $\forall A \in T_{n,s}(\Kset)\cap \GL_n(\Kset), A^{-1} \in T_{n,s}(\Kset)$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{enumerate}
+        \item On considère le produit matriciel suivant dans $T_{n,s}(\Kset)$ :
+        $$\left(\begin{matrix}\alpha_1 & * & \cdots & \cdots & * \\ 0 & \alpha_2 & * & \cdots & * \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & \alpha_{n-1} & * \\ 0 & \cdots & \cdots & 0 & \alpha_n\end{matrix}\right) \times \left(\begin{matrix}\beta_1 & * & \cdots & \cdots & * \\ 0 & \beta_2 & * & \cdots & * \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & \beta_{n-1} & * \\ 0 & \cdots & \cdots & 0 & \beta_n\end{matrix}\right) = \left(\begin{matrix}\alpha_1 \beta_1 & * & \cdots & \cdots & * \\ 0 & \alpha_2 \beta_2 & * & \cdots & * \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & \cdots & 0 & \alpha_{n-1} \beta_{n-1} & * \\ 0 & \cdots & \cdots & 0 & \alpha_n \beta_n\end{matrix}\right)$$
+        Donc $T_{n,s}(\Kset)$ est stable par produit matriciel.
+        \item Soit $A \in T_{n,s}(\Kset)\cap \GL_n(\Kset)$.
+        On pose $f : \begin{matrix} T_{n,s}(\Kset) &\to &T_{n,s}(\Kset) \\ M &\mapsto &AM \end{matrix}$.
+        
+        L'application est bien définie parce que $T_{n,s}(\Kset)$ est stable par produit matriciel.
+        
+        $f$ est linéaire parce que $f(M+N) = A(M+N) = AM + AN = f(M) + f(N)$ et $f(\lambda M) = A(\lambda M) = \lambda (AM) = \lambda f(M)$.
+        
+        $f$ est injective parce que $f(M) = 0_{T_{n,s}(\Kset)} \implies AM = 0_{T_{n,s}(\Kset)} \implies M = 0_{T_{n,s}(\Kset)}$ (sachant que $A$ est inversible). Alors $\Ker(f) = \{0_{T_{n,s}(\Kset)}\}$.
+        
+        Or $T_{n,s}(\Kset)$ est de dimension finie, donc $f$ est bijective.
+
+        Donc $\forall Y \in T_{n,s}(\Kset), \exists ! M \in T_{n,s}(\Kset), f(M) = AM = Y$.
+        
+        Donc $\exists ! M \in T_{n,s}(\Kset), f(M) = AM = I_n$.
+        
+        Donc $A^{-1} = M \in T_{n,s}(\Kset)$.
+    \end{enumerate}
+\end{proof}
+
+\chapter{Changement de bases}
+
+\begin{definition}
+    Soient $E$ un $\Kset$-ev. de dimension finie $n \in \N^*$ et $B_1 = (e_1,\dots,e_n)$ et $B_2 = (\varepsilon_1,\dots,\varepsilon_n)$ deux bases de $E$.
+
+    On appelle \textbf{matrice de passage de $B_1$ à $B_2$} la matrice notée $P_{B_1}^{B_2} = \mathrm{Pass(B_1,B_2)} \in \mathcal M_n(\Kset)$ égale à $\Mat_{B_1}(B_2)$ (c'est contre-intuitif).
+    
+    Autrement dit, on écrit $B_2$ dans la base $B_1$ pour obtenir la matrice de passage de $B_1$ à $B_2$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $\Id_E \in \mathcal L(E)$. On considère que la base de départ est $B_2$ et que la base d'arrivée est $B_1$. Alors $\Mat(\Id_E, B_2, B_1) = P_{B_1}^{B_2}$.
+        \item Soit $A \in \GL_n(\Kset)$. Soient $c_1,\dots,c_n$ les colonnes de $A$. On note $\tilde{c_k}$ le $n$-uplet tel que $\Mat_{B_C^{(n)}}(\tilde{c_k}) = c_k$.
+        \item Toute matrice inversible peut être vue comme une matrice de passage de la base canonique à une base des colonnes de la matrice.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    Dans $\R^2$, on considère $\begin{cases} u = (1,-1) \\ v = (2,1) \end{cases}$ et $B_C = (e_1,e_2)$.
+
+    La famille $B = (u,v)$ est une famille libre de cardinal 2 dans $\R^2$, donc c'est une base de $\R^2$.
+
+    On a $\begin{cases} u = e_1 - e_2 \\ v = 2e_1 + e_2 \end{cases}$.
+
+    Donc $P_{B_C}^B = \left(\begin{matrix} 1 & 2 \\ -1 & 1 \end{matrix}\right)$.
+
+    Ce qui équivaut à dire que $\begin{cases} e_1 = \frac13 (u+v) \\ e_2 = \frac13 (-2u+v) \end{cases}$.
+
+    Donc $P_B^{B_C} = \left(\begin{matrix} \frac13 & -\frac23 \\ \frac13 & \frac13 \end{matrix}\right)$.
+\end{example}
+
+\begin{property}
+    Soient $E$ un $\Kset$-ev. de dimension finie $n \in \N^*$ et $B_1, B_2$ deux bases de $E$.
+    \begin{enumerate}
+        \item $P_{B_1}^{B_2} \in \GL_n(\Kset)$ avec $(P_{B_1}^{B_2})^{-1} = P_{B_2}^{B_1}$.
+        \item Soit $x \in E$. On pose $x_1 = \Mat_{B_1}(x)$ et $x_2 = \Mat_{B_2}(x)$. Alors $x_2 = P_{B_1}^{B_2} \times x_1$, i.e. $\Mat_{B_2}(x) = \mathrm{Pass}(B_1,B_2) \times \Mat_{B_1}(x)$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration de la première propriété.}
+        \2 On a $P_{B_1}^{B_2} = \Mat(\Id_E, B_1, B_2)$.
+        \2 Or $\Id_E \in \GL(E)$, donc $P_{B_1}^{B_2} \in \GL_n(\Kset)$.
+        \2 Et on a $(P_{B_1}^{B_2})^{-1} = \Mat(\Id_E, B_2, B_1) = P_{B_2}^{B_1}$.
+        \1 \textbf{Démonstration de la deuxième propriété.}
+        \2 On prend $\Id_E : \underset{\text{Base }B_1}{E} \to \underset{\text{Base }B_2}{E}$.
+        \2 Alors $\forall x \in E, \Id_E(x) = x$. On a donc $\Mat(\Id_E, B_1, B_2) \times \Mat_{B_1}(x) = \Mat_{B_2}(\Id_E(x))$.
+        \2 Donc $P_{B_1}^{B_2} \times x_1 = x_2$.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    Dans $E = \Kset_2[X]$, on considère $B_C = (1,X,X^2)$ et $B = (1,1+X,1+X+X^2)$ deux bases de ce dernier.
+
+    On pose $Q = (1-X)^2$.
+    \begin{enumerate}
+        \item Calculer $P_{B_C}^B$ et $P_B^{B_C}$.
+        \item Donner $\Mat_B(Q)$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+    $$\begin{cases}
+    P_{B_C}^B = \left(\begin{matrix} 1 & 0 & 0 \\ 1 & 1 & 0 \\ 1 & 1 & 1 \end{matrix}\right)\\
+    P_B^{B_C} = \left(\begin{matrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{matrix}\right)\\
+    \Mat_B(Q) = P_B^{B_C} \times \Mat_{B_C}(Q) = \left(\begin{matrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{matrix}\right) \times \left(\begin{matrix} 1 \\ -2 \\ 1 \end{matrix}\right) = \left(\begin{matrix} 1 \\ -3 \\ 3 \end{matrix}\right)
+    \end{cases}$$
+\end{example}
+
+\begin{property}
+    Soient $E,F$ deux $\Kset$-ev. de dimensions respectives $p$ et $n$. Soient $B_1, B_2$ deux bases de $E$ et $C_1, C_2$ deux bases de $F$. Soit $f \in \mathcal L(E,F)$.
+
+    Soient $B_1, B_2$ deux bases de $E$. Soient $C_1, C_2$ deux bases de $F$.
+
+    On pose $\begin{cases} A_1 = \Mat(f,B_1,C_1) \\ A_2 = \Mat(f,B_2,C_2) \end{cases}$.
+
+    Alors $A_2 = P_{C_1}^{C_2} \times A_1 \times P_{B_2}^{B_1}$.
+
+    i.e. $\Mat(f,B_2,C_2) = \mathrm{Pass}(C_2,C_1) \times \Mat(f,B_1,C_1) \times \mathrm{Pass}(B_1,B_2)$.
+\end{property}
+
+\begin{proof}
+    On considère l'application $g : \underset{B_2}{E} \overset{\Id_E}{\to} \underset{B_1}{E} \overset{f}{\to} \underset{C_1}{F} \overset{\Id_F}{\to} \underset{C_2}{F}$.
+
+    Donc $f = g = \Id_F \circ f \circ \Id_E$.
+
+    Donc $\Mat(g, B_2, C_2) = \Mat(\Id_F, C_1, C_2) \times \Mat(f, B_1, C_1) \times \Mat(\Id_E, B_2, B_1)$.
+\end{proof}
+
+\begin{consequence}
+    Soit $f \in \mathcal L(E)$ tel que $\dim E = n\in \N^*$, et $B_1,B_2$ deux bases de $E$.
+
+    Alors $[f]_{B_2} = P_{B_1}^{B_2} \times [f]_{B_1} \times P_{B_2}^{B_1}$.
+\end{consequence}
+
+\begin{proof}
+    En effet, $[f]_{B_1} = \Mat(f, B_1, B_1) = P_{B_1}^{B_2} \times \Mat(f, B_2, B_2) \times P_{B_2}^{B_1} = P_{B_1}^{B_2} \times [f]_{B_2} \times P_{B_2}^{B_1}$.
+\end{proof}
+
+\begin{example}
+    Soit $A = \left(\begin{matrix} 6 & -5 \\ 2 & -1 \end{matrix}\right) \in \mathcal M_2(\R)$.
+
+    \begin{enumerate}
+        \item Déterminer $B = (u,v)$ une base de $\R^2$ telle que $[f]_B = \left(\begin{matrix} 1 & 0 \\ 0 & 4 \end{matrix}\right)$, où $f \in \mathcal L(\R^2)$ est l'application linéaire associée canoniquement à $A$.
+        \item Calculer $A^n$ pour tout $n \in \N^*$.
+    \end{enumerate}
+
+    \textbf{Solution :}
+
+
+\end{example}
+\todo{recop}
+
+% see pic you took
+
+\begin{remark}
+    \begin{enumerate}
+        \item Soit $A = \left(\begin{matrix} a & c \\ b & d\end{matrix}\right) \in \mathcal M_2(\Kset)$.
+        $$A \in \GL_2(\Kset) \iff ad - bc \ne 0$$
+        Dans ce cas, $A^{-1} = \frac{1}{ad - bc} \left(\begin{matrix} d & -c \\ -b & a \end{matrix}\right)$.
+        \item Si $E$ est un $\Kset$-ev. de dimension finie $n \in \N^*$, et $f \in \mathcal L(E)$ nilpotente d'indice de nilpotence égal à $p$, alors :
+        $$p \le n$$
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    \textbf{Démonstration de la deuxième remarque.}
+
+    \begin{outline}
+    \1 On a : $f^p = 0$ et $f^{p-1} \ne 0$.
+    \1 Donc $\exists x_0 \in E, f^{p-1}(x_0) \ne 0$.
+    \1 On montre que la famille $(x_0, f(x_0), \dots, f^{p-1}(x_0))$ est libre.
+    \2 Soit $\lambda_0,\dots,\lambda_{p-1} \in \Kset$ tels que $\lambda_0 x_0 + \lambda_1 f(x_0) + \cdots + \lambda_{p-1} f^{p-1}(x_0) = 0_E$.
+    \2 Alors $f^{p-1}(\lambda_0 x_0 + \lambda_1 f(x_0) + \cdots + \lambda_{p-1} f^{p-1}(x_0)) = 0_E$.
+    \2 Donc $\lambda_0 f^{p-1}(x_0) = 0_E$.
+    \2 Donc $\lambda_0 = 0$.
+    \2 Donc $\lambda_1 f^{p-1}(x_0) = 0_E$.
+    \2 Donc $\lambda_1 = 0$.
+    \2 En continuant ainsi, on trouve que $\lambda_0 = \lambda_1 = \cdots = \lambda_{p-1} = 0$.
+    \2 Donc la famille $(x_0, f(x_0), \dots, f^{p-1}(x_0))$ est libre. \textit{On peut aussi procéder par absurde en supposant que la famille est liée, et en montrant que cela contredit le fait que $f^{p-1}(x_0) \ne 0$.}
+    \2 Donc $p \le n$, car le cardinal de la famille $(x_0, f(x_0), \dots, f^{p-1}(x_0))$ est égal à $p$ et le cardinal de toute famille libre de $E$ est inférieur ou égal à $\dim E = n$.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    Soit $A = \left(\begin{matrix} -2 & 4 \\ -1 & 2 \end{matrix}\right) \in \mathcal M_2(\R)$.
+
+    Montrer qu'il existe $P \in \GL_2(\R)$ telle que $A = P \times E_{1,2} \times P^{-1}$.
+\end{example}
+\todo{recop}
+%took pic
+
+\begin{property}[Transitivité des matrices de passage]
+    $$\mathrm{Pass}(B_1,B_3) = \mathrm{Pass}(B_1,B_2) \times \mathrm{Pass}(B_2,B_3)$$
+\end{property}
+
+\begin{proof}
+    $\Id_E : E \to E \to E$ avec $B_1$ comme base de départ, $B_2$ comme base d'arrivée pour la première application, et $B_3$ comme base d'arrivée pour la seconde application.
+
+    Donc $\Id_E = \Id_E \circ \Id_E$.
+
+    Donc $\Mat(\Id_E, B_1, B_3) = \Mat(\Id_E, B_2, B_3) \times \Mat(\Id_E, B_1, B_2)$.
+
+    D'où $\mathrm{Pass}(B_1,B_3) = \mathrm{Pass}(B_1,B_2) \times \mathrm{Pass}(B_2,B_3)$.
+\end{proof}
+
+\chapter{Matrices équivalentes et matrices semblables}
+
+\section{Matrices équivalentes}
+
+\begin{definition}[Matrices équivalentes]
+    Soient $A,B \in \mathcal M_{n,p}(\Kset)$. On dit que $A$ et $B$ sont équivalentes s'il existe $P \in \GL_n(\Kset)$ et $Q \in \GL_p(\Kset)$ telles que $B = PAQ$.
+
+    On note $A \text{ éq } B$ (et non pas $A \sim B$).
+\end{definition}
+
+\begin{property}
+    ``éq'' est une relation d'équivalence dans $\mathcal M_{n,p}(\Kset)$.
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Réflexivité.} Soit $A \in \mathcal M_{n,p}(\Kset)$. On a $A = I_n A I_p$, donc $A \text{ éq } A$.
+        \1 \textbf{Symétrie.} Soient $A,B \in \mathcal M_{n,p}(\Kset)$ tels que $A \text{ éq } B$. Alors $\exists P \in \GL_n(\Kset), Q \in \GL_p(\Kset)$ tels que $B = PAQ$. Donc $A = P^{-1} B Q^{-1}$, donc $B \text{ éq } A$.
+        \1 \textbf{Transitivité.} Soient $A,B,C \in \mathcal M_{n,p}(\Kset)$ tels que $A \text{ éq } B$ et $B \text{ éq } C$. Alors $\exists P_1,P_2 \in \GL_n(\Kset), Q_1,Q_2 \in \GL_p(\Kset)$ tels que $B = P_1 A Q_1$ et $C = P_2 B Q_2$. Donc $C = P_2 P_1 A Q_1 Q_2$, donc $A \text{ éq } C$.
+    \end{outline}
+\end{proof}
+
+\begin{property}
+    Soient $A_1,A_2 \in \mathcal M_{n,p}(\Kset)$.
+
+    $A_1$ éq $A_2 \iff A_1 \et A_2$ représentent la même application linéaire dans 2 couples de bases différents
+
+    $\iff \exists f \in \mathcal L(E,F), \exists B_1,B_2 \text{ bases de } E, \exists C_1,C_2 \text{ bases de } F, A_2 = \Mat(f,B_2,C_2) \text{ et } A_1 = \Mat(f,B_1,C_1)$
+\end{property}
+% "специальная Khôlle операция"
+% kholle speciale
+
+\begin{proof}
+    
+\end{proof}
+\todo{recop}
 
 \printindex
 \end{document}
