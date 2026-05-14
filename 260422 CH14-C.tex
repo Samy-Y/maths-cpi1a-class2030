@@ -1288,6 +1288,7 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     Soit $f \in \mathcal L(E)$ tel que $\dim E = n\in \N^*$, et $B_1,B_2$ deux bases de $E$.
 
     Alors $[f]_{B_1} = P_{B_1}^{B_2} \times [f]_{B_2} \times P_{B_2}^{B_1}$.
+    \label{cons:ch_base_endo}
 \end{consequence}
 
 \begin{proof}
@@ -1397,6 +1398,456 @@ a_{1,1} & a_{1,2} & \cdots & a_{1,p}
     
 \end{proof}
 \todo{recop}
+
+\begin{methodbox}
+    Tout matrice inversible peut être vue comme une matrice de passage de la base canonique à une base des colonnes de la matrice.
+\end{methodbox}
+
+\section{Matrices semblables}
+
+\begin{definition}
+    Soient $A,B \in \mathcal M_n(\Kset)$.
+
+    $A$ et $B$ sont dites semblables s'il existe $P \in \GL_n(\Kset)$ telle que $A = P B P^{-1}$.
+
+    Et on note $A \sim B$.
+\end{definition}
+
+\begin{remark}
+    $A \sim B \implies A \text{ éq } B$.
+    
+    La réciproque est (évidemment) fausse.
+\end{remark}
+
+\begin{property}
+    ``$\sim$'' est une relation d'équivalence dans $\mathcal M_n(\Kset)$.
+\end{property}
+
+\begin{proof}
+    Preuve analogue à celle de la relation ``éq''.
+\end{proof}
+
+\begin{remark}
+    Soit $A \in \mathcal M_n(\Kset)$.
+
+    On appelle classe d'équivalence dex $A$ pour $\sim$ la classe de similitude, et on la note :
+
+    $$S(A) = \{B \in \mathcal M_n(\Kset)~|~B \sim A\}$$
+
+    $$\boxed{S(A) = \{P A P^{-1}~|~P \in \GL_n(\Kset)\}}$$
+\end{remark}
+
+Par exemple, la classe de la matrice nulle $0_{\mathcal M_n(\Kset)}$ pour la relation de similitude est réduite à elle-même, car $P 0_{\mathcal M_n(\Kset)} P^{-1} = 0_{\mathcal M_n(\Kset)}$ pour tout $P \in \GL_n(\Kset)$.
+
+Et pour $I_n$, on trouve que $S(I_n) = \{I_n\}$, car $P I_n P^{-1} = I_n$ pour tout $P \in \GL_n(\Kset)$.
+
+\begin{property}
+    Soient $A_1,A_2 \in \mathcal M_n(\Kset)$.
+
+    $A_1 \sim A_2 \iff A_1$ et $A_2$ représentent le même endomorphisme dans 2 bases différentes.
+
+    $$A_1 \sim A_2 \iff \exists f \in \mathcal L(E), \exists B_1,B_2 \text{ bases de } E, A_2 = [f]_{B_2} \text{ et } A_1 = [f]_{B_1}$$
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Démonstration dans le sens indirect $\impliedby$ :}
+        \2 Soit $f \in \mathcal L(E)$ et $B_1,B_2$ deux bases de $E$ telles que $A_2 = [f]_{B_2}$ et $A_1 = [f]_{B_1}$.
+        \2 On utilise la conséquence \ref{cons:ch_base_endo} pour trouver que $[f]_{B_1} = P_{B_1}^{B_2} \times [f]_{B_2} \times P_{B_2}^{B_1}$.
+        \2 Donc $A_1 = P_{B_1}^{B_2} \times A_2 \times P_{B_2}^{B_1}$.
+        \2 Comme $P_{B_1}^{B_2} = (P_{B_2}^{B_1})^{-1}$, on trouve que $A_1 = P_{B_1}^{B_2} \times A_2 \times (P_{B_1}^{B_2})^{-1}$.
+        \2 Donc $A_1 \sim A_2$.
+        \1 \textbf{Démonstration dans le sens direct $\implies$ :}
+        \2 Soit $P \in \GL_n(\Kset)$ telle que $A_1 = P A_2 P^{-1}$.
+        \2 On sait qu'il existe un endomorphisme associé canoniquement à chacune des deux matrices $A_1$ et $A_2$.
+        \2 On pose arbitrairement $f \in \mathcal L(\Kset^n)$ tel que $[f]_{B_C^{(n)}} = A_1$.
+        \2 On va maintenant chercher une deuxième base $B$ de $\Kset^n$ telle que $[f]_B = A_2$.
+        \2 Soit $B$ la base formée par les colonnes de $P^{-1}$.
+        \2 Alors $P^{-1} = P_{B_C^{(n)}}^B$.
+        \2 D'où $A_2 = P^{-1} A_1 P = P_{B_C^{(n)}}^B \times A_1 \times P_{B}^{B_C^{(n)}}$.
+        \2 Donc $A_2 = P_{B_C^{(n)}}^B \times [f]_{B_C^{(n)}} \times P_{B}^{B_C^{(n)}}$.
+        \2 Donc $A_2 = [f]_B$.
+    \end{outline}
+\end{proof}
+
+\begin{example}
+    \begin{outline}
+        \1 $A = \left(\begin{matrix} 6 & -5 \\ 2 & -1 \end{matrix}\right)$ et $f \in \mathcal L(\R^2)$ l'application linéaire associée canoniquement à $A$. On a déjà montré qu'il existe une base $B$ de $\R^2$ telle que $[f]_B = \left(\begin{matrix} 1 & 0 \\ 0 & 4 \end{matrix}\right)$. Donc $A \sim \left(\begin{matrix} 1 & 0 \\ 0 & 4 \end{matrix}\right)$.
+        \1 Soit $A \in \mathcal M_n(\Kset)$ telle que $A^n = 0$ et $A^{n-1} \ne 0$.\\On a $A \sim \left(\begin{matrix} 0 & 0 & 0 & \cdots & 0 \\ 1 & 0 & 0 & \cdots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & \cdots & 1 & 0 & 0 \\ 0 & \cdots & \cdots & 1 & 0 \end{matrix}\right)_{(n)}$.
+        \2 En effet, soit $f \in \mathcal L(\Kset^n)$ tel que $f^n = 0$ et $f^{n-1} \ne 0$. Il existe donc $x_0 \in \Kset^n$ tel que la famille $(x_0, f(x_0), \ldots, f^{n-1}(x_0))$ est libre.
+        \2 C'est une famille de cardinal $n$, donc c'est aussi une base de $\Kset^n$. 
+        \2 On pose $B = (x_0, f(x_0), \ldots, f^{n-1}(x_0))$, avec $[f]_B = \left(\begin{matrix} 0 & 0 & 0 & \cdots & 0 \\ 1 & 0 & 0 & \cdots & 0 \\ \vdots & \ddots & \ddots & \ddots & \vdots \\ 0 & \cdots & 1 & 0 & 0 \\ 0 & \cdots & \cdots & 1 & 0 \end{matrix}\right)_{(n)}$.
+        \2 Donc $A = [f]_{B_C^{(n)}} \sim [f]_B$.
+    \end{outline}
+\end{example}
+
+\begin{methodbox}
+    Le fait qu'il existe $x_0 \in \Kset^n$ tel que la famille $(x_0, f(x_0), \ldots, f^{n-1}(x_0))$ est libre est un résultat qui peut être utilisé comme notion de cours.
+\end{methodbox}
+
+\chapter{Rang d'une matrice}
+
+\begin{definition}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$ et $c_1,\dots,c_p$ les colonnes de $A$.
+
+    Soient $\tilde c_1, \dots, \tilde c_p \in \Kset^n$ tels que $\Mat_{B_C^{(n)}}(\tilde c_i) = c_i$ pour tout $i \in \{1,\dots,p\}$.
+
+    On appelle rang de $A$ le rang de sa famille de colonnes, et on le note $\rang(A)$.
+
+    $$\rang(A) = \rang\underbrace{(c_1,\dots,c_p)}_{\text{dans } M_{n,1}(\Kset)} = \rang\underbrace{(\tilde c_1, \dots, \tilde c_p)}_{\text{vecteurs de } \Kset^n}$$
+\end{definition}
+
+\begin{remark}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$ et $f \in \mathcal L(\Kset^p, \Kset^n)$ associée canoniquement à $A$.
+
+    $$\rang(A) = \rang(f(e_1), \dots, f(e_p)) = \rang(f) \le \min(n,p)$$
+\end{remark}
+
+\begin{property}
+    Soient $E,F$ deux $\Kset$-ev. tels que $\dim E = p$ et $\dim F = n$, et $f \in \mathcal L(E,F)$ telle que $\rang(f) = r \ne 0$.
+
+    $$\exists B \text{ base de } E, \exists C \text{ base de } F, \Mat(f,B,C) = \left(\begin{matrix} J_r & 0 \\ 0 & 0 \end{matrix}\right)_{(n,p)}$$
+
+    avec $J_r$ la matrice qui contient une matrice identité de taille $r$ dans le coin supérieur gauche, et des zéros partout ailleurs.
+
+    $J_r = \left(\begin{matrix} 1 & 0 & \cdots & 0 \\ 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & 0 \end{matrix}\right)_{(n,p)}$ (à la ligne et colonne $r$, on retrouve le dernier 1 diagonal).
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item On a $\Ker(f)$ est un sev. de $E$ de dimension $p-r$ (par théorème du rang).
+
+        \item Soit $(e_{r+1}, \dots, e_p)$ une base de $\Ker(f)$.
+
+        \item On va compléter cette famille en une base de $E$ de la forme $B = (e_1, \dots, e_r, e_{r+1}, \dots, e_p)$.
+
+        \item Par théorème de la base incomplète, comme $(e_{r+1}, \dots, e_p)$ est une famille libre de $E$, il existe $e_1, \dots, e_r \in E$ tels que $B = (e_1, \dots, e_r, e_{r+1}, \dots, e_p)$ soit une base de $E$.
+        
+        \item Or $\Imf(f) = \Vect(f(B))$, mais les images de $f$ par $(e_{r+1}, \dots, e_p)$ sont nulles, donc $\Imf(f) = \Vect(f(e_1), \dots, f(e_r))$.
+        \item Donc $(f(e_1), \dots, f(e_r))$ est une famille génératrice de $\Imf(f)$. Son cardinal est $r$.
+        \item Or $\dim \Imf(f) = r$, donc $(f(e_1), \dots, f(e_r))$ est une base de $\Imf(f)$.
+        \item On va compléter cette famille en une base de $F$ de la forme $C = (f(e_1), \dots, f(e_r), \varepsilon_{r+1}, \dots, \varepsilon_n)$.
+        \item Par théorème de la base incomplète, comme $(f(e_1), \dots, f(e_r))$ est une famille libre de $F$, il existe $\varepsilon_{r+1}, \dots, \varepsilon_n \in F$ tels que $C = (f(e_1), \dots, f(e_r), \varepsilon_{r+1}, \dots, \varepsilon_n)$ soit une base de $F$.
+        \item Alors $\Mat(f,B,C) = \left(\begin{matrix} I_r & 0 \\ 0 & 0 \end{matrix}\right)_{(n,p)} = J_r(n,p)$.
+        
+        $$\begin{matrix}
+            f(e_1) \\
+            \vdots \\
+            f(e_r) \\
+            \varepsilon_{r+1} \\
+            \vdots \\
+            \varepsilon_n
+        \end{matrix}
+        \overset{\scriptsize{f(e_1) ~ f(e_2) ~ \cdots ~ f(e_r) ~ f(e_{r+1}) ~ \cdots ~ f(e_p)}}{\left(\begin{matrix}
+            1 & 0 & \cdots & 0 & 0 & \cdots & 0 \\
+            0 & 1 & \cdots & 0 & 0 & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & 1 & 0 & \cdots & 0 \\
+            0 & 0 & \cdots & 0 & 0 & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & 0 & 0 & \cdots & 0
+        \end{matrix}\right)_{(n,p)}}$$
+    \end{itemize}
+\end{proof}
+
+\begin{consequence}
+    Soit $A \in \mathcal M_{n,p}(\Kset)$ telle que $\rang(A) = r$.
+
+    Alors $A \text{ éq } J_r(n,p)$.
+\end{consequence}
+
+\begin{property}
+    Soit $A \in \mathcal M_{n,p}(\Kset)$.
+    
+    Soit $P \in \GL_p(\Kset)$ et $Q \in \GL_n(\Kset)$.
+
+    Alors $\begin{cases} \rang(AP) = \rang(A) \\ \rang(QA) = \rang(A) \end{cases}$
+\end{property}
+
+\begin{proof}
+    Soient $h \in \mathcal L(\Kset^p, \Kset^n)$, $f \in \mathcal L(\Kset^p)$, $g \in \mathcal L(\Kset^n)$ associées canoniquement à $A$, $P$ et $Q$ respectivement.
+
+    Donc $\rang(AP) = \rang(h \circ f) = \rang h = \rang A$ car $P$ est inversible donc $f$ est une bijection (isomorphisme de $\Kset^p$ dans lui-même).
+
+    De même pour $\rang(QA) = \rang(g \circ h) = \rang h = \rang A$ car $Q$ est inversible donc $g$ est une bijection (isomorphisme de $\Kset^n$ dans lui-même).
+\end{proof}
+
+\begin{consequence}
+    Soit $A \in \mathcal M_{n,p}(\Kset)$.
+
+    Alors $\rang(A) = r \iff A \text{ éq } J_r(n,p)$.
+\end{consequence}
+
+\begin{proof}
+    \begin{outline}
+        \1 Dans le sens direct, on utilise la propriété précédente pour trouver que $A \text{ éq } J_r(n,p)$.
+        \1 Dans le sens indirect, on a $A = Q\,J_r(n,p)\,P$ avec $P \in \GL_p(\Kset)$ et $Q \in \GL_n(\Kset)$. Donc $\rang(A) = \rang(Q\,J_r(n,p)\,P) = \rang(J_r(n,p)) = r$ car $P$ et $Q$ sont inversibles.
+    \end{outline}
+\end{proof}
+
+\begin{consequence}
+    Soient $A,B \in \mathcal M_{n,p}(\Kset)$.
+
+    $\rang(A) = \rang(B) \iff A \text{ éq } B$.
+\end{consequence}
+
+\begin{proof}
+    Dans le sens direct, on utilise simplement la transitivité de la relation équivalence.
+
+    Dans le sens indirect, on a $A \text{ éq } B$, donc $\exists P \in \GL_n(\Kset), Q \in \GL_p(\Kset)$ tels que $B = PAQ$. Donc $\rang(B) = \rang(PAQ) = \rang(A)$ car $P$ et $Q$ sont inversibles.
+\end{proof}
+
+\begin{property}
+    Soit $A \in \mathcal M_{n,p}(\Kset)$.
+
+    Alors $\rang(\,^tA) = \rang(A)$.
+\end{property}
+
+\begin{proof}
+    Soit $r = \rang(A)$.
+
+    Alors $\exists P \in \GL_n(\Kset), Q \in \GL_p(\Kset)$ tels que $A = P\,J_r(n,p)\,Q$.
+
+    Donc $^tA = \,{^tQ}\,{^tJ_r(n,p)}\,{^tP}$.
+
+    Avec $^tQ \in \GL_p(\Kset)$ et $^tP \in \GL_n(\Kset)$ et $\,^tJ_r(n,p) = J_r(p,n)$.
+
+    Donc $\rang(\,^tA) = \rang(J_r(p,n)) = r$.
+\end{proof}
+
+\chapter{Opérations sur les lignes et les colonnes d'une matrice}
+
+\section{Opérations sur les colonnes}
+
+\begin{definition}[Opérations élémentaires sur les colonnes d'une matrice]
+    Soit $A = (a_{i,j})_{\substack{1 \leq i \leq n \\ 1 \leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$.
+
+    $$A = \overset{\begin{matrix}c_1 & c_2 & \cdots & c_p\end{matrix}}{\left(\begin{matrix} \vdots & \vdots & \cdots & \vdots \\ \vdots & \vdots & \cdots & \vdots \\ \vdots & \vdots & \cdots & \vdots \end{matrix}\right)}$$
+
+    \textbf{Les opérations élémentaires} sur les colonnes de $A$ sont :
+    
+    \begin{itemize}
+        \item $c_j \leftarrow c_j + \lambda c_k$ pour $j \ne k$ et $\lambda \in \Kset$ et $\lambda \ne 0$. On ajoute à la colonne $j$ un multiple de la colonne $k$.
+
+        \item $c_j \leftarrow \lambda c_j$ pour $j \in \{1,\dots,p\}$ et $\lambda \in \Kset$ et $\lambda \ne 0$. On multiplie la colonne $j$ par un scalaire non nul.
+
+        \item $c_j \leftrightarrow c_k$ pour $j \ne k$. On permute les colonnes $j$ et $k$.
+    \end{itemize}
+\end{definition}
+
+\subsection{Matrice de transvection}
+
+\begin{definition}[Matrice de transvection]
+    Soient $n,p \in \N^*$, $j,k \in \{1,\dots,p\}$ tels que $j \ne k$, et $\lambda \in \Kset^*$.
+
+    On appelle \textbf{matrice de transvection} la matrice $T_{j,k}(\lambda) = I_p + \lambda E_{j,k}$.
+
+    i.e.:
+
+    $$T_{j,k}(\lambda) = \left(\begin{matrix}
+        1 & & & & \\
+        & \ddots & & & \\
+        & & 1 & & \\
+        & & \lambda & 1 & \\
+        & & & & 1
+    \end{matrix}\right)$$
+
+    où $\lambda$ est en position $(j,k)$. $\lambda$ ne peut pas être sur la diagonale, car $j \ne k$.
+\end{definition}
+
+\begin{property}
+    $T_{j,k}(\lambda) \in \GL_p(\Kset)$ et $T_{j,k}(\lambda)^{-1} = T_{j,k}(-\lambda)$.
+\end{property}
+
+\begin{proof}
+    On a $T_{j,k}(\lambda) \times T_{j,k}(-\lambda) = (I_p + \lambda E_{j,k})(I_p - \lambda E_{j,k}) = I_p - \lambda^2 E_{j,k}^2 = I_p$ car $E_{j,k}^2 = \delta_{j,k}E_{j,k} = 0$ car $j \ne k$.
+\end{proof}
+
+\begin{remark}
+    On pose $E_j = \left(\begin{matrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{matrix}\right)$ avec le $1$ en position $j$.
+
+    $(E_1,\dots,E_p)$ est la base canonique de $\mathcal M_p(\Kset)$.
+
+    On pose $A = (a_{i,j})_{\substack{1 \leq i \leq n \\ 1 \leq j \leq p}}$.
+
+    $$\forall 1 \le j \le p, C_j(A) = A E_j$$
+\end{remark}
+
+\begin{property}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$, $j,k \in \{1,\dots,p\}$ tels que $j \ne k$, et $\lambda \in \Kset^*$.
+
+    Si $A' = A \times T_{k,j}(\lambda)$, alors $A'$ est la matrice obtenue à partir de $A$ en effectuant l'opération élémentaire $c_j \leftarrow c_j + \lambda c_k$.
+\end{property}
+
+\begin{proof}
+    On suppose que $A' = A \times T_{k,j}(\lambda)$.
+
+    On doit montrer que :
+
+    $$\begin{cases}
+        C_j(A') = C_j(A) + \lambda C_k(A) \\
+        C_i(A') = C_i(A) \text{ pour tout } i \in \{1,\dots,p\} \text{ tel que } i \ne j
+    \end{cases}$$
+
+    On a $C_j(A') = A' E_j = A T_{k,j}(\lambda) E_j$.
+
+    $\implies C_j(A') = A(I_p + \lambda E_{k,j}) E_j = A E_j + \lambda A (E_{k,j}\times E_j)$.
+
+    Or $E_{k,j}\times E_j = \delta_{j,j} E_k = E_k$.
+
+    Donc $C_j(A') = A E_j + \lambda A E_k = C_j(A) + \lambda C_k(A)$.
+
+    De même, pour $i \ne j$, on trouve que $C_i(A') = A' E_i = A T_{k,j}(\lambda) E_i = A (I_p + \lambda E_{k,j}) E_i = A E_i + \lambda A (E_{k,j}\times E_i)$.
+
+    Or $E_{k,j}\times E_i = \delta_{j,i} E_k = 0$ car $i \ne j$.
+
+    Donc $C_i(A') = A E_i + \lambda A (E_{k,j}\times E_i) = A E_i = C_i(A)$.
+
+    % $C_j(A') = A' E_j = A T_{j,k}(\lambda) E_j = A (I_p + \lambda E_{j,k}) E_j = A E_j + \lambda A (E_{j,k}\times E_j)$.
+\end{proof}
+
+\begin{remark}
+    Faire l'opération élémentaire $c_j \leftarrow c_j + \lambda c_k$ sur une matrice $A$ revient à multiplier $A$ à droite par la matrice de transvection $T_{k,j}(\lambda)$.
+\end{remark}
+
+\begin{example}
+    $$A = \left(\begin{matrix} 1 & -1 \\ 2 & 4 \end{matrix}\right)$$
+
+    Effectuons l'opération $c_2 \leftarrow c_2 - c_1$ sur $A$.
+
+    On a $T_{1,2}(-1) = \left(\begin{matrix} 1 & -1 \\ 0 & 1 \end{matrix}\right)$.
+
+    Donc $A' = A \times T_{1,2}(-1) = \left(\begin{matrix} 1 & -1 \\ 2 & 4 \end{matrix}\right) \times \left(\begin{matrix} 1 & -1 \\ 0 & 1 \end{matrix}\right) = \left(\begin{matrix} 1 & -2 \\ 2 & 2 \end{matrix}\right)$.
+\end{example}
+
+\subsubsection{Matrice de dilatation}
+
+\begin{definition}
+    Soient $n,p \in \N^*$, $j \in \{1,\dots,p\}$, et $\alpha \in \Kset^*$.
+
+    On appelle \textbf{matrice de dilatation} la matrice $D_j(\alpha) = \diag(1,\dots,1,\alpha,1,\dots,1)$.
+
+    i.e.:
+
+    $$D_j(\alpha) = \left(\begin{matrix}
+        1 & & & & \\
+        & \ddots & & & \\
+        & & \alpha & & \\
+        & & & \ddots & \\
+        & & & & 1
+    \end{matrix}\right)$$
+
+    où $\alpha$ est en position $(j,j)$.
+\end{definition}
+
+\begin{property}
+    $D_j(\alpha) \in \GL_p(\Kset)$ et $D_j(\alpha)^{-1} = D_j(\alpha^{-1})$.
+\end{property}
+
+\begin{methodbox}
+    Cette dernière propriété est particulièrement utile pour conserver le rang d'une matrice lors de l'opération élémentaire $c_j \leftarrow \alpha c_j$.
+\end{methodbox}
+
+\begin{property}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$, $j \in \{1,\dots,p\}$, et $\alpha \in \Kset^*$.
+
+    Si $A' = A \times D_j(\alpha)$, alors $A'$ est la matrice obtenue à partir de $A$ en effectuant l'opération élémentaire $c_j \leftarrow \alpha c_j$.
+\end{property}
+
+\begin{proof}
+    La preuve est analogue à celle de la propriété précédente, en utilisant le fait que $D_j(\alpha) E_j = \alpha E_j$ et $D_j(\alpha) E_i = E_i$ pour $i \ne j$.
+\end{proof}
+
+\begin{remark}
+    Faire l'opération élémentaire $c_j \leftarrow \alpha c_j$ sur une matrice $A$ revient à multiplier $A$ à droite par la matrice de dilatation $D_j(\alpha)$.
+\end{remark}
+
+\subsubsection{Matrice de permutation}
+
+On rappelle que $S_n$ est l'ensemble des bijections de $\{1,\dots,n\}$ dans lui-même, et que $\sigma$ est une application bijective de $\{1,\dots,n\}$ dans lui-même, qui est \textbf{notée} :
+$$\sigma = \left(\begin{matrix} 1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n) \end{matrix}\right)$$
+
+\begin{definition}
+    Soit $\sigma \in S_n$ une permutation de $\{1,\dots,n\}$.
+    
+    On appelle \textbf{matrice de permutation} la matrice $P_\sigma$ dont les colonnes sont $[E_{\sigma(1)}, E_{\sigma(2)}, \dots, E_{\sigma(n)}]$.
+
+    Par exemple, pour $n=4$ et $\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 2 & 3 & 1 & 4 \end{matrix}\right)$, on a :
+
+    $$P_\sigma = \left(\begin{matrix}
+        0 & 0 & 1 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 0 & 1
+    \end{matrix}\right)$$
+
+    Or, on sait que $I_4 = \left(\begin{matrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \end{matrix}\right)$.
+
+    Donc $P_\sigma$ est la matrice obtenue à partir de $I_4$ en effectuant l'opération élémentaire $c_1 \leftrightarrow c_2$, puis $c_2 \leftrightarrow c_3$, puis $c_3 \leftrightarrow c_1$ et enfin $c_4 \leftrightarrow c_4$ (qui ne change rien).
+
+    Plus généralement, pour tout $\sigma \in S_n$, $P_\sigma$ est la matrice obtenue à partir de $I_n$ en effectuant les opérations élémentaires $c_1 \leftrightarrow c_{\sigma(1)}$, puis $c_2 \leftrightarrow c_{\sigma(2)}$, etc.
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item $P_{\Id_{S_n}} = [E_1,E_2,\dots,E_n] = I_n = (\delta_{i,j})_{1 \le i,j \le n})$.
+        \item $\forall \sigma \in S_n, P_\sigma = (\delta_{i,\sigma(j)})_{1 \le i,j \le n}$.
+    \end{itemize}
+\end{remark}
+
+\begin{property}
+    $\forall \sigma,\tau \in S_n, P_\sigma \times P_\tau = P_{\sigma \circ \tau} = P_{\sigma \tau}$.
+
+    En particulier, $P_\sigma \in \GL_n(\Kset)$ et $(P_\sigma)^{-1} = P_{\sigma^{-1}} = \,^tP_\sigma$, sachant que $\sigma^{-1}$ existe parce que $\sigma$ est une bijection de $\{1,\dots,n\}$ dans lui-même.
+\end{property}
+
+\begin{proof}
+    \textit{Mentionné oralement : On peut voir $P_\sigma$ comme une sorte de matrice échelonnée obtenue à partir de $I_n$ en effectuant des opérations élémentaires de permutation de colonnes, qui sont inversibles.}
+
+    Soit $1 \le k \le n$.
+
+    \begin{itemize}
+        \item On a $C_k(P_{\sigma \tau}) = E_{\sigma \tau(k)}$.
+        \item On a $C_k(P_\sigma \times P_\tau) = P_\sigma \times C_k(P_\tau) = P_\sigma \times E_{\tau(k)} = E_{\sigma(\tau(k))} = E_{\sigma \tau(k)}$.
+        \item D'où $C_k(P_{\sigma \tau}) = C_k(P_\sigma \times P_\tau)$ pour tout $k \in \{1,\dots,n\}$, donc $P_{\sigma \tau} = P_\sigma \times P_\tau$.
+        \item Et on a $P_{\sigma^{-1}} \times P_\sigma = P_{\sigma^{-1} \sigma} = P_{\Id_{S_n}} = I_n$, donc $P_{\sigma^{-1}} = (P_\sigma)^{-1}$.
+        \item On pose $P_{\sigma^{-1}} = (\alpha_{i,j})_{1 \le i,j \le n}$.
+        \item On a $\forall i,j \in \{1,\dots,n\}, \alpha_{i,j} = \delta_{i,\sigma^{-1}(j)}$.
+        \item Et on a $\delta_{i,\sigma^{-1}(j)} = 1 \iff \sigma^{-1}(j) = i \iff j = \sigma(i) \iff \delta_{j,\sigma(i)} = 1$.
+        \item Si on pose $P_\sigma = (\beta_{i,j})_{1 \le i,j \le n}$, on trouve que $\beta_{i,j} = \delta_{i,\sigma(j)}$.
+        \item Donc $^tP_\sigma = (\delta_{j,\sigma(i)})_{1 \le i,j \le n} = P_{\sigma^{-1}}$.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}[Transposition]
+    Soient $1 \le i \ne j \le n$ et $\sigma \in S_n$ définie par :
+
+    $$\begin{cases} \sigma(i) = j \\ \sigma(j) = i \\ \forall k \in \{1,\dots,n\} \setminus \{i,j\}, \sigma(k) = k \end{cases}$$
+
+    Dans ce cas, $\sigma$ est appelée une \textbf{transposition}, notée $\tau_{i,j}$ ou $(i,j)$.
+
+    i.e. : $\tau_{i,j} = \left(\begin{matrix} 1 & 2 & \cdots & i & \cdots & j & \cdots & n \\ 1 & 2 & \cdots & j & \cdots & i & \cdots & n \end{matrix}\right)$.
+
+    Aussi, $\tau_{i,j} = \tau_{j,i} = \tau^{-1}_{i,j}$, car $\tau^2_{i,j} = \Id_{S_n}$.
+\end{remark}
+
+\begin{property}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$ et $1 \le i \ne j \le p$.
+
+    Si $A' = A \times P_{\tau_{i,j}}$, alors $A'$ se déduit de $A$ par l'opération $c_i \leftrightarrow c_j$.
+\end{property}
+
+\begin{proof}
+    \begin{itemize}
+        \item $C_j(A') = A' E_j = A P_{\tau_{i,j}} E_j = A P_{\tau_{i,j}(j)} = A E_i = C_i(A)$.
+        \item $C_i(A') = A' E_i = A P_{\tau_{i,j}} E_i = A P_{\tau_{i,j}(i)} = A E_j = C_j(A)$.
+        \item Pour $k \ne i,j$, $C_k(A') = A' E_k = A P_{\tau_{i,j}} E_k = A E_k = C_k(A)$.
+    \end{itemize}
+\end{proof}
 
 \printindex
 \end{document}
