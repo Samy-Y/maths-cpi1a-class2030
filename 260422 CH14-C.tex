@@ -1720,7 +1720,7 @@ Et pour $I_n$, on trouve que $S(I_n) = \{I_n\}$, car $P I_n P^{-1} = I_n$ pour t
     Donc $A' = A \times T_{1,2}(-1) = \left(\begin{matrix} 1 & -1 \\ 2 & 4 \end{matrix}\right) \times \left(\begin{matrix} 1 & -1 \\ 0 & 1 \end{matrix}\right) = \left(\begin{matrix} 1 & -2 \\ 2 & 2 \end{matrix}\right)$.
 \end{example}
 
-\subsubsection{Matrice de dilatation}
+\subsection{Matrice de dilatation}
 
 \begin{definition}
     Soient $n,p \in \N^*$, $j \in \{1,\dots,p\}$, et $\alpha \in \Kset^*$.
@@ -1762,13 +1762,13 @@ Et pour $I_n$, on trouve que $S(I_n) = \{I_n\}$, car $P I_n P^{-1} = I_n$ pour t
     Faire l'opération élémentaire $c_j \leftarrow \alpha c_j$ sur une matrice $A$ revient à multiplier $A$ à droite par la matrice de dilatation $D_j(\alpha)$.
 \end{remark}
 
-\subsubsection{Matrice de permutation}
+\subsection{Matrice de permutation}
 
-On rappelle que $S_n$ est l'ensemble des bijections de $\{1,\dots,n\}$ dans lui-même, et que $\sigma$ est une application bijective de $\{1,\dots,n\}$ dans lui-même, qui est \textbf{notée} :
+On rappelle que $\mathfrak{S}_n$ est l'ensemble des bijections de $\{1,\dots,n\}$ dans lui-même, et que $\sigma$ est une application bijective de $\{1,\dots,n\}$ dans lui-même, qui est \textbf{notée} :
 $$\sigma = \left(\begin{matrix} 1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \cdots & \sigma(n) \end{matrix}\right)$$
 
 \begin{definition}
-    Soit $\sigma \in S_n$ une permutation de $\{1,\dots,n\}$.
+    Soit $\sigma \in \mathfrak{S}_n$ une permutation de $\{1,\dots,n\}$.
     
     On appelle \textbf{matrice de permutation} la matrice $P_\sigma$ dont les colonnes sont $[E_{\sigma(1)}, E_{\sigma(2)}, \dots, E_{\sigma(n)}]$.
 
@@ -1848,6 +1848,585 @@ $$\sigma = \left(\begin{matrix} 1 & 2 & \cdots & n \\ \sigma(1) & \sigma(2) & \c
         \item Pour $k \ne i,j$, $C_k(A') = A' E_k = A P_{\tau_{i,j}} E_k = A E_k = C_k(A)$.
     \end{itemize}
 \end{proof}
+
+\begin{remark}
+    Faire l'opération élémentaire $c_i \leftrightarrow c_j$ sur une matrice $A$ revient à multiplier $A$ à droite par la matrice de permutation $P_{\tau_{i,j}}$.
+\end{remark}
+
+\section{Opérations sur les lignes}
+
+\begin{definition}
+    Les opérations élémentaires sur les lignes d'une matrice sont définies de manière analogue à celles sur les colonnes.
+
+    i.e., pour une matrice $A = (a_{i,j})_{\substack{1 \leq i \leq n \\ 1 \leq j \leq p}} \in \mathcal M_{n,p}(\Kset)$, les opérations élémentaires sur les lignes de $A$ sont :
+
+    $$\begin{cases}
+        L_j \leftarrow L_j + \lambda L_k \text{ pour } j \ne k \text{ et } \lambda \in \Kset^* \\
+        L_j \leftarrow \alpha L_j \text{ pour } j \in \{1,\dots,n\} \text{ et } \alpha \in \Kset^* \\
+        L_j \leftrightarrow L_k \text{ pour } j \ne k
+    \end{cases}$$
+\end{definition}
+
+\begin{property}
+    Soient $A \in \mathcal M_{n,p}(\Kset)$ et $L_1, \dots, L_n$ les lignes de $A$.
+    
+    \begin{itemize}
+        \item $L_j \leftarrow L_j + \lambda L_k$ correspond à $A' = T_{j,k}(\lambda) \times A$.
+
+        \item $L_j \leftarrow \alpha L_j$ correspond à $A' = D_j(\alpha) \times A$.
+
+        \item $L_j \leftrightarrow L_k$ correspond à $A' = P_{\tau_{j,k}} \times A$.
+    \end{itemize}
+\end{property}
+
+\begin{proof}
+    Les lignes de $A$ sont les colonnes de $^tA$.
+
+    \begin{enumerate}
+        \item $L_i(A') = C_i(\,^tA') = C_i(\,^t(T_{j,k}(\lambda) \times A)) = C_i(\,^tA \times \,^tT_{j,k}(\lambda))$.\\Et on a $T_{i,j}(\lambda) = I_n + \lambda E_{i,j}$, donc $^tT_{i,j}(\lambda) = I_n + \lambda E_{j,i} = T_{j,i}(\lambda)$.\\Donc $L_i(A') = C_i(\,^tA \times T_{j,i}(\lambda)) = C_i(\,^tA) + \lambda C_j(\,^tA) = L_i(A) + \lambda L_j(A)$.
+        \item Preuve similaire pour $L_j \leftarrow \alpha L_j$.
+        \item Preuve similaire pour $L_j \leftrightarrow L_k$.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    Faire des opérations élémentaires sur les lignes d'une matrice $A$ revient à multiplier $A$ \textbf{à gauche} par une matrice de transvection, de dilatation ou de permutation.
+\end{remark}
+
+\begin{example}
+    Effectuons l'opération :
+    $$\left(\begin{matrix}
+        1 & 0 & \lambda \\
+        0 & 1 & 0 \\
+        0 & 0 & 1
+    \end{matrix}\right) \times \left(\begin{matrix}
+        a_1 & a_2 & a_3 \\
+        b_1 & b_2 & b_3 \\
+        c_1 & c_2 & c_3
+    \end{matrix}\right)$$
+
+    La première matrice est une matrice de transvection $T_{1,3}(\lambda)$.
+
+    Donc l'opération correspond à $L_1 \leftarrow L_1 + \lambda L_3$ sur la matrice $A = \left(\begin{matrix}
+        a_1 & a_2 & a_3 \\
+        b_1 & b_2 & b_3 \\
+        c_1 & c_2 & c_3
+    \end{matrix}\right)$.
+
+    Donc $A' = T_{1,3}(\lambda) \times A = \left(\begin{matrix}
+        a_1 + \lambda c_1 & a_2 + \lambda c_2 & a_3 + \lambda c_3 \\
+        b_1 & b_2 & b_3 \\
+        c_1 & c_2 & c_3
+    \end{matrix}\right)$.
+\end{example}
+
+\section{Applications}
+
+\subsection{Calcul du rang d'une matrice}
+
+Comme les opérations élémentaires sur $A$ introduisent des matrices inversibles à gauche ou à droite de $A$, elles ne changent pas le rang de $A$. L'idée consiste à appliquer des opérations élémentaires sur les lignes et/ou les colonnes de $A$ pour trouver une matrice échelonnée.
+
+Considérons un exemple où l'on applique cette idée.
+
+$$A = \left(\begin{matrix}
+    1 & 1 & 1 & 3 \\
+    1 & -1 & 1 & 2 \\
+    1 & 1 & -1 & 2 \\
+    1 & 1 & 1 & 3
+\end{matrix}\right)$$
+
+On réalise en premier des opérations élémentaires sur les lignes de la première colonne pour que :
+$$\begin{matrix}
+1 \\
+1 \\
+1 \\
+1 \\
+\end{matrix} \rightarrow \begin{matrix}
+1 \\
+0 \\
+0 \\
+0 \\
+\end{matrix}$$
+
+On va réaliser les opérations suivantes :
+$$\begin{cases}
+L_2 \leftarrow L_2 - L_1 \\
+L_3 \leftarrow L_3 - L_1 \\
+L_4 \leftarrow L_4 - L_1
+\end{cases}$$
+
+On trouve que $A$ est équivalente à :
+$$\left(\begin{matrix}
+1 & 1 & 1 & 3 \\
+0 & -2 & 0 & -1 \\
+0 & 0 & -2 & -1 \\
+0 & 0 & 0 & 0
+\end{matrix}\right)$$
+
+Cet exemple est un cas particulier, et il reste peu probable d'aboutir à une matrice échelonnée dès le premier ``batch'' d'opérations élémentaires. En général, il faudra faire plusieurs ``batches'' d'opérations élémentaires sur les lignes et/ou les colonnes de $A$ pour trouver une matrice échelonnée.
+
+Le rang de $A$ est égal au nombre de lignes non nulles de la matrice échelonnée obtenue à partir de $A$ par des opérations élémentaires sur les lignes.
+
+Donc, dans notre exemple, $\rang(A) = 3$.
+
+On peut reprendre notre exemple mais en appliquant des opérations sur les colonnes de $A$ pour trouver une matrice échelonnée (mais par rapport aux colonnes, pas aux lignes).
+
+On applique ce premier ``batch'' d'opérations élémentaires :
+$$\begin{cases}
+    C_2 \leftarrow C_2 - C_1 \\
+    C_3 \leftarrow C_3 - C_1 \\
+    C_4 \leftarrow C_4 - 3C_1
+\end{cases}$$
+
+On obtient :
+$$\left(\begin{matrix}
+    1 & 0 & 0 & 0 \\
+    1 & -2 & 0 & -1 \\
+    1 & 0 & -2 & -1 \\
+    1 & 0 & 0 & 0
+\end{matrix}\right)$$
+
+On peut faire un second ``batch'' d'opérations élémentaires sur les colonnes :
+
+$$C_4 \leftarrow C_4 - \frac12 C_2$$
+
+On trouve :
+$$\left(\begin{matrix}
+    1 & 0 & 0 & 0 \\
+    1 & -2 & 0 & 0 \\
+    1 & 0 & -2 & -1 \\
+    1 & 0 & 0 & 0
+\end{matrix}\right)$$
+
+On peut faire un troisième ``batch'' d'opérations élémentaires sur les colonnes :
+$$C_4 \leftarrow C_4 - \frac12 C_3$$
+
+On trouve :
+$$\left(\begin{matrix}
+    1 & 0 & 0 & 0 \\
+    1 & -2 & 0 & 0 \\
+    1 & 0 & -2 & 0 \\
+    1 & 0 & 0 & 0
+\end{matrix}\right)$$
+
+Donc $A$ éq $\left(\begin{matrix}
+    1 & 0 & 0 & 0 \\
+    1 & -2 & 0 & 0 \\
+    1 & 0 & -2 & 0 \\
+    1 & 0 & 0 & 0
+\end{matrix}\right)$, et $\rang(A) = 3$, parce que la matrice échelonnée obtenue à partir de $A$ par des opérations élémentaires sur les colonnes a 3 colonnes non nulles.
+
+\subsection{Calcul de l'inverse d'une matrice par méthode de Gauss-Jordan}
+
+Soit $A = (a_{i,j})_{1 \leq i,j \leq n} \in \GL_n(\Kset)$.
+
+$$A = \left(\begin{matrix}
+    a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n,1} & a_{n,2} & \cdots & a_{n,n}
+\end{matrix}\right)$$
+
+$C_1 \ne 0$ car $A$ est inversible (si $C_1 = 0$, alors les colonnes de $A$ seraient linéairement dépendantes, parce que $C_1$ serait une combinaison linéaire des autres colonnes de $A$, ce qui implique que les colonnes ne peuvent pas être une base de $\Kset^n$, ce qui implique que $A$ n'est pas inversible).
+
+Donc $\exists s \in \{1,\dots,n\}$ tel que $a_{s,1} \ne 0$.
+
+On va donc effectuer :
+$$L_1 \leftrightarrow L_s$$
+
+On trouve que $A$ est équivalente à :
+$$\left(\begin{matrix}
+    a_{s,1} & a_{s,2} & \cdots & a_{s,n} \\
+    a'_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a'_{n,1} & a_{n,2} & \cdots & a_{n,n}
+\end{matrix}\right)$$
+
+Ensuite, on effectue :
+$$\forall 2 \le i \le n, L_i \leftarrow L_i - \frac{a'_{i,1}}{a_{s,1}} L_1$$
+
+(On a changé la notation de $a'_{i,1}$ pour différencier les coefficients de la première colonne avant et après l'opération élémentaire.)
+
+Donc $A$ est équivalente à :
+$$\left(\begin{matrix}
+    a_{s,1} & a_{s,2} & \cdots & a_{s,n} \\
+    0 & a'_{2,2} & \cdots & a'_{2,n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & a'_{n,2} & \cdots & a'_{n,n}
+\end{matrix}\right)$$
+
+On répète ces opérations sur la matrice formée à l'intérieur de cette dernière :
+
+$$\left(\begin{matrix}
+    a'_{2,2} & \cdots & a'_{2,n} \\
+    \vdots & \ddots & \vdots \\
+    a'_{n,2} & \cdots & a'_{n,n}
+\end{matrix}\right)$$
+
+jusqu'à obtenir une matrice triangulaire supérieure.
+
+Ensuite, on utilise la dernière ligne pour éliminer les coefficients de la dernière colonne, puis la pénultième ligne pour éliminer les coefficients de la pénultième colonne, etc., jusqu'à obtenir une matrice diagonale. Grâce aux matrices de dilatation, on peut faire en sorte que les coefficients diagonaux soient égaux à $1$, soit la matrice identité $I_n$.
+
+Et donc, grâce à ces opérations, on obtient :
+
+$$Q_m \times \cdots \times Q_1 \times A = I_n$$
+
+Donc $A^{-1} = Q_m \times \cdots \times Q_1 = Q_m \times \cdots \times Q_1 \times I_n$. Au final, c'est comme si l'on appliquait les mêmes opérations élémentaires sur $I_n$, ce qui nous permet de déterminer $A^{-1}$.
+
+\begin{example}
+    $$A = \left(\begin{matrix}
+        0 & 1 & 2 \\
+        1 & 2 & 1 \\
+        -1 & 1 & -1
+    \end{matrix}\right)$$
+
+    On construit le tableau suivant :
+
+    \begin{center}
+        \begin{tabular}{c|c|c}
+            % header : A =, Opération, I_3 = \\
+            $A$ & Opération & $I_3$ \\
+            \hline
+            $\left(\begin{matrix}
+                0 & 1 & 2 \\
+                1 & 2 & 1 \\
+                -1 & 1 & -1
+            \end{matrix}\right)$ & Aucune. & $\left(\begin{matrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            $\left(\begin{matrix}
+                1 & 2 & 1 \\
+                0 & 1 & 2 \\
+                -1 & 1 & -1
+            \end{matrix}\right)$ & $L_1 \leftrightarrow L_2$ & $\left(\begin{matrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0 \\
+                0 & 0 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            $\left(\begin{matrix}
+                1 & 2 & 1 \\
+                0 & 1 & 2 \\
+                0 & 3 & 0
+            \end{matrix}\right)$ & $L_3 \leftarrow L_3 + L_1$ & $\left(\begin{matrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0 \\
+                0 & 1 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            $\left(\begin{matrix}
+                1 & 2 & 1 \\
+                0 & 1 & 2 \\
+                0 & 0 & -6
+            \end{matrix}\right)$ & $L_3 \leftarrow L_3 - 3L_2$ & $\left(\begin{matrix}
+                0 & 1 & 0 \\
+                1 & 0 & 0 \\
+                -3 & 1 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            % l1 <- l1 + 1/6 l3
+            % et l_2 <- l2 + 1/3 l3
+            $\left(\begin{matrix}
+                1 & 2 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & -6
+            \end{matrix}\right)$ & $\begin{cases}
+                L_1 \leftarrow L_1 + \frac16 L_3 \\
+                L_2 \leftarrow L_2 + \frac13 L_3
+            \end{cases}$ & $\left(\begin{matrix}
+                -\frac12 & \frac76 & \frac{1}{6} \\
+                0 & \frac13 & \frac{1}{3} \\
+                -3 & 1 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            % l1 <- l1 - 2 l2
+            $\left(\begin{matrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & -6
+            \end{matrix}\right)$ & $L_1 \leftarrow L_1 - 2L_2$ & $\left(\begin{matrix}
+                -\frac12 & \frac{1}{2} & -\frac{1}{2} \\
+                0 & \frac13 & \frac{1}{3} \\
+                -3 & 1 & 1
+            \end{matrix}\right)$ \\
+            \hline
+            % l3 <- -1/6 l3
+            $\left(\begin{matrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1
+            \end{matrix}\right)$
+            & $L_3 \leftarrow -\frac16 L_3$ & $\left(\begin{matrix}
+                -\frac12 & \frac{1}{2} & -\frac{1}{2} \\
+                0 & \frac13 & \frac{1}{3} \\
+                \frac{1}{2} & -\frac16 & -\frac16
+            \end{matrix}\right)$
+        \end{tabular}
+    \end{center}
+
+    Donc $A^{-1} = \left(\begin{matrix}
+        -\frac12 & \frac{1}{2} & -\frac{1}{2} \\
+        0 & \frac13 & \frac{1}{3} \\
+        \frac{1}{2} & -\frac16 & -\frac16
+    \end{matrix}\right) = \frac16 \times \left(\begin{matrix}
+        -3 & 3 & -3 \\
+        0 & 2 & 2 \\
+        3 & -1 & -1
+    \end{matrix}\right)$.
+\end{example}
+
+\chapter{Trace d'une matrice}
+
+\begin{definition}
+    Soit $A = (a_{i,j})_{1 \leq i,j \leq n} \in \mathcal M_n(\Kset)$ une \textit{matrice carrée} d'ordre $n$.
+
+    On appelle \textbf{trace} de $A$ la somme des éléments de la diagonale principale de $A$, c'est-à-dire :
+
+    $$\Tr(A) = \sum_{i=1}^n a_{i,i}$$
+\end{definition}
+
+\begin{property}
+    Soient $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$ et $B = (b_{i,j})_{\substack{1 \le i \le p \\ 1 \le j \le n}} \in \mathcal M_{p,n}(\Kset)$.
+    $$\Tr(AB) = \Tr(BA)$$
+\end{property}
+
+\begin{proof}
+    On pose :
+    $$\begin{cases}
+    AB = (c_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le n}} \in \mathcal M_n(\Kset) \\
+    BA = (d_{i,j})_{\substack{1 \le i \le p \\ 1 \le j \le p}} \in \mathcal M_p(\Kset)
+    \end{cases}$$
+
+    On a $\forall i,j \in \{1,\dots,n\}, c_{i,j} = \sum_{k=1}^p a_{i,k} b_{k,j}$.
+
+    Et on a $\forall i,j \in \{1,\dots,p\}, d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j}$.
+    
+    Donc $\Tr(AB) = \sum_{i=1}^n c_{i,i} = \sum_{i=1}^n \sum_{k=1}^p a_{i,k} b_{k,i}$.
+
+    Or $\sum_{k=1}^p \sum_{i=1}^n a_{i,k} b_{k,i} = \sum_{k=1}^p d_{k,k} = \Tr(BA)$.
+
+    Donc $\Tr(AB) = \Tr(BA)$.
+\end{proof}
+
+\begin{consequence}
+    Si $A \sim B$, alors $\Tr(A) = \Tr(B)$, car $A \sim B \implies \exists P \in \GL_n(\Kset), A = P B P^{-1}$, donc $\Tr(A) = \Tr(P B P^{-1}) = \Tr(B P^{-1} P) = \Tr(B)$.
+\end{consequence}
+
+\begin{attention}
+    La réciproque est fausse. Pour $A = \left(\begin{matrix} 2 & 0 \\ 0 & 0 \end{matrix}\right)$ et $B = I_2$, on a $\Tr(A) = \Tr(B) = 2$ mais $A$ et $B$ ne sont pas semblables car $\rang(A) = 1$ et $\rang(B) = 2$.
+\end{attention}
+
+\begin{definition}
+    Soient $E$ un $\Kset$-espace vectoriel de dimension finie $n$, et $f \in \mathcal L(E)$ un endomorphisme de $E$.
+
+    On appelle \textbf{trace} de $f$ la trace de n'importe quelle matrice de $f$ dans une base de $E$, donc $\Tr(f) = \Tr([f]_B)$ pour n'importe quelle base $B$ de $E$.
+
+    En effet (\textbf{propriété}), la trace de $[f]_B$ ne dépend pas de la base $B$ choisie.
+\end{definition}
+
+\begin{proof}
+    Pour toutes bases $B$ et $B'$ de $E$, on a :
+    $$[f]_B \sim [f]_{B'}$$
+\end{proof}
+
+\begin{example}
+    On considère :
+    $$f : \begin{matrix} \Kset_2[X] \to \Kset_2[X] \\ P \mapsto (X-1)P' + 2P \end{matrix}$$
+
+    Soit $B = (1,X,X^2)$ la base canonique de $\Kset_2[X]$.
+    
+    On trouve que $[f]_B = \left(\begin{matrix}
+        2 & 0 & 0 \\
+        2 & 3 & 0 \\
+        0 & 4 & 4
+    \end{matrix}\right)$, donc $\Tr(f) = \Tr([f]_B) = 2 + 3 + 4 = 9$.
+\end{example}
+
+\begin{property}
+    \begin{enumerate}
+        \item $\Tr : \mathcal M_n(\Kset) \to \Kset$ est une forme linéaire, donc $\Tr \in (\mathcal M_n(\Kset))^*$.
+        \item Si $\underset\Kset\dim E < +\infty$, alors $\Tr : \mathcal L(E) \to \Kset$ est une forme linéaire, donc $\Tr \in (\mathcal L(E))^*$.
+    \end{enumerate}
+\end{property}
+
+\begin{exercise}
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice telle que $\forall B \in \mathcal M_n(\Kset), \Tr(AB) = 0$.
+
+    Montrer que $A = 0$.
+
+    \textbf{Solution :}
+
+    \begin{itemize}
+        \item $\forall B \in \mathcal M_n(\Kset), \Tr(AB) = 0$.
+        \item Donc $\Tr(A \times E_{i,j}) = 0$ pour tous $i,j \in \{1,\dots,n\}$, car $E_{i,j} \in \mathcal M_n(\Kset)$.
+        \item Après avoir fait le calcul, on trouve que $\Tr(A \times E_{i,j}) = \sum_{p=1}^n a_{p,i} \times \underbrace{\Tr(E_{p,j})}_{\delta_{p,j}} =a_{j,i}$.
+        \item Donc $\forall i,j \in \{1,\dots,n\}, a_{j,i} = 0$.
+        \item Donc $A = 0$.
+    \end{itemize}
+\end{exercise}
+
+\begin{property}
+    Soient $E$ un $\Kset$-espace vectoriel de dimension finie $n$, et $f$ un projecteur de $E$.
+
+    Alors $\Tr(f) = \rang(f)$.
+\end{property}
+
+\begin{proof}
+    On pose $\rang(f) = r$.
+
+    $f$ projecteur de $E$ $\implies$ $E = \Ker(f) \oplus \Imf(f)$.
+
+    Soit $B' = (e_1,\dots,e_r)$ une base de $\Imf(f)$, et soit $B'' = (e_{r+1},\dots,e_n)$ une base de $\Ker(f)$.
+
+    Une base adaptée à la somme directe $E = \Ker(f) \oplus \Imf(f)$ est $B = (e_1,\dots,e_r,e_{r+1},\dots,e_n)$.
+
+    Or $f$ est une projection sur $\Imf(f)$ parallèlement à $\Ker(f)$, donc $\forall i \in [\![1,r]\!], f(e_i) = e_i$, et $\forall i \in [\! [r+1,n]\!], f(e_i) = 0$.
+
+    $$\implies [f]_B = \left(\begin{matrix}
+        1 & 0 & \cdots & 0 & 0 & \cdots & 0 \\
+        0 & 1 & \cdots & 0 & 0 & \cdots & 0 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \cdots & 1 & 0 & \cdots & 0 \\
+        0 & 0 & \cdots & 0 & 0 & \cdots & 0 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \cdots & 0 & 0 & \cdots & 0
+    \end{matrix}\right)$$
+
+    Donc $[f]_B = J_r(n)$.
+
+    Donc $\Tr(f) = \Tr([f]_B) = r = \rang(f)$.
+\end{proof}
+
+\begin{application}
+    Soient $E$ un $\Kset$-espace vectoriel de dimension finie $n$, et $p,q$ deux projecteurs de $E$, tels que $p+q = \Id_E$.
+
+    Alors $E = \Imf(p) \oplus \Imf(q)$.
+
+    \textbf{En effet :}
+    \begin{itemize}
+        \item $p+q = \Id_E$ $\implies$ $\forall x \in E, x = (p+q)(x) = p(x) + q(x)$, donc $E = \Imf(p) + \Imf(q)$.
+        \item $p$ et $q$ sont des projecteurs, donc $\Tr(p) = \rang(p)$ et $\Tr(q) = \rang(q)$.
+        \item Donc $\Tr(p) + \Tr(q) = \rang(p) + \rang(q)$.
+        \item Or $\Tr(p) + \Tr(q) = \Tr(p+q) = \Tr(\Id_E) = n$, et $\rang(p) + \rang(q) = n$.
+        \item Donc $\Tr(p) + \Tr(q) = n$ et $\rang(p) + \rang(q) = n$.
+        \item Donc $\dim E = n = \Tr(p) + \Tr(q) = \rang(p) + \rang(q) = \dim \Imf(p) + \dim \Imf(q)$.
+        \item Donc $\Imf(p)$ et $\Imf(q)$ sont en somme directe.
+    \end{itemize}
+\end{application}
+
+\begin{exercise}
+    Soit $A \in \mathcal M_n(\Kset)$ telle que $\rang(A) = 1$. Montrer que $A^2 = \Tr(A) \cdot A$.
+
+    \textbf{Solution :}
+
+    Soit $f \in \mathcal L(\Kset^n)$ l'endomorphisme associé canoniquement à $A$.
+
+    Donc $[f]_{B_C^{(n)}} = A$.
+
+    On a donc $\rang(f) = \rang(A) = 1$.
+
+    Par théorème du rang, on a $\dim \Ker(f) = n - 1$.
+
+    Soit $(\epsilon_1,\dots,\epsilon_{n-1})$ une base de $\Ker(f)$.
+
+    Comme elle est libre, on peut la compléter en une base de $\Kset^n$ : $B_1 = (\epsilon_1,\dots,\epsilon_{n-1},\epsilon_n)$.
+
+    On a $f(\epsilon_n) \in E \implies \exists \alpha_1,\dots,\alpha_n \in \Kset$ tels que $f(\epsilon_n) = \sum_{i=1}^n \alpha_i \epsilon_i$.
+
+    $$\donc M = [f]_{B_1} = \left(\begin{matrix}
+        0 & 0 & \cdots & 0 & \alpha_1 \\
+        0 & 0 & \cdots & 0 & \alpha_2 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots & 0 & \alpha_{n-1} \\
+        0 & 0 & \cdots & 0 & \alpha_n
+    \end{matrix}\right)$$
+
+    Donc $M^2 = \left(\begin{matrix}
+        0 & 0 & \cdots & 0 & \alpha_1 \alpha_n \\
+        0 & 0 & \cdots & 0 & \alpha_2 \alpha_n \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots & 0 & \alpha_{n-1} \alpha_n \\
+        0 & 0 & \cdots & 0 & \alpha_n^2
+    \end{matrix}\right)$.
+
+    Alors $M^2 = \alpha_n \cdot M$.
+
+    Or $\Tr(M) = \alpha_n$, et $M$ est semblable à $A$, donc $\Tr(M) = \Tr(A)$.
+
+    Donc $M^2 = \Tr(A) \cdot M$.
+\end{exercise}
+
+\chapter{Systèmes linéaires}
+
+\begin{definition}
+    On appelle un système linéaire à $n$ équations et $p$ inconnues :
+
+    $$(L) : \begin{cases}
+        a_{1,1} x_1 + a_{1,2} x_2 + \cdots + a_{1,p} x_p = y_1 \\
+        a_{2,1} x_1 + a_{2,2} x_2 + \cdots + a_{2,p} x_p = y_2 \\
+        \vdots \\
+        a_{n,1} x_1 + a_{n,2} x_2 + \cdots + a_{n,p} x_p = y_n
+    \end{cases}$$
+
+    où $(a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \Kset^{n \times p}$ et $(y_1,\dots,y_n) \in \Kset^n$ sont connus. Les inconnues sont $x_1,\dots,x_p$.
+
+    Le système homogène associé à $(L)$ est le système linéaire suivant :
+    $$(H) : \begin{cases}
+        a_{1,1} x_1 + a_{1,2} x_2 + \cdots + a_{1,p} x_p = 0 \\
+        a_{2,1} x_1 + a_{2,2} x_2 + \cdots + a_{2,p} x_p = 0 \\
+        \vdots \\
+        a_{n,1} x_1 + a_{n,2} x_2 + \cdots + a_{n,p} x_p = 0
+    \end{cases}$$
+
+    On note :
+    $$\begin{cases}
+        S(L) = \{(x_1,\dots,x_p) \in \Kset^p \mid (x_1,\dots,x_p) \text{ est une solution de } (L)\} \\
+        S(H) = \{(x_1,\dots,x_p) \in \Kset^p \mid (x_1,\dots,x_p) \text{ est une solution de } (H)\}
+    \end{cases}$$
+
+    \textbf{Interprétation :} On pose $A = (a_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le p}} \in \mathcal M_{n,p}(\Kset)$, $x = (x_1,\dots,x_p) \in \Kset^p$ et $y = (y_1,\dots,y_n) \in \Kset^n$ et $f \in \mathcal L(\Kset^p,\Kset^n)$ l'endomorphisme canoniquement associé à $A$.
+
+    On pose $X = \begin{pmatrix}
+        x_1 \\
+        x_2 \\
+        \vdots \\
+        x_p
+    \end{pmatrix}$ et $Y = \begin{pmatrix}
+        y_1 \\
+        y_2 \\
+        \vdots \\
+        y_n
+    \end{pmatrix}$.
+
+    Alors $(L) \iff \forall 1 \le i \le n, \sum_{j=1}^p a_{i,j}x_j = y_i$.
+    $\iff AX = Y$.
+    $\iff f(X) = Y$.
+
+    Donc $S(H) = \Ker(f)$.
+    Donc, si $\rang(A) = r$, alors $\dim S(H) = \dim \Ker(f) = p - r$.
+\end{definition}
+
+\begin{definition}
+    \begin{itemize}
+        \item On appelle rang d'un système linéaire $(L)$ le rang de la matrice $A$ associée à $(L)$, c'est-à-dire $\rang(L) = \rang(A)$.
+
+        \item Un système linéaire est dit de \textbf{Cramer} lorsque $A \in \GL_n(\Kset)$, c'est-à-dire lorsque $A$ est inversible.
+    \end{itemize}
+\end{definition}
+
+\begin{property}
+    Si $(L)$ est un système linéaire de Cramer, alors il possède une solution unique.
+
+    $$S(L) = \{ X = A^{-1} Y \}$$
+
+\end{property}
+
+\begin{property}
+    Si $A \notin \GL_n(\Kset)$ ou (plus généralement) $n\ne p$, alors $(L)$ admet une solution particulière $x_0$ ssi $y \in \Imf(f)$.
+\end{property}
 
 \printindex
 \end{document}
