@@ -2425,12 +2425,26 @@ Donc $A^{-1} = Q_m \times \cdots \times Q_1 = Q_m \times \cdots \times Q_1 \time
 \end{property}
 
 \begin{property}
-    Si $A \notin \GL_n(\Kset)$ ou (plus généralement) $n\ne p$, alors $(L)$ admet une solution particulière $x_0$ ssi $y \in \Imf(f)$.
+    Si $A \notin \GL_n(\Kset)$ ou (plus généralement) $n\ne p$, alors $(L)$ admet une solution particulière $X_0$ ssi $Y \in \Imf(A)$ ssi $y \in \Imf(f)$.
 
-    Dans ce cas, $S(L) = x_0 + S(H)$.
+    Dans ce cas, $S(L) = X_0 + S(H)$.
 
-    C'est ce qu'on appelle un sous-espace affine de direction $S(H)$ et passant par $x_0$.
+    C'est ce qu'on appelle un sous-espace affine de direction $S(H)$ et passant par $X_0$.
 \end{property}
+
+\begin{proof}
+    Si $Y \notin \Imf(A)$, alors $AX=Y$ n'admet pas de solution, donc $S(L) = \emptyset$.
+
+    Sinon, $\exists X_0 \in \mathcal M_{p,1}(\Kset)$ telle que $AX_0 = Y$.
+
+    \begin{align*}
+        x \in S(L) & \iff AX = Y = AX_0 \\
+        & \iff A(X - X_0) = 0 \\
+        & \iff X - X_0 \in \Ker(A) \\
+        & \iff X - X_0 \in S(H) \scq \Ker(A) = S(H) \\
+        & \iff X \in X_0 + S(H)
+    \end{align*}
+\end{proof}
 
 \printindex
 \end{document}
