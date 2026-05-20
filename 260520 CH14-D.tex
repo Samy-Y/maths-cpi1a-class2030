@@ -1,0 +1,339 @@
+\documentclass[12pt, a4paper]{report} 
+
+\usepackage{elegant-cours}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\makeindex
+
+\begin{document}
+
+\MaPageDeGarde{Chapitre XIV-D : Déterminants}{Retranscrit par Samy Youssoufine}{./assets/logo.png}{WIP. Peut contenir des erreurs ou des sections incomplètes.}
+
+\tableofcontents
+\clearpage
+
+\vspace*{\fill}
+    Les 
+\vspace*{\fill}
+
+\chapter{Groupes symétriques}
+
+\section{Permutations}
+
+\begin{definition}[Permutation et ensemble de permutations]
+    Soit $n \in \N^*$. Une \textbf{permutation} de $\{1, 2, \dots, n\}$ est une bijection de cet ensemble dans lui-même.
+
+    On écrit :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & \dots & n \\ \sigma(1) & \sigma(2) & \dots & \sigma(n) \end{matrix}\right)$$
+    pour représenter la permutation $\sigma$.
+
+    On note $S_n$ l'ensemble de toutes les permutations de $\{1, 2, \dots, n\}$.
+\end{definition}
+
+\begin{example}
+    % figure tikz comme ça :
+    % [1] [2] [3] [4] [5]
+    %  |   |   |   |   |
+    % [3] [1] [5] [4] [2]
+    Par exemple, la permutation $\sigma$ suivante :
+    \[
+        \begin{array}{c|ccccc}
+            i & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            \sigma(i) & 3 & 1 & 5 & 4 & 2
+        \end{array}
+    \]
+    $\sigma$ est bel et bien une bijection de $\{1, 2, 3, 4, 5\}$ dans lui-même, car chaque élément de l'ensemble d'arrivée est atteint par exactement un élément de l'ensemble de départ.
+\end{example}
+
+\begin{example}
+    $S_2$ contient les permutations suivantes :
+    \[
+        S_2 = \left\{\left(\begin{matrix} 1 & 2 \\ 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 \\ 2 & 1 \end{matrix}\right)\right\}
+    \]
+    $S_3$ contient les permutations suivantes :
+    \[
+        S_3 = \left\{\left(\begin{matrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{matrix}\right)\right\}
+    \]
+\end{example}
+
+\begin{example}[Composée de deux permutations]
+    Soient $\sigma_1$ et $\sigma_2$ les permutations définies par :
+    $$
+    \begin{cases}
+        \sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 2 & 3 & 1 & 4 \end{matrix}\right) \\
+        \sigma_2 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2 \end{matrix}\right)
+    \end{cases}
+    $$
+    La composée $\sigma_1 \circ \sigma_2$ est définie par :
+    $$
+    (\sigma_1 \circ \sigma_2)(i) = \sigma_1(\sigma_2(i))
+    $$
+    Essayons pour toutes les valeurs de $i$ :
+    \[
+    \begin{array}{c|ccccc}
+        i & 1 & 2 & 3 & 4 & 5 \\
+        \hline
+        \sigma_2(i) & 4 & 3 & 5 & 1 & 2 \\
+        \sigma_1(\sigma_2(i)) & \sigma_1(4) & \sigma_1(3) & \sigma_1(5) & \sigma_1(1) & \sigma_1(2) \\
+        & 1 & 3 & 4 & 5 & 2
+    \end{array}
+    \]
+    Ainsi, la composée $\sigma_1 \circ \sigma_2$ est donnée par :
+    $$
+    \sigma_1 \circ \sigma_2 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 1 & 3 & 4 & 5 & 2 \end{matrix}\right)
+    $$
+    Notons aussi que la composée $\sigma_2 \circ \sigma_1$ est donnée par :
+    $$
+    \sigma_2 \circ \sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2 \end{matrix}\right)
+    $$
+    Les deux composées sont différentes, ce qui montre que la composition de permutations n'est pas commutative.
+\end{example}
+
+\begin{example}[Inverse d'une permutation]
+    Réutilisons la permutation $\sigma_1$ définie par :
+    $$
+\sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 2 & 3 & 1 & 4 \end{matrix}\right)
+    $$
+    L'inverse de $\sigma_1$, noté $\sigma_1^{-1}$, est défini par :
+    $$
+\sigma_1^{-1}(\sigma_1(i)) = i
+    $$
+    Essayons pour toutes les valeurs de $i$ :
+    \[
+\begin{array}{c|ccccc}
+    i & 1 & 2 & 3 & 4 & 5 \\
+    \sigma_1^{-1}(i) & 4 & 2 & 3 & 5 & 1
+\end{array}
+    \]
+    Ainsi, l'inverse de $\sigma_1$ est donné par :
+    $$
+\sigma_1^{-1} = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 2 & 3 & 5 & 1 \end{matrix}\right)
+    $$
+\end{example}
+
+\begin{property}
+    Il y a $n!$ permutations de $\{1, 2, \dots, n\}$. Le cardinal de $S_n$ est donc $n!$.
+
+    $$\card{S_n} = n!$$
+\end{property}
+
+\begin{proof}
+    Chaque élément de $\{1, 2, \dots, n\}$ doit être envoyé vers un élément distinct de l'ensemble d'arrivée. Pour le premier élément, il y a $n$ choix possibles, pour le deuxième élément, il y a $n-1$ choix possibles (car on ne peut pas réutiliser l'élément déjà choisi pour le premier), pour le troisième élément, il y a $n-2$ choix possibles, et ainsi de suite jusqu'au dernier élément qui n'a plus qu'un seul choix possible.
+\end{proof}
+
+\begin{property}
+    \begin{enumerate}
+        \item \textbf{Associativité} : Pour toutes permutations $\sigma_1$, $\sigma_2$ et $\sigma_3$ de $S_n$, on a :
+        $$(\sigma_1 \circ \sigma_2) \circ \sigma_3 = \sigma_1 \circ (\sigma_2 \circ \sigma_3)$$
+        On hérite ces propriétés de l'associativité de la composition de fonctions.
+        \item \textbf{Existence d'un élément neutre} : Il existe une permutation $\Id$ dans $S_n$ telle que pour toute permutation $\sigma$ de $S_n$, on a :
+        $$\Id \circ \sigma = \sigma \circ \Id = \sigma$$
+        L'élément neutre est la permutation identité, notée $\Id$, définie par :
+        $$\Id = \left(\begin{matrix} 1 & 2 & \dots & n \\ 1 & 2 & \dots & n \end{matrix}\right)$$
+        \item \textbf{Existence d'inverses} : Pour toute permutation $\sigma$ de $S_n$, il existe une permutation $\sigma^{-1}$ de $S_n$ telle que :
+        $$\sigma \circ \sigma^{-1} = \sigma^{-1} \circ \sigma = \Id$$
+    \end{enumerate}
+\end{property}
+
+\begin{consequence}
+    Ces trois propriétés font de $S_n$ un groupe (non-commutatif si $n \ge 3$), appelé le \textbf{groupe symétrique} d'ordre $n$.
+\end{consequence}
+
+On rappelle qu'un groupe est un ensemble muni d'une opération de composition qui satisfait les propriétés d'associativité, d'existence d'un élément neutre et d'existence d'inverses (CH-10).
+
+\section{Permutations particulières}
+
+\begin{definition}[Transposition]
+    Une \textbf{transposition} est une permutation qui échange exactement deux éléments et laisse les autres inchangés.
+
+    Plus rigoureusement, pour $n \in \N^*$ et $\tau \in S_n$, on a :
+    $$\begin{cases}
+    \exists i \ne j \in [\![1,n]\!] \tqp \tau(i) = j \et \tau(j) = i \\
+    \forall k \in [\![1,n]\!] \setminus \{i,j\}, \tau(k) = k
+    \end{cases}$$
+
+    On note $\tau_{i,j}$ la transposition qui échange les éléments $i$ et $j$.
+
+    $$\tau_{i,j} = \left(\begin{matrix} 1 & 2 & \dots & i & \dots & j & \dots & n \\ 1 & 2 & \dots & j & \dots & i & \dots & n \end{matrix}\right)$$
+
+    On écrit aussi :
+    
+    $$\tau_{i,j} = (i \ j)$$
+\end{definition}
+
+\begin{example}
+    Par exemple, la permutation $\tau$ suivante est une transposition :
+    $$
+\tau = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 1 & 3 & 2 & 4 & 5 \end{matrix}\right)
+    $$
+\end{example}
+
+\begin{property}
+    Le produit de transpositions est commutatif \textit{uniquement} si les transpositions sont à supports disjoints (c'est-à-dire qu'elles n'échangent pas les mêmes éléments).
+\end{property}
+
+\begin{example}[Produit de transpositions à supports disjoints]
+    Considérons les transpositions suivantes dans $S_5$ :
+    \[\begin{cases}
+    \tau_{1,2} = (1 \ 2) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 1 & 3 & 4 & 5 \end{matrix}\right)
+    \\
+    \tau_{3,4} = (3 \ 4) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 1 & 2 & 4 & 3 & 5 \end{matrix}\right)
+    \end{cases}
+    \]
+    
+    Le produit de ces deux transpositions est donné par :
+    \[\begin{cases}
+\tau_{1,2} \circ \tau_{3,4} = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 1 & 4 & 3 & 5 \end{matrix}\right)
+\\
+\tau_{3,4} \circ \tau_{1,2} = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 1 & 4 & 3 & 5 \end{matrix}\right)
+    \end{cases}
+    \]
+    Ainsi, $\tau_{1,2} \circ \tau_{3,4} = \tau_{3,4} \circ \tau_{1,2}$, ce qui montre que ces deux transpositions commutent.
+\end{example}
+
+\begin{remark}
+    Dans $S_n$, pour $i \ne j \in [\![1,n]\!]$, on a :
+    $$(i \ j)(j \ i) = \Id$$
+    $$(j \ i)(i \ j) = \Id$$
+    Donc $(i \ j)^{-1} = (j \ i)$ et $(j \ i)^{-1} = (i \ j)$.
+    $$\tau_{i,j}^{-1} = \tau_{j,i}$$
+    Et on a aussi :
+    $$\tau_{i,j}^2 = \Id$$
+    \textbf{L'ordre d'une transposition est 2.}
+\end{remark}
+
+On rappelle que, dans un groupe $(G,*)$ où $G$ est de cardinal fini, pour $x \in G$, l'ordre de $x$ est défini par $o(x) = \min\{k \in \N^* \tqp x^k = e\}$, où $e$ est l'élément neutre de $G$.
+
+\begin{property}
+    Toute permutation de $S_n$ peut être exprimée comme un produit de transpositions.
+
+    Les transpositions \textit{engendrent} $S_n$ : $S_n = \langle \tau_{i,j} \tq i \ne j \in [\![1,n]\!] \rangle$.
+
+    Ainsi, $\forall \sigma \in S_n, \exists r \in \N^*, \exists \tau_1, \dots, \tau_r$ transpositions de $S_n$ telles que :
+
+    $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$ 
+\end{property}
+
+\begin{proof}
+    Nous allons procéder par récurrence sur $n$.
+
+    Pour $n=1$ et $n=2$, la démonstration est triviale, car $S_1$ ne contient que la permutation identité, et $S_2$ contient deux permutations, dont une est une transposition.
+
+    Supposons que la propriété soit vraie pour $n$ et montrons qu'elle est vraie pour $n+1$.
+
+    Soit $\sigma \in S_{n+1}$. Si $\sigma(n+1) = n+1$, alors on peut considérer la restriction de $\sigma$ à l'ensemble $\{1, 2, \dots, n\}$, qui est une permutation de $S_n$. Par hypothèse de récurrence, cette restriction peut être exprimée comme un produit de transpositions.
+    
+    $$\sigma_{\mid \{1, 2, \dots, n\}} = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
+
+    Pour $i \in \{1, \dots, r\}$, on peut étendre chaque transposition
+    $\tau_i$ à une transposition $\tau_{i'}$ de $S_{n+1}$ en laissant $n+1$ inchangé. Ainsi, on peut exprimer $\sigma$ comme un produit de transpositions de $S_{n+1}$.
+    $$\begin{cases} 
+        \tau_{i'~\mid \{1, 2, \dots, n\}} = \tau_i \\
+        \tau_{i'}(n+1) = n+1
+    \end{cases}$$
+
+    $$\sigma = \tau_{1'} \circ \tau_{2'} \circ \dots \circ \tau_{r'}$$
+
+    Sinon, si $\sigma(n+1) \ne n+1$, alors on peut échanger $\sigma(n+1)$ et $n+1$ à l'aide de la transposition $\tau_{\sigma(n+1),n+1}$. Ainsi, on peut exprimer $\sigma$ comme un produit de transpositions de $S_{n+1}$.
+    $$\sigma = \tau_{\sigma(n+1),n+1} \circ (\tau_{\sigma(n+1),n+1} \circ \sigma)$$
+    (sachant que $\tau_{\sigma(n+1),n+1} \circ \sigma$ peut être exprimé comme un produit de transpositions de $S_{n+1}$ par le cas précédent).
+
+    On peut aussi former une nouvelle permutation définie par :
+    $$\forall i \in [\![1,n]\!], \begin{cases}
+        \sigma'(i) = \sigma(i) \\
+        \sigma'(n+1) = \tau_{\sigma(n+1),n+1}(\sigma(n+1)) = n+1
+    \end{cases}$$
+
+    Ainsi, $\sigma' \in S_{n+1}$ et $\sigma'(n+1) = n+1$. Par le cas précédent, $\sigma'$ peut être exprimée comme un produit de transpositions de $S_{n+1}$.
+
+    Par principe de récurrence, la propriété est vraie pour tout $n \in \N^*$.
+
+    $$\forall n \in \N^*, \forall \sigma \in S_n, \exists r \in \N^*, \exists \tau_1, \dots, \tau_r \text{ transpositions de } S_n : \sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
+\end{proof}
+
+\begin{definition}[Cycle]
+    Un \textbf{cycle} de longueur $k$ est une permutation qui envoie un élément vers un autre, qui envoie ce deuxième élément vers un troisième, et ainsi de suite, jusqu'à ce que le $k$-ième élément soit envoyé vers le premier élément.
+
+    Plus rigoureusement, pour $n \in \N^*$ et $\sigma \in S_n$, on a :
+    $$\begin{cases}
+    \exists k \in \N^*, \exists i_1, \dots, i_k \in [\![1,n]\!] \text{ distincts} \tqp \sigma(i_1) = i_2, \dots, \sigma(i_{k-1}) = i_k, \sigma(i_k) = i_1 \\
+    \forall j \in [\![1,n]\!] \setminus \{i_1, i_2, \dots, i_k\}, \sigma(j) = j
+    \end{cases}$$
+
+    Un cycle de longueur $k$ est noté $(i_1 \ i_2 \ \dots \ i_k)$.
+\end{definition}
+
+\begin{remark}
+    Une transposition est un cycle de longueur 2. Un cycle de longueur 1 est la permutation identité.
+\end{remark}
+
+\begin{example}
+    Calculons le produit de deux cycles dans $S_5$ :
+    $$(1 \ 3 \ 4)(1 \ 2 \ 5) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 5 & 4 & 1 & 3 \end{matrix}\right)$$
+    Sachant que :
+    $$
+    (1 \ 3 \ 4) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 2 & 4 & 1 & 5 \end{matrix}\right)
+    $$
+    $$
+    (1 \ 2 \ 5) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 2 & 5 & 3 & 4 & 1 \end{matrix}\right)
+    $$
+    \[\begin{array}{c|ccccc}
+    i & 1 & 2 & 3 & 4 & 5 \\
+    (1 \ 2 \ 5)(i) & 2 & 5 & 3 & 4 & 1 \\
+    (1 \ 3 \ 4)((1 \ 2 \ 5)(i)) & (1 \ 3 \ 4)(2) & (1 \ 3 \ 4)(5) & (1 \ 3 \ 4)(3) & (1 \ 3 \ 4)(4) & (1 \ 3 \ 4)(1) \\
+    & 2 & 5 & 4 & 1 & 3
+    \end{array}\]
+    On peut aussi le réécrire en tant que cycle de longueur 5 :
+    $$(1 \ 3 \ 4)(1 \ 2 \ 5) = (1 \ 2 \ 5 \ 3 \ 4)$$
+
+    On remarque que le produit de deux cycles n'est pas commutatif :
+    $$(1 \ 2 \ 5)(1 \ 3 \ 4) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 5 & 4 & 2 & 1 \end{matrix}\right) = (1 \ 3 \ 4 \ 2 \ 5)$$
+
+    Par contre, il est parfois commutatif, comme pour :
+    $$(1 \ 3 \ 4)(2 \ 5) = (2 \ 5)(1 \ 3 \ 4) = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 3 & 5 & 4 & 1 & 2 \end{matrix}\right)$$
+
+    Il n'y a pas de propriétés évidentes sur le carré d'un cycle, comme le montre l'exemple suivant :
+
+    $$(1 \ 2 \ 5)^2 = (1 \ 5 \ 2)$$
+
+    En effet, $(1 \ 2 \ 5)^2$ est défini par :
+    \[\begin{array}{c|ccccc}
+    i & 1 & 2 & 3 & 4 & 5 \\
+    (1 \ 2 \ 5)(i) & 2 & 5 & 3 & 4 & 1 \\
+    (1 \ 2 \ 5)^2(i) & (1 \ 2 \ 5)(2) & (1 \ 2 \ 5)(5) & (1 \ 2 \ 5)(3) & (1 \ 2 \ 5)(4) & (1 \ 2 \ 5)(1) \\
+    & 5 & 1 & 3 & 4 & 2
+    \end{array}\]
+
+    Par contre, la puissance $k$ d'un cycle de longueur $k$ est la permutation identité :
+    $$(1 \ 2 \ 5)^3 = \Id$$
+\end{example}
+
+\begin{remark}
+    L'ordre d'un cycle de longueur $k$ est égal à $k$. En effet, pour un cycle de longueur $k$, la permutation revient à la position initiale après $k$ applications du cycle.
+
+    En effet, pour un cycle $\sigma$ de longueur $k$, on a :
+    $$\sigma^{k-1}(a_1) = a_k \implies \sigma^{k-1} \ne \Id$$
+    \textit{On rappelle que les $a_k$ sont différents deux à deux.}
+
+    On a aussi $\sigma^k = \Id$, car pour tout $i \in [\![1,k]\!]$, $\sigma^k(a_i) = a_i$.
+\end{remark}
+
+\begin{theorem}
+    Les cycles engendrent $S_n$.
+    
+    $$S_n = \langle (i_1 \ i_2 \ \dots \ i_k) \tq k \in [\![1,n]\!], i_1, i_2, \dots, i_k \text{ distincts} \rangle$$
+\end{theorem}
+
+\begin{proof}
+    Par récurrence sur $n$, similaire à la preuve précédente pour les transpositions.
+\end{proof}
+
+\begin{theorem}
+    Toute permutation de $S_n$ peut être exprimée de manière unique (à l'ordre près) comme un produit \textit{commutatif} de cycles à supports disjoints.
+\end{theorem}
+
+Ce dernier théorème est admis (sans preuve).
+
+\printindex
+\end{document}
