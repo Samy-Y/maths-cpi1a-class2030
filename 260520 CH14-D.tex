@@ -30,11 +30,7 @@
     On note $S_n$ l'ensemble de toutes les permutations de $\{1, 2, \dots, n\}$.
 \end{definition}
 
-\begin{example}
-    % figure tikz comme ça :
-    % [1] [2] [3] [4] [5]
-    %  |   |   |   |   |
-    % [3] [1] [5] [4] [2]
+\begin{example}[Permutation]
     Par exemple, la permutation $\sigma$ suivante :
     \[
         \begin{array}{c|ccccc}
@@ -43,10 +39,10 @@
             \sigma(i) & 3 & 1 & 5 & 4 & 2
         \end{array}
     \]
-    $\sigma$ est bel et bien une bijection de $\{1, 2, 3, 4, 5\}$ dans lui-même, car chaque élément de l'ensemble d'arrivée est atteint par exactement un élément de l'ensemble de départ.
+    $\sigma$ est bel et bien une bijection de $\{1, 2, 3, 4, 5\}$ dans lui-même.
 \end{example}
 
-\begin{example}
+\begin{example}[Ensemble de permutations]
     $S_2$ contient les permutations suivantes :
     \[
         S_2 = \left\{\left(\begin{matrix} 1 & 2 \\ 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 \\ 2 & 1 \end{matrix}\right)\right\}
@@ -56,6 +52,11 @@
         S_3 = \left\{\left(\begin{matrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{matrix}\right)\right\}
     \]
 \end{example}
+
+\begin{definition}[Composée de permutations]
+    Soient $\sigma_1$ et $\sigma_2$ deux permutations de $S_n$. La \textbf{composée} de $\sigma_1$ et $\sigma_2$, notée $\sigma_1 \circ \sigma_2$, est définie par :
+    $$\forall i \in [\![1,n]\!], (\sigma_1 \circ \sigma_2)(i) = \sigma_1(\sigma_2(i))$$
+\end{definition}
 
 \begin{example}[Composée de deux permutations]
     Soient $\sigma_1$ et $\sigma_2$ les permutations définies par :
@@ -89,6 +90,11 @@
     $$
     Les deux composées sont différentes, ce qui montre que la composition de permutations n'est pas commutative.
 \end{example}
+
+\begin{definition}[Inverse d'une permutation]
+    Soit $\sigma$ une permutation de $S_n$. L'\textbf{inverse} de $\sigma$, notée $\sigma^{-1}$, est la permutation définie par :
+    $$\forall i \in [\![1,n]\!], \sigma^{-1}(\sigma(i)) = i$$
+\end{definition}
 
 \begin{example}[Inverse d'une permutation]
     Réutilisons la permutation $\sigma_1$ définie par :
@@ -142,7 +148,16 @@
 
 On rappelle qu'un groupe est un ensemble muni d'une opération de composition qui satisfait les propriétés d'associativité, d'existence d'un élément neutre et d'existence d'inverses (CH-10).
 
+Comme $(S_n, \circ)$ est un groupe, plusieurs résultats et propriétés en découlent naturellement, comme :
+\begin{itemize}
+    \item L'unicité de l'élément neutre : Il n'existe qu'une seule permutation identité dans $S_n$.
+    \item L'unicité des inverses : Pour chaque permutation $\sigma$ de $S_n$, il existe une unique permutation $\sigma^{-1}$ qui est son inverse.
+    \item La loi de composition est fermée : La composition de deux permutations de $S_n$ est toujours une permutation de $S_n$.
+\end{itemize}
+
 \section{Permutations particulières}
+
+\subsection{Transposition}
 
 \begin{definition}[Transposition]
     Une \textbf{transposition} est une permutation qui échange exactement deux éléments et laisse les autres inchangés.
@@ -252,6 +267,8 @@ On rappelle que, dans un groupe $(G,*)$ où $G$ est de cardinal fini, pour $x \i
     $$\forall n \in \N^*, \forall \sigma \in S_n, \exists r \in \N^*, \exists \tau_1, \dots, \tau_r \text{ transpositions de } S_n : \sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
 \end{proof}
 
+\subsection{Cycle}
+
 \begin{definition}[Cycle]
     Un \textbf{cycle} de longueur $k$ est une permutation qui envoie un élément vers un autre, qui envoie ce deuxième élément vers un troisième, et ainsi de suite, jusqu'à ce que le $k$-ième élément soit envoyé vers le premier élément.
 
@@ -334,6 +351,304 @@ On rappelle que, dans un groupe $(G,*)$ où $G$ est de cardinal fini, pour $x \i
 \end{theorem}
 
 Ce dernier théorème est admis (sans preuve).
+
+\section{Signature}
+
+\begin{definition}[Signature d'une permutation]
+    La \textbf{signature} d'une permutation $\sigma \in S_n$, notée $\varepsilon(\sigma)$, est un réel défini par :
+
+    $$\varepsilon(\sigma) = \prod_{1 \le i < j \le n} \frac{\sigma(j) - \sigma(i)}{j - i}$$
+
+    La signature ne peut être égale qu'à $1$ ou à $-1$.
+\end{definition}
+
+\begin{example}
+    Prenons la permutation $\sigma$ suivante dans $S_4$ :
+    % 4 2 1 3
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
+    Calculons la signature de $\sigma$ :
+    \begin{align*}
+        \epsilon(\sigma) &= \frac{\sigma(2) - \sigma(1)}{2 - 1} \cdot \frac{\sigma(3) - \sigma(1)}{3 - 1} \cdot \frac{\sigma(4) - \sigma(1)}{4 - 1} \cdot \frac{\sigma(3) - \sigma(2)}{3 - 2} \cdot \frac{\sigma(4) - \sigma(2)}{4 - 2} \cdot \frac{\sigma(4) - \sigma(3)}{4 - 3} \\
+        &= \frac{2 - 4}{2 - 1} \cdot \frac{1 - 4}{3 - 1} \cdot \frac{3 - 4}{4 - 1} \cdot \frac{1 - 2}{3 - 2} \cdot \frac{3 - 2}{4 - 2} \cdot \frac{3 - 1}{4 - 3} \\
+        &= \frac{-2}{1} \cdot \frac{-3}{2} \cdot \frac{-1}{3} \cdot \frac{-1}{1} \cdot \frac{1}{2} \cdot \frac{2}{1} \\
+        &= \frac{-2}{1} \cdot \frac{1}{2} \cdot \frac{-1}{3} \cdot \frac{-3}{2} \cdot \frac{2}{1} \cdot \frac{-1}{1} \\
+        &= -1 \times \frac12 \times 2 \times (-1)\\
+        &= 1
+    \end{align*}
+\end{example}
+
+\begin{property}
+    $$\varepsilon : \begin{matrix} (S_n,\circ) \to (\{-1, 1\},\times) \\ \sigma \mapsto \varepsilon(\sigma) \end{matrix}$$
+    est un morphisme de groupes.
+\end{property}
+
+\begin{proof}
+    Pour montrer que $\varepsilon$ est un morphisme de groupes, il suffit de montrer que pour toutes permutations $\sigma_1$ et $\sigma_2$ de $S_n$, on a :
+    $$\varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)$$
+
+    On sait que $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_n$. Donc $\varepsilon$ est une application de $S_n$ dans $\{-1, 1\}$.
+
+    Soient $\sigma_1$ et $\sigma_2$ deux permutations de $S_n$. Calculons $\varepsilon(\sigma_1 \circ \sigma_2)$ :
+    \begin{align*}
+        \varepsilon(\sigma_1 \circ \sigma_2) &= \prod_{1 \le i < j \le n} \frac{(\sigma_1 \circ \sigma_2)(j) - (\sigma_1 \circ \sigma_2)(i)}{j - i} \\
+        &= \prod_{1 \le i < j \le n} \frac{\sigma_1(\sigma_2(j)) - \sigma_1(\sigma_2(i))}{j - i}
+    \end{align*}
+
+    On peut réécrire le produit ci-dessus en regroupant les termes de la manière suivante :
+
+    \[
+    \varepsilon(\sigma_1 \circ \sigma_2) = \prod_{1 \le i < j \le n} \frac{\sigma_1(\sigma_2(j)) - \sigma_1(\sigma_2(i))}{\sigma_2(j) - \sigma_2(i)} \cdot \frac{\sigma_2(j) - \sigma_2(i)}{j - i}
+    \]
+
+    Comme $\sigma_1$ est une permutation, elle est bijective, donc on peut effectuer un changement de variable (muette) dans le premier produit. En posant $k = \sigma_2(i)$ et $l = \sigma_2(j)$, on obtient :
+    \[
+    \varepsilon(\sigma_1 \circ \sigma_2) = \prod_{1 \le k \ne l \le n} \frac{\sigma_1(l) - \sigma_1(k)}{l - k} \cdot \prod_{1 \le i < j \le n} \frac{\sigma_2(j) - \sigma_2(i)}{j - i}
+    \]
+
+    On reconnaît dans le premier produit la signature de $\sigma_1$ et dans le second produit la signature de $\sigma_2$ :
+    \[
+    \varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)
+    \]
+
+    Ainsi, $\varepsilon$ est un morphisme de groupes de $(S_n, \circ)$ dans $(\{-1, 1\}, \times)$.
+\end{proof}
+
+\section{Inversion}
+
+\begin{definition}[Inversion d'une permutation]
+    On dit qu'une transposition $(i,j)$ (avec $i,j \in [\![1,n]\!]$ et $i \ne j$) est une \textbf{inversion} de la permutation $\sigma \in S_n$ si :
+    $$i < j \et \sigma(i) > \sigma(j)$$
+
+    i.e.:
+
+    $$\sigma = \left(\begin{matrix} 1 & 2 & \dots & i & \dots & j & \dots & n \\ \sigma(1) & \sigma(2) & \dots & \sigma(i) & \dots & \sigma(j) & \dots & \sigma(n) \end{matrix}\right) \avec \sigma(i) > \sigma(j)$$
+
+    On note $I(\sigma)$ le nombre d'inversions de $\sigma$.
+\end{definition}
+
+\begin{example}
+    Prenons la permutation $\sigma$ suivante dans $S_4$ :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
+    Les inversions de $\sigma$ sont les transpositions suivantes :
+    \begin{itemize}
+        \item $(1,2)$, car $1 < 2$ et $\sigma(1) = 4 > \sigma(2) = 2$.
+        \item $(1,3)$, car $1 < 3$ et $\sigma(1) = 4 > \sigma(3) = 1$.
+        \item $(2,3)$, car $2 < 3$ et $\sigma(2) = 2 > \sigma(3) = 1$.
+        \item $(1,4)$, car $1 < 4$ et $\sigma(1) = 4 > \sigma(4) = 3$.
+    \end{itemize}
+    $(3,4)$ n'est pas une inversion de $\sigma$, car $3 < 4$ mais $\sigma(3) = 1 < \sigma(4) = 3$.
+\end{example}
+
+\begin{property}
+    La signature d'une permutation $\sigma \in S_n$ est égale à $(-1)^{I(\sigma)}$.
+\end{property}
+
+\begin{example}
+    Reprenons l'exemple précédent avec la permutation $\sigma$ suivante dans $S_4$ :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
+    Nous avons vu que les inversions de $\sigma$ sont les transpositions suivantes :
+    \begin{itemize}
+        \item $(1,2)$
+        \item $(1,3)$
+        \item $(2,3)$
+        \item $(1,4)$
+    \end{itemize}
+    Ainsi, $I(\sigma) = 4$. Par conséquent, la signature de $\sigma$ est donnée par :
+    $$\varepsilon(\sigma) = (-1)^{I(\sigma)} = (-1)^4 = 1$$
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Les inversions d'une transposition $\tau_{i,j} \in S_n$ (avec $n \in \N^*$, $i < j \in [\![1,n]\!]$) sont au nombre de $2(j - i) - 1$. La signature de toute transposition est donc égale à $-1$.
+        $$I(\tau_{i,j}) = 2(j - i) - 1 \et \varepsilon(\tau_{i,j}) = -1$$
+        \item Pour une permutation $\sigma \in S_n$ exprimée comme un produit de transpositions, le nombre d'inversions de $\sigma$ est égal au nombre de transpositions utilisées dans ce produit.
+        $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r \implies \varepsilon(\sigma) = (-1)^r$$
+        \item Pour un cycle $\sigma = (a_1,\dots,a_p)$ de longueur $p$, le nombre d'inversions est égal à $p-1$.
+        $$I(\sigma) = p - 1 \et \varepsilon(\sigma) = (-1)^{p-1}$$
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    \begin{outline}
+        \1 Pour la première remarque, on étudie le nombre d'inversions de la transposition en considérant les inversions :
+        \2 $(i,j)$, qui est bel et bien une inversion de $\tau_{i,j}$, car $i < j$ et $\tau_{i,j}(i) = j > \tau_{i,j}(j) = i$.
+        \2 $(k,i)$ pour $i < k < j$, qui est une inversion de $\tau_{i,j}$, car $i < k$ et $\tau_{i,j}(k) = k < \tau_{i,j}(i) = j$. Il y a $j - i - 1$ inversions de ce type.
+        \2 $(j,k)$ pour $i < k < j$, qui est une inversion de $\tau_{i,j}$, car $k < j$ et $\tau_{i,j}(k) = k > \tau_{i,j}(j) = i$. Il y a $j - i - 1$ inversions de ce type.
+        \2 \textbf{Au total}, il y a $1 + (j - i - 1) + (j - i - 1) = 2(j - i) - 1$ inversions de $\tau_{i,j}$.
+        
+        \1 Pour la deuxième remarque, on utilise le fait que la signature $\varepsilon$ est un morphisme de groupes de $(S_n, \circ)$ dans $(\{-1, 1\}, \times)$.
+        \2 Soit $\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$ un produit de $r$ transpositions. Par récurrence immédiate sur le morphisme :
+        $$\varepsilon(\sigma) = \varepsilon(\tau_1 \circ \tau_2 \circ \dots \circ \tau_r) = \varepsilon(\tau_1) \cdot \varepsilon(\tau_2) \dots \varepsilon(\tau_r)$$
+        \2 D'après la remarque précédente, la signature de toute transposition vaut $-1$. On a donc :
+        $$\varepsilon(\sigma) = (-1) \cdot (-1) \dots (-1) = (-1)^r$$
+
+        \1 Pour la troisième remarque, on décompose le $p$-cycle en un produit de transpositions.
+        \2 Un cycle $\sigma = (a_1, a_2, \dots, a_p)$ de longueur $p$ peut s'écrire explicitement sous la forme d'un produit de $p-1$ transpositions :
+        $$\sigma = (a_1, a_p) \circ (a_1, a_{p-1}) \circ \dots \circ (a_1, a_3) \circ (a_1, a_2)$$
+        \2 En appliquant le résultat de la remarque 2 avec $r = p - 1$, on obtient directement :
+        $$\varepsilon(\sigma) = (-1)^{p-1}$$
+
+        % congruence modulo 2 à revoir
+    \end{outline}
+\end{proof}
+
+\begin{definition}[Permutation paire et impaire]
+    Une permutation $\sigma \in S_n$ est dite \textbf{paire} si $\varepsilon(\sigma) = 1$, et \textbf{impaire} si $\varepsilon(\sigma) = -1$.
+\end{definition}
+
+\begin{example}
+    Reprenons l'exemple précédent avec la permutation $\sigma$ suivante dans $S_4$ :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
+    Nous avons vu que la signature de $\sigma$ est égale à $1$. Par conséquent, $\sigma$ est une permutation paire.
+
+    Pour un autre exemple, prenons la permutation $\sigma'$ suivante dans $S_5$ :
+    $$\sigma' = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 1 & 2 & 3 & 5 \end{matrix}\right)$$
+    On déduit facilement, à partir des inversions de $\sigma'$, que la signature de $\sigma'$ est égale à $-1$. Par conséquent, $\sigma'$ est une permutation impaire.
+\end{example}
+
+\begin{property}
+    L'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, appelé le \textbf{groupe alterné} d'ordre $n$ et noté $A_n$.
+
+    Son cardinal est égal à la moitié du cardinal de $S_n$ :
+    $$\card{A_n} = \frac{n!}{2}$$
+
+    On notera $E_n$ l'ensemble des permutations impaires de $S_n$. On a aussi :
+    $$\card{E_n} = \frac{n!}{2}$$
+
+    $$\begin{cases}
+        S_n = A_n \cup E_n \\
+        A_n \cap E_n = \emptyset
+    \end{cases}$$
+\end{property}
+
+\begin{proof}
+    Pour démontrer que l'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, on peut vérifier les trois propriétés classiques (stabilité, existence d'un élément neutre, existence d'inverses) pour cet ensemble.
+    
+    Mais une méthode plus rapide consiste à considérer $A_n$ comme le noyau de l'application signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $A_n = \ker(\varepsilon)$.
+    
+    D'après les propriétés générales des morphismes de groupes, le noyau $A_n$ est donc un sous-groupe de $S_n$.
+
+    Pour démontrer que le cardinal de $A_n$ est égal à la moitié du cardinal de $S_n$, on utilise le fait que $S_n$ est la réunion disjointe de l'ensemble des permutations paires $A_n$ et de l'ensemble des permutations impaires $E_n$ :
+    $$S_n = A_n \cup E_n \et A_n \cap E_n = \emptyset$$
+    
+    Par conséquent, on a :
+    $$\card{S_n} = \card{A_n} + \card{E_n}$$
+
+    Montrons que $A_n$ et $E_n$ ont le même cardinal en construisant une bijection entre ces deux ensembles. Soit $\tau$ une transposition fixée de $S_n$ (par exemple, $\tau = (1 \ 2)$). On définit l'application suivante :
+    $$\varphi : \begin{matrix} A_n \to E_n \\ \sigma \mapsto \tau \circ \sigma \end{matrix}$$
+
+    Vérifions d'abord que $\varphi$ est bien définie, c'est-à-dire que pour tout $\sigma \in A_n$, $\varphi(\sigma)$ appartient bien à $E_n$. Par morphisme de la signature :
+    $$\varepsilon(\varphi(\sigma)) = \varepsilon(\tau \circ \sigma) = \varepsilon(\tau) \cdot \varepsilon(\sigma) = (-1) \cdot 1 = -1$$
+    L'image de toute permutation paire par $\varphi$ est donc bien une permutation impaire.
+
+    Montrons maintenant que $\varphi$ est une bijection. Pour cela, on exhibe son application réciproque. Considérons l'application suivante :
+    $$\psi : \begin{matrix} E_n \to A_n \\ \delta \mapsto \tau \circ \delta \end{matrix}$$
+    Par un raisonnement identique sur les signatures ($\varepsilon(\tau \circ \delta) = (-1) \cdot (-1) = 1$), $\psi$ est bien définie de $E_n$ vers $A_n$.
+
+    Calculons les compositions de ces deux applications :
+    \begin{itemize}
+        \item Pour tout $\sigma \in A_n$ :
+        $$(\psi \circ \varphi)(\sigma) = \psi(\tau \circ \sigma) = \tau \circ (\tau \circ \sigma) = (\tau \circ \tau) \circ \sigma$$
+        Comme $\tau$ est une transposition, elle est involutive ($\tau \circ \tau = \Id$). On a donc :
+        $$(\psi \circ \varphi)(\sigma) = \Id \circ \sigma = \sigma$$
+        Ainsi, $\psi \circ \varphi = \Id_{A_n}$.
+
+        \item Pour tout $\delta \in E_n$ :
+        $$(\varphi \circ \psi)(\delta) = \varphi(\tau \circ \delta) = \tau \circ (\tau \circ \delta) = (\tau \circ \tau) \circ \delta = \Id \circ \delta = \delta$$
+        Ainsi, $\varphi \circ \psi = \Id_{E_n}$.
+    \end{itemize}
+
+    L'application $\varphi$ admet une application réciproque (qui est $\psi$), elle est donc bijective. 
+
+    Par conséquent, les ensembles $A_n$ et $E_n$ ont le même cardinal :
+    $$\card{A_n} = \card{E_n}$$
+
+    En injectant ce résultat dans l'équation des cardinaux de la partition, on obtient :
+    $$\card{S_n} = 2 \card{A_n} \implies \card{A_n} = \frac{\card{S_n}}{2} = \frac{n!}{2}$$
+\end{proof}
+
+\chapter{Applications multilinéaires}
+
+\section{Définition}
+
+\begin{definition}
+    Soient $E_1, E_2, \dots, E_p$ et $F$ des $\Kset$-espaces vectoriels. Une application $f : E_1 \times E_2 \times \dots \times E_p \to F$ est dite \textbf{multilinéaire} si elle est linéaire par rapport à chacune de ses variables, C'est-à-dire que pour tout $(a_1,\dots,a_p) \in E_1 \times E_2 \times \dots \times E_p$, pour tout $x \in E_k$ avec $k \in [\![1,p]\!]$, on a :
+    $$f(a_1, \dots, a_{k-1}, x, a_{k+1}, \dots, a_p) \text{ est linéaire.}$$
+
+    On note $\mathcal{L}(E_1\times E_2 \times \dots \times E_p, F)$ l'ensemble des applications multilinéaires de $E_1 \times E_2 \times \dots \times E_p$ dans $F$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Si $f \in \mathcal L(E_1\times E_2 \times \dots \times E_p, F)$, alors $\forall (x_1, x_2, \dots, x_p) \in E_1 \times E_2 \times \dots \times E_p$, $\forall k \in [\![1,p]\!]$, $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p) = 0_F$. La démonstration se fait simplement en soustrayant $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p)$ à lui-même en utilisant la linéarité par rapport à la $k$-ième variable.
+        \item Soit $E$ un $\Kset$-espace vectoriel. Une application $f \in \mathcal L(\underbrace{E\times E \times \dots \times E}_{p \in \N^* \text{ fois}}, \Kset) = \mathcal L_p(E,\Kset)$ est dite une forme $p$-linéaire de $E$.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    Considérons l'application suivante :
+    $$f : \begin{matrix} \mathcal M_{n,p}(\Kset) \times \mathcal M_{p,1}(\Kset) \to \mathcal M_{n,1}(\Kset) \\ (A,B) \mapsto A \cdot B \end{matrix}$$
+
+    Pour montrer qu'elle est multilinéaire, nous allons prouver que :
+    \begin{itemize}
+        \item $\forall \lambda \in \Kset, \forall A, A' \in \mathcal M_{n,p}(\Kset), \forall B \in \mathcal M_{p,1}(\Kset)$, $f(\lambda A + A', B) = \lambda f(A,B) + f(A',B)$.
+        \item $\forall \lambda \in \Kset, \forall A \in \mathcal M_{n,p}(\Kset), \forall B, B' \in \mathcal M_{p,1}(\Kset)$, $f(A, B + \lambda B') = f(A,B) + \lambda f(A,B')$.
+    \end{itemize}
+
+    Soient $\lambda \in \Kset$, $A, A' \in \mathcal M_{n,p}(\Kset)$ et $B \in \mathcal M_{p,1}(\Kset)$. On a :
+    \begin{align*}
+        f(\lambda A + A', B) &= (\lambda A + A') \cdot B \\
+        &= \lambda (A \cdot B) + A' \cdot B \\
+        &= \lambda f(A,B) + f(A',B)
+    \end{align*}
+
+    Soient $\lambda \in \Kset$, $A \in \mathcal M_{n,p}(\Kset)$ et $B, B' \in \mathcal M_{p,1}(\Kset)$. On a :
+    \begin{align*}
+        f(A, B + \lambda B') &= A \cdot (B + \lambda B') \\
+        &= A \cdot B + \lambda (A \cdot B') \\
+        &= f(A,B) + \lambda f(A,B')
+    \end{align*}
+
+    Ainsi, $f$ est une application multilinéaire de $\mathcal M_{n,p}(\Kset) \times \mathcal M_{p,1}(\Kset)$ dans $\mathcal M_{n,1}(\Kset)$. Dans ce cas, elle est même \textbf{bilinéaire}.
+\end{example}
+
+\begin{example}
+    Considérons maintenant l'application suivante :
+
+    $$\varphi : \begin{matrix} (\mathcal C([a,b],\Kset))^2 \to \Kset \\ (f,g) \mapsto \int_a^b f\, g \end{matrix}$$
+
+    On remarque que $\varphi$ est symétrique, c'est-à-dire que $\forall f, g \in \mathcal C([a,b],\Kset)$, $\varphi(f,g) = \varphi(g,f)$.
+
+    Pour montrer que $\varphi$ est multilinéaire, il suffit alors de prouver que $\varphi$ est linéaire par rapport à la première variable. En effet, la symétrie de $\varphi$ implique que $\varphi$ est aussi linéaire par rapport à la seconde variable.
+
+    Soient $\lambda \in \Kset$, $f, f' \in \mathcal C([a,b],\Kset)$ et $g \in \mathcal C([a,b],\Kset)$. On a :
+    \begin{align*}
+        \varphi(\lambda f + f', g) &= \int_a^b (\lambda f + f')\, g \\
+        &= \int_a^b \lambda f\, g + \int_a^b f'\, g \\
+        &= \lambda \int_a^b f\, g + \int_a^b f'\, g \\
+        &= \lambda \varphi(f,g) + \varphi(f',g)
+    \end{align*}
+
+    Ainsi, $\varphi$ est une application bilinéaire de $(\mathcal C([a,b],\Kset))^2$ dans $\Kset$.
+\end{example}
+
+\section{Antisymétrie et alternance}
+
+\begin{definition}[Application symétrique et alternée]
+    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$, avec $p \in \N^*$ et $E$ un $\Kset$-espace vectoriel.
+    
+    \begin{itemize}
+        \item $\varphi$ est \textbf{antisymétrique} si pour tout $(x_1,\dots,x_p) \in E^p$, $\forall i < j \in [\![1,p]\!]$ :
+        $$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) = -\varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p)$$
+        Concrètement, cela signifie que $\varphi$ est invariant par permutation de ses variables.
+        \item $\varphi$ est \textbf{alternée} lorsque pour tout $(x_1,\dots,x_p) \in E^p$, si $\exists i \ne j \in [\![1,p]\!]$ tel que $x_i = x_j$ implique que $\varphi(x_1, \dots, x_p) = 0_\Kset$.
+    \end{itemize}
+\end{definition}
+
+\begin{property}
+    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\varphi$ est antisymétrique, alors $\varphi$ est alternée.
+    $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
+\end{property}
 
 \printindex
 \end{document}
