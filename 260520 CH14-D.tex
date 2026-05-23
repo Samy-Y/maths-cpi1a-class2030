@@ -507,64 +507,64 @@ Ce dernier théorème est admis (sans preuve).
 \end{example}
 
 \begin{property}
-    L'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, appelé le \textbf{groupe alterné} d'ordre $n$ et noté $A_n$.
+    L'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, appelé le \textbf{groupe alterné} d'ordre $n$ et noté $\mathcal{A}_n$.
 
     Son cardinal est égal à la moitié du cardinal de $S_n$ :
-    $$\card{A_n} = \frac{n!}{2}$$
+    $$\card{\mathcal{A}_n} = \frac{n!}{2}$$
 
-    On notera $E_n$ l'ensemble des permutations impaires de $S_n$. On a aussi :
-    $$\card{E_n} = \frac{n!}{2}$$
+    On notera $\mathcal{E}_n$ l'ensemble des permutations impaires de $S_n$. On a aussi :
+    $$\card{\mathcal{E}_n} = \frac{n!}{2}$$
 
     $$\begin{cases}
-        S_n = A_n \cup E_n \\
-        A_n \cap E_n = \emptyset
+        S_n = \mathcal{A}_n \cup \mathcal{E}_n \\
+        \mathcal{A}_n \cap \mathcal{E}_n = \emptyset
     \end{cases}$$
 \end{property}
 
 \begin{proof}
     Pour démontrer que l'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, on peut vérifier les trois propriétés classiques (stabilité, existence d'un élément neutre, existence d'inverses) pour cet ensemble.
     
-    Mais une méthode plus rapide consiste à considérer $A_n$ comme le noyau de l'application signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $A_n = \ker(\varepsilon)$.
+    Mais une méthode plus rapide consiste à considérer $\mathcal{A}_n$ comme le noyau de l'application signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $\mathcal{A}_n = \ker(\varepsilon)$.
     
-    D'après les propriétés générales des morphismes de groupes, le noyau $A_n$ est donc un sous-groupe de $S_n$.
+    D'après les propriétés générales des morphismes de groupes, le noyau $\mathcal{A}_n$ est donc un sous-groupe de $S_n$.
 
-    Pour démontrer que le cardinal de $A_n$ est égal à la moitié du cardinal de $S_n$, on utilise le fait que $S_n$ est la réunion disjointe de l'ensemble des permutations paires $A_n$ et de l'ensemble des permutations impaires $E_n$ :
-    $$S_n = A_n \cup E_n \et A_n \cap E_n = \emptyset$$
+    Pour démontrer que le cardinal de $\mathcal{A}_n$ est égal à la moitié du cardinal de $S_n$, on utilise le fait que $S_n$ est la réunion disjointe de l'ensemble des permutations paires $\mathcal{A}_n$ et de l'ensemble des permutations impaires $\mathcal{E}_n$ :
+    $$S_n = \mathcal{A}_n \cup \mathcal{E}_n \et \mathcal{A}_n \cap \mathcal{E}_n = \emptyset$$
     
     Par conséquent, on a :
-    $$\card{S_n} = \card{A_n} + \card{E_n}$$
+    $$\card{S_n} = \card{\mathcal{A}_n} + \card{\mathcal{E}_n}$$
 
-    Montrons que $A_n$ et $E_n$ ont le même cardinal en construisant une bijection entre ces deux ensembles. Soit $\tau$ une transposition fixée de $S_n$ (par exemple, $\tau = (1 \ 2)$). On définit l'application suivante :
-    $$\varphi : \begin{matrix} A_n \to E_n \\ \sigma \mapsto \tau \circ \sigma \end{matrix}$$
+    Montrons que $\mathcal{A}_n$ et $\mathcal{E}_n$ ont le même cardinal en construisant une bijection entre ces deux ensembles. Soit $\tau$ une transposition fixée de $S_n$ (par exemple, $\tau = (1 \ 2)$). On définit l'application suivante :
+    $$\varphi : \begin{matrix} \mathcal{A}_n \to \mathcal{E}_n \\ \sigma \mapsto \tau \circ \sigma \end{matrix}$$
 
-    Vérifions d'abord que $\varphi$ est bien définie, c'est-à-dire que pour tout $\sigma \in A_n$, $\varphi(\sigma)$ appartient bien à $E_n$. Par morphisme de la signature :
+    Vérifions d'abord que $\varphi$ est bien définie, c'est-à-dire que pour tout $\sigma \in \mathcal{A}_n$, $\varphi(\sigma)$ appartient bien à $\mathcal{E}_n$. Par morphisme de la signature :
     $$\varepsilon(\varphi(\sigma)) = \varepsilon(\tau \circ \sigma) = \varepsilon(\tau) \cdot \varepsilon(\sigma) = (-1) \cdot 1 = -1$$
     L'image de toute permutation paire par $\varphi$ est donc bien une permutation impaire.
 
     Montrons maintenant que $\varphi$ est une bijection. Pour cela, on exhibe son application réciproque. Considérons l'application suivante :
-    $$\psi : \begin{matrix} E_n \to A_n \\ \delta \mapsto \tau \circ \delta \end{matrix}$$
-    Par un raisonnement identique sur les signatures ($\varepsilon(\tau \circ \delta) = (-1) \cdot (-1) = 1$), $\psi$ est bien définie de $E_n$ vers $A_n$.
+    $$\psi : \begin{matrix} \mathcal{E}_n \to \mathcal{A}_n \\ \delta \mapsto \tau \circ \delta \end{matrix}$$
+    Par un raisonnement identique sur les signatures ($\varepsilon(\tau \circ \delta) = (-1) \cdot (-1) = 1$), $\psi$ est bien définie de $\mathcal{E}_n$ vers $\mathcal{A}_n$.
 
     Calculons les compositions de ces deux applications :
     \begin{itemize}
-        \item Pour tout $\sigma \in A_n$ :
+        \item Pour tout $\sigma \in \mathcal{A}_n$ :
         $$(\psi \circ \varphi)(\sigma) = \psi(\tau \circ \sigma) = \tau \circ (\tau \circ \sigma) = (\tau \circ \tau) \circ \sigma$$
         Comme $\tau$ est une transposition, elle est involutive ($\tau \circ \tau = \Id$). On a donc :
         $$(\psi \circ \varphi)(\sigma) = \Id \circ \sigma = \sigma$$
-        Ainsi, $\psi \circ \varphi = \Id_{A_n}$.
+        Ainsi, $\psi \circ \varphi = \Id_{\mathcal{A}_n}$.
 
-        \item Pour tout $\delta \in E_n$ :
+        \item Pour tout $\delta \in \mathcal{E}_n$ :
         $$(\varphi \circ \psi)(\delta) = \varphi(\tau \circ \delta) = \tau \circ (\tau \circ \delta) = (\tau \circ \tau) \circ \delta = \Id \circ \delta = \delta$$
-        Ainsi, $\varphi \circ \psi = \Id_{E_n}$.
+        Ainsi, $\varphi \circ \psi = \Id_{\mathcal{E}_n}$.
     \end{itemize}
 
     L'application $\varphi$ admet une application réciproque (qui est $\psi$), elle est donc bijective. 
 
-    Par conséquent, les ensembles $A_n$ et $E_n$ ont le même cardinal :
-    $$\card{A_n} = \card{E_n}$$
+    Par conséquent, les ensembles $\mathcal{A}_n$ et $\mathcal{E}_n$ ont le même cardinal :
+    $$\card{\mathcal{A}_n} = \card{\mathcal{E}_n}$$
 
     En injectant ce résultat dans l'équation des cardinaux de la partition, on obtient :
-    $$\card{S_n} = 2 \card{A_n} \implies \card{A_n} = \frac{\card{S_n}}{2} = \frac{n!}{2}$$
+    $$\card{S_n} = 2 \card{\mathcal{A}_n} \implies \card{\mathcal{A}_n} = \frac{\card{S_n}}{2} = \frac{n!}{2}$$
 \end{proof}
 
 \chapter{Applications multilinéaires}
@@ -638,17 +638,89 @@ Ce dernier théorème est admis (sans preuve).
     Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$, avec $p \in \N^*$ et $E$ un $\Kset$-espace vectoriel.
     
     \begin{itemize}
-        \item $\varphi$ est \textbf{antisymétrique} si pour tout $(x_1,\dots,x_p) \in E^p$, $\forall i < j \in [\![1,p]\!]$ :
+        \item $\varphi$ est \textbf{antisymétrique} si le fait d'échanger deux variables change le signe du résultat. Pour tout $(x_1,\dots,x_p) \in E^p$ et pour tous indices $1 \le i < j \le p$ :
         $$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) = -\varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p)$$
-        Concrètement, cela signifie que $\varphi$ est invariant par permutation de ses variables.
-        \item $\varphi$ est \textbf{alternée} lorsque pour tout $(x_1,\dots,x_p) \in E^p$, si $\exists i \ne j \in [\![1,p]\!]$ tel que $x_i = x_j$ implique que $\varphi(x_1, \dots, x_p) = 0_\Kset$.
+        \item $\varphi$ est \textbf{alternée} lorsque le résultat est nul dès que deux variables sont identiques.
+        $$\forall (x_1,\dots,x_p) \in E^p, \left(\exists i \ne j \in [\![1,p]\!] \tq x_i = x_j\right) \implies \varphi(x_1, \dots, x_p) = 0_\Kset$$
     \end{itemize}
 \end{definition}
 
 \begin{property}
-    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\varphi$ est antisymétrique, alors $\varphi$ est alternée.
+    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\Kset$ est un corps de caractéristique différente de $2$, alors :
     $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
 \end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 \textbf{Sens direct : $\implies$}
+        \2 Soit $\varphi$ une forme $p$-linéaire antisymétrique. Montrons qu'elle est alternée.
+        \2 Soit $(x_1,\dots,x_p) \in E^p$ un n-uplet tel qu'il existe deux indices distincts $i < j$ avec $x_i = x_j = x$.
+        \2 Par antisymétrie, l'échange des composantes aux indices $i$ et $j$ produit :
+        $$\varphi(x_1, \dots, x, \dots, x, \dots, x_p) = -\varphi(x_1, \dots, x, \dots, x, \dots, x_p)$$
+        \2 On en déduit que $2 \cdot \varphi(x_1, \dots, x_p) = 0_\Kset$. Comme $\text{car}(\Kset) \neq 2$, l'élément $2$ est inversible dans le corps, ce qui implique :
+        $$\varphi(x_1, \dots, x_p) = 0_\Kset$$
+        \2 La forme $\varphi$ est donc alternée.
+
+        \1 \textbf{Sens indirect : $\impliedby$}
+        \2 Soit $\varphi$ une forme $p$-linéaire alternée. Montrons qu'elle est antisymétrique.
+        \2 Soit $(x_1,\dots,x_p) \in E^p$ et deux indices distincts $i < j$. Évaluons la forme sur un vecteur dupliqué $x_i + x_j$ aux positions $i$ et $j$ :
+        $$\varphi(x_1, \dots, x_i + x_j, \dots, x_i + x_j, \dots, x_p) = 0_\Kset$$
+        \2 Par linéarité par rapport à la $i$-ième variable, puis par rapport à la $j$-ième variable, on développe la relation en quatre termes :
+        \begin{align*}
+            \varphi(x_1, \dots, x_i, \dots, x_i, \dots, x_p) &+ \varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) \\
+            +\, \varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p) &+ \varphi(x_1, \dots, x_j, \dots, x_j, \dots, x_p) = 0_\Kset
+        \end{align*}
+        \2 Puisque $\varphi$ est alternée, le premier terme (où $x_i$ est répété) et le quatrième terme (où $x_j$ est répété) sont nuls. L'équation se simplifie en :
+        $$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) + \varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p) = 0_\Kset$$
+        \2 Ce qui donne immédiatement par transposition de terme :
+        $$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) = -\varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p)$$
+        \2 La forme $\varphi$ est donc antisymétrique.
+    \end{outline}
+\end{proof}
+
+On rappelle que la caractéristique d'un corps $\Kset$ est définie par :
+$$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, sinon } 0\}$$
+
+\textbf{Par suite, on notera $\mathscr{A}_n(E)$ l'ensemble des formes $n$-linéaires alternées sur $E$.}
+
+\begin{property}
+    Soit $\varphi \in \mathscr A_n(E)$ une forme $n$-linéaire alternée sur un $\Kset$-ev. $E$, avec $n \in \N^*$.
+    $$\forall (x_1, \dots, x_n) \in E^n, \quad \text{la famille } (x_1, \dots, x_n) \text{ est liée} \implies \varphi(x_1, \dots, x_n) = 0_\Kset$$
+\end{property}
+
+\begin{proof}
+    \begin{outline}
+        \1 Soit $\varphi \in \mathscr A_n(E)$ et $(x_1, \dots, x_n) \in E^n$ une famille liée de vecteurs.
+        \1 Par définition d'une famille liée, il existe au moins un indice $k \in [\![1,n]\!]$ tel que le vecteur $x_k$ s'écrive comme une combinaison linéaire des autres vecteurs de la famille :
+        $$x_k = \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i x_i, \quad \text{où } \lambda_i \in \Kset$$
+        \1 Par linéarité de $\varphi$ par rapport à sa $k$-ième variable, on peut extraire la somme et les scalaires :
+        \begin{align*}
+            \varphi(x_1, \dots, x_n) &= \varphi\left(x_1, \dots, x_{k-1}, \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i x_i, x_{k+1}, \dots, x_n\right) \\
+            &= \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i \varphi(x_1, \dots, x_{k-1}, x_i, x_{k+1}, \dots, x_n)
+        \end{align*}
+        \1 Pour chaque terme de cette somme, l'indice courant de la sommation $i$ prend une valeur distincte de $k$. Le vecteur $x_i$ apparaît donc deux fois dans le n-uplet : à sa position d'origine $i$ et à la position $k$.
+        \1 Puisque $\varphi$ est alternée, chacun de ces sous-déterminants s'annule identiquement. La somme de termes nuls étant nulle, on obtient :
+        $$\varphi(x_1, \dots, x_n) = 0_\Kset$$
+    \end{outline}
+\end{proof}
+
+\begin{consequence}[Invariance par opération élémentaire]
+    Soit $\varphi \in \mathscr A_n(E)$ une forme $n$-linéaire alternée sur $E$. La valeur de la forme est invariante si l'on ajoute à une variable une combinaison linéaire des autres variables.
+    $$\forall (x_1, \dots, x_n) \in E^n, \ \forall (\lambda_2, \dots, \lambda_n) \in \Kset^{n-1}$$
+    $$\varphi\left(x_1 + \sum_{i=2}^{n} \lambda_i x_i, x_2, \dots, x_n\right) = \varphi(x_1, x_2, \dots, x_n)$$
+\end{consequence}
+
+\begin{proof}
+    Soient $\varphi \in \mathscr A_n(E)$, $(x_1, \dots, x_n) \in E^n$ et $(\lambda_2, \dots, \lambda_n) \in \Kset^{n-1}$.
+    
+    En utilisant la linéarité de $\varphi$ par rapport à sa première composante, on développe l'expression :
+    $$\varphi\left(x_1 + \sum_{i=2}^{n} \lambda_i x_i, x_2, \dots, x_n\right) = \varphi(x_1, x_2, \dots, x_n) + \sum_{i=2}^{n} \lambda_i \varphi(x_i, x_2, \dots, x_n)$$
+
+    Pour tout $i \in [\![2,n]\!]$, le vecteur $x_i$ de la somme apparaît à la fois à la première position et à la $i$-ième position dans l'expression $\varphi(x_i, x_2, \dots, x_n)$. L'application étant alternée, ce terme s'annule pour chaque valeur de $i$. 
+    
+    Il ne subsiste donc que le premier terme libre :
+    $$\varphi\left(x_1 + \sum_{i=2}^{n} \lambda_i x_i, x_2, \dots, x_n\right) = \varphi(x_1, x_2, \dots, x_n)$$
+\end{proof}
 
 \printindex
 \end{document}
