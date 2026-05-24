@@ -722,5 +722,226 @@ $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, si
     $$\varphi\left(x_1 + \sum_{i=2}^{n} \lambda_i x_i, x_2, \dots, x_n\right) = \varphi(x_1, x_2, \dots, x_n)$$
 \end{proof}
 
+\begin{consequence}
+    Si $E$ est un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$, alors :
+    $$\forall p > n, \quad \mathscr A_p(E) = \{0\}$$
+    Où $0$ désigne la forme $p$-linéaire nulle sur $E$.
+\end{consequence}
+
+\begin{proof}
+    Soit $E$ un $\Kset$-espace vectoriel de dimension $n \in \N^*$ et soit $p > n$.
+    Soit $\varphi \in \mathscr A_p(E)$ une forme $p$-linéaire alternée sur $E$. 
+    
+    Par définition de la dimension, le cardinal maximal d'une famille libre dans $E$ est $n$. Par conséquent, toute famille contenant $p$ vecteurs (avec $p > n$) est nécessairement liée. En particulier, pour tout $(x_1, \dots, x_p) \in E^p$, la famille $(x_1, \dots, x_p)$ est liée.
+
+    D'après la propriété d'annulation sur les familles liées, on en déduit que :
+    $$\forall (x_1, \dots, x_p) \in E^p, \quad \varphi(x_1, \dots, x_p) = 0_\Kset$$
+
+    Ainsi, $\varphi$ est l'application nulle. Par conséquent, le seul élément de cet espace est la forme nulle :
+    $$\mathscr A_p(E) = \{0\}$$
+\end{proof}
+
+\begin{property}
+    Pour toute forme $\varphi \in \mathscr A_p(E)$ et pour toute permutation $\sigma \in S_p$ :
+    $$\forall (x_1, \dots, x_p) \in E^p, \quad \varphi(x_{\sigma(1)}, \dots, x_{\sigma(p)}) = \varepsilon(\sigma) \cdot \varphi(x_1, \dots, x_p)$$
+\end{property}
+
+\begin{proof}
+    Soit $\varphi \in \mathscr A_p(E)$. Montrons par récurrence sur le nombre $r \in \N$ de transpositions que si une permutation $\sigma \in S_p$ s'écrit comme le produit de $r$ transpositions, alors la relation est vérifiée.
+
+    \begin{itemize}
+        \item \textbf{Initialisation ($r = 0$)} : Si $\sigma$ est le produit de $0$ transposition, alors $\sigma = \Id$. On a $\varepsilon(\Id) = 1$ et $\varphi(x_{\Id(1)}, \dots, x_{\Id(p)}) = 1 \cdot \varphi(x_1, \dots, x_p)$, la propriété est vraie.
+        
+        \item \textbf{Hérédité} : Soit $r \in \N$. Supposons que la propriété soit vraie pour toute permutation décomposable en $r$ transpositions. Soit $\sigma$ une permutation s'exprimant comme un produit de $r+1$ transpositions :
+        $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r \circ \tau_{r+1}$$
+        Posons $\theta = \tau_2 \circ \dots \circ \tau_{r+1}$, qui est un produit de $r$ transpositions. Par hypothèse de récurrence, on a :
+        $$\varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) = \varepsilon(\theta) \cdot \varphi(x_1, \dots, x_p) = (-1)^r \cdot \varphi(x_1, \dots, x_p)$$
+        
+        La permutation $\sigma$ s'écrit $\sigma = \tau_1 \circ \theta$. L'application d'une unique transposition $\tau_1$ inverse le signe de la forme par antisymétrie (propriété démontrée précédemment pour les formes alternées). On a donc :
+        \begin{align*}
+            \varphi(x_{\sigma(1)}, \dots, x_{\sigma(p)}) &= \varphi(x_{\tau_1(\theta(1))}, \dots, x_{\tau_1(\theta(p))}) \\
+            &= - \varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) \\
+            &= - \left( (-1)^r \cdot \varphi(x_1, \dots, x_p) \right) \\
+            &= (-1)^{r+1} \cdot \varphi(x_1, \dots, x_p)
+        \end{align*}
+        Comme $\varepsilon(\sigma) = (-1)^{r+1}$, l'hérédité est démontrée.
+    \end{itemize}
+    Tout élément de $S_p$ admettant une décomposition en produit fini de transpositions, la relation est vérifiée pour toute permutation de $S_p$.
+\end{proof}
+
+\chapter*{Exercices d'assimilation}
+
+Cette section ne fait pas partie du cours officiel.
+
+\begin{exercise}[Étude d'une permutation et calculs explicites]
+    Soit $\sigma$ la permutation de $S_6$ définie par :
+    $$\sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\ 4 & 6 & 1 & 2 & 5 & 3 \end{pmatrix}$$
+    
+    \begin{enumerate}
+        \item Déterminer explicitement l'ensemble des inversions de $\sigma$. En déduire la valeur de sa signature $\varepsilon(\sigma)$.
+        \item Décomposer $\sigma$ en produit de cycles à supports disjoints. En utilisant les propriétés du cours sur la signature d'un cycle, retrouver le résultat de la question précédente.
+        \item Décomposer la permutation $\sigma$ en un produit de transpositions. Ce produit est-il unique ? Le nombre de transpositions utilisées est-il unique ?
+    \end{enumerate}
+\end{exercise}
+
+\begin{enumerate}
+    \item Pour déterminer le nombre d'inversions $I(\sigma)$, nous listons méthodiquement les couples $(i,j)$ tels que $i < j$ et $\sigma(i) > \sigma(j)$ :
+    \begin{itemize}
+        \item Pour $i=1$ ($\sigma(1)=4$) : les inversions sont $(1,3)$ car $4 > 1$, $(1,4)$ car $4 > 2$, et $(1,6)$ car $4 > 3$ (3 inversions).
+        \item Pour $i=2$ ($\sigma(2)=6$) : les inversions sont $(2,3)$, $(2,4)$, $(2,5)$, et $(2,6)$ car l'élément $6$ est strictement supérieur à toutes les images suivantes (4 inversions).
+        \item Pour $i=3$ ($\sigma(3)=1$) : aucune inversion car $1$ est la valeur minimale de l'ensemble d'arrivée.
+        \item Pour $i=4$ ($\sigma(4)=2$) : aucune inversion car toutes les images à sa droite sont supérieures ($5$ et $3$).
+        \item Pour $i=5$ ($\sigma(5)=5$) : l'unique inversion est $(5,6)$ car $5 > 3$ (1 inversion).
+    \end{itemize}
+    En sommant ces résultats, on obtient $I(\sigma) = 3 + 4 + 0 + 0 + 1 = 8$ inversions. 
+    D'après la relation liant la signature au nombre d'inversions, on en déduit :
+    $$\varepsilon(\sigma) = (-1)^{I(\sigma)} = (-1)^8 = 1$$
+    La permutation $\sigma$ est donc une permutation paire.
+
+    \item Déterminons les orbites de chaque élément pour obtenir la décomposition en cycles disjoints :
+    \begin{itemize}
+        \item $1 \mapsto 4 \mapsto 2 \mapsto 6 \mapsto 3 \mapsto 1$, ce qui engendre le $5$-cycle $(1 \ 4 \ 2 \ 6 \ 3)$.
+        \item $5 \mapsto 5$, l'élément $5$ est un point fixe.
+    \end{itemize}
+    La décomposition de $\sigma$ en produit de cycles à supports disjoints est donc :
+    $$\sigma = (1 \ 4 \ 2 \ 6 \ 3)$$
+    La signature d'un $p$-cycle étant égale à $(-1)^{p-1}$, on obtient pour ce $5$-cycle :
+    $$\varepsilon(\sigma) = (-1)^{5-1} = (-1)^4 = 1$$
+    On retrouve bien de manière cohérente le résultat de la question précédente.
+
+    \item En utilisant la décomposition explicite d'un cycle en produit de transpositions issue du cours, on peut écrire :
+    $$\sigma = (1 \ 3) \circ (1 \ 6) \circ (1 \ 2) \circ (1 \ 4)$$
+    Cette décomposition n'est pas unique. Par exemple, en exploitant l'involutivité d'une transposition ($\tau \circ \tau = \Id$), on peut insérer des termes redondants :
+    $$\sigma = (1 \ 3) \circ (1 \ 6) \circ (1 \ 2) \circ (1 \ 4) \circ (5 \ 6) \circ (5 \ 6)$$
+    De fait, le nombre de transpositions utilisées n'est pas unique (on passe ici de $4$ à $6$ transpositions). En revanche, par morphisme de la signature, la parité du nombre $r$ de transpositions est un invariant structurel de la permutation. Comme $\varepsilon(\sigma) = 1$, le nombre de transpositions sera systématiquement pair puisque $(-1)^r = 1$.
+\end{enumerate}
+
+\begin{exercise}[Autour de la signature et des structures de groupes]
+    L'objectif de cet exercice est d'établir des propriétés structurelles sur le groupe symétrique.
+    \begin{enumerate}
+        \item Soit $\sigma \in S_n$. Montrer que la permutation $\sigma$ et son inverse $\sigma^{-1}$ possèdent exactement le même nombre d'inversions, c'est-à-dire que $I(\sigma) = I(\sigma^{-1})$.
+        \item Soit $n \ge 2$. Montrer que le groupe alterné $\mathcal{A}_n$ est engendré par les $3$-cycles du groupe symétrique $S_n$.
+        
+        \textit{Indication : On rappellera que $\mathcal{A}_n$ est engendré par les produits de paires de transpositions, puis on étudiera les produits de la forme $(i \ j) \circ (i \ k)$ et $(i \ j) \circ (k \ l)$ pour des indices distincts.}
+    \end{enumerate}
+\end{exercise}
+
+\begin{enumerate}
+    \item Soit $\sigma \in S_n$. Notons $\mathcal{I}(\sigma)$ l'ensemble des inversions de $\sigma$. Par définition :
+    $$\mathcal{I}(\sigma) = \left\{ (i,j) \in [\![1,n]\!]^2 \ \middle| \ i < j \et \sigma(i) > \sigma(j) \right\}$$
+    
+    Considérons l'application suivante qui opère sur les paires d'indices :
+    $$f : \begin{matrix} \mathcal{I}(\sigma) \to \mathcal{I}(\sigma^{-1}) \\ (i,j) \mapsto (\sigma(j), \sigma(i)) \end{matrix}$$
+    Vérifions que l'image d'une inversion de $\sigma$ par $f$ est bien une inversion de $\sigma^{-1}$. Soit $(i,j) \in \mathcal{I}(\sigma)$. Posons $k = \sigma(j)$ and $l = \sigma(i)$. 
+    Puisque $(i,j)$ est une inversion de $\sigma$, on a par hypothèse $i < j$ et $l > k$, ce qui donne trivialement $k < l$.
+    En appliquant l'application inverse $\sigma^{-1}$, on retrouve :
+    $$\sigma^{-1}(k) = j \quad \text{et} \quad \sigma^{-1}(l) = i$$
+    Comme $i < j$, on en déduit que $\sigma^{-1}(k) > \sigma^{-1}(l)$. Le couple d'indices $(k,l)$ vérifie donc $k < l$ et $\sigma^{-1}(k) > \sigma^{-1}(l)$, ce qui caractérise rigoureusement une inversion de $\sigma^{-1}$. L'application $f$ est donc bien définie.
+    
+    Pour démontrer rigoureusement que $f$ est bijective, construisons explicitement son application réciproque. Par symétrie du problème, considérons l'application candidate suivante :
+    $$g : \begin{matrix} \mathcal{I}(\sigma^{-1}) \to \mathcal{I}(\sigma) \\ (k,l) \mapsto (\sigma^{-1}(l), \sigma^{-1}(k)) \end{matrix}$$
+    Par un raisonnement identique à celui mené pour $f$, l'application $g$ est bien définie. Évaluons les compositions des deux applications pour vérifier qu'elles s'identifient aux identités respectives des ensembles d'inversions :
+
+    \begin{itemize}
+        \item Pour tout couple $(i,j) \in \mathcal{I}(\sigma)$, on a :
+        $$(g \circ f)(i,j) = g\bigl(f(i,j)\bigr) = g\bigl(\sigma(j), \sigma(i)\bigr)$$
+        \item En appliquant la définition de $g$ sur le couple d'arguments $\bigl(\sigma(j), \sigma(i)\bigr)$, on obtient :
+        $$g\bigl(\sigma(j), \sigma(i)\bigr) = \Bigl(\sigma^{-1}\bigl(\sigma(i)\bigr), \sigma^{-1}\bigl(\sigma(j)\bigr)\Bigr) = (i,j)$$
+        \item On a donc $g \circ f = \Id_{\mathcal{I}(\sigma)}$.
+
+        \item Pour tout couple $(k,l) \in \mathcal{I}(\sigma^{-1})$, on a de la même manière :
+        $$(f \circ g)(k,l) = f\bigl(g(k,l)\bigr) = f\bigl(\sigma^{-1}(l), \sigma^{-1}(k)\bigr)$$
+        \item En appliquant la définition de $f$ sur le couple d'arguments $\bigl(\sigma^{-1}(l), \sigma^{-1}(k)\bigr)$, on obtient :
+        $$f\bigl(\sigma^{-1}(l), \sigma^{-1}(k)\bigr) = \Bigl(\sigma\bigl(\sigma^{-1}(k)\bigr), \sigma\bigl(\sigma^{-1}(l)\bigr)\Bigr) = (k,l)$$
+        \item On a donc $f \circ g = \Id_{\mathcal{I}(\sigma^{-1})}$.
+    \end{itemize}
+
+    L'application $f$ admet une application réciproque à gauche et à droite (qui est $g$). $f$ est donc une bijection. Cela implique l'égalité des cardinaux des ensembles de départ et d'arrivée, d'où :
+    $$I(\sigma) = I(\sigma^{-1})$$
+
+    \item Par propriété du cours, le groupe alterné $\mathcal{A}_n$ est constitué des permutations paires, et chaque permutation de $\mathcal{A}_n$ peut se décomposer en un produit comportant un nombre pair de transpositions. On peut donc regrouper les transpositions de cette décomposition par paires consécutives de la forme $\tau_1 \circ \tau_2$.
+    
+    Soient deux transpositions quelconques $\tau_1$ et $\tau_2$ opérant dans $S_n$. Nous pouvons analyser de manière exhaustive les trois configurations géométriques possibles pour leurs supports :
+    \begin{itemize}
+        \item \textbf{Cas 1 : Les supports sont identiques.} Si les deux transpositions échangent les mêmes éléments $i$ et $j$, alors :
+        $$\tau_1 \circ \tau_2 = (i \ j) \circ (i \ j) = \Id$$
+        L'identité peut s'exprimer comme le produit d'un $3$-cycle quelconque et de son inverse : $\Id = (i \ j \ k) \circ (i \ k \ j)$, où $k$ est un troisième indice distinct choisi dans $[\![1,n]\!]$.
+        
+        \item \textbf{Cas 2 : Les supports ont exactement un élément en commun.} Supposons sans perte de généralité que cet élément pivot commun soit $i$. Les deux transpositions s'écrivent $(i \ j)$ et $(i \ k)$ avec $j \neq k$. En évaluant la composée sur chaque élément, on obtient :
+        $$(i \ j) \circ (i \ k) = (i \ k \ j)$$
+        Le produit de deux transpositions ayant un élément commun est donc égal à un $3$-cycle de $S_n$.
+        
+        \item \textbf{Cas 3 : Les supports sont strictement disjoints.} Soient quatre indices distincts deux à deux $i, j, k, l$. Les deux transpositions s'écrivent $(i \ j)$ et $(k \ l)$. Afin de faire apparaître des points de contact, on insère l'identité sous la forme $(i \ k) \circ (i \ k)$ au centre du produit :
+        $$(i \ j) \circ (k \ l) = (i \ j) \circ \Id \circ (k \ l) = \underbrace{(i \ j) \circ (i \ k)}_{\text{Cas 2}} \circ \underbrace{(i \ k) \circ (k \ l)}_{\text{Cas 2}}$$
+        En appliquant le résultat établi dans le Cas 2 aux deux blocs de calcul distincts, on obtient :
+        $$(i \ j) \circ (k \ l) = (i \ k \ j) \circ (k \ l \ i)$$
+        Le produit de deux transpositions disjointes se factorise donc sous la forme d'un produit de deux $3$-cycles.
+    \end{itemize}
+    Dans chaque cas de figure, le produit de deux transpositions se décompose exclusivement comme un produit de $3$-cycles. Par stabilité de la loi de composition interne, toute permutation paire (élément de $\mathcal{A}_n$) est décomposable en un produit de $3$-cycles. On en conclut que la famille des $3$-cycles engendre le groupe alterné $\mathcal{A}_n$.
+\end{enumerate}
+
+\begin{exercise}[Formes bilinéaires symétriques et alternées]
+    Soit $E$ un $\Kset$-espace vectoriel où $\Kset$ est un corps de caractéristique différente de $2$. On note $\mathcal{L}_2(E, \Kset)$ l'espace vectoriel des formes bilinéaires sur $E$, $\mathscr{S}_2(E)$ l'ensemble des formes bilinéaires symétriques, et $\mathscr{A}_2(E)$ l'ensemble des formes bilinéaires alternées.
+    
+    \begin{enumerate}
+        \item Démontrer que $\mathscr{S}_2(E)$ et $\mathscr{A}_2(E)$ sont deux sous-espaces vectoriels de $\mathcal{L}_2(E, \Kset)$.
+        \item Montrer que l'espace des formes bilinéaires se décompose en somme directe sous la forme :
+        $$\mathcal{L}_2(E, \Kset) = \mathscr{S}_2(E) \oplus \mathscr{A}_2(E)$$
+        \item On suppose dans cette question que l'espace $E$ est de dimension finie $n \in \N^*$. Déduire des questions précédentes la dimension de l'espace vectoriel $\mathscr{A}_2(E)$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{enumerate}
+    \item L'application nulle de $\mathcal{L}_2(E, \Kset)$ est trivialement symétrique et alternée, donc $\mathscr{S}_2(E)$ et $\mathscr{A}_2(E)$ sont non vides.
+    \begin{itemize}
+        \item Soient $\lambda \in \Kset$ et $\varphi_1, \varphi_2 \in \mathscr{S}_2(E)$. Pour tout $(x,y) \in E^2$ :
+        $$(\lambda \varphi_1 + \varphi_2)(y,x) = \lambda \varphi_1(y,x) + \varphi_2(y,x) = \lambda \varphi_1(x,y) + \varphi_2(x,y) = (\lambda \varphi_1 + \varphi_2)(x,y)$$
+        La combinaison linéaire est symétrique, donc $\mathscr{S}_2(E)$ est un sous-espace vectoriel de $\mathcal{L}_2(E, \Kset)$.
+        
+        \item Soient $\lambda \in \Kset$ et $\psi_1, \psi_2 \in \mathscr{A}_2(E)$. Pour tout $x \in E$ :
+        $$(\lambda \psi_1 + \psi_2)(x,x) = \lambda \psi_1(x,x) + \psi_2(x,x) = \lambda \cdot 0 + 0 = 0$$
+        La combinaison linéaire est alternée, donc $\mathscr{A}_2(E)$ est un sous-espace vectoriel de $\mathcal{L}_2(E, \Kset)$.
+    \end{itemize}
+
+    \item Procédons par analyse-synthèse pour montrer que $\mathcal{L}_2(E, \Kset) = \mathscr{S}_2(E) \oplus \mathscr{A}_2(E)$.
+    \begin{itemize}
+        \item \textbf{Analyse} : Soit $f \in \mathcal{L}_2(E, \Kset)$. Supposons qu'il existe $s \in \mathscr{S}_2(E)$ et $a \in \mathscr{A}_2(E)$ tels que $f = s + a$. Pour tout $(x,y) \in E^2$, on a :
+        $$
+        \begin{cases}
+            f(x,y) = s(x,y) + a(x,y) \\
+            f(y,x) = s(y,x) + a(y,x) = s(x,y) - a(x,y)
+        \end{cases}
+        $$
+        Par somme et différence des deux lignes (puisque $\text{car}(\Kset) \neq 2$), les formes $s$ et $a$ sont uniquement déterminées par :
+        $$s(x,y) = \frac{1}{2}\bigl(f(x,y) + f(y,x)\bigr) \quad \text{et} \quad a(x,y) = \frac{1}{2}\bigl(f(x,y) - f(y,x)\bigr)$$
+        L'unicité de la décomposition prouve que la somme est directe : $\mathscr{S}_2(E) \cap \mathscr{A}_2(E) = \{0\}$.
+        
+        \item \textbf{Synthèse} : Soit $f \in \mathcal{L}_2(E, \Kset)$. Définissons les deux applications $s$ et $a$ sur $E^2$ par les formules obtenues lors de l'analyse. Par bilinéarité de $f$, $s$ et $a$ sont trivialement bilinéaires.
+        De plus, pour tout $(x,y) \in E^2$, $s(y,x) = s(x,y)$, donc $s \in \mathscr{S}_2(E)$.
+        Pour tout $x \in E$, $a(x,x) = \frac{1}{2}(f(x,x) - f(x,x)) = 0$, donc $a \in \mathscr{A}_2(E)$.
+        Enfin, on vérifie immédiatement que $s(x,y) + a(x,y) = f(x,y)$, ce qui valide l'existence de la décomposition.
+    \end{itemize}
+    On conclut que $\mathcal{L}_2(E, \Kset) = \mathscr{S}_2(E) \oplus \mathscr{A}_2(E)$.
+
+    \item L'espace $E$ étant de dimension finie $n$, fixons une base $\mathcal{B} = (e_1, \dots, e_n)$ de $E$. L'application qui à toute forme bilinéaire associe sa matrice représentative dans la base $\mathcal{B}$ est un isomorphisme d'espaces vectoriels entre $\mathcal{L}_2(E, \Kset)$ et $\mathcal{M}_n(\Kset)$. 
+    
+    Par cet isomorphisme, l'espace des formes alternées $\mathscr{A}_2(E)$ est isomorphe à l'espace des matrices antisymétriques $\mathcal{A}_n(\Kset)$. Une matrice antisymétrique $M = (m_{i,j})$ possède une diagonale nulle ($m_{i,i} = 0$) et ses coefficients sous la diagonale sont uniquement déterminés par la relation $m_{i,j} = -m_{j,i}$. Sa dimension est donc égale au nombre de coefficients situés strictement au-dessus de la diagonale, d'où :
+    $$\dim\bigl(\mathscr{A}_2(E)\bigr) = \dim\bigl(\mathcal{A}_n(\Kset)\bigr) = \frac{n(n-1)}{2}$$
+\end{enumerate}
+
+\begin{exercise}[Propriétés des $\mathscr A_n(E)$ et trace d'un $\mathcal L(E)$]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension $n \ge 1$ et soit $\varphi \in \mathscr{A}_n(E)$ une forme $n$-linéaire alternée non nulle. 
+    Soit $f \in \mathcal{L}(E)$ un endomorphisme de $E$. On définit une application $\varphi_f$ de $E^n$ dans $\Kset$ par :
+    $$\forall (x_1, \dots, x_n) \in E^n, \quad \varphi_f(x_1, \dots, x_n) = \sum_{i=1}^n \varphi(x_1, \dots, x_{i-1}, f(x_i), x_{i+1}, \dots, x_n)$$
+    
+    \begin{enumerate}
+        \item Montrer que l'application $\varphi_f$ est une forme $n$-linéaire sur $E$.
+        \item Démontrer que $\varphi_f$ est une forme alternée.
+        \item On admet que l'espace vectoriel $\mathscr{A}_n(E)$ des formes $n$-linéaires alternées est de dimension $1$ lorsque $\dim(E) = n$. Que peut-on en déduire concernant la relation entre la forme $\varphi_f$ et la forme d'origine $\varphi$ ?
+    \end{enumerate}
+\end{exercise}
+
+
+
 \printindex
 \end{document}
