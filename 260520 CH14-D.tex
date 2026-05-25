@@ -634,7 +634,7 @@ Ce dernier théorème est admis (sans preuve).
 
 \section{Antisymétrie et alternance}
 
-\begin{definition}[Application symétrique et alternée]
+\begin{definition}[Forme symétrique et alternée]
     Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$, avec $p \in \N^*$ et $E$ un $\Kset$-espace vectoriel.
     
     \begin{itemize}
@@ -649,6 +649,23 @@ Ce dernier théorème est admis (sans preuve).
     Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\Kset$ est un corps de caractéristique différente de $2$, alors :
     $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
 \end{property}
+
+\begin{example}[Forme symétrique]
+    Soit $E = \R^n$. L'application $\varphi : E \times E \to \R$ définie par le produit scalaire usuel :
+    $$\forall (x,y) \in E^2, \quad \varphi(x,y) = \langle x, y \rangle = \sum_{k=1}^n x_k y_k$$
+    est une forme bilinéaire symétrique. En effet, la commutativité de la multiplication dans $\R$ implique immédiatement que $\varphi(x,y) = \varphi(y,x)$. Elle n'est ni alternée ni antisymétrique (sauf si les vecteurs sont orthogonaux).
+\end{example}
+
+\begin{example}[Forme alternée et antisymétrique]
+    Soit $E = \R^3$ muni de sa base canonique et de son produit scalaire usuel. L'application $\psi : E \times E \times E \to \R$ définie par le produit mixte de trois vecteurs :
+    $$\forall (x,y,z) \in E^3, \quad \psi(x,y,z) = [x, y, z] = \langle x \wedge y, z \rangle$$
+    est une forme trilinéaire ($p=3$). 
+    \begin{itemize}
+        \item \textbf{Alternance} : Si deux vecteurs sont identiques, par exemple $x = y$, le produit vectoriel s'annule ($x \wedge x = 0_{\R^3}$), ce qui donne $\psi(x,x,z) = \langle 0_{\R^3}, z \rangle = 0$. L'application est donc alternée.
+        \item \textbf{Antisymétrie} : Par les propriétés géométriques du produit vectoriel, échanger deux variables inversent le signe du résultat, par exemple :
+        $$\psi(y,x,z) = \langle y \wedge x, z \rangle = \langle -(x \wedge y), z \rangle = -\psi(x,y,z)$$
+    \end{itemize}
+\end{example}
 
 \begin{proof}
     \begin{outline}
@@ -923,8 +940,14 @@ Cette section ne fait pas partie du cours officiel.
     \end{itemize}
     On conclut que $\mathcal{L}_2(E, \Kset) = \mathscr{S}_2(E) \oplus \mathscr{A}_2(E)$.
 
-    \item L'espace $E$ étant de dimension finie $n$, fixons une base $\mathcal{B} = (e_1, \dots, e_n)$ de $E$. L'application qui à toute forme bilinéaire associe sa matrice représentative dans la base $\mathcal{B}$ est un isomorphisme d'espaces vectoriels entre $\mathcal{L}_2(E, \Kset)$ et $\mathcal{M}_n(\Kset)$. 
+    \item L'espace $E$ étant de dimension finie $n$, fixons une base $\mathcal{B} = (e_1, \dots, e_n)$ de $E$. L'application qui à toute forme bilinéaire associe sa matrice représentative dans la base $\mathcal{B}$ est un isomorphisme d'espaces vectoriels entre $\mathcal{L}_2(E, \Kset)$ et $\mathcal{M}_n(\Kset)$.
     
+    On rappelle que, pour tout $\Kset$-espaces vectoriels $E,F$ de dimensions respectives $n$ et $m$, l'application suivante est bijective :
+    $$\psi : \begin{matrix} \mathcal L(E,F) & \to & \mathcal M_{m,n}(\Kset) \\ f & \mapsto & \Mat(f,\mathcal{B},\mathcal{C}) \end{matrix}$$
+    Où $\mathcal{B}$ et $\mathcal{C}$ sont des bases respectives de $E$ et $F$. En particulier, pour $F = \Kset$, on a l'isomorphisme :
+    $$\psi : \begin{matrix} \mathcal L(E,\Kset) & \to & \mathcal M_{1,n}(\Kset) \\ f & \mapsto & \Mat_{}(f),\mathcal{B},\mathcal{B}_{\mathrm{can}} \end{matrix}$$
+
+
     Par cet isomorphisme, l'espace des formes alternées $\mathscr{A}_2(E)$ est isomorphe à l'espace des matrices antisymétriques $\mathcal{A}_n(\Kset)$. Une matrice antisymétrique $M = (m_{i,j})$ possède une diagonale nulle ($m_{i,i} = 0$) et ses coefficients sous la diagonale sont uniquement déterminés par la relation $m_{i,j} = -m_{j,i}$. Sa dimension est donc égale au nombre de coefficients situés strictement au-dessus de la diagonale, d'où :
     $$\dim\bigl(\mathscr{A}_2(E)\bigr) = \dim\bigl(\mathcal{A}_n(\Kset)\bigr) = \frac{n(n-1)}{2}$$
 \end{enumerate}
@@ -941,7 +964,82 @@ Cette section ne fait pas partie du cours officiel.
     \end{enumerate}
 \end{exercise}
 
+\begin{enumerate}
+    \item L'application $\varphi$ étant une forme $n$-linéaire, elle est bien définie de $E^n$ dans $\Kset$. L'application $\varphi_f$ est donc également bien définie de $E^n$ dans $\Kset$ comme somme finie de termes scalaires.
+    
+    Montrons que $\varphi_f$ est linéaire par rapport à sa $k$-ième variable (pour un indice $k \in [\![1,n]\!]$ fixé). 
+    Soient $x_k, y_k \in E$, $\alpha \in \Kset$ et $(x_1, \dots, x_{k-1}, x_{k+1}, \dots, x_n) \in E^{n-1}$. Évaluons $\varphi_f(x_1, \dots, \alpha x_k + y_k, \dots, x_n)$ en séparant la somme définissant $\varphi_f$ en trois blocs distincts : le terme $i = k$, et les termes $i \neq k$.
+    \begin{align*}
+        &\varphi_f(x_1, \dots, \alpha x_k + y_k, \dots, x_n) = \sum_{i=1}^n \varphi(x_1, \dots, f(x_i), \dots, \alpha x_k + y_k, \dots, x_n) \\
+        &= \sum_{i=1}^{k-1} \varphi(x_1, \dots, f(x_i), \dots, \alpha x_k + y_k, \dots, x_n) \\
+        &+ \varphi(x_1, \dots, x_{k-1}, f(\alpha x_k + y_k), x_{k+1}, \dots, x_n) \\
+        &+ \sum_{i=k+1}^n \varphi(x_1, \dots, \alpha x_k + y_k, \dots, f(x_i), \dots, x_n)
+    \end{align*}
+    En utilisant la linéarité de $f$ sur le terme central ($f(\alpha x_k + y_k) = \alpha f(x_k) + f(y_k)$) et la linéarité de la forme $\varphi$ par rapport à ses composantes pour chaque bloc, on peut extraire le scalaire $\alpha$ et séparer les structures :
+    \begin{align*}
+        &= \alpha \left[ \sum_{i=1}^{k-1} \varphi(\dots, f(x_i), \dots, x_k, \dots) + \varphi(\dots, f(x_k), \dots) + \sum_{i=k+1}^n \varphi(\dots, x_k, \dots, f(x_i), \dots) \right] \\
+        &+ \left[ \sum_{i=1}^{k-1} \varphi(\dots, f(x_i), \dots, y_k, \dots) + \varphi(\dots, f(y_k), \dots) + \sum_{i=k+1}^n \varphi(\dots, y_k, \dots, f(x_i), \dots) \right] \\
+        &= \alpha \varphi_f(x_1, \dots, x_k, \dots, x_n) + \varphi_f(x_1, \dots, y_k, \dots, x_n)
+    \end{align*}
+    L'application $\varphi_f$ est linéaire par rapport à sa $k$-ième variable pour tout $k \in [\![1,n]\!]$, elle est donc $n$-linéaire sur $E$.
 
+    \item Montrons que $\varphi_f$ est une forme alternée. Soit $(x_1, \dots, x_n) \in E^n$ un n-uplet tel qu'il existe deux indices distincts $k < l$ pour lesquels $x_k = x_l = x$. Analysons les termes de la somme $\varphi_f(x_1, \dots, x_n)$ :
+    $$\varphi_f(x_1, \dots, x_n) = \sum_{i=1}^n \varphi(x_1, \dots, x_k, \dots, x_l, \dots, x_{i-1}, f(x_i), x_{i+1}, \dots, x_n)$$
+    \begin{itemize}
+        \item Pour tout indice $i \notin \{k, l\}$, le n-uplet sur lequel est évalué $\varphi$ contient toujours $x_k$ et $x_l$ intacts. Comme $x_k = x_l = x$, et que la forme $\varphi$ d'origine est alternée, tous ces termes s'annulent identiquement.
+        \item Il ne subsiste donc dans la somme que les deux termes associés aux indices $i = k$ et $i = l$ :
+        \begin{align*}
+            \varphi_f(x_1, \dots, x_n) &= \varphi(x_1, \dots, f(x_k), \dots, x_l, \dots, x_n) + \varphi(x_1, \dots, x_k, \dots, f(x_l), \dots, x_n) \\
+            &= \varphi(x_1, \dots, f(x), \dots, x, \dots, x_n) + \varphi(x_1, \dots, x, \dots, f(x), \dots, x_n)
+        \end{align*}
+    \end{itemize}
+    Puisque $\varphi$ est alternée, elle est également antisymétrique. L'échange des composantes aux indices $k$ et $l$ (c'est-à-dire l'échange de $f(x)$ et $x$) dans le second terme génère un changement de signe :
+    $$\varphi(x_1, \dots, x, \dots, f(x), \dots, x_n) = - \varphi(x_1, \dots, f(x), \dots, x, \dots, x_n)$$
+    En injectant cette relation d'antisymétrie, on obtient :
+    $$\varphi_f(x_1, \dots, x_n) = \varphi(x_1, \dots, f(x), \dots, x, \dots, x_n) - \varphi(x_1, \dots, f(x), \dots, x, \dots, x_n) = 0_\Kset$$
+    L'application $\varphi_f$ est donc une forme $n$-linéaire alternée sur $E$, soit $\varphi_f \in \mathscr{A}_n(E)$.
+
+    \item On sait que l'espace vectoriel $\mathscr{A}_n(E)$ est de dimension $1$. De fait, toute famille constituée d'un unique vecteur non nul de cet espace en forme une base. 
+    
+    Puisque $\varphi \in \mathscr{A}_n(E)$ et que $\varphi \neq 0$ par hypothèse, la famille $(\varphi)$ est une base de l'espace vectoriel $\mathscr{A}_n(E)$.
+    Comme nous avons démontré à la question précédente que $\varphi_f$ appartient également à l'espace $\mathscr{A}_n(E)$, il existe un unique scalaire dépendant uniquement de $f$, noté $\lambda_f \in \Kset$, tel que :
+    $$\varphi_f = \lambda_f \cdot \varphi$$
+\end{enumerate}
+
+\chapter{Déterminant d'un système de vecteurs}
+
+\begin{definition}
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$.
+    
+    Soit $\mathcal B = (e_1, \dots, e_n)$ une base de $E$.
+
+    Soient $u_1,\dots,u_n \in E$ des vecteurs. Leurs coordonnées respectives dans la base $\mathcal{B}$ sont données par les scalaires $a_{i,j} \in \Kset$ tels que :
+    $$u_j = a_{1,j} e_1 + a_{2,j} e_2 + \dots + a_{n,j} e_n$$
+    pour tout $j \in [\![1,n]\!]$.
+    
+    On définit le \textbf{déterminant} du système de vecteurs $u_1, \dots, u_n$ par la formule suivante :
+
+    $$\det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot a_{1,\sigma(1)} a_{2,\sigma(2)} \dots a_{n,\sigma(n)}$$
+
+    On note également le déterminant du système de vecteurs $u_1, \dots, u_n$ en utilisant la notation suivante :
+
+    $$\det_{\mathcal{B}}(u_1, \dots, u_n) = \left|\begin{matrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ a_{2,1} & a_{2,2} & \dots & a_{2,n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{matrix}\right|$$
+\end{definition}
+
+\begin{remark}[Déterminants usuels]
+    \begin{itemize}
+        \item Dans un espace vectoriel de dimension $2$, le déterminant d'un système de vecteurs $u_1 = a_{1,1} e_1 + a_{2,1} e_2$ et $u_2 = a_{1,2} e_1 + a_{2,2} e_2$ est égal à :
+        $$\det_{\mathcal{B}}(u_1, u_2) = \varepsilon(\Id) a_{1,1} a_{2,2} + \varepsilon((1 \ 2)) a_{1,2} a_{2,1} = a_{1,1} a_{2,2} - a_{1,2} a_{2,1}$$
+        Sachant que $S_2 = \{\Id, (1 \ 2)\}$ et que $\varepsilon(\Id) = 1$ et $\varepsilon((1 \ 2)) = -1$.
+            \item Dans un espace vectoriel de dimension $3$, le déterminant d'un système de vecteurs $u_1 = a_{1,1} e_1 + a_{2,1} e_2 + a_{3,1} e_3$, $u_2 = a_{1,2} e_1 + a_{2,2} e_2 + a_{3,2} e_3$ et $u_3 = a_{1,3} e_1 + a_{2,3} e_2 + a_{3,3} e_3$ est égal à :
+        \begin{align*}
+            \det_{\mathcal{B}}(u_1, u_2, u_3) &= \varepsilon(\Id) a_{1,1} a_{2,2} a_{3,3} + \varepsilon((1 \ 2 \ 3)) a_{1,2} a_{2,3} a_{3,1} + \varepsilon((1 \ 3 \ 2)) a_{1,3} a_{2,1} a_{3,2} \\
+            &+ \varepsilon((1 \ 2)) a_{1,2} a_{2,1} a_{3,3} + \varepsilon((1 \ 3)) a_{1,3} a_{2,2} a_{3,1} + \varepsilon((2 \ 3)) a_{1,1} a_{2,3} a_{3,2} \\
+            &= a_{1,1} a_{2,2} a_{3,3} + a_{1,2} a_{2,3} a_{3,1} + a_{1,3} a_{2,1} a_{3,2} - a_{1,2} a_{2,1} a_{3,3} - a_{1,3} a_{2,2} a_{3,1} - a_{1,1} a_{2,3} a_{3,2}
+        \end{align*}
+         Sachant que $S_3 = \{\Id, (1 \ 2 \ 3), (1 \ 3 \ 2), (1 \ 2), (1 \ 3), (2 \ 3)\}$ et que $\varepsilon(\Id) = 1$, $\varepsilon((1 \ 2 \ 3)) = 1$, $\varepsilon((1 \ 3 \ 2)) = -1$, $\varepsilon((1 \ 2)) = -1$, $\varepsilon((1 \ 3)) = -1$ et $\varepsilon((2 \ 3)) = -1$.
+    \end{itemize}
+\end{remark}
 
 \printindex
 \end{document}
