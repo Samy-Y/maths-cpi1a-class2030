@@ -569,8 +569,6 @@ Ce dernier théorème est admis (sans preuve).
 
 \chapter{Applications multilinéaires}
 
-\section{Définition}
-
 \begin{definition}
     Soient $E_1, E_2, \dots, E_p$ et $F$ des $\Kset$-espaces vectoriels. Une application $f : E_1 \times E_2 \times \dots \times E_p \to F$ est dite \textbf{multilinéaire} si elle est linéaire par rapport à chacune de ses variables, C'est-à-dire que pour tout $(a_1,\dots,a_p) \in E_1 \times E_2 \times \dots \times E_p$, pour tout $x \in E_k$ avec $k \in [\![1,p]\!]$, on a :
     $$f(a_1, \dots, a_{k-1}, x, a_{k+1}, \dots, a_p) \text{ est linéaire.}$$
@@ -632,8 +630,6 @@ Ce dernier théorème est admis (sans preuve).
     Ainsi, $\varphi$ est une application bilinéaire de $(\mathcal C([a,b],\Kset))^2$ dans $\Kset$.
 \end{example}
 
-\section{Antisymétrie et alternance}
-
 \begin{definition}[Forme symétrique et alternée]
     Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$, avec $p \in \N^*$ et $E$ un $\Kset$-espace vectoriel.
     
@@ -644,11 +640,6 @@ Ce dernier théorème est admis (sans preuve).
         $$\forall (x_1,\dots,x_p) \in E^p, \left(\exists i \ne j \in [\![1,p]\!] \tq x_i = x_j\right) \implies \varphi(x_1, \dots, x_p) = 0_\Kset$$
     \end{itemize}
 \end{definition}
-
-\begin{property}
-    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\Kset$ est un corps de caractéristique différente de $2$, alors :
-    $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
-\end{property}
 
 \begin{example}[Forme symétrique]
     Soit $E = \R^n$. L'application $\varphi : E \times E \to \R$ définie par le produit scalaire usuel :
@@ -666,6 +657,11 @@ Ce dernier théorème est admis (sans preuve).
         $$\psi(y,x,z) = \langle y \wedge x, z \rangle = \langle -(x \wedge y), z \rangle = -\psi(x,y,z)$$
     \end{itemize}
 \end{example}
+
+\begin{property}
+    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\Kset$ est un corps de caractéristique différente de $2$, alors :
+    $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
+\end{property}
 
 \begin{proof}
     \begin{outline}
@@ -1010,19 +1006,21 @@ Cette section ne fait pas partie du cours officiel.
 
 \begin{definition}
     Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$.
-    
     Soit $\mathcal B = (e_1, \dots, e_n)$ une base de $E$.
 
     Soient $u_1,\dots,u_n \in E$ des vecteurs. Leurs coordonnées respectives dans la base $\mathcal{B}$ sont données par les scalaires $a_{i,j} \in \Kset$ tels que :
-    $$u_j = a_{1,j} e_1 + a_{2,j} e_2 + \dots + a_{n,j} e_n$$
-    pour tout $j \in [\![1,n]\!]$.
+    $$\forall j \in [\![1,n]\!], \quad u_j = \sum_{i=1}^n a_{i,j} e_i = a_{1,j} e_1 + a_{2,j} e_2 + \dots + a_{n,j} e_n$$
     
-    On définit le \textbf{déterminant} du système de vecteurs $u_1, \dots, u_n$ par la formule suivante :
+    On définit le \textbf{déterminant} du système de vecteurs $u_1, \dots, u_n$ dans la base $\mathcal{B}$ par la formule de Leibniz :
+    \begin{align*}
+        \det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k}
+    \end{align*}
+    Par changement d'indice via la permutation inverse $\sigma^{-1}$, cette somme peut également s'effectuer sur les lignes, ce qui donne la formulation équivalente :
+    \begin{align*}
+        \det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{k,\sigma(k)}
+    \end{align*}
 
-    $$\det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot a_{1,\sigma(1)} a_{2,\sigma(2)} \dots a_{n,\sigma(n)}$$
-
-    On note également le déterminant du système de vecteurs $u_1, \dots, u_n$ en utilisant la notation suivante :
-
+    On note de manière compacte ce déterminant sous forme matricielle :
     $$\det_{\mathcal{B}}(u_1, \dots, u_n) = \left|\begin{matrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ a_{2,1} & a_{2,2} & \dots & a_{2,n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{matrix}\right|$$
 \end{definition}
 
@@ -1030,16 +1028,127 @@ Cette section ne fait pas partie du cours officiel.
     \begin{itemize}
         \item Dans un espace vectoriel de dimension $2$, le déterminant d'un système de vecteurs $u_1 = a_{1,1} e_1 + a_{2,1} e_2$ et $u_2 = a_{1,2} e_1 + a_{2,2} e_2$ est égal à :
         $$\det_{\mathcal{B}}(u_1, u_2) = \varepsilon(\Id) a_{1,1} a_{2,2} + \varepsilon((1 \ 2)) a_{1,2} a_{2,1} = a_{1,1} a_{2,2} - a_{1,2} a_{2,1}$$
-        Sachant que $S_2 = \{\Id, (1 \ 2)\}$ et que $\varepsilon(\Id) = 1$ et $\varepsilon((1 \ 2)) = -1$.
-            \item Dans un espace vectoriel de dimension $3$, le déterminant d'un système de vecteurs $u_1 = a_{1,1} e_1 + a_{2,1} e_2 + a_{3,1} e_3$, $u_2 = a_{1,2} e_1 + a_{2,2} e_2 + a_{3,2} e_3$ et $u_3 = a_{1,3} e_1 + a_{2,3} e_2 + a_{3,3} e_3$ est égal à :
+        Sachant que $S_2 = \{\Id, (1 \ 2)\}$ avec $\varepsilon(\Id) = 1$ et $\varepsilon((1 \ 2)) = -1$.
+        
+        \item Dans un espace vectoriel de dimension $3$, le déterminant d'un système de vecteurs
+        $$\begin{cases}
+            u_1 = a_{1,1} e_1 + a_{2,1} e_2 + a_{3,1} e_3 \\
+            u_2 = a_{1,2} e_1 + a_{2,2} e_2 + a_{3,2} e_3 \\
+            u_3 = a_{1,3} e_1 + a_{2,3} e_2 + a_{3,3} e_3
+        \end{cases}$$
+        est donné par le \href{https://www.bibmath.net/dico/index.php?action=affiche&quoi=./s/sarrus.html}{développement de Sarrus} comportant $3! = 6$ termes :
         \begin{align*}
             \det_{\mathcal{B}}(u_1, u_2, u_3) &= \varepsilon(\Id) a_{1,1} a_{2,2} a_{3,3} + \varepsilon((1 \ 2 \ 3)) a_{1,2} a_{2,3} a_{3,1} + \varepsilon((1 \ 3 \ 2)) a_{1,3} a_{2,1} a_{3,2} \\
             &+ \varepsilon((1 \ 2)) a_{1,2} a_{2,1} a_{3,3} + \varepsilon((1 \ 3)) a_{1,3} a_{2,2} a_{3,1} + \varepsilon((2 \ 3)) a_{1,1} a_{2,3} a_{3,2} \\
             &= a_{1,1} a_{2,2} a_{3,3} + a_{1,2} a_{2,3} a_{3,1} + a_{1,3} a_{2,1} a_{3,2} - a_{1,2} a_{2,1} a_{3,3} - a_{1,3} a_{2,2} a_{3,1} - a_{1,1} a_{2,3} a_{3,2}
         \end{align*}
-         Sachant que $S_3 = \{\Id, (1 \ 2 \ 3), (1 \ 3 \ 2), (1 \ 2), (1 \ 3), (2 \ 3)\}$ et que $\varepsilon(\Id) = 1$, $\varepsilon((1 \ 2 \ 3)) = 1$, $\varepsilon((1 \ 3 \ 2)) = -1$, $\varepsilon((1 \ 2)) = -1$, $\varepsilon((1 \ 3)) = -1$ et $\varepsilon((2 \ 3)) = -1$.
+        chacun associé à une des permutations de $S_3$ dont les signatures respectives sont :
+        $$
+        \begin{cases} 
+            S_3 = \{\Id, (1 \ 2 \ 3), (1 \ 3 \ 2), (1 \ 2), (1 \ 3), (2 \ 3)\} \\
+            \varepsilon(\Id) = \varepsilon((1 \ 2 \ 3)) = \varepsilon((1 \ 3 \ 2)) = 1 \\
+            \varepsilon((1 \ 2)) = \varepsilon((1 \ 3)) = \varepsilon((2 \ 3)) = -1
+        \end{cases}
+        $$
     \end{itemize}
 \end{remark}
+
+\begin{example}[Dans $\R^3$]
+    Dans $\R^3$, muni de la base canonique $\mathcal{B} = (e_1, e_2, e_3)$, calculons le déterminant du système de vecteurs suivants :
+    $$\begin{cases}
+        u = (1,-1,2)\\
+        v = (2,0,3) \\
+        w = (3,-1,4)
+    \end{cases}$$
+    On écrit la matrice associée : $\det_{\mathcal{B}}(u,v,w) = \left|\begin{matrix} 1 & 2 & 3 \\ -1 & 0 & -1 \\ 2 & 3 & 4 \end{matrix}\right|$.
+    
+    En appliquant la formule de développement explicite pour $n=3$, on trouve :
+    \begin{align*}
+        \det_{\mathcal{B}}(u,v,w) &= 1 \cdot 0 \cdot 4 + 2 \cdot (-1) \cdot 2 + 3 \cdot (-1) \cdot 3 - 2 \cdot (-1) \cdot 4 - 3 \cdot 0 \cdot 2 - 1 \cdot (-1) \cdot 3 \\
+        &= 0 - 4 - 9 + 8 - 0 + 3 = -2
+    \end{align*} 
+\end{example}
+
+\begin{example}[Polynômes de degré au plus $2$]
+    Dans $\Kset_2[X]$, muni de la base canonique $\mathcal{B} = (1, X, X^2)$, calculons le déterminant du système de vecteurs suivants :
+    $$\begin{cases}
+        P = (1-X)^2 = 1 - 2X + X^2 \\
+        Q = 2-3X \\
+        R = X - 2X^2
+    \end{cases}$$
+    On dresse le tableau des coordonnées en colonne : $\det_{\mathcal{B}}(P,Q,R) = \left|\begin{matrix} 1 & 2 & 0 \\ -2 & -3 & 1 \\ 1 & 0 & -2 \end{matrix}\right|$.
+    
+    En développant, on obtient explicitement :
+    \begin{align*}
+        \det_{\mathcal{B}}(P,Q,R) &= 1 \cdot (-3) \cdot (-2) + 2 \cdot 1 \cdot 1 + 0 \cdot (-2) \cdot 0 - 0 \cdot (-3) \cdot 1 - 2 \cdot (-2) \cdot (-2) - 1 \cdot 1 \cdot 0 \\
+        &= 6 + 2 - 8 = 0
+    \end{align*}
+\end{example}
+
+Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$, et $\mathcal{B} = (e_1, \dots, e_n)$ une base de $E$. 
+
+\begin{property}
+    Toute forme $n$-linéaire alternée de $E$ est un multiple scalaire du déterminant dans la base $\mathcal{B}$ :
+    $$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
+    Cela implique que la famille $(\det_\mathcal{B})$ engendre l'espace des formes $n$-linéaires alternées, d'où la structure suivante :
+    $$\begin{cases}
+    \det_{\mathcal{B}} \in \mathscr A_n(E) \\
+    \mathscr A_n(E) = \Kset \cdot \det_{\mathcal{B}} \\
+    \dim_{\Kset}(\mathscr A_n(E)) = 1
+    \end{cases}$$
+\end{property}
+
+\begin{proof}
+    Considérons une forme $n$-linéaire alternée $\varphi \in \mathscr A_n(E)$ et $(u_1, \dots, u_n) \in E^n$ un n-uplet de vecteurs. Les coordonnées de ces vecteurs dans la base $\mathcal{B}$ s'écrivent :
+    $$\forall j \in [\![1,n]\!], \quad u_j = \sum_{i=1}^n a_{i,j} e_i$$
+    En utilisant la linéarité de $\varphi$ par rapport à chacune de ses composantes, on développe l'expression globale par rapport aux familles d'indices :
+    \begin{align*}
+        \varphi(u_1,\dots,u_n) &= \varphi\left(\sum_{i_1=1}^n a_{i_1,1} e_{i_1}, u_2, \dots, u_n\right) \\
+        &= \sum_{i_1=1}^n a_{i_1,1} \varphi(e_{i_1}, u_2, \dots, u_n) \\
+        &= \sum_{1 \le i_1, i_2 \le n} a_{i_1,1} a_{i_2,2} \varphi(e_{i_1}, e_{i_2}, u_3, \dots, u_n) \\
+        &\vdots \\
+        &= \sum_{1 \le i_1, i_2, \dots, i_n \le n} a_{i_1,1} a_{i_2,2} \dots a_{i_n,n} \varphi(e_{i_1}, e_{i_2}, \dots, e_{i_n}) \\
+        &= \sum_{(i_1,\dots,i_n) \in [\![1,n]\!]^n} \left(\prod_{k=1}^n a_{i_k,k}\right) \cdot \varphi(e_{i_1}, e_{i_2}, \dots, e_{i_n}) \\
+        &= \sum_{f \in [\![1,n]\!]^{[\![1,n]\!]}} \left(\prod_{k=1}^n a_{f(k),k}\right) \cdot \varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)})
+    \end{align*}
+    L'indice de sommation $f$ décrit l'ensemble des applications de $[\![1,n]\!]$ dans lui-même. Si une fonction $f$ n'est pas injective, il existe deux indices distincts $k < l$ tels que $f(k) = f(l)$. Le n-uplet associé possède alors deux vecteurs identiques. La forme $\varphi$ étant alternée, ce terme s'annule :
+    $$\varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)}) = 0_\Kset$$
+    On peut par conséquent restreindre la somme aux seules applications injectives, c'est-à-dire aux permutations $\sigma \in S_n$ :
+    $$\varphi(u_1,\dots,u_n) = \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varphi(e_{\sigma(1)}, e_{\sigma(2)}, \dots, e_{\sigma(n)})$$
+    Par propriété d'antisymétrie sur les formes alternées, l'action de la permutation $\sigma$ sur la base extrait sa signature : $\varphi(e_{\sigma(1)}, \dots, e_{\sigma(n)}) = \varepsilon(\sigma) \cdot \varphi(e_1, \dots, e_n)$. On réinjecte cette relation dans la somme :
+    \begin{align*}
+        \varphi(u_1,\dots,u_n) &= \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varepsilon(\sigma) \varphi(e_1, e_2, \dots, e_n) \\
+        &= \varphi(e_1, e_2, \dots, e_n) \cdot \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k} \\
+        &= \varphi(e_1, e_2, \dots, e_n) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)
+    \end{align*}
+    La relation étant vérifiée pour tout n-uplet, on en conclut l'égalité fonctionnelle des formes :
+    $$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
+\end{proof}
+
+\begin{property}
+    $$\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$$
+\end{property}
+
+\begin{proof}
+    L'application du déterminant $\det_\mathcal{B}$ appartient à l'espace $\mathscr A_n(E)$. En lui appliquant directement la propriété précédente évaluée sur les vecteurs de la base $\mathcal{B}$, on obtient :
+    $$\det_\mathcal{B} = \det_\mathcal{B}(e_1, \dots, e_n) \cdot \det_\mathcal{B}$$
+    L'application déterminant n'étant pas identiquement nulle, son unique coefficient multiplicateur sur elle-même est nécessairement l'élément neutre scalaire, d'où $\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$.
+\end{proof}
+
+\begin{property}
+    Si $\mathcal{B}'$ est une autre base de $E$, alors :
+    $$\det_{\mathcal{B}'} = \det_{\mathcal{B}'}(\mathcal B) \cdot \det_{\mathcal{B}}$$
+    Cela implique l'identité scalaire inverse suivante :
+    $$\det_{\mathcal{B'}}(\mathcal B) \cdot \det_{\mathcal{B}}(\mathcal{B}') = 1$$
+\end{property}
+
+\begin{proof}
+    Puisque $\det_{\mathcal{B}'}$ est une forme $n$-linéaire alternée sur $E$, elle appartient à $\mathscr A_n(E)$. L'application directe du théorème de structure dans la base $\mathcal{B}$ donne immédiatement :
+    $$\det_{\mathcal{B}'} = \det_{\mathcal{B}'}(e_1, \dots, e_n) \cdot \det_{\mathcal{B}} = \det_{\mathcal{B}'}(\mathcal B) \cdot \det_{\mathcal{B}}$$
+    En évaluant cette égalité sur la famille de vecteurs de la base $\mathcal{B}'$, et en utilisant la propriété d'identité précédente ($\det_{\mathcal{B}'}(\mathcal B') = 1$), on trouve :
+    $$1 = \det_{\mathcal{B}'}(\mathcal B) \cdot \det_{\mathcal{B}}(\mathcal{B}')$$
+    Ce qui démontre la relation demandée.
+\end{proof}
 
 \printindex
 \end{document}
