@@ -1121,7 +1121,7 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
         &= \varphi(e_1, e_2, \dots, e_n) \cdot \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k} \\
         &= \varphi(e_1, e_2, \dots, e_n) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)
     \end{align*}
-    La relation étant vérifiée pour tout n-uplet, on en conclut l'égalité fonctionnelle des formes :
+    La relation étant vérifiée pour tout n-uplet, on en conclut l'égalité des formes :
     $$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
 \end{proof}
 
@@ -1148,6 +1148,120 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
     En évaluant cette égalité sur la famille de vecteurs de la base $\mathcal{B}'$, et en utilisant la propriété d'identité précédente ($\det_{\mathcal{B}'}(\mathcal B') = 1$), on trouve :
     $$1 = \det_{\mathcal{B}'}(\mathcal B) \cdot \det_{\mathcal{B}}(\mathcal{B}')$$
     Ce qui démontre la relation demandée.
+\end{proof}
+
+\begin{remark}
+    Comme $\det_\mathcal{B} \in \mathscr A_n(E)$, toutes les propriétés d'une forme $n$-linéaires alternée s'appliquent à l'application déterminant :
+    $$\begin{cases}
+        \det_{\mathcal{B}}(u_{\sigma(1)}, \dots, u_{\sigma(n)}) = \eps(\sigma) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n) \\
+        \det_{\mathcal{B}}\left(u_1 + \sum_{i=2}^{n}\lambda_i u_i, u_2, \dots, u_n\right) = \det_{\mathcal{B}}(u_1, u_2, \dots, u_n) \\
+        (u_1, \dots, u_n) \text{ est une base de } E \iff \det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset
+    \end{cases}$$
+\end{remark}
+
+\begin{proof}[Démonstration du troisième point de la remarque]
+    Soit une famille $B' = (u_1, \dots, u_n)$ de $E$.
+    \begin{itemize}
+        \item[$\implies$] Supposons que $B'$ est une base de $E$. D'après la propriété de changement de base établie précédemment, on a l'identité scalaire :
+        $$\det_{\mathcal{B}'}(B) \cdot \det_{\mathcal{B}}(B') = 1$$
+        Si l'on avait $\det_{\mathcal{B}}(B') = 0_\Kset$, le produit membre à membre donnerait $0_\Kset = 1$, ce qui est absurde. Par conséquent, $\det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset$.
+        
+        \item[$\impliedby$] Supposons par l'absurde que $\det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset$ et que la famille $B'$ ne soit pas une base de $E$.
+        
+        Puisque le cardinal de $B'$ est exactement égal à $\dim(E) = n$, le fait que $B'$ ne soit pas une base implique nécessairement que la famille est liée (si elle était libre, elle serait maximale et formerait une base).
+        
+        Or, d'après la propriété d'annulation des formes alternées sur les familles liées, on a :
+        $$\det_{\mathcal{B}}(u_1, \dots, u_n) = 0_\Kset$$
+        Ce résultat contredit directement l'hypothèse de départ. Par conséquent, la famille $B' = (u_1, \dots, u_n)$ est obligatoirement une base de $E$.
+    \end{itemize}
+\end{proof}
+
+\begin{example}[Dans $\R^3$]
+    On considère la famille de vecteurs de $\R^3$ suivante :
+    $$\begin{cases}
+        u = (1,-1,3)\\
+        v = (2,1,1) \\
+        w = (-1,4,1)
+    \end{cases}$$
+    Calculons le déterminant de ce système de vecteurs dans la base canonique $\mathcal{B} = (e_1, e_2, e_3)$ :
+    $$\det_{\mathcal{B}}(u,v,w) = \left|\begin{matrix} 1 & 2 & -1 \\ -1 & 1 & 4 \\ 3 & 1 & 1 \end{matrix}\right|$$
+    En développant, on trouve :
+    $$\det_{\mathcal{B}}(u,v,w) = 27 \ne 0$$
+    Par conséquent, la famille de vecteurs $(u,v,w)$ est une base de $\R^3$.
+\end{example}
+
+\begin{example}[Polynômes de degré au plus $2$]
+    On considère la famille de vecteurs de $\R_2[X]$ suivante :
+    $$\begin{cases}
+        P = (1-X)^2 = 1 - 2X + X^2 \\
+        Q = 2-3X \\
+        R = X - 2X^2
+    \end{cases}$$
+    Calculons le déterminant de ce système de vecteurs dans la base canonique $\mathcal{B} = (1, X, X^2)$ :
+    $$\det_{\mathcal{B}}(P,Q,R) = \left|\begin{matrix} 1 & 2 & 0 \\ -2 & -3 & 1 \\ 1 & 0 & -2 \end{matrix}\right|$$
+    En développant, on trouve :
+    $$\det_{\mathcal{B}}(P,Q,R) = 0$$
+    Par conséquent, la famille de vecteurs $(P,Q,R)$ n'est pas une base de $\R_2[X]$.
+\end{example}
+
+\chapter{Déterminant d'un endomorphisme}
+
+\begin{property}
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$ et soit $f \in \mathcal{L}(E)$ un endomorphisme de $E$.
+    Il existe un unique scalaire $\lambda \in \Kset$ tel que, pour toute forme $n$-linéaire alternée $\varphi \in \mathscr{A}_n(E)$ et pour tout système de vecteurs $(u_1, \dots, u_n) \in E^n$, on ait :
+    $$\varphi(f(u_1), \dots, f(u_n)) = \lambda \cdot \varphi(u_1, \dots, u_n)$$
+\end{property}
+
+\begin{definition}
+    Ce scalaire unique $\lambda$ est appelé le \textbf{déterminant} de l'endomorphisme $f$, et on le note $\det(f)$.
+\end{definition}
+
+\begin{proof}
+    Soit $f \in \mathcal{L}(E)$. Introduisons l'application $\Psi$ qui, à chaque forme $n$-linéaire alternée $\varphi$, associe l'application $\Psi(\varphi)$ définie par :
+    $$\Psi(\varphi) : \begin{matrix} E^n \to \Kset \\ (u_1, \dots, u_n) \mapsto \varphi(f(u_1), \dots, f(u_n)) \end{matrix}$$
+
+    \begin{outline}
+        \1 \textbf{Étape 1 : $\Psi$ est bien définie de $\mathscr{A}_n(E)$ dans $\mathscr{A}_n(E)$}
+        \2 Par linéarité de $f$ et par $n$-linéarité de $\varphi$, il est immédiat que $\Psi(\varphi)$ est une forme $n$-linéaire sur $E$.
+        \2 Montrons qu'elle est alternée. Soit $(u_1, \dots, u_n) \in E^n$ tel qu'il existe deux indices distincts $i \neq j$ avec $u_i = u_j$. Par linéarité de $f$, on a $f(u_i) = f(u_j)$. La forme $\varphi$ étant alternée, on en déduit :
+        $$\Psi(\varphi)(u_1, \dots, u_n) = \varphi(f(u_1), \dots, f(u_i), \dots, f(u_j), \dots, f(u_n)) = 0_\Kset$$
+        Ainsi, pour toute forme $\varphi \in \mathscr{A}_n(E)$, on a $\Psi(\varphi) \in \mathscr{A}_n(E)$.
+
+        \1 \textbf{Étape 2 : $\Psi$ est une application linéaire}
+        \2 Soient $\varphi_1, \varphi_2 \in \mathscr{A}_n(E)$ et $\alpha \in \Kset$. Pour tout $(u_1, \dots, u_n) \in E^n$ :
+        \begin{align*}
+            \Psi(\alpha \varphi_1 + \varphi_2)(u_1, \dots, u_n) &= (\alpha \varphi_1 + \varphi_2)(f(u_1), \dots, f(u_n)) \\
+            &= \alpha \varphi_1(f(u_1), \dots, f(u_n)) + \varphi_2(f(u_1), \dots, f(u_n)) \\
+            &= \alpha \Psi(\varphi_1)(u_1, \dots, u_n) + \Psi(\varphi_2)(u_1, \dots, u_n)
+        \end{align*}
+        L'égalité étant vraie pour tout n-uplet de vecteurs, on a $\Psi(\alpha \varphi_1 + \varphi_2) = \alpha \Psi(\varphi_1) + \Psi(\varphi_2)$. L'application $\Psi$ est donc un endomorphisme de l'espace $\mathscr{A}_n(E)$, soit $\Psi \in \mathcal{L}(\mathscr{A}_n(E))$.
+
+        \1 \textbf{Étape 3 : Application de l'argument de dimension}
+        \2 Nous avons démontré précédemment que l'espace vectoriel $\mathscr{A}_n(E)$ des formes $n$-linéaires alternées est de dimension $1$. 
+        \2 Or, tout endomorphisme d'un espace vectoriel de dimension $1$ est une homothétie vectorielle. En effet, si l'on fixe une base $(\varphi_0)$ de $\mathscr{A}_n(E)$, l'image $\Psi(\varphi_0)$ appartient à $\mathscr{A}_n(E)$ et s'écrit de manière unique comme un multiple scalaire de la base : $\exists ! \lambda \in \Kset$ tel que $\Psi(\varphi_0) = \lambda \cdot \varphi_0$.
+        \2 Par linéarité de $\Psi$, pour toute autre forme $\varphi \in \mathscr{A}_n(E)$ s'écrivant $\varphi = \alpha \varphi_0$, on obtient :
+        $$\Psi(\varphi) = \Psi(\alpha \varphi_0) = \alpha \Psi(\varphi_0) = \alpha (\lambda \cdot \varphi_0) = \lambda \cdot (\alpha \varphi_0) = \lambda \cdot \varphi$$
+        L'endomorphisme $\Psi$ est donc l'homothétie de rapport $\lambda$, soit $\Psi = \lambda \cdot \Id_{\mathscr{A}_n(E)}$.
+
+        \1 \textbf{Étape 4 : Conclusion}
+        \2 Par définition de l'égalité de deux applications, on a pour toute forme $\varphi \in \mathscr{A}_n(E)$ :
+        $$\Psi(\varphi) = \lambda \cdot \varphi$$
+        En évaluant cette relation sur un système de vecteurs quelconque $(u_1, \dots, u_n)$, on trouve :
+        $$\forall \varphi \in \mathscr{A}_n(E), \ \forall (u_1, \dots, u_n) \in E^n, \quad \varphi(f(u_1), \dots, f(u_n)) = \lambda \cdot \varphi(u_1, \dots, u_n)$$
+        L'unicité de $\lambda$ est garantie par l'unicité du rapport de l'homothétie associée à $\Psi$.
+    \end{outline}
+\end{proof}
+
+\begin{consequence}
+    Soit $\mathcal{B}$ une base quelconque de $E$. Le déterminant de l'endomorphisme $f$ correspond au déterminant de la famille des images des vecteurs de la base $\mathcal{B}$ exprimée dans cette même base $\mathcal{B}$ :
+    $$\det(f) = \det_{\mathcal{B}}(f(\mathcal{B}))$$
+\end{consequence}
+
+\begin{proof}
+    Considérons la base $\mathcal{B} = (e_1, \dots, e_n)$ de $E$. Puisque l'application déterminant $\det_{\mathcal{B}}$ appartient à l'espace $\mathscr{A}_n(E)$, on peut lui appliquer directement le théorème précédent :
+    $$\det_{\mathcal{B}}(f(e_1), \dots, f(e_n)) = \det(f) \cdot \det_{\mathcal{B}}(e_1, \dots, e_n)$$
+    Or, nous avons établi à la section précédente que $\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$. L'équation se simplifie immédiatement en :
+    $$\det(f) = \det_{\mathcal{B}}(f(e_1), \dots, f(e_n)) = \det_{\mathcal{B}}(f(\mathcal{B}))$$
 \end{proof}
 
 \printindex
