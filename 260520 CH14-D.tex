@@ -1655,8 +1655,13 @@ Dans les trois définitions suivantes, $A = (a_{i,j})_{1 \le i,j \le n} \in \mat
 \end{example}
 
 \begin{property}
-    
+    Soit $A \in \mathcal M_n(\Kset)$, dont $a_{n,n} = 1$ et $\forall i \in [\![1,n-1]\!], a_{i,n} = 0_\Kset$. Alors $\det(A) = \Delta_{n,n}$, i.e.:
+    $$\det(A) = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} \\ \vdots & \ddots & \vdots \\ a_{n-1,1} & \dots & a_{n-1,n-1} \end{matrix}\right| = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} & 0 \\ \vdots & \vdots & \vdots & \vdots \\ \vdots & \vdots & \vdots & \vdots \\ a_{n,1} & \dots & a_{n,n-1} & 1 \end{matrix}\right|$$
 \end{property}
+
+\begin{proof}
+    
+\end{proof}
 
 \printindex
 \end{document}
