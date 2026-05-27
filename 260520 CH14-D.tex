@@ -1213,7 +1213,7 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
 \end{property}
 
 \begin{definition}
-    Ce scalaire unique $\lambda$ est appelé le \textbf{déterminant} de l'endomorphisme $f$, et on le note $\det(f)$.
+    Ce scalaire unique $\lambda$ est appelé le \textbf{déterminant} de l'endomorphisme $f$, noté $\det(f)$.
 \end{definition}
 
 \begin{proof}
@@ -1263,6 +1263,400 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
     Or, nous avons établi à la section précédente que $\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$. L'équation se simplifie immédiatement en :
     $$\det(f) = \det_{\mathcal{B}}(f(e_1), \dots, f(e_n)) = \det_{\mathcal{B}}(f(\mathcal{B}))$$
 \end{proof}
+
+\begin{example}[Dans $\R^3$]
+    Soit $f : \R^3 \to \R^3$ l'endomorphisme défini par :
+    $$f(x,y,z) = (x-3y+z, 2x-y, x+y-z)$$
+    Calculons le déterminant de $f$ dans la base canonique $\mathcal{B} = (e_1, e_2, e_3)$ de $\R^3$.
+    
+    En appliquant $f$ aux vecteurs de la base, on trouve :
+    $$\begin{cases}
+        f(e_1) = (1,2,1) \\
+        f(e_2) = (-3,-1,1) \\
+        f(e_3) = (1,0,-1)
+    \end{cases}$$
+    Le déterminant de $f$ est alors donné par :
+    $$\det(f) = \det_{\mathcal{B}}(f(e_1), f(e_2), f(e_3)) = \left|\begin{matrix} 1 & -3 & 1 \\ 2 & -1 & 0 \\ 1 & 1 & -1 \end{matrix}\right|$$
+    En développant, on trouve :
+    $$\det(f) = -2$$
+\end{example}
+
+\begin{example}[Polynômes de degré au plus $2$]
+    Soit $f : \R_2[X] \to \R_2[X]$ l'endomorphisme défini par :
+    $$f(P) = (1-X)P' + 3P$$
+
+    Calculons le déterminant de $f$ dans la base canonique $\mathcal{B} = (1, X, X^2)$ de $\R_2[X]$.
+
+    En appliquant $f$ aux vecteurs de la base, on trouve :
+    $$\begin{cases}
+        f(1) = 3 \\
+        f(X) = 3X + 1 - X = 2X + 1 \\
+        f(X^2) = (1-X) \cdot 2X + 3X^2 = X^2 + 2X
+    \end{cases}$$
+    Le déterminant de $f$ est alors donné par :
+    $$\det(f) = \det_{\mathcal{B}}(f(1), f(X), f(X^2)) = \left|\begin{matrix} 3 & 1 & 0 \\ 0 & 2 & 2 \\ 0 & 0 & 1 \end{matrix}\right|$$
+    En développant, on trouve :
+    $$\det(f) = 6$$
+\end{example}
+
+Dans $E$, un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$, les propriétés suivantes sont vérifiées :
+
+\begin{property}[Déterminant de l'identité]
+    $$\det(\Id_E) = 1$$
+\end{property}
+
+\begin{proof}
+    En appliquant le corollaire de la section précédente à l'endomorphisme identité $\Id_E$, on obtient :
+    $$\det(\Id_E) = \det_{\mathcal{B}}(\Id_E(\mathcal{B})) = \det_{\mathcal{B}}(\mathcal{B})$$
+    Or, il a été établi lors de la construction du déterminant d'un système de vecteurs que $\det_{\mathcal{B}}(\mathcal{B}) = 1$.
+    Par conséquent, on a $\det(\Id_E) = 1$.
+\end{proof}
+
+\begin{property}[Déterminant d'une homothétie]
+    $$\forall \lambda \in \Kset, \ \forall f \in \mathcal{L}(E), \quad \det(\lambda \cdot f) = \lambda^n \cdot \det(f)$$
+\end{property}
+
+\begin{proof}
+    Soit $\mathcal{B} = (e_1, \dots, e_n)$ la base de $E$. Par définition du déterminant de l'endomorphisme $\lambda \cdot f$, on évalue la forme alternée $\det_{\mathcal{B}}$ sur le système des images :
+    $$\det(\lambda \cdot f) = \det_{\mathcal{B}}\bigl((\lambda \cdot f)(e_1), \dots, (\lambda \cdot f)(e_n)\bigr) = \det_{\mathcal{B}}(\lambda \cdot f(e_1), \dots, \lambda \cdot f(e_n))$$
+    L'application $\det_{\mathcal{B}}$ étant une forme $n$-linéaire, on peut extraire le scalaire $\lambda$ de chacune de ses $n$ composantes de manière successive :
+    \begin{align*}
+        \det(\lambda \cdot f) &= \lambda \cdot \det_{\mathcal{B}}(f(e_1), \lambda \cdot f(e_2), \dots, \lambda \cdot f(e_n)) \\
+        &= \lambda^2 \cdot \det_{\mathcal{B}}(f(e_1), f(e_2), \lambda \cdot f(e_3), \dots, \lambda \cdot f(e_n)) \\
+        &= \lambda^n \cdot \det_{\mathcal{B}}(f(e_1), f(e_2), \dots, f(e_n))
+    \end{align*}
+    En reconnaissant dans le terme final l'expression de $\det(f)$, on conclut :
+    $$\det(\lambda \cdot f) = \lambda^n \cdot \det(f)$$
+\end{proof}
+
+\begin{property}[Déterminant d'une composée]
+    $$\forall f, g \in \mathcal{L}(E), \quad \det(g \circ f) = \det(g) \cdot \det(f)$$
+\end{property}
+
+\begin{proof}
+    Soit $\mathcal{B} = (e_1, \dots, e_n)$ la base de $E$. Par le corollaire de structure, le déterminant de la composée $f \circ g$ correspond au déterminant de la famille des images de la base $\mathcal{B}$ exprimée dans cette même base :
+    $$\det(f \circ g) = \det_{\mathcal{B}}\bigl((f \circ g)(e_1), \dots, (f \circ g)(e_n)\bigr) = \det_{\mathcal{B}}\bigl(f(g(e_1)), \dots, f(g(e_n))\bigr)$$
+    
+    Or, l'application $\det_{\mathcal{B}}$ est une forme $n$-linéaire alternée ($\det_{\mathcal{B}} \in \mathscr{A}_n(E)$). On peut donc lui appliquer la définition du déterminant de l'endomorphisme $f$ pour le système de vecteurs défini par $u_i = g(e_i)$ pour tout $i \in [\![1,n]\!]$ :
+    $$\det_{\mathcal{B}}\bigl(f(g(e_1)), \dots, f(g(e_n))\bigr) = \det(f) \cdot \det_{\mathcal{B}}(g(e_1), \dots, g(e_n))$$
+
+    \begin{itemize}
+        \item \textit{On rappelle que la définition énonce que pour une forme $n$-linéaire alternée $\varphi$ et un endomorphisme $f$, on a $\varphi(f(u_1), \dots, f(u_n)) = \det(f) \cdot \varphi(u_1, \dots, u_n)$ pour tout système de vecteurs $(u_1, \dots, u_n)$. En appliquant cette relation à la forme $\det_{\mathcal{B}}$ et au système de vecteurs $u_i = g(e_i)$, on trouve l'égalité ci-dessus.}
+    \end{itemize}
+    
+    En reconnaissant dans le terme de droite la définition du déterminant de l'endomorphisme $g$ exprimé dans la base $\mathcal{B}$, soit $\det_{\mathcal{B}}(g(e_1), \dots, g(e_n)) = \det(g)$, l'égalité se simplifie immédiatement par substitution scalaire :
+    $$\det(f \circ g) = \det(f) \cdot \det(g)$$
+\end{proof}
+
+\begin{property}[Déterminant de l'inverse]
+    Soit $f \in \mathcal{L}(E)$. L'endomorphisme $f$ est inversible si et seulement si son déterminant est non nul.
+    $$f \in \GL(E) \iff \det(f) \ne 0_\Kset$$
+    Dans ce cas, le déterminant de son inverse est l'inverse de son déterminant :
+    $$\det(f^{-1}) = \bigl(\det(f)\bigr)^{-1}$$
+\end{property}
+
+\begin{proof}
+    L'inversibilité de $f$ équivaut au fait que $f$ soit un automorphisme de $E$. On procède par équivalences successives en utilisant les propriétés des systèmes géométriques :
+    \begin{align*}
+        f \text{ est inversible} &\iff f \text{ est un automorphisme de } E \\
+        &\iff \text{l'image de la base } \mathcal{B}, \text{ notée } f(\mathcal{B}), \text{ est une base de } E \\
+        &\iff \det_{\mathcal{B}}(f(\mathcal{B})) \ne 0_\Kset \\
+        &\iff \det(f) \ne 0_\Kset
+    \end{align*}
+    Ce qui démontre le premier point. 
+    
+    Pour établir la formule du déterminant de l'inverse, on suppose $f$ inversible. Il existe donc $f^{-1} \in \mathcal{L}(E)$ tel que $f \circ f^{-1} = \Id_E$. En prenant le déterminant de cette égalité et en appliquant la propriété de composition démontrée ci-dessus :
+    $$\det(f \circ f^{-1}) = \det(\Id_E) \implies \det(f) \cdot \det(f^{-1}) = 1$$
+    Le déterminant étant un élément d'un corps commutatif, on isole le terme recherché :
+    $$\det(f^{-1}) = \frac{1}{\det(f)} = \bigl(\det(f)\bigr)^{-1}$$
+\end{proof}
+
+\begin{exercise}
+    Soit $E$ un $\R$-espace vectoriel de dimension finie $n \in \N^*$ et soit $u \in \mathcal{L}(E)$ un endomorphisme de $E$ tel que $u^2 + \Id_E = 0$. Montrer que $n$ est pair.
+\end{exercise}
+
+On résout cet exercice en appliquant la propriété du déterminant d'une composée à l'endomorphisme $u^2 = -\Id_E$ :
+\begin{align*}
+    \det(u^2) &= \det(-\Id_E) \\
+    \det(u)^2 &= (-1)^n \cdot \det(\Id_E) \\
+    \det(u)^2 &= (-1)^n
+\end{align*}
+
+Comme $\det(u)^2$ est un carré (donc positif), il est nécessaire que $(-1)^n$ soit lui aussi positif, ce qui n'est possible que si $n$ est pair.
+
+\chapter*{Exercices d'assimilation}
+
+Encore une fois, cette section ne fait pas partie du cours ``officiel''. Tous ces exercices sont faciles et servent juste à appliquer les propriétés qu'on vient de démontrer.
+
+\begin{exercise}[Endomorphismes nilpotents]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$. Soit $f$ un endomorphisme nilpotent de $E$. En utilisant les propriétés du déterminant d'une composée, déterminer la valeur de $\det(f)$. Soit $g \in \mathcal{L}(E)$ un autre endomorphisme de $E$. Déterminer la valeur du déterminant de la composée $f \circ g$.
+\end{exercise}
+
+\begin{enumerate}
+    \item Soit $k \in \N^*$ l'indice de nilpotence de $f$, impliquant $f^k = 0_{\mathcal{L}(E)}$. Par morphisme du déterminant sur la composition, on obtient :
+    $$\det(f^k) = \bigl(\det(f)\bigr)^k = \det(0_{\mathcal{L}(E)})$$
+    L'endomorphisme nul s'identifiant à l'homothétie $0_\Kset \cdot \Id_E$ dans un espace de dimension $n \ge 1$, son déterminant s'annule : $\det(0_{\mathcal{L}(E)}) = 0_\Kset^n = 0_\Kset$. L'équation devient :
+    $$\bigl(\det(f)\bigr)^k = 0_\Kset$$
+    $\Kset$ étant un corps, il est aussi un anneau intègre dénué de diviseur de zéro. D'où :
+    $$\det(f) = 0_\Kset$$
+
+    \item Soit $g \in \mathcal{L}(E)$. On conclut immédiatement :
+    $$\det(f \circ g) = \det(f) \cdot \det(g) = 0_\Kset \cdot \det(g) = 0_\Kset$$
+\end{enumerate}
+
+\begin{exercise}[Relation d'anti-commutation en dimension impaire]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$ où $n$ est un nombre impair, et où $\Kset$ est un corps de caractéristique différente de $2$. Soient $f, g \in \mathcal{L}(E)$ deux endomorphismes de $E$ qui anti-commutent, c'est-à-dire qui vérifient la relation :
+    $$f \circ g = -g \circ f$$
+    Démontrer qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversible.
+\end{exercise}
+
+Par utilisation directe du déterminant sur la relation de l'énoncé, on a :
+$$\det(f \circ g) = \det(-g \circ f)$$
+En utilisant la formule du déterminant d'une composition d'opérateurs, le membre de gauche se développe en $\det(f) \cdot \det(g)$. 
+
+L'endomorphisme $-g$ situé dans le membre de droite s'identifie à l'homothétie $(-1) \cdot g$. En appliquant la propriété du déterminant d'une homothétie dans un espace de dimension $n$, on extrait le signe : $\det(-g) = (-1)^n \cdot \det(g)$. $n$ étant impair selon l'énoncé, on a $(-1)^n = -1$, ce qui donne $\det(-g \circ f) = -\det(g) \cdot \det(f)$. L'équation s'écrit alors :
+$$\det(f) \cdot \det(g) = -\det(g) \cdot \det(f)$$
+Par commutativité de la multiplication dans le corps $\Kset$, on regroupe les deux produits dans le membre de gauche :
+$$2 \cdot \det(f) \cdot \det(g) = 0_\Kset$$
+La caractéristique du corps $\Kset$ étant différente de $2$, on peut donc simplifier l'égalité : $\det(f) \cdot \det(g) = 0_\Kset$. Enfin, l'intégrité du corps $\Kset$ implique que : 
+$$\det(f) = 0_\Kset \ou \det(g) = 0_\Kset$$
+On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversible.
+
+\begin{exercise}[Caractérisation des valeurs propres]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie et soit $f \in \mathcal{L}(E)$. Montrer que :
+    $$\lambda \in \Kset \text{ est une valeur propre de } f \iff \det(f - \lambda \cdot \Id_E) = 0_\Kset$$
+\end{exercise}
+
+\begin{itemize}
+    \item[$\implies$] Supposons que $\lambda$ soit une valeur propre de $f$. Par définition, il existe un vecteur non nul $x \in E \setminus \{0_E\}$ tel que $f(x) = \lambda x$. 
+    Cette égalité se réécrit de manière équivalente :
+    $$(f - \lambda \cdot \Id_E)(x) = 0_E$$
+    Le vecteur $x$ étant non nul, cela prouve que le noyau de $(f - \lambda \cdot \Id_E)$ n'est pas trivial ($\ker(f - \lambda \cdot \Id_E) \neq \{0_E\}$). L'endomorphisme n'est donc pas injectif. 
+    La non-injectivité équivaut à la non-inversibilité (non-bijectivité) de l'opérateur. On en déduit que :
+    $$\det(f - \lambda \cdot \Id_E) = 0_\Kset$$
+
+    \item[$\impliedby$] Réciproquement, supposons que $\det(f - \lambda \cdot \Id_E) = 0_\Kset$.
+    Cette nullité implique directement que l'endomorphisme $(f - \lambda \cdot \Id_E)$ n'est pas inversible dans $\mathcal{L}(E)$.
+    Comme $E$ est de dimension finie, un endomorphisme $\in \mathcal L(E)$ est inversible si et seulement s'il est injectif. Par contraposition, $(f - \lambda \cdot \Id_E)$ n'est donc pas injectif. Son noyau contient par conséquent au moins un vecteur non nul :
+    $$\exists x \in E \setminus \{0_E\}, \quad x \in \ker(f - \lambda \cdot \Id_E)$$
+    Par définition du noyau, cela se traduit par $(f - \lambda \cdot \Id_E)(x) = 0_E$, soit :
+    $$f(x) = \lambda x$$
+    L'existence de ce vecteur $x \neq 0_E$ implique que $\lambda$ est une valeur propre de $f$.
+\end{itemize}
+
+\chapter{Déterminant d'une matrice}
+
+\section{Notions de base}
+
+\begin{definition}
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Soit $u \in \mathcal L(\Kset^n)$ l'endomorphisme canoniquement associé à $A$ (i.e.: $\Mat_{\mathcal B_c}(u) = A$ où $\mathcal{B}_c$ est la base canonique de $\Kset^n$). Le déterminant de la matrice $A$ est défini par :
+    $$\det(A) = \det(u) = \det_{\mathcal{B}_c}(u(e_1), \ldots, u(e_n))$$
+    avec $\mathcal {B}_c = (e_1, \ldots, e_n)$ la base canonique de $\Kset^n$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Soient $c_1, \dots, c_n$ les colonnes de la matrice $A$. Par définition de l'endomorphisme canoniquement associé à une matrice, on a $u(e_i) = c_i$ pour tout $i \in [\![1,n]\!]$. Par conséquent, le déterminant de la matrice $A$ correspond au déterminant de la famille de ses colonnes exprimée dans la base canonique :
+        $$\det(A) = \det_{\mathcal{B}_c}(c_1, \dots, c_n)$$
+        \item Si $A = (a_{i,j})_{1 \le i,j \le n}$, alors :
+        \begin{align*}
+            \det(A) &= \begin{vmatrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ a_{2,1} & a_{2,2} & \dots & a_{2,n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{vmatrix} \\
+            &= \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}
+        \end{align*}
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    $$A = \left(\begin{matrix} 1 & 2 \\ 3 & 4 \end{matrix}\right)$$
+    Le déterminant de $A$ est donné par :
+    $$\det(A) = \left|\begin{matrix} 1 & 2 \\ 3 & 4 \end{matrix}\right| = 1 \cdot 4 - 2 \cdot 3 = -2$$
+\end{example}
+
+\begin{property}
+    Le déterminant d'une matrice ne change pas s'il on ajoute à une colonne une combinaison linéaire d'autres colonnes.
+
+    $$\forall i \in [\![1,n]\!], \forall \underset{j\in [\![1,n]\!]}{(\lambda_j)} \in \Kset^{n-1}, \det(c_1, \dots, c_i + \sum_{1 \le j \le n} \lambda_j c_j, \dots, c_n) = \det(c_1, \dots, c_i, \dots, c_n)$$
+
+    $$c_i \leftarrow c_i + \sum_{j \in [\![1,n]\!]} \lambda_j c_j \text{ laisse le déterminant invariant}$$
+\end{property}
+
+\begin{proof}
+    \textbf{recop is eternal}
+\end{proof}
+
+\begin{property}
+    Une permutation $\sigma$ appliquée sur les colonnes d'une matrice multiplie le déterminant par le signe de la permutation :
+    $$\forall \sigma \in S_n, \det(c_{\sigma(1)}, \dots, c_{\sigma(n)}) = \varepsilon(\sigma) \cdot \det(c_1, \dots, c_n)$$
+\end{property}
+
+\begin{property}
+    Les propriétés du déterminant d'un endomorphisme s'appliquent également au déterminant d'une matrice. En particulier, pour toute matrice $A \in \mathcal M_n(\Kset)$, on a :
+    \begin{enumerate}
+        \item $\det(I_n) = 1$ où $I_n$ est la matrice identité de taille $n$.
+        \item $\forall \lambda \in \Kset, \det(\lambda A) = \lambda^n \cdot \det(A)$
+        \item $\forall A, B \in \mathcal M_n(\Kset), \det(AB) = \det(A) \cdot \det(B) = \det(B) \cdot \det(A) = \det(BA)$
+        \item $A$ est inversible $\in \GL_n(\Kset)$ si et seulement si $\det(A) \ne 0_\Kset$. Dans ce cas, $\det(A^{-1}) = (\det(A))^{-1}$.
+    \end{enumerate}
+\end{property}
+
+\begin{property}[Déterminant d'une transposée]
+    Le déterminant d'une matrice est égal au déterminant de sa transposée :
+    $$\forall A \in \mathcal M_n(\Kset), \det(\,^t A) = \det(A)$$
+\end{property}
+
+\begin{proof}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$. Par définition du déterminant d'une matrice, on a :
+    $$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+    En effectuant le changement de variable $\tau = \sigma^{-1}$, on trouve :
+    \begin{align*}
+        \det(A) &= \sum_{\tau \in S_n} \varepsilon(\tau^{-1}) \cdot \prod_{k=1}^{n} a_{\tau^{-1}(k), k} \\
+        &= \sum_{\tau \in S_n} \varepsilon(\tau) \cdot \prod_{k=1}^{n} a_{k, \tau(k)} \\
+        &= \sum_{\tau \in S_n} \varepsilon(\tau) \cdot \prod_{k=1}^{n} (^t A)_{\tau(k), k} = \det(^t A)
+    \end{align*}
+\end{proof}
+
+Le lemme suivant sera utilisé pour démontrer une propriété importante du déterminant d'une matrice triangulaire. 
+
+\begin{theorem}[Lemme]
+    Soit $\sigma \in S_n$ une permutation.
+
+    $$\sigma(k) \le k \text{ pour tout } k \in [\![1,n]\!] \implies \sigma = \Id_{[\![1,n]\!]}$$
+\end{theorem}
+
+\begin{proof}
+    On procède par récurrence sur $n$.
+
+    \begin{itemize}
+        \item L'initialisation est triviale pour $n=2$.
+        \item \textbf{Hérédité :}
+        \begin{itemize}
+            \item Soit $i \in [\![1,n]\!]$. On suppose que $\forall k \in [\![1,i]\!], \sigma(k) = k$. On montre que $\sigma(i + 1) = i + 1$.
+            \item On a $\sigma(i + 1) \le i+1$. D'après l'hypothèse de récurrence, on a $\sigma(i + 1) \notin \{1, \dots, i\}$, ce qui implique $\sigma(i + 1) = i + 1$ (sachant que $\sigma$ est une bijection).
+            \item Donc $\sigma(k) = k$ pour tout $k \in [\![1,n]\!]$, soit $\sigma = \Id_{[\![1,n]\!]}$.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\begin{property}[Déterminant d'une matrice triangulaire]
+    Le déterminant d'une matrice triangulaire est égal au produit de ses éléments diagonaux.
+    $$\forall A \in T_{n,s}(\Kset) \ou T_{n,i}(\Kset) \tqf A = (a_{i,j})_{1 \le i,j \le n}, \det(A) = \prod_{i=1}^{n} a_{i,i}$$
+\end{property}
+
+\begin{proof}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in T_{n,s}(\Kset)$ une matrice triangulaire supérieure (on traite uniquement ce cas pour l'instant). Par définition du déterminant d'une matrice, on a :
+    $$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+    Or, les éléments situés en dessous de la diagonale de $A$ sont nuls. Par conséquent, si la permutation $\sigma$ vérifie $\sigma(k) > k$ pour au moins un indice $k$, alors le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$ s'annule.
+    $$\exists k_0 \in [\![1,n]\!], \sigma(k_0) > k_0 \implies \prod_{k=1}^{n} a_{\sigma(k), k} = 0_\Kset \scq \forall i > j, a_{i,j} = 0$$ 
+    En revanche, si la permutation $\sigma$ vérifie $\sigma(k) \le k$ pour tout indice $k$, alors le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$ correspond au produit des éléments diagonaux de $A$. 
+    En appliquant le lemme démontré ci-dessus, on trouve que la seule permutation qui contribue à la somme est l'identité. L'égalité se simplifie alors en :
+    $$\det(A) = \varepsilon(\Id_{[\![1,n]\!]}) \cdot \prod_{k=1}^{n} a_{k,k} = 1 \cdot \prod_{i=1}^{n} a_{i,i}$$
+    Comme une matrice triangulaire inférieure n'est que la transposée d'une matrice triangulaire supérieure, on conclut que la même formule s'applique également aux matrices triangulaires inférieures, car :
+    $$\det(A) = \det(^t A) = \prod_{i=1}^{n} (^t A)_{i,i} = \prod_{i=1}^{n} a_{i,i}$$
+\end{proof}
+
+\begin{example}[Matrice carrée quelconque]
+    $$A = \left(\begin{matrix} -1 & 0 & 3 \\ 2 & 1 & 4 \\ 3 & 1 & -1 \end{matrix}\right)$$
+    On a donc :
+    $$\det(A) = \left|\begin{matrix} -1 & 0 & 3 \\ 2 & 1 & 4 \\ 3 & 1 & -1 \end{matrix}\right|$$
+    En utilisant la formule du déterminant d'un système de trois vecteurs (déjà établie, développement de Saros), on trouve :
+    $$\det(A) = 7 - (9-4) = 2 \ne 0$$
+    On en déduit aussi que :
+    $$A \in \GL_3(\R)$$
+\end{example}
+
+\begin{example}
+    $$A = \left(\begin{matrix} 0 & 1 & 0 & 0 \\ \vdots & \ddots & \ddots & 0 \\ \vdots & & \ddots & 1 \\ 0 & \dots & \dots & 0 \end{matrix}\right) \in \mathcal M_n(\Kset)$$
+    Le déterminant de $A$ est donné par :
+    $$\det(A) = \det_{\mathcal{B}_c}(c_1, \dots, c_n)$$
+    Or, les colonnes de $A$ sont les vecteurs de la base canonique dans un ordre différent. En appliquant la propriété du déterminant d'une permutation sur les colonnes, on trouve :
+    $$\det(A) = \varepsilon(\sigma) \cdot \det_{\mathcal{B}_c}(\mathcal{B}_c)$$
+    où $\sigma$ est la permutation qui envoie $i$ sur $i+1$ pour tout $i \in [\![1,n-1]\!]$ et qui envoie $n$ sur $1$. On peut l'expliciter comme suit, sous forme d'un cycle de longueur $n$ :
+    $$\sigma = (1 \ 2 \ 3 \ \dots \ n)$$
+    $\sigma$ est une permutation de signature $(-1)^{n-1}$, ce qui donne :
+    $$\det(A) = (-1)^{n-1} \cdot \det_{\mathcal{B}_c}(\mathcal{B}_c)$$
+    Or, il a été établi à la section précédente que $\det_{\mathcal{B}_c}(\mathcal{B}_c) = 1$. L'égalité se simplifie alors en :
+    $$\det(A) = (-1)^{n-1} \ne 0$$
+    On en déduit aussi que $A \in \GL_n(\Kset)$.
+
+    \textbf{On note cette matrice $A = P_\sigma$. C'est la matrice de la permutation $\sigma$ dans la base canonique.}
+\end{example}
+\todo{absolument pas sûr de ce que j'ai écrit ici}
+
+\begin{remark}
+    Pour $A_1, \dots, A_r \in \mathcal M_n(\Kset)$, on a :
+    $$\det(A_1 \cdots A_r) = \det(A_1) \cdots \det(A_r)$$
+    $$\det(\prod_{i=1}^{r} A_i) = \prod_{i=1}^{r} \det(A_i)$$
+\end{remark}
+
+\begin{remark}
+    Si $A \in \mathcal M_n(\Kset)$ est une matrice nilpotente, alors $\det(A) = 0_\Kset$ et $A$ n'est pas inversible.
+\end{remark}
+
+\begin{remark}
+    Si $M \in A_n$ est une matrice antisymétrique de taille $n$ où $n$ est impair, alors $\det(M) = 0_\Kset$ et $M$ n'est pas inversible.
+\end{remark}
+
+\begin{proof}
+    En effet, $\det(M) = \det(^t M) = \det(-M) = (-1)^n \cdot \det(M)$. $n$ étant impair, on a $(-1)^n = -1$, ce qui donne $\det(M) = -\det(M)$, soit $\det(M) = 0_\Kset$.
+\end{proof}
+
+On rappelle qu'une matrice antisymétrique de taille $n$ est une matrice $M = (m_{i,j})_{1 \le i,j \le n}$ telle que $m_{j,i} = -m_{i,j}$ pour tout $(i, j) \in [\![1,n]\!]^2$.
+
+\section{Mineur, cofacteur et comatrice}
+
+Dans les trois définitions suivantes, $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$ est une matrice carrée de taille $n$, et le couple $(i,j) \in [\![1,n]\!]^2$ est un indice de ligne et de colonne.
+
+\begin{definition}[Mineur]
+    Le \textbf{mineur} de $A$ associé à $(i,j)$ est le déterminant de la matrice carrée de taille $n-1$ obtenue à partir de $A$ en supprimant la ligne $i$ et la colonne $j$. On le note $\Delta_{i,j}$.
+
+    $$\Delta_{i,j} = \left|\begin{matrix}
+    a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} \\ \vdots & \quad & \vdots & \quad & \vdots \\ a_{i-1,1} & \dots & a_{i-1,j-1} & a_{i-1,j+1} & \dots & a_{i-1,n} \\ a_{i+1,1} & \dots & a_{i+1,j-1} & a_{i+1,j+1} & \dots & a_{i+1,n} \\ \vdots & \quad & \vdots & \quad & \vdots \\ a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n}
+    \end{matrix}\right|$$
+\end{definition}
+
+\begin{definition}[Cofacteur]
+    Le \textbf{cofacteur} de $A$ associé à $(i,j)$ est le scalaire noté :
+    $$A_{i,j} = (-1)^{i+j} \cdot \Delta_{i,j}$$
+\end{definition}
+
+\begin{definition}
+    On appelle la comatrice de $A$ la matrice carrée de taille $n$ dont les éléments sont les cofacteurs de $A$ :
+    $$\Com(A) = (A_{i,j})_{1 \le i,j \le n}$$
+\end{definition}
+
+\begin{example}[Matrice carrée de taille 2 générique]
+    $$A = \left(\begin{matrix} a & b \\ c & d \end{matrix}\right)$$
+    Listons tous les mineurs de $A$ :
+    \begin{align*}
+        \Delta_{1,1} &= d \\
+        \Delta_{1,2} &= c \\
+        \Delta_{2,1} &= b \\
+        \Delta_{2,2} &= a
+    \end{align*}
+    En appliquant la formule du cofacteur, on trouve :
+    \begin{align*}
+        A_{1,1} &= (-1)^{1+1} \cdot \Delta_{1,1} = d \\
+        A_{1,2} &= (-1)^{1+2} \cdot \Delta_{1,2} = -c \\
+        A_{2,1} &= (-1)^{2+1} \cdot \Delta_{2,1} = -b \\
+        A_{2,2} &= (-1)^{2+2} \cdot \Delta_{2,2} = a
+    \end{align*}
+    La comatrice de $A$ est donc donnée par :
+    $$\Com(A) = \left(\begin{matrix} d & -c \\ -b & a \end{matrix}\right)$$
+\end{example}
+
+\begin{example}[Matrice carrée de taille 4 explicite]
+    $$A = \left(\begin{matrix} 1 & 3 & 4 & 0 \\ 2 & 4 & 1 & -1 \\ -1 & 0 & 5 & 1 \\ 0 & 1 & 2 & 1 \end{matrix}\right)$$
+    Calculons le mineur $\Delta_{3,2}$ de $A$ :
+    $$\Delta_{3,2} = \left|\begin{matrix} 1 & 4 & 0 \\ 2 & 1 & -1 \\ 0 & 2 & 1 \end{matrix}\right|$$
+    En utilisant la formule du déterminant d'un système de trois vecteurs, on trouve :
+    $$\Delta_{3,2} = 1 \cdot (1 \cdot 1 - (-1) \cdot 2) - 4 \cdot (2 \cdot 1 - (-1) \cdot 0) + 0 \cdot (2 \cdot 2 - 1 \cdot 0) = -5$$
+    En appliquant la formule du cofacteur, on trouve :
+    $$A_{3,2} = (-1)^{3+2} \cdot \Delta_{3,2} = -5$$
+\end{example}
+
+\begin{property}
+    
+\end{property}
 
 \printindex
 \end{document}
