@@ -1475,9 +1475,9 @@ On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversi
 \begin{property}
     Le déterminant d'une matrice ne change pas s'il on ajoute à une colonne une combinaison linéaire d'autres colonnes.
 
-    $$\forall i \in [\![1,n]\!], \forall \underset{j\in [\![1,n]\!]}{(\lambda_j)} \in \Kset^{n-1}, \det(c_1, \dots, c_i + \sum_{1 \le j \le n} \lambda_j c_j, \dots, c_n) = \det(c_1, \dots, c_i, \dots, c_n)$$
+    $$\forall i \in [\![1,n]\!], \ \forall (\lambda_j)_{j \neq i} \in \Kset^{n-1}, \quad \det(c_1, \dots, c_i + \sum_{\substack{j=1 \\ j \neq i}}^n \lambda_j c_j, \dots, c_n) = \det(c_1, \dots, c_i, \dots, c_n)$$
 
-    $$c_i \leftarrow c_i + \sum_{j \in [\![1,n]\!]} \lambda_j c_j \text{ laisse le déterminant invariant}$$
+    $$c_i \leftarrow c_i + \sum_{j \in [\![1,n]\!]\setminus{\{i\}}} \lambda_j c_j \text{ laisse le déterminant invariant}$$
 \end{property}
 
 \begin{proof}
@@ -1524,16 +1524,27 @@ Le lemme suivant sera utilisé pour démontrer une propriété importante du dé
 \end{theorem}
 
 \begin{proof}
-    On procède par récurrence sur $n$.
+    On procède par récurrence finie forte sur l'indice $k \in [\![1,n]\!]$. Pour tout $k \in [\![1,n]\!]$, notons $\mathcal{P}(k)$ la propriété : $\sigma(k) = k$.
 
     \begin{itemize}
-        \item L'initialisation est triviale pour $n=2$.
+        \item \textbf{Initialisation ($k=1$) :}
+        Par hypothèse, on dispose de l'inégalité $\sigma(1) \le 1$. L'application $\sigma$ étant à valeurs dans $[\![1,n]\!]$, la seule valeur entière admissible pour l'image de $1$ est $1$. On a donc $\sigma(1) = 1$, ce qui valide la propriété $\mathcal{P}(1)$.
+
         \item \textbf{Hérédité :}
-        \begin{itemize}
-            \item Soit $i \in [\![1,n]\!]$. On suppose que $\forall k \in [\![1,i]\!], \sigma(k) = k$. On montre que $\sigma(i + 1) = i + 1$.
-            \item On a $\sigma(i + 1) \le i+1$. D'après l'hypothèse de récurrence, on a $\sigma(i + 1) \notin \{1, \dots, i\}$, ce qui implique $\sigma(i + 1) = i + 1$ (sachant que $\sigma$ est une bijection).
-            \item Donc $\sigma(k) = k$ pour tout $k \in [\![1,n]\!]$, soit $\sigma = \Id_{[\![1,n]\!]}$.
-        \end{itemize}
+        Soit $k \in [\![1,n-1]\!]$. Supposons que les propriétés $\mathcal{P}(1), \mathcal{P}(2), \dots, \mathcal{P}(k)$ soient vraies, c'est-à-dire que pour tout $j \in [\![1,k]\!]$, $\sigma(j) = j$. Montrons que $\mathcal{P}(k+1)$ est vraie, à savoir que $\sigma(k+1) = k+1$.
+
+        Par hypothèse du lemme, on dispose de l'inégalité suivante :
+        $$\sigma(k+1) \le k+1$$
+        L'application $\sigma$ étant une permutation de $[\![1,n]\!]$, elle est par définition bijective et donc injective. Par conséquent, l'image de l'élément $k+1$ ne peut pas appartenir à l'ensemble des images des éléments qui le précèdent :
+        $$\sigma(k+1) \notin \{\sigma(1), \sigma(2), \dots, \sigma(k)\}$$
+        En injectant l'hypothèse de récurrence forte, cet ensemble d'images interdites se simplifie en :
+        $$\{\sigma(1), \sigma(2), \dots, \sigma(k)\} = \{1, 2, \dots, k\} = [\![1,k]\!]$$
+        Ainsi, $\sigma(k+1)$ est un entier inférieur ou égal à $k+1$ qui n'appartient pas à $[\![1,k]\!]$. La seule valeur entière candidate restante dans $[\![1,n]\!]$ est explicitement $k+1$. On en déduit :
+        $$\sigma(k+1) = k+1$$
+        L'hérédité est ainsi vérifiée.
+
+        \item \textbf{Conclusion :}
+        D'après le principe de récurrence, on a bien $\sigma(k) = k$ pour tout $k \in [\![1,n]\!]$, ce qui démontre rigoureusement que $\sigma = \Id_{[\![1,n]\!]}$.
     \end{itemize}
 \end{proof}
 
@@ -1558,14 +1569,14 @@ Le lemme suivant sera utilisé pour démontrer une propriété importante du dé
     $$A = \left(\begin{matrix} -1 & 0 & 3 \\ 2 & 1 & 4 \\ 3 & 1 & -1 \end{matrix}\right)$$
     On a donc :
     $$\det(A) = \left|\begin{matrix} -1 & 0 & 3 \\ 2 & 1 & 4 \\ 3 & 1 & -1 \end{matrix}\right|$$
-    En utilisant la formule du déterminant d'un système de trois vecteurs (déjà établie, développement de Saros), on trouve :
+    En utilisant la formule du déterminant d'un système de trois vecteurs (déjà établie, développement de Sarrus), on trouve :
     $$\det(A) = 7 - (9-4) = 2 \ne 0$$
     On en déduit aussi que :
     $$A \in \GL_3(\R)$$
 \end{example}
 
 \begin{example}
-    $$A = \left(\begin{matrix} 0 & 1 & 0 & 0 \\ \vdots & \ddots & \ddots & 0 \\ \vdots & & \ddots & 1 \\ 0 & \dots & \dots & 0 \end{matrix}\right) \in \mathcal M_n(\Kset)$$
+    $$A = \left(\begin{matrix} 0 & 1 & 0 & 0 \\ \vdots & \ddots & \ddots & 0 \\ \vdots & & \ddots & 1 \\ 1 & \dots & \dots & 0 \end{matrix}\right) \in \mathcal M_n(\Kset)$$
     Le déterminant de $A$ est donné par :
     $$\det(A) = \det_{\mathcal{B}_c}(c_1, \dots, c_n)$$
     Or, les colonnes de $A$ sont les vecteurs de la base canonique dans un ordre différent. En appliquant la propriété du déterminant d'une permutation sur les colonnes, on trouve :
@@ -1619,7 +1630,7 @@ Dans les trois définitions suivantes, $A = (a_{i,j})_{1 \le i,j \le n} \in \mat
     $$A_{i,j} = (-1)^{i+j} \cdot \Delta_{i,j}$$
 \end{definition}
 
-\begin{definition}
+\begin{definition}[Comatrice]
     On appelle la comatrice de $A$ la matrice carrée de taille $n$ dont les éléments sont les cofacteurs de $A$ :
     $$\Com(A) = (A_{i,j})_{1 \le i,j \le n}$$
 \end{definition}
@@ -1651,17 +1662,316 @@ Dans les trois définitions suivantes, $A = (a_{i,j})_{1 \le i,j \le n} \in \mat
     En utilisant la formule du déterminant d'un système de trois vecteurs, on trouve :
     $$\Delta_{3,2} = 1 \cdot (1 \cdot 1 - (-1) \cdot 2) - 4 \cdot (2 \cdot 1 - (-1) \cdot 0) + 0 \cdot (2 \cdot 2 - 1 \cdot 0) = -5$$
     En appliquant la formule du cofacteur, on trouve :
-    $$A_{3,2} = (-1)^{3+2} \cdot \Delta_{3,2} = -5$$
+    $$A_{3,2} = (-1)^{3+2} \cdot \Delta_{3,2} = 5$$
 \end{example}
 
 \begin{property}
-    Soit $A \in \mathcal M_n(\Kset)$, dont $a_{n,n} = 1$ et $\forall i \in [\![1,n-1]\!], a_{i,n} = 0_\Kset$. Alors $\det(A) = \Delta_{n,n}$, i.e.:
+    Soit $A \in \mathcal M_n(\Kset)$, dont $a_{n,n} = 1$ et $\forall i \in [\![1,n-1]\!], a_{i,n} = 0_\Kset$.
+    $$A = \left(\begin{matrix} a_{1,1} & \dots & a_{1,n-1} & 0 \\ \vdots & \ddots & \vdots & \vdots \\ a_{n-1,1} & \dots & a_{n-1,n-1} & 0 \\ a_{n,1} & \dots & a_{n,n-1} & 1 \end{matrix}\right)$$
+    Alors $\det(A) = \Delta_{n,n}$, i.e.:
     $$\det(A) = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} \\ \vdots & \ddots & \vdots \\ a_{n-1,1} & \dots & a_{n-1,n-1} \end{matrix}\right| = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} & 0 \\ \vdots & \vdots & \vdots & \vdots \\ \vdots & \vdots & \vdots & \vdots \\ a_{n,1} & \dots & a_{n,n-1} & 1 \end{matrix}\right|$$
 \end{property}
 
+Cette propriété sera utilisée pour démontrer la formule d'expansion du déterminant par rapport à une ligne ou une colonne.
+
 \begin{proof}
+    Par définition, le déterminant de $A$ est donné par :
+    $$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+    Les permutations de $S_n$ qui vérifient $\sigma(n) \ne n$ font s'annuler le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$, car $a_{i,n} = 0_\Kset$ pour tout $i \in [\![1,n-1]\!]$.
+
+    Les seules permutations qui contribuent à la somme sont celles qui vérifient $\sigma(n) = n$. Cet ensemble de permutations sera noté $G$, comme suit :
+    $$G = \{\sigma \in S_n \tqf \sigma(n) = n\}$$
     
+    Le déterminant de $A$ se simplifie alors en :
+    $$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+    Comme $a_{n,n} = 1$, on peut supprimer ce terme du produit :
+    $$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \left(\prod_{k=1}^{n-1} a_{\sigma(k), k}\right)$$
+
+    Maintenant, nous allons montrer que :
+    $$G \sim S_{n-1}$$
+    ... Ce qui nous permettra d'effectuer un changement de variable à l'intérieur de la somme et ainsi retrouver le mineur $\Delta_{n,n}$. Il faut donc construire une bijection entre $G$ et $S_{n-1}$.
+
+    On remarque que pour tout $\sigma \in G$, comme $\sigma(n) = n$, la restriction de $\sigma$ à l'ensemble $[\![1,n-1]\!]$ est une permutation de cet ensemble.
+    $$\sigma \in G \implies \sigma_{|[\![1,n-1]\!]} \in S_{n-1}$$
+
+    Construisons l'application suivante :
+    $$f : \begin{matrix} G & \to & S_{n-1} \\ \sigma & \mapsto & \sigma_{|[\![1,n-1]\!]} \end{matrix}$$
+
+    L'application est bien définie, car la restriction de $\sigma$ à $[\![1,n-1]\!]$ est une permutation de cet ensemble, comme démontré juste avant.
+
+    \begin{itemize}
+        \item \textbf{Injectivité :} Soient $\sigma, \tau \in G$ tels que $f(\sigma) = f(\tau)$. Par définition de $f$, on a $\sigma_{|[\![1,n-1]\!]} = \tau_{|[\![1,n-1]\!]}$. De plus, comme $\sigma(n) = n$ et $\tau(n) = n$, on trouve que $\sigma(k) = \tau(k)$ pour tout $k \in [\![1,n]\!]$, soit $\sigma = \tau$.
+        \item \textbf{Surjectivité :} Soit $\sigma' \in S_{n-1}$. Construisons la permutation $\sigma \in S_n$ suivante :
+        $$\sigma(k) = \begin{cases} \sigma'(k) & \text{si } k \in [\![1,n-1]\!] \\ n & \text{si } k = n \end{cases}$$
+        Par construction, $\sigma$ est une permutation de $[\![1,n]\!]$ qui vérifie $\sigma(n) = n$. Par conséquent, $\sigma \in G$. De plus, $f(\sigma) = \sigma_{|[\![1,n-1]\!]} = \sigma'$, ce qui prouve que $f$ est surjective.
+        \item On note aussi le fait que, si $\sigma \in G$ et $\tau = f(\sigma)$, alors $\varepsilon(\sigma) = \varepsilon(\tau)$, car $\sigma$ et $\tau$ ont la même décompositions en cycles à supports disjoints, sachant que $\sigma(n) = n$ et $\sigma_{|[\![1,n-1]\!]} = \tau$.
+    \end{itemize}
+
+    On conclut que $f$ est une bijection entre $G$ et $S_{n-1}$, et que $\varepsilon(\sigma) = \varepsilon(f(\sigma))$ pour tout $\sigma \in G$. Par conséquent, on peut effectuer le changement de variable $\tau = f(\sigma)$ à l'intérieur de la somme :
+    \begin{align*}
+        \det(A) &= \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \left(\prod_{k=1}^{n-1} a_{\sigma(k), k}\right) \\
+        &= \sum_{\tau \in S_{n-1}} \varepsilon(\tau) \cdot \left(\prod_{k=1}^{n-1} a_{\tau(k), k}\right) \\
+        &= \det\bigl((a_{i,j})_{1 \le i,j \le n-1}\bigr) \\
+        &= \Delta_{n,n}
+    \end{align*}
 \end{proof}
+
+\begin{property}[Développements suivant les lignes et les colonnes]
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
+    \begin{itemize}
+        \item $\forall i \in [\![1,n]\!], \det(A) = \sum_{j=1}^{n} a_{i,j} \cdot A_{i,j}$ (développement suivant la ligne $i$)
+        \item $\forall j \in [\![1,n]\!], \det(A) = \sum_{i=1}^{n} a_{i,j} \cdot A_{i,j}$ (développement suivant la colonne $j$)
+    \end{itemize}
+    où $A_{i,j}$ est le cofacteur de $A$ associé à $(i,j)$.
+\end{property}
+
+\begin{proof}
+    Démontrons le développement suivant la $j$-ième colonne. Soit $j \in [\![1,n]\!]$ fixé.
+    
+    En exprimant la colonne $c_j$ comme combinaison linéaire des vecteurs de la base $\mathcal B = (e_1,\dots,e_n)$ définie par :
+
+    $$e_i = \left(\begin{matrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{matrix}\right) \text{ avec } 1 \text{ à la position } i$$
+    ... on obtient : ($c_j = \sum_{i=1}^n a_{i,j} e_i$) et en exploitant la $n$-linéarité du déterminant par rapport à sa $j$-ième colonne, on isole chaque coefficient de la manière suivante :
+    
+    $$\det(A) = \sum_{i=1}^n a_{i,j} \cdot \left|\begin{matrix} 
+        a_{1,1} & \dots & a_{1,j-1} & 0 & a_{1,j+1} & \dots & a_{1,n} \\
+        \vdots & & \vdots & \vdots & \vdots & & \vdots \\
+        a_{i,1} & \dots & a_{i,j-1} & 1 & a_{i,j+1} & \dots & a_{i,n} \\
+        \vdots & & \vdots & \vdots & \vdots & & \vdots \\
+        a_{n,1} & \dots & a_{n,j-1} & 0 & a_{n,j+1} & \dots & a_{n,n}
+    \end{matrix}\right| \begin{matrix} \ \\ \ \\ \leftarrow \text{ ligne } i \\ \ \\ \ \end{matrix}$$
+    $$\begin{matrix} \qquad \qquad \qquad \qquad \ \ \uparrow \\ \qquad \qquad \qquad \quad \text{colonne } j \end{matrix}$$
+
+    Afin de ramener le pivot $1$ au coin inférieur droit (position $(n,n)$), on opère les migrations successives par transpositions adjacentes :
+
+    \begin{outline}
+        \1 \textbf{Étape 1 : Migration de la colonne $j$ vers la colonne $n$}
+        \2 On effectue $n-j$ transpositions successives de colonnes pour propulser le vecteur colonne colonne par colonne vers l'extrémité droite. Chaque permutation inversant le signe du déterminant, on extrait le facteur $(-1)^{n-j}$ :
+        $$\det(A) = \sum_{i=1}^n a_{i,j} \cdot (-1)^{n-j} \cdot \left|\begin{matrix} 
+            a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+            \vdots & & \vdots & \vdots & & \vdots & \vdots \\
+            a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1 \\
+            \vdots & & \vdots & \vdots & & \vdots & \vdots \\
+            a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0
+        \end{matrix}\right| \begin{matrix} \ \\ \ \\ \leftarrow \text{ ligne } i \\ \ \\ \ \end{matrix}$$
+
+        \1 \textbf{Étape 2 : Migration de la ligne $i$ vers la ligne $n$}
+        \2 On effectue de la même manière $n-i$ transpositions de lignes pour descendre la ligne $i$ tout en bas de la matrice. Cette opération génère un second facteur de signe égal à $(-1)^{n-i}$ :
+        $$\det(A) = \sum_{i=1}^n a_{i,j} \cdot \underbrace{(-1)^{n-j} (-1)^{n-i}}_{(-1)^{i+j}} \cdot \left|\begin{matrix} 
+            a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+            \vdots & & \vdots & \vdots & & \vdots & \vdots \\
+            a_{i-1,1} & \dots & a_{i-1,j-1} & a_{i-1,j+1} & \dots & a_{i-1,n} & 0 \\
+            a_{i+1,1} & \dots & a_{i+1,j-1} & a_{i+1,j+1} & \dots & a_{i+1,n} & 0 \\
+            \vdots & & \vdots & \vdots & & \vdots & \vdots \\
+            a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0 \\
+            a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1
+        \end{matrix}\right|$$
+    \end{outline}
+
+    La structure finale obtenue présente une $n$-ième colonne composée exclusivement de zéros à l'exception du $1$ en position terminale $(n,n)$. Le bloc supérieur gauche de dimensions $(n-1) \times (n-1)$ correspond exactement à la sous-matrice d'origine privée de sa ligne $i$ et de sa colonne $j$.
+
+    Par application directe de la propriété de réduction par bloc inférieur démontrée à la section précédente, le déterminant de cette matrice globale est rigoureusement égal au déterminant de ce sous-bloc, qui s'identifie par définition au mineur $\Delta_{i,j}$ :
+    $$\left|\begin{matrix} 
+        a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+        \vdots & & \vdots & \vdots & & \vdots & \vdots \\
+        a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0 \\
+        a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1
+    \end{matrix}\right| = \left|\begin{matrix} 
+        a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} \\
+        \vdots & & \vdots & \vdots & & \vdots \\
+        a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n}
+    \end{matrix}\right| = \Delta_{i,j}$$
+
+    En réinjectant cette simplification à l'intérieur de la somme linéaire globale, on valide de manière définitive la formule du cofacteur :
+    $$\det(A) = \sum_{i=1}^n a_{i,j} \cdot (-1)^{i+j} \cdot \Delta_{i,j} = \sum_{i=1}^n a_{i,j} A_{i,j}$$
+
+    Le développement par rapport aux lignes s'obtient de manière calquée en appliquant la même décomposition linéaire sur la matrice transposée $^t A$, en vertu de la propriété d'invariance par transposition $\det(A) = \det(^t A)$.
+\end{proof}
+
+\begin{example}
+    Calculons le déterminant de la matrice suivante :
+    $$A = \left(\begin{matrix}
+    1 & -1 & 1 \\
+    0 & 2 & 3 \\
+    1 & 2 & 1
+    \end{matrix}\right)$$
+    Faisons un développement suivant la première colonne de $A$ (qui est plus facile, parce qu'elle contient un zéro).
+    \begin{align*}
+        \det(A) &= \sum_{i=1}^{3} a_{i,1} A_{i,1} \\
+                &= 1 \cdot A_{1,1} + 0 \cdot A_{2,1} + 1 \cdot A_{3,1} \\
+                &= A_{1,1} + A_{3,1} \\
+                &= \left|\begin{matrix}
+                2 & 3 \\
+                2 & 1
+                \end{matrix}\right| + \left|\begin{matrix}
+                -1 & 1 \\
+                2 & 3
+                \end{matrix}\right| \\
+                &= (2 \cdot 1 - 3 \cdot 2) + (-1 \cdot 3 - 1 \cdot 2) \\
+                &= -4 - 5 = -9
+    \end{align*}
+    D'où $\det(A) = -9 \ne 0$, et $A \in \GL_3(\R)$.
+\end{example}
+
+\begin{example}[Matrice tridiagonale à diagonales constantes]
+    Soit $n \ge 1$ et soient $a, b, c \in \R$. On considère le déterminant $\Delta_n$ d'une matrice tridiagonale de taille $n$ défini par :
+    $$\Delta_n = \left|\begin{matrix} 
+        a & c & 0 & \dots & 0 \\
+        b & a & c & \ddots & \vdots \\
+        0 & b & a & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & c \\
+        0 & \dots & 0 & b & a 
+    \end{matrix}\right|_{(n)}$$
+    Montrons que pour tout $n \ge 1$, ce déterminant vérifie la relation de récurrence d'ordre 2 suivante :
+    $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+
+    Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
+    $$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
+    
+    Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
+    
+    Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
+    $$M_{2,1} = \left|\begin{matrix} 
+        c & 0 & 0 & \dots & 0 \\
+        b & a & c & \ddots & \vdots \\
+        0 & b & a & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & c \\
+        0 & \dots & 0 & b & a 
+    \end{matrix}\right|_{(n+1)}$$
+    
+    Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
+    $$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
+        a & c & 0 & \dots & 0 \\
+        b & a & c & \ddots & \vdots \\
+        0 & b & a & \ddots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & c \\
+        0 & \dots & 0 & b & a 
+    \end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
+    
+    En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
+    $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+
+    Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
+    $$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
+
+    L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
+    $$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
+
+    Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
+    $$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
+
+    Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
+    \begin{itemize}
+        \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
+        \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
+    \end{itemize}
+
+    En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
+    $$\begin{cases}
+        \alpha \cdot 1 + \beta = 2 \\
+        \alpha \cdot 2 + \beta = 3
+    \end{cases} \iff \begin{cases}
+        \alpha + \beta = 2 \\
+        2\alpha + \beta = 3
+    \end{cases}$$
+
+    Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+
+    On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
+    $$\Delta_n = n + 1$$
+\end{example}
+
+\begin{exercise}
+    On considère la matrice carrée de taille $n$ $A$ suivante, et la fonction $f : \R \to \R$ définie par le déterminant de la matrice obtenue en ajoutant $x$ à tous les éléments de $A$ :
+    $$
+        A = \left(\begin{matrix} 2 & 3 & \dots & 3 \\ 1 & 2 & \dots & 3 \\ \vdots & \vdots & \ddots & \vdots \\ 1 & 1 & \dots & 2 \end{matrix}\right) \et
+        f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
+    \begin{enumerate}
+        \item Vérifier que $f \in \R_1[X]$.
+        \item Calculer $\det(A)$ (Indice: considérer $f(-1)$ et $f(-3)$).
+    \end{enumerate}
+\end{exercise}
+
+L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer $\det(A)$ (qui est égal à $f(0)$).
+
+\begin{outline}
+    \1 Montrons que $f \in \R_1[X]$. $f$ est définie par l'expression suivante :
+    $$f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
+    On peut réaliser l'opération élémentaire suivante sur les colonnes de la matrice : $C_i \leftarrow C_i - C_n$ pour tout $i \in [\![1,n-1]\!]$. On rappelle que cette opération ne modifie pas le déterminant de la matrice. On trouve alors :
+    $$f(x) = \left|\begin{matrix} 
+    -1 & 0 & \dots & 0 & 3+x \\ 
+    -2 & -1 & \dots & 0 & 3+x \\ 
+    \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+    -1 & -1 & \dots & -1 & 2+x \end{matrix}\right|$$
+    (On peut aussi réaliser l'opération $C_i \leftarrow C_i - C_{i+1}$ pour aboutir à un résultat similaire).
+    En développant ce déterminant suivant la première ligne, on trouve :
+    \begin{align*}
+        f(x) &= \sum_{i=1}^{n} a_{1,i} A_{1,i} = a_{1,1} A_{1,1} + a_{1,n} A_{1,n} \\
+        &= -1 \cdot A_{1,1} + (3+x) \cdot A_{1,n} \\
+        &= A_{1,n} \cdot x + (3A_{1,n} - A_{1,1})
+    \end{align*}
+    Comme $A_{1,n}$ et $A_{1,1}$ sont des constantes dans $\R$, cela veut dire que :
+    $$\exists a,b \in \R \tqp f(x) = ax + b \text{ i.e.: } f \in \R_1[X]$$
+
+    \1 On peut retrouver les valeurs de $a,b$ en calculant $f(-1)$ et $f(-3)$ :
+    \begin{itemize}
+        \item $f(-1) = \left|\begin{matrix} 1 & 2 & \dots & 2 \\ 0 & 1 & \dots & 2 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & 1 \end{matrix}\right| = 1$
+        \item $f(-3) = \left|\begin{matrix} -1 & 0 & \dots & 0 \\ -2 & -1 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ -2 & -2 & \dots & -1 \end{matrix}\right| = (-1)^n$
+    \end{itemize}
+    On rappelle que les déterminants d'une matrice triangulaire sont égaux au produit de leurs éléments diagonaux. En injectant ces deux résultats dans l'expression de $f$, on trouve :
+    \begin{align*}
+        f(-1) &= a \cdot (-1) + b = -a + b = 1 \\
+        f(-3) &= a \cdot (-3) + b = -3a + b = (-1)^n
+    \end{align*}
+    En résolvant ce système d'équations, on trouve :
+    $$\begin{cases}
+        -a + b = 1 \\
+        -3a + b = (-1)^n
+    \end{cases} \iff \begin{cases}
+        2a = 1 - (-1)^n \\
+        b = 1 + a
+    \end{cases}$$
+    Par conséquent, pour tout $x \in \R$, on a :
+    $$f(x) = \frac{1 - (-1)^n}{2} \cdot x + \frac{3 - (-1)^n}{2}$$
+    En évaluant cette expression en $x=0$, on trouve :
+    $$\det(A) = f(0) = \frac{3 - (-1)^n}{2}$$
+\end{outline}
+
+\begin{property}
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
+    $$A\times\,^t\Com(A) = \,^t\Com(A)\times A=\det(A) \cdot I_n$$
+
+    La matrice $^t\Com(A) = \tilde{A}$ est appelée la \textbf{matrice complémentaire} de $A$. 
+\end{property}
+
+\begin{proof}
+    aight lowkirkenuinely gl yall i'm too tired to write another proof rn \faIcon{tired} \faIcon{seedling} \faIcon{heart-broken}
+\end{proof}
+
+\begin{consequence}
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
+    $$A \in \GL_n(\Kset) \iff \det(A) \ne 0$$
+    De plus, si $A$ est inversible, alors son inverse est donné par la formule suivante :
+    $$A^{-1} = \frac{1}{\det(A)} \cdot \,^t\Com(A)$$
+\end{consequence}
+
+\begin{consequence}
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Si $\det(A) = 0$, alors $\rang(A) < n$.
+    \begin{itemize}
+        \item Si $\rang(A) = n-1$, alors $\rang(\,^t\Com(A)) = 1$.
+        \item Si $\rang(A) < n-1$, alors $\rang(\,^t\Com(A)) = 0$, i.e. $\,^t\Com(A) = 0$.
+    \end{itemize}
+\end{consequence}
+
+\section{Application : Résolution d'un système de Cramer}
+
+\chapter{Compléments}
+
+\section{Réduction d'une matrice}
+
+\section{Polynôme caractéristique d'un endomorphisme}
+
+\section{Théorème de Cayley-Hamilton}
 
 \printindex
 \end{document}
