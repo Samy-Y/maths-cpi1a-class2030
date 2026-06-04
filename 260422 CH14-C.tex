@@ -2429,7 +2429,7 @@ Donc $A^{-1} = Q_m \times \cdots \times Q_1 = Q_m \times \cdots \times Q_1 \time
 
     Dans ce cas, $S(L) = X_0 + S(H)$.
 
-    C'est ce qu'on appelle un sous-espace affine de direction $S(H)$ et passant par $X_0$.
+    C'est ce qu'on appelle un sous-espace affine\index{sous-espace affine} de direction $S(H)$ et passant par $X_0$.
 \end{property}
 
 \begin{proof}
@@ -2445,6 +2445,108 @@ Donc $A^{-1} = Q_m \times \cdots \times Q_1 = Q_m \times \cdots \times Q_1 \time
         & \iff X \in X_0 + S(H)
     \end{align*}
 \end{proof}
+
+\chapter{Compléments}
+
+\begin{definition}[Valeur propre d'une matrice]
+    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée d'ordre $n$.
+
+    $\lambda$ est dite \textbf{valeur propre} de $A$ si et seulement si :
+    
+    $$\exists X \in \mathcal M_{n,1}(\Kset) \setminus \{0\}, AX = \lambda X$$
+
+    On note $\Sp_\Kset(A) = \{\lambda \in \Kset \mid \lambda \text{ est une valeur propre de } A\}$ le spectre de $A$.
+\end{definition}
+
+\begin{remark}
+    Si $f \in \mathcal L(\Kset^n)$ est l'endomorphisme canoniquement associé à $A$, alors $\lambda$ est une valeur propre de $A$ ssi $\lambda$ est une valeur propre de $f$.
+    $$\lambda \in \Sp_\Kset(A) \iff \lambda \in \Sp_\Kset(f)$$
+\end{remark}
+
+\begin{remark}
+    Si $\lambda \in \Sp_\Kset(A)$ est une valeur propre de $A$, alors $AX = \lambda X$ ssi $(A - \lambda I_n)X = 0$ ssi $X \in \Ker(A - \lambda I_n)$, et donc $A - \lambda I_n$ n'est pas injective, et donc $A - \lambda I_n$ n'est pas inversible.
+
+    $$\lambda \in \Sp_\Kset(A) \implies A - \lambda I_n \notin \GL_n(\Kset)$$
+\end{remark}
+
+% "there is a spectre haunting Europe, the spectre of a matrix" - karl euler or something
+
+\begin{example}
+    $$A = \left(\begin{matrix} 6 & -5 \\ 2 & -1 \end{matrix}\right)$$
+
+    Comme $\lambda \in \Sp_\R(A) \implies A - \lambda I_2 \notin \GL_2(\R)$, on trouve que $A - \lambda I_2 = \left(\begin{matrix} 6 - \lambda & -5 \\ 2 & -1 - \lambda \end{matrix}\right)$ n'est pas inversible.
+
+    Donc le rang de la matrice $A - \lambda I_2$ est strictement inférieur à $2$. Son rang ne peut pas être nul (car la matrice ne peut pas être nulle...), donc $\rang(A - \lambda I_2) = 1$.
+
+    \begin{align*}
+        \rang(A - \lambda I_2) = 1 & \implies \exists \alpha \in \R \tq \left(\begin{matrix} 6 - \lambda \\ 2 \end{matrix}\right) = \alpha \left(\begin{matrix} -5 \\ -1 - \lambda \end{matrix}\right) \\
+        & \implies \dots \\
+        & \implies \begin{cases} \alpha = \frac{\lambda - 6}{5} \\ 2 = \frac{6 - \lambda}{5} (1 + \lambda) \end{cases} \\
+    \end{align*}
+\end{example}
+
+\begin{definition}[Matrice par blocs]
+    Soit $M$ la matrice donnée par :
+    $$M = \left(\begin{matrix}
+        A & B \\
+        C & D
+    \end{matrix}\right)$$
+    où $A,B,C$ et $D$ sont des matrices.
+    
+    $M$ est dite \textbf{matrice par blocs}.
+
+    sachant que :
+    \begin{itemize}
+        \item Le nombre de colonnes de $A$ doit être égal au nombre de colonnes de $C$.
+        \item Le nombre de colonnes de $B$ doit être égal au nombre de colonnes de $D$.
+        \item Le nombre de lignes de $A$ doit être égal au nombre de lignes de $B$.
+        \item Le nombre de lignes de $C$ doit être égal au nombre de lignes de $D$.
+    \end{itemize}
+\end{definition}
+
+\begin{property}
+    Soient $E$ un $\Kset$-espace vectoriel de dimension finie $n$, et $f \in \mathcal L(E)$ un endomorphisme de $E$.
+
+    Soit $F$ un sous-espace vectoriel de $E$ stable par $f$, de dimension $\dim F = r$.
+
+    Alors il existe une base de $E$ dans laquelle la matrice de $f$ est de la forme suivante :
+
+    $$\exists \mathcal B \text{ base de } E \tq [f]_\mathcal{B} = 
+    \left(
+    \begin{array}{c|c}
+    A_1 \in \mathcal{M}_{r}(\Kset) & A_2 \in \mathcal{M}_{r,n-r}(\Kset) \\
+    \hline
+    0_{n-r,r} & A_3 \in \mathcal{M}_{n-r}(\Kset)
+    \end{array}
+    \right)
+    $$
+
+    Avec $A_1$ la matrice de $f$ restreinte à $F$, soit $f_{\parallel F}$.
+\end{property}
+
+\begin{proof}
+    On note $\mathcal B_1 = (e_1,\dots,e_r)$ une base de $F$.
+
+    Comme $\mathcal B_1$ est libre, on peut la compléter en une base de $E$ : $\mathcal B = (e_1,\dots,e_r,e_{r+1},\dots,e_n)$.
+
+    Comme $F$ est stable par $f$, on a $\forall i \in \{1,\dots,r\}, f(e_i) \in F$, donc $\exists a_{1,i},\dots,a_{r,i} \in \Kset$ tels que $f(e_i) = \sum_{j=1}^r a_{j,i} e_j$.
+
+    $$f(\mathcal B_1) \subset \Vect(\mathcal B_1)$$
+
+    $$[f]_\mathcal{B} = \overset{e_1,\dots,e_r,e_{r+1},\dots,e_n}{\left(\begin{matrix}
+    \dots & \dots & \dots & \dots & \dots \\
+    \vdots & \vdots & \vdots & \vdots & \vdots \\
+    0 & 0 & \cdots & \ne 0 & \cdots \\
+    \vdots & \vdots & \vdots & \vdots & \vdots
+    \end{matrix}\right)}$$
+\end{proof}
+\todo{hummm mhummm à revoir si c'est correct}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}\\
+    Fin du Chapitre XIV-C.\\
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \printindex
 \end{document}

@@ -352,6 +352,13 @@ On rappelle que, dans un groupe $(G,*)$ où $G$ est de cardinal fini, pour $x \i
 
 Ce dernier théorème est admis (sans preuve).
 
+\begin{example}
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 4 & 5 & 6 & 2 & 1 & 9 & 10 & 3 & 8 & 7 \end{matrix}\right)$$
+
+    On peut exprimer $\sigma$ comme un produit de cycles à supports disjoints :
+    $$\sigma = (1 \ 4 \ 2 \ 5)\circ(3 \ 6 \ 9 \ 8)\circ(7 \ 10)$$
+\end{example}
+
 \section{Signature}
 
 \begin{definition}[Signature d'une permutation]
@@ -362,11 +369,25 @@ Ce dernier théorème est admis (sans preuve).
     La signature ne peut être égale qu'à $1$ ou à $-1$.
 \end{definition}
 
+Pour démontrer que la signature ne peut être égale qu'à 1 ou -1, il suffit de montrer que son carré est toujours égal à 1. C'est-à-dire :
+$$\left(\prod_{1 \le i < j \le n} \frac{\sigma(j) - \sigma(i)}{j - i}\right)^2 = 1$$
+
+En effet, on peut réécrire le carré de la signature de la manière suivante :
+$$\left(\eps(\sigma)\right)^2 = \frac{\prod_{1 \le i < j \le n} (\sigma(j) - \sigma(i))^2}{\prod_{1 \le i < j \le n} (j - i)^2}$$
+
+Comme $\sigma$ est une permutation, elle est bijective, on a donc :
+$$\{(\sigma(j) - \sigma(i))^2 \tqp 1 \le i < j \le n\} = \{(j - i)^2 \tqp 1 \le i < j \le n\}$$
+$$\implies \prod_{1 \le i < j \le n} (\sigma(j) - \sigma(i))^2 = \prod_{1 \le i < j \le n} (j - i)^2$$
+En substituant dans l'expression du carré de la signature, on obtient :
+$$\left(\eps(\sigma)\right)^2 = \frac{\prod_{1 \le i < j \le n} (j - i)^2}{\prod_{1 \le i < j \le n} (j - i)^2} = 1$$
+
+D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_n$.
+
 \begin{example}
     Prenons la permutation $\sigma$ suivante dans $S_4$ :
     % 4 2 1 3
     $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
-    Calculons la signature de $\sigma$ :
+    (Note : exemple différent de celui du cours) -- Calculons la signature de $\sigma$ :
     \begin{align*}
         \epsilon(\sigma) &= \frac{\sigma(2) - \sigma(1)}{2 - 1} \cdot \frac{\sigma(3) - \sigma(1)}{3 - 1} \cdot \frac{\sigma(4) - \sigma(1)}{4 - 1} \cdot \frac{\sigma(3) - \sigma(2)}{3 - 2} \cdot \frac{\sigma(4) - \sigma(2)}{4 - 2} \cdot \frac{\sigma(4) - \sigma(3)}{4 - 3} \\
         &= \frac{2 - 4}{2 - 1} \cdot \frac{1 - 4}{3 - 1} \cdot \frac{3 - 4}{4 - 1} \cdot \frac{1 - 2}{3 - 2} \cdot \frac{3 - 2}{4 - 2} \cdot \frac{3 - 1}{4 - 3} \\
@@ -383,6 +404,8 @@ Ce dernier théorème est admis (sans preuve).
 \end{property}
 
 \begin{proof}
+    D'après ce qui précède, $\eps$ est bien définie.
+
     Pour montrer que $\varepsilon$ est un morphisme de groupes, il suffit de montrer que pour toutes permutations $\sigma_1$ et $\sigma_2$ de $S_n$, on a :
     $$\varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)$$
 
@@ -405,7 +428,7 @@ Ce dernier théorème est admis (sans preuve).
     \varepsilon(\sigma_1 \circ \sigma_2) = \prod_{1 \le k \ne l \le n} \frac{\sigma_1(l) - \sigma_1(k)}{l - k} \cdot \prod_{1 \le i < j \le n} \frac{\sigma_2(j) - \sigma_2(i)}{j - i}
     \]
 
-    On reconnaît dans le premier produit la signature de $\sigma_1$ et dans le second produit la signature de $\sigma_2$ :
+    On reconnaît dans le premier produit la signature de $\sigma_1$ et dans le second produit la signature de $\sigma_2$ (sachant qu'elles sont toutes deux bijectives) :
     \[
     \varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)
     \]
@@ -423,7 +446,7 @@ Ce dernier théorème est admis (sans preuve).
 
     $$\sigma = \left(\begin{matrix} 1 & 2 & \dots & i & \dots & j & \dots & n \\ \sigma(1) & \sigma(2) & \dots & \sigma(i) & \dots & \sigma(j) & \dots & \sigma(n) \end{matrix}\right) \avec \sigma(i) > \sigma(j)$$
 
-    On note $I(\sigma)$ le nombre d'inversions de $\sigma$.
+    On note $\mathrm{I}(\sigma)$ le nombre d'inversions de $\sigma$.
 \end{definition}
 
 \begin{example}
@@ -440,7 +463,7 @@ Ce dernier théorème est admis (sans preuve).
 \end{example}
 
 \begin{property}
-    La signature d'une permutation $\sigma \in S_n$ est égale à $(-1)^{I(\sigma)}$.
+    La signature d'une permutation $\sigma \in S_n$ est égale à $(-1)^{\mathrm{I}(\sigma)}$.
 \end{property}
 
 \begin{example}
@@ -453,18 +476,18 @@ Ce dernier théorème est admis (sans preuve).
         \item $(2,3)$
         \item $(1,4)$
     \end{itemize}
-    Ainsi, $I(\sigma) = 4$. Par conséquent, la signature de $\sigma$ est donnée par :
-    $$\varepsilon(\sigma) = (-1)^{I(\sigma)} = (-1)^4 = 1$$
+    Ainsi, $\mathrm{I}(\sigma) = 4$. Par conséquent, la signature de $\sigma$ est donnée par :
+    $$\varepsilon(\sigma) = (-1)^{\mathrm{I}(\sigma)} = (-1)^4 = 1$$
 \end{example}
 
 \begin{remark}
     \begin{enumerate}
-        \item Les inversions d'une transposition $\tau_{i,j} \in S_n$ (avec $n \in \N^*$, $i < j \in [\![1,n]\!]$) sont au nombre de $2(j - i) - 1$. La signature de toute transposition est donc égale à $-1$.
-        $$I(\tau_{i,j}) = 2(j - i) - 1 \et \varepsilon(\tau_{i,j}) = -1$$
-        \item Pour une permutation $\sigma \in S_n$ exprimée comme un produit de transpositions, le nombre d'inversions de $\sigma$ est égal au nombre de transpositions utilisées dans ce produit.
+        \item Les inversions d'une transposition $\tau_{i,j} \in S_n$ (avec $n \in \N^*$, $i < j \in [\![1,n]\!]$) sont au nombre de $2(j - i) - 1$. La signature d'une transposition est donc $-1$.
+        $$\mathrm{I}(\tau_{i,j}) = 2(j - i) - 1 \et \varepsilon(\tau_{i,j}) = -1$$
+        \item Pour une permutation $\sigma \in S_n$ exprimée comme un produit de transpositions, le nombre d'inversions de $\sigma$ est égal au nombre de transpositions de ce produit.
         $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r \implies \varepsilon(\sigma) = (-1)^r$$
-        \item Pour un cycle $\sigma = (a_1,\dots,a_p)$ de longueur $p$, le nombre d'inversions est égal à $p-1$.
-        $$I(\sigma) = p - 1 \et \varepsilon(\sigma) = (-1)^{p-1}$$
+        \item Pour un cycle $\sigma = (a_1,\dots,a_p)$ de longueur $p$, le nombre d'inversions est $p-1$.
+        $$\mathrm{I}(\sigma) = p - 1 \et \varepsilon(\sigma) = (-1)^{p-1}$$
     \end{enumerate}
 \end{remark}
 
@@ -472,7 +495,7 @@ Ce dernier théorème est admis (sans preuve).
     \begin{outline}
         \1 Pour la première remarque, on étudie le nombre d'inversions de la transposition en considérant les inversions :
         \2 $(i,j)$, qui est bel et bien une inversion de $\tau_{i,j}$, car $i < j$ et $\tau_{i,j}(i) = j > \tau_{i,j}(j) = i$.
-        \2 $(k,i)$ pour $i < k < j$, qui est une inversion de $\tau_{i,j}$, car $i < k$ et $\tau_{i,j}(k) = k < \tau_{i,j}(i) = j$. Il y a $j - i - 1$ inversions de ce type.
+        \2 $(k,i)$ pour $i < k < j$, qui est une inversion de $\tau_{i,j}$, car $i < k$ et $\tau_{i,j}(k) = k < \tau_{i,j}(i) = j$. Il y a $j - i - 1$ inversions de ce type, car $k$ peut prendre les valeurs $i+1, i+2, \dots, j-1$, qui sont au nombre de $(j-1) - (i+1) + 1 = j - i - 1$.
         \2 $(j,k)$ pour $i < k < j$, qui est une inversion de $\tau_{i,j}$, car $k < j$ et $\tau_{i,j}(k) = k > \tau_{i,j}(j) = i$. Il y a $j - i - 1$ inversions de ce type.
         \2 \textbf{Au total}, il y a $1 + (j - i - 1) + (j - i - 1) = 2(j - i) - 1$ inversions de $\tau_{i,j}$.
         
@@ -483,21 +506,34 @@ Ce dernier théorème est admis (sans preuve).
         $$\varepsilon(\sigma) = (-1) \cdot (-1) \dots (-1) = (-1)^r$$
 
         \1 Pour la troisième remarque, on décompose le $p$-cycle en un produit de transpositions.
-        \2 Un cycle $\sigma = (a_1, a_2, \dots, a_p)$ de longueur $p$ peut s'écrire explicitement sous la forme d'un produit de $p-1$ transpositions :
-        $$\sigma = (a_1, a_p) \circ (a_1, a_{p-1}) \circ \dots \circ (a_1, a_3) \circ (a_1, a_2)$$
-        \2 En appliquant le résultat de la remarque 2 avec $r = p - 1$, on obtient directement :
+        \2 Un cycle $\sigma = (a_1, a_2, \dots, a_p)$ de longueur $p$ peut s'écrire explicitement sous la forme d'un produit de $p-1$ transpositions, par exemple :
+        \begin{align*}
+            \sigma &= (a_1, a_p) \circ (a_1, a_{p-1}) \circ \dots \circ (a_1, a_3) \circ (a_1, a_2) \\
+            \text{ou encore } \sigma &= (a_1, a_2) \circ (a_2, a_3) \circ \dots \circ (a_{p-2}, a_{p-1}) \circ (a_{p-1}, a_p)
+        \end{align*}
+        \2 En appliquant le résultat de la remarque 2 avec $r = p - 1$, et sachant que $\eps$ est un morphisme, on obtient directement :
         $$\varepsilon(\sigma) = (-1)^{p-1}$$
 
         % congruence modulo 2 à revoir
     \end{outline}
 \end{proof}
 
+\begin{example}
+    Employons les relations énoncées dans la remarque pour calculer la signature de la permutation $\sigma$ suivante dans $S_9$ :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 9 & 5 & 1 & 4 & 7 & 8 & 2 & 6 & 3 \end{matrix}\right)$$
+
+    La méthode la plus simple à utiliser pour calculer la signature de $\sigma$ est de l'exprimer comme un produit de cycles à supports disjoints, puis d'utiliser la troisième remarque pour calculer la signature de chaque cycle.
+    $$\sigma = (1 \ 9 \ 3)(2 \ 5 \ 7)(6 \ 8)$$
+    Par conséquent, la signature de $\sigma$ est donnée par :
+    $$\varepsilon(\sigma) = \varepsilon((1 \ 9 \ 3)) \cdot \varepsilon((2 \ 5 \ 7)) \cdot \varepsilon((6 \ 8)) = (-1)^{3-1} \cdot (-1)^{3-1} \cdot (-1)^{2-1} = -1$$
+\end{example}
+
 \begin{definition}[Permutation paire et impaire]
     Une permutation $\sigma \in S_n$ est dite \textbf{paire} si $\varepsilon(\sigma) = 1$, et \textbf{impaire} si $\varepsilon(\sigma) = -1$.
 \end{definition}
 
 \begin{example}
-    Reprenons l'exemple précédent avec la permutation $\sigma$ suivante dans $S_4$ :
+    Reprenons l'un des exemples précédents avec la permutation $\sigma$ suivante dans $S_4$ :
     $$\sigma = \left(\begin{matrix} 1 & 2 & 3 & 4 \\ 4 & 2 & 1 & 3 \end{matrix}\right)$$
     Nous avons vu que la signature de $\sigma$ est égale à $1$. Par conséquent, $\sigma$ est une permutation paire.
 
@@ -524,9 +560,7 @@ Ce dernier théorème est admis (sans preuve).
 \begin{proof}
     Pour démontrer que l'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, on peut vérifier les trois propriétés classiques (stabilité, existence d'un élément neutre, existence d'inverses) pour cet ensemble.
     
-    Mais une méthode plus rapide consiste à considérer $\mathcal{A}_n$ comme le noyau de l'application signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $\mathcal{A}_n = \ker(\varepsilon)$.
-    
-    D'après les propriétés générales des morphismes de groupes, le noyau $\mathcal{A}_n$ est donc un sous-groupe de $S_n$.
+    Mais une méthode plus rapide consiste à considérer $\mathcal{A}_n$ comme le noyau de l'application (et même de la \textbf{forme linéaire}) signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $\mathcal{A}_n = \ker(\varepsilon)$. Le noyau $\mathcal{A}_n$ est donc un sous-groupe de $S_n$.
 
     Pour démontrer que le cardinal de $\mathcal{A}_n$ est égal à la moitié du cardinal de $S_n$, on utilise le fait que $S_n$ est la réunion disjointe de l'ensemble des permutations paires $\mathcal{A}_n$ et de l'ensemble des permutations impaires $\mathcal{E}_n$ :
     $$S_n = \mathcal{A}_n \cup \mathcal{E}_n \et \mathcal{A}_n \cap \mathcal{E}_n = \emptyset$$
@@ -541,7 +575,7 @@ Ce dernier théorème est admis (sans preuve).
     $$\varepsilon(\varphi(\sigma)) = \varepsilon(\tau \circ \sigma) = \varepsilon(\tau) \cdot \varepsilon(\sigma) = (-1) \cdot 1 = -1$$
     L'image de toute permutation paire par $\varphi$ est donc bien une permutation impaire.
 
-    Montrons maintenant que $\varphi$ est une bijection. Pour cela, on exhibe son application réciproque. Considérons l'application suivante :
+    Montrons maintenant que $\varphi$ est une bijection. Pour cela, on construit son application réciproque. Considérons l'application suivante :
     $$\psi : \begin{matrix} \mathcal{E}_n \to \mathcal{A}_n \\ \delta \mapsto \tau \circ \delta \end{matrix}$$
     Par un raisonnement identique sur les signatures ($\varepsilon(\tau \circ \delta) = (-1) \cdot (-1) = 1$), $\psi$ est bien définie de $\mathcal{E}_n$ vers $\mathcal{A}_n$.
 
@@ -798,7 +832,7 @@ Cette section ne fait pas partie du cours officiel.
 \end{exercise}
 
 \begin{enumerate}
-    \item Pour déterminer le nombre d'inversions $I(\sigma)$, nous listons méthodiquement les couples $(i,j)$ tels que $i < j$ et $\sigma(i) > \sigma(j)$ :
+    \item Pour déterminer le nombre d'inversions $\mathrm{I}(\sigma)$, nous listons méthodiquement les couples $(i,j)$ tels que $i < j$ et $\sigma(i) > \sigma(j)$ :
     \begin{itemize}
         \item Pour $i=1$ ($\sigma(1)=4$) : les inversions sont $(1,3)$ car $4 > 1$, $(1,4)$ car $4 > 2$, et $(1,6)$ car $4 > 3$ (3 inversions).
         \item Pour $i=2$ ($\sigma(2)=6$) : les inversions sont $(2,3)$, $(2,4)$, $(2,5)$, et $(2,6)$ car l'élément $6$ est strictement supérieur à toutes les images suivantes (4 inversions).
@@ -806,9 +840,9 @@ Cette section ne fait pas partie du cours officiel.
         \item Pour $i=4$ ($\sigma(4)=2$) : aucune inversion car toutes les images à sa droite sont supérieures ($5$ et $3$).
         \item Pour $i=5$ ($\sigma(5)=5$) : l'unique inversion est $(5,6)$ car $5 > 3$ (1 inversion).
     \end{itemize}
-    En sommant ces résultats, on obtient $I(\sigma) = 3 + 4 + 0 + 0 + 1 = 8$ inversions. 
+    En sommant ces résultats, on obtient $\mathrm{I}(\sigma) = 3 + 4 + 0 + 0 + 1 = 8$ inversions. 
     D'après la relation liant la signature au nombre d'inversions, on en déduit :
-    $$\varepsilon(\sigma) = (-1)^{I(\sigma)} = (-1)^8 = 1$$
+    $$\varepsilon(\sigma) = (-1)^{\mathrm{I}(\sigma)} = (-1)^8 = 1$$
     La permutation $\sigma$ est donc une permutation paire.
 
     \item Déterminons les orbites de chaque élément pour obtenir la décomposition en cycles disjoints :
@@ -832,7 +866,7 @@ Cette section ne fait pas partie du cours officiel.
 \begin{exercise}[Autour de la signature et des structures de groupes]
     L'objectif de cet exercice est d'établir des propriétés structurelles sur le groupe symétrique.
     \begin{enumerate}
-        \item Soit $\sigma \in S_n$. Montrer que la permutation $\sigma$ et son inverse $\sigma^{-1}$ possèdent exactement le même nombre d'inversions, c'est-à-dire que $I(\sigma) = I(\sigma^{-1})$.
+        \item Soit $\sigma \in S_n$. Montrer que la permutation $\sigma$ et son inverse $\sigma^{-1}$ possèdent exactement le même nombre d'inversions, c'est-à-dire que $\mathrm{I}(\sigma) = I(\sigma^{-1})$.
         \item Soit $n \ge 2$. Montrer que le groupe alterné $\mathcal{A}_n$ est engendré par les $3$-cycles du groupe symétrique $S_n$.
         
         \textit{Indication : On rappellera que $\mathcal{A}_n$ est engendré par les produits de paires de transpositions, puis on étudiera les produits de la forme $(i \ j) \circ (i \ k)$ et $(i \ j) \circ (k \ l)$ pour des indices distincts.}
@@ -870,7 +904,7 @@ Cette section ne fait pas partie du cours officiel.
     \end{itemize}
 
     L'application $f$ admet une application réciproque à gauche et à droite (qui est $g$). $f$ est donc une bijection. Cela implique l'égalité des cardinaux des ensembles de départ et d'arrivée, d'où :
-    $$I(\sigma) = I(\sigma^{-1})$$
+    $$\mathrm{I}(\sigma) = I(\sigma^{-1})$$
 
     \item Par propriété du cours, le groupe alterné $\mathcal{A}_n$ est constitué des permutations paires, et chaque permutation de $\mathcal{A}_n$ peut se décomposer en un produit comportant un nombre pair de transpositions. On peut donc regrouper les transpositions de cette décomposition par paires consécutives de la forme $\tau_1 \circ \tau_2$.
     
@@ -1960,6 +1994,7 @@ L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer
     \begin{itemize}
         \item Si $\rang(A) = n-1$, alors $\rang(\,^t\Com(A)) = 1$.
         \item Si $\rang(A) < n-1$, alors $\rang(\,^t\Com(A)) = 0$, i.e. $\,^t\Com(A) = 0$.
+    \end{itemize}
 \end{consequence}
 
 \section{Application : Résolution d'un système de Cramer}
