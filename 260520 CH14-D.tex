@@ -604,16 +604,25 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
 \chapter{Applications multilinéaires}
 
 \begin{definition}
-    Soient $E_1, E_2, \dots, E_p$ et $F$ des $\Kset$-espaces vectoriels. Une application $f : E_1 \times E_2 \times \dots \times E_p \to F$ est dite \textbf{multilinéaire} si elle est linéaire par rapport à chacune de ses variables, C'est-à-dire que pour tout $(a_1,\dots,a_p) \in E_1 \times E_2 \times \dots \times E_p$, pour tout $x \in E_k$ avec $k \in [\![1,p]\!]$, on a :
-    $$f(a_1, \dots, a_{k-1}, x, a_{k+1}, \dots, a_p) \text{ est linéaire.}$$
+    Soient $E_1, E_2, \dots, E_p$ et $F$ des $\Kset$-espaces vectoriels.
+    
+    Une application $f : E_1 \times E_2 \times \dots \times E_p \to F$ est dite \textbf{multilinéaire} si elle est linéaire par rapport à chacune de ses variables, C'est-à-dire que pour tout $(a_1,\dots,a_p) \in E_1 \times E_2 \times \dots \times E_p$ fixes, pour tout $x \in E_k$ avec $k \in [\![1,p]\!]$, on a :
+    $$f_k : \begin{matrix} E_k \to F \\ x \mapsto f(a_1, \dots, a_{k-1}, x, a_{k+1}, \dots, a_p) \end{matrix} \text{ est linéaire.}$$
 
-    On note $\mathcal{L}(E_1\times E_2 \times \dots \times E_p, F)$ l'ensemble des applications multilinéaires de $E_1 \times E_2 \times \dots \times E_p$ dans $F$.
+    i.e. pour tout $x,y \in E_k$ et pour tout $\lambda \in \Kset$, on a :
+    \begin{align*}
+        f_k(x+\lambda y) &= f(a_1, \dots, a_{k-1}, x + \lambda y, a_{k+1}, \dots, a_p) \\
+        &= f(a_1, \dots, a_{k-1}, x, a_{k+1}, \dots, a_p) + \lambda f(a_1, \dots, a_{k-1}, y, a_{k+1}, \dots, a_p) \\
+        &= f_k(x) + \lambda f_k(y)
+    \end{align*}
+
+    On note $\mathcal{L}(E_1\times E_2 \times \dots \times E_p, F)$ l'ensemble des applications multilinéaires ou $p$-linéaires de $E_1 \times E_2 \times \dots \times E_p$ dans $F$.
 \end{definition}
 
 \begin{remark}
     \begin{enumerate}
-        \item Si $f \in \mathcal L(E_1\times E_2 \times \dots \times E_p, F)$, alors $\forall (x_1, x_2, \dots, x_p) \in E_1 \times E_2 \times \dots \times E_p$, $\forall k \in [\![1,p]\!]$, $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p) = 0_F$. La démonstration se fait simplement en soustrayant $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p)$ à lui-même en utilisant la linéarité par rapport à la $k$-ième variable.
-        \item Soit $E$ un $\Kset$-espace vectoriel. Une application $f \in \mathcal L(\underbrace{E\times E \times \dots \times E}_{p \in \N^* \text{ fois}}, \Kset) = \mathcal L_p(E,\Kset)$ est dite une forme $p$-linéaire de $E$.
+        \item Si $f \in \mathcal L(E_1\times E_2 \times \dots \times E_p, F)$, alors $\forall (x_1, x_2, \dots, x_p) \in E_1 \times E_2 \times \dots \times E_p$, $\forall k \in [\![1,p]\!]$, $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p) = 0_F$. En effet, comme on insère le zéro de l'espace vectoriel $E_k$, on aura $f_k(0) = 0_F$ par linéarité de $f_k$, donc $f(x_1, \dots, x_{k-1}, 0, x_{k+1}, \dots, x_p) = f_k(0) = 0_F$.
+        \item Soit $E$ un $\Kset$-espace vectoriel. Une application $f \in \mathcal L(\underbrace{E\times E \times \dots \times E}_{p \in \N^* \text{ fois}}, \Kset) = \mathcal L_p(E,\Kset)$ est dite une forme $p$-linéaire de $E$. Particulièrement, une application $f \in \mathcal L(E\times E), \Kset) = \mathcal L_2(E,\Kset)$ est dite une forme bilinéaire de $E$.
     \end{enumerate}
 \end{remark}
 
@@ -649,7 +658,8 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
 
     $$\varphi : \begin{matrix} (\mathcal C([a,b],\Kset))^2 \to \Kset \\ (f,g) \mapsto \int_a^b f\, g \end{matrix}$$
 
-    On remarque que $\varphi$ est symétrique, c'est-à-dire que $\forall f, g \in \mathcal C([a,b],\Kset)$, $\varphi(f,g) = \varphi(g,f)$.
+    On remarque que $\varphi$ est symétrique, c'est-à-dire que :
+    $$\forall f, g \in \mathcal C([a,b],\Kset), \varphi(f,g) = \varphi(g,f)$$
 
     Pour montrer que $\varphi$ est multilinéaire, il suffit alors de prouver que $\varphi$ est linéaire par rapport à la première variable. En effet, la symétrie de $\varphi$ implique que $\varphi$ est aussi linéaire par rapport à la seconde variable.
 
@@ -675,25 +685,8 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
     \end{itemize}
 \end{definition}
 
-\begin{example}[Forme symétrique]
-    Soit $E = \R^n$. L'application $\varphi : E \times E \to \R$ définie par le produit scalaire usuel :
-    $$\forall (x,y) \in E^2, \quad \varphi(x,y) = \langle x, y \rangle = \sum_{k=1}^n x_k y_k$$
-    est une forme bilinéaire symétrique. En effet, la commutativité de la multiplication dans $\R$ implique immédiatement que $\varphi(x,y) = \varphi(y,x)$. Elle n'est ni alternée ni antisymétrique (sauf si les vecteurs sont orthogonaux).
-\end{example}
-
-\begin{example}[Forme alternée et antisymétrique]
-    Soit $E = \R^3$ muni de sa base canonique et de son produit scalaire usuel. L'application $\psi : E \times E \times E \to \R$ définie par le produit mixte de trois vecteurs :
-    $$\forall (x,y,z) \in E^3, \quad \psi(x,y,z) = [x, y, z] = \langle x \wedge y, z \rangle$$
-    est une forme trilinéaire ($p=3$). 
-    \begin{itemize}
-        \item \textbf{Alternance} : Si deux vecteurs sont identiques, par exemple $x = y$, le produit vectoriel s'annule ($x \wedge x = 0_{\R^3}$), ce qui donne $\psi(x,x,z) = \langle 0_{\R^3}, z \rangle = 0$. L'application est donc alternée.
-        \item \textbf{Antisymétrie} : Par les propriétés géométriques du produit vectoriel, échanger deux variables inversent le signe du résultat, par exemple :
-        $$\psi(y,x,z) = \langle y \wedge x, z \rangle = \langle -(x \wedge y), z \rangle = -\psi(x,y,z)$$
-    \end{itemize}
-\end{example}
-
 \begin{property}
-    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$. Si $\Kset$ est un corps de caractéristique différente de $2$, alors :
+    Soit $\varphi \in \mathcal L_p(E,\Kset)$ une forme $p$-linéaire de $E$.
     $$\varphi \text{ antisymétrique} \iff \varphi \text{ alternée}$$
 \end{property}
 
@@ -706,6 +699,8 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
         $$\varphi(x_1, \dots, x, \dots, x, \dots, x_p) = -\varphi(x_1, \dots, x, \dots, x, \dots, x_p)$$
         \2 On en déduit que $2 \cdot \varphi(x_1, \dots, x_p) = 0_\Kset$. Comme $\text{car}(\Kset) \neq 2$, l'élément $2$ est inversible dans le corps, ce qui implique :
         $$\varphi(x_1, \dots, x_p) = 0_\Kset$$
+        On rappelle que la caractéristique d'un corps $\Kset$ est définie par :
+        $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, sinon } 0\}$$
         \2 La forme $\varphi$ est donc alternée.
 
         \1 \textbf{Sens indirect : $\impliedby$}
@@ -725,10 +720,7 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
     \end{outline}
 \end{proof}
 
-On rappelle que la caractéristique d'un corps $\Kset$ est définie par :
-$$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, sinon } 0\}$$
-
-\textbf{Par suite, on notera $\mathscr{A}_n(E)$ l'ensemble des formes $n$-linéaires alternées sur $E$.}
+\textbf{Par suite, on notera $\mathscr{A}_n(E)$ l'ensemble des formes $n$-linéaires alternées sur $E$}, qu'il ne faut absolument pas confondre avec $\mathcal{A}_n$, qui est le groupe alterné d'ordre $n$.
 
 \begin{property}
     Soit $\varphi \in \mathscr A_n(E)$ une forme $n$-linéaire alternée sur un $\Kset$-ev. $E$, avec $n \in \N^*$.
@@ -746,7 +738,7 @@ $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, si
             &= \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i \varphi(x_1, \dots, x_{k-1}, x_i, x_{k+1}, \dots, x_n)
         \end{align*}
         \1 Pour chaque terme de cette somme, l'indice courant de la sommation $i$ prend une valeur distincte de $k$. Le vecteur $x_i$ apparaît donc deux fois dans le n-uplet : à sa position d'origine $i$ et à la position $k$.
-        \1 Puisque $\varphi$ est alternée, chacun de ces sous-déterminants s'annule identiquement. La somme de termes nuls étant nulle, on obtient :
+        \1 Puisque $\varphi$ est alternée, chacun de ces sous-termes s'annulent identiquement. La somme de termes nuls étant nulle, on obtient :
         $$\varphi(x_1, \dots, x_n) = 0_\Kset$$
     \end{outline}
 \end{proof}
@@ -771,8 +763,7 @@ $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, si
 
 \begin{consequence}
     Si $E$ est un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$, alors :
-    $$\forall p > n, \quad \mathscr A_p(E) = \{0\}$$
-    Où $0$ désigne la forme $p$-linéaire nulle sur $E$.
+    $$\forall p > n, \quad \mathscr A_p(E) = \{0\} \avec 0 \text{ la forme nulle sur } E$$
 \end{consequence}
 
 \begin{proof}
@@ -784,7 +775,7 @@ $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, si
     D'après la propriété d'annulation sur les familles liées, on en déduit que :
     $$\forall (x_1, \dots, x_p) \in E^p, \quad \varphi(x_1, \dots, x_p) = 0_\Kset$$
 
-    Ainsi, $\varphi$ est l'application nulle. Par conséquent, le seul élément de cet espace est la forme nulle :
+    Ainsi, $\varphi$ est l'application nulle. Par conséquent, le seul élément de cet espace est :
     $$\mathscr A_p(E) = \{0\}$$
 \end{proof}
 
@@ -794,25 +785,38 @@ $$\Carac(\Kset) = \min\{n \in \N^* \tq k\cdot x = 0_\Kset \text{ s'il existe, si
 \end{property}
 
 \begin{proof}
-    Soit $\varphi \in \mathscr A_p(E)$. Montrons par récurrence sur le nombre $r \in \N$ de transpositions que si une permutation $\sigma \in S_p$ s'écrit comme le produit de $r$ transpositions, alors la relation est vérifiée.
+    Soit $\varphi \in \mathscr A_p(E)$. Il est possible de démontrer la propriété par récurrence, mais nous allons suivre une méthode plus rapide.
 
-    \begin{itemize}
-        \item \textbf{Initialisation ($r = 0$)} : Si $\sigma$ est le produit de $0$ transposition, alors $\sigma = \Id$. On a $\varepsilon(\Id) = 1$ et $\varphi(x_{\Id(1)}, \dots, x_{\Id(p)}) = 1 \cdot \varphi(x_1, \dots, x_p)$, la propriété est vraie.
+    Soit $\sigma \in S_p$ une permutation exprimable comme un produit de $r$ transpositions :
+    $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
+    Par antisymétrie de $\varphi$, l'application d'une transposition inverse le signe de la forme. En appliquant successivement les $r$ transpositions, on obtient :
+    \begin{align*}
+        \varphi(x_{\sigma(1)}, \dots, x_{\sigma(p)}) &= (-1)^1 \varphi(x_{\tau_1\circ\sigma(1)}, \dots, x_{\tau_1\circ\sigma(p)}) \\
+        &= (-1)^2 \varphi(x_{\tau_2\circ\tau_1\circ\sigma(1)}, \dots, x_{\tau_2\circ\tau_1\circ\sigma(p)}) \\
+        &\vdots \\
+        &= (-1)^r \varphi(x_{\tau_r\circ\dots\circ\tau_1\circ\sigma(1)}, \dots, x_{\tau_r\circ\dots\circ\tau_1\circ\sigma(p)}) \\
+        &= (-1)^r \varphi(x_1, \dots, x_p)
+    \end{align*}
+
+    Sachant que $\varepsilon(\sigma) = (-1)^r$ et que $\tau_r \circ \dots \circ \tau_1 \circ \sigma = \Id_{|[\![1,p]\!]}$, la relation est vérifiée pour toute permutation de $S_p$ exprimable comme un produit de $r$ transpositions.
+
+    % \begin{itemize}
+    %     \item \textbf{Initialisation ($r = 0$)} : Si $\sigma$ est le produit de $0$ transposition, alors $\sigma = \Id$. On a $\varepsilon(\Id) = 1$ et $\varphi(x_{\Id(1)}, \dots, x_{\Id(p)}) = 1 \cdot \varphi(x_1, \dots, x_p)$, la propriété est vraie.
         
-        \item \textbf{Hérédité} : Soit $r \in \N$. Supposons que la propriété soit vraie pour toute permutation décomposable en $r$ transpositions. Soit $\sigma$ une permutation s'exprimant comme un produit de $r+1$ transpositions :
-        $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r \circ \tau_{r+1}$$
-        Posons $\theta = \tau_2 \circ \dots \circ \tau_{r+1}$, qui est un produit de $r$ transpositions. Par hypothèse de récurrence, on a :
-        $$\varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) = \varepsilon(\theta) \cdot \varphi(x_1, \dots, x_p) = (-1)^r \cdot \varphi(x_1, \dots, x_p)$$
+    %     \item \textbf{Hérédité} : Soit $r \in \N$. Supposons que la propriété soit vraie pour toute permutation décomposable en $r$ transpositions. Soit $\sigma$ une permutation s'exprimant comme un produit de $r+1$ transpositions :
+    %     $$\sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r \circ \tau_{r+1}$$
+    %     Posons $\theta = \tau_2 \circ \dots \circ \tau_{r+1}$, qui est un produit de $r$ transpositions. Par hypothèse de récurrence, on a :
+    %     $$\varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) = \varepsilon(\theta) \cdot \varphi(x_1, \dots, x_p) = (-1)^r \cdot \varphi(x_1, \dots, x_p)$$
         
-        La permutation $\sigma$ s'écrit $\sigma = \tau_1 \circ \theta$. L'application d'une unique transposition $\tau_1$ inverse le signe de la forme par antisymétrie (propriété démontrée précédemment pour les formes alternées). On a donc :
-        \begin{align*}
-            \varphi(x_{\sigma(1)}, \dots, x_{\sigma(p)}) &= \varphi(x_{\tau_1(\theta(1))}, \dots, x_{\tau_1(\theta(p))}) \\
-            &= - \varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) \\
-            &= - \left( (-1)^r \cdot \varphi(x_1, \dots, x_p) \right) \\
-            &= (-1)^{r+1} \cdot \varphi(x_1, \dots, x_p)
-        \end{align*}
-        Comme $\varepsilon(\sigma) = (-1)^{r+1}$, l'hérédité est démontrée.
-    \end{itemize}
+    %     La permutation $\sigma$ s'écrit $\sigma = \tau_1 \circ \theta$. L'application d'une unique transposition $\tau_1$ inverse le signe de la forme par antisymétrie (propriété démontrée précédemment pour les formes alternées). On a donc :
+    %     \begin{align*}
+    %         \varphi(x_{\sigma(1)}, \dots, x_{\sigma(p)}) &= \varphi(x_{\tau_1(\theta(1))}, \dots, x_{\tau_1(\theta(p))}) \\
+    %         &= - \varphi(x_{\theta(1)}, \dots, x_{\theta(p)}) \\
+    %         &= - \left( (-1)^r \cdot \varphi(x_1, \dots, x_p) \right) \\
+    %         &= (-1)^{r+1} \cdot \varphi(x_1, \dots, x_p)
+    %     \end{align*}
+    %     Comme $\varepsilon(\sigma) = (-1)^{r+1}$, l'hérédité est démontrée.
+    % \end{itemize}
     Tout élément de $S_p$ admettant une décomposition en produit fini de transpositions, la relation est vérifiée pour toute permutation de $S_p$.
 \end{proof}
 
@@ -1045,7 +1049,7 @@ Cette section ne fait pas partie du cours officiel.
     Soient $u_1,\dots,u_n \in E$ des vecteurs. Leurs coordonnées respectives dans la base $\mathcal{B}$ sont données par les scalaires $a_{i,j} \in \Kset$ tels que :
     $$\forall j \in [\![1,n]\!], \quad u_j = \sum_{i=1}^n a_{i,j} e_i = a_{1,j} e_1 + a_{2,j} e_2 + \dots + a_{n,j} e_n$$
     
-    On définit le \textbf{déterminant} du système de vecteurs $u_1, \dots, u_n$ dans la base $\mathcal{B}$ par la formule de Leibniz :
+    On définit le \textbf{déterminant} du système de vecteurs/la famille $u_1, \dots, u_n$ relativement à la base $\mathcal{B}$ par la \href{https://fr.wikipedia.org/wiki/Formule_de_Leibniz#D%C3%A9terminant_d'une_matrice_carr%C3%A9e}{formule de Leibniz} :
     \begin{align*}
         \det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k}
     \end{align*}
@@ -1054,7 +1058,7 @@ Cette section ne fait pas partie du cours officiel.
         \det_{\mathcal{B}}(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{k,\sigma(k)}
     \end{align*}
 
-    On note de manière compacte ce déterminant sous forme matricielle :
+    On note de manière compacte ce déterminant sous la forme suivante :
     $$\det_{\mathcal{B}}(u_1, \dots, u_n) = \left|\begin{matrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ a_{2,1} & a_{2,2} & \dots & a_{2,n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{matrix}\right|$$
 \end{definition}
 
@@ -1084,6 +1088,41 @@ Cette section ne fait pas partie du cours officiel.
             \varepsilon((1 \ 2)) = \varepsilon((1 \ 3)) = \varepsilon((2 \ 3)) = -1
         \end{cases}
         $$
+        % représentation graphique du développement de sarus, figure tikz
+        % \begin{figure}[H]
+        %     \centering
+        %     \begin{tikzpicture}
+        %         \node at (0,0) {$a_{1,1}$};
+        %         \node at (1,0) {$a_{1,2}$};
+        %         \node at (2,0) {$a_{1,3}$};
+        %         \node at (0,-1) {$a_{2,1}$};
+        %         \node at (1,-1) {$a_{2,2}$};
+        %         \node at (2,-1) {$a_{2,3}$};
+        %         \node at (0,-2) {$a_{3,1}$};
+        %         \node at (1,-2) {$a_{3,2}$};
+        %         \node at (2,-2) {$a_{3,3}$};
+
+        %         \draw[->] (0.5,0.5) -- (0.5,-2.5);
+        %         \draw[->] (1.5,0.5) -- (1.5,-2.5);
+        %         \draw[->] (2.5,0.5) -- (2.5,-2.5);
+
+        %         \draw[->] (-0.5,-0.5) -- (3,-0.5);
+        %         \draw[->] (-0.5,-1.5) -- (3,-1.5);
+        %         \draw[->] (-0.5,-2.5) -- (3,-2.5);
+
+        %         % diagonales positives
+        %         \draw[->] (0,0) -- (1,-1);
+        %         \draw[->] (1,0) -- (2,-1);
+        %         \draw[->] (0,-1) -- (1,-2);
+        %         \draw[->] (1,-1) -- (2,-2);
+        %         % diagonales négatives
+        %         \draw[->] (2,0) -- (1,-1);
+        %         \draw[->] (1,0) -- (0,-1);
+        %         \draw[->] (2,-1) -- (1,-2);
+        %         \draw[->] (1,-1) -- (0,-2);
+        %     \end{tikzpicture}
+        %     \caption{Représentation graphique du développement de Sarrus pour le calcul du déterminant d'une matrice $3 \times 3$.}
+        % \end{figure}
     \end{itemize}
 \end{remark}
 
