@@ -274,7 +274,7 @@ On rappelle que, dans un groupe $(G,*)$ où $G$ est de cardinal fini, pour $x \i
 
     Plus rigoureusement, pour $n \in \N^*$ et $\sigma \in S_n$, on a :
     $$\begin{cases}
-    \exists k \in \N^*, \exists i_1, \dots, i_k \in [\![1,n]\!] \text{ distincts} \tqp \sigma(i_1) = i_2, \dots, \sigma(i_{k-1}) = i_k, \sigma(i_k) = i_1 \\
+    \exists 1 \le k \le n, \exists i_1, \dots, i_k \in [\![1,n]\!] \text{ distincts} \tqp \sigma(i_1) = i_2, \dots, \sigma(i_{k-1}) = i_k, \sigma(i_k) = i_1 \\
     \forall j \in [\![1,n]\!] \setminus \{i_1, i_2, \dots, i_k\}, \sigma(j) = j
     \end{cases}$$
 
@@ -694,7 +694,7 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
     \begin{outline}
         \1 \textbf{Sens direct : $\implies$}
         \2 Soit $\varphi$ une forme $p$-linéaire antisymétrique. Montrons qu'elle est alternée.
-        \2 Soit $(x_1,\dots,x_p) \in E^p$ un n-uplet tel qu'il existe deux indices distincts $i < j$ avec $x_i = x_j = x$.
+        \2 Soit $(x_1,\dots,x_p) \in E^p$ un $n$-uplet tel qu'il existe deux indices distincts $i < j$ avec $x_i = x_j = x$.
         \2 Par antisymétrie, l'échange des composantes aux indices $i$ et $j$ produit :
         $$\varphi(x_1, \dots, x, \dots, x, \dots, x_p) = -\varphi(x_1, \dots, x, \dots, x, \dots, x_p)$$
         \2 On en déduit que $2 \cdot \varphi(x_1, \dots, x_p) = 0_\Kset$. Comme $\text{car}(\Kset) \neq 2$, l'élément $2$ est inversible dans le corps, ce qui implique :
@@ -737,7 +737,7 @@ D'où $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_
             \varphi(x_1, \dots, x_n) &= \varphi\left(x_1, \dots, x_{k-1}, \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i x_i, x_{k+1}, \dots, x_n\right) \\
             &= \sum_{\substack{i=1 \\ i \ne k}}^n \lambda_i \varphi(x_1, \dots, x_{k-1}, x_i, x_{k+1}, \dots, x_n)
         \end{align*}
-        \1 Pour chaque terme de cette somme, l'indice courant de la sommation $i$ prend une valeur distincte de $k$. Le vecteur $x_i$ apparaît donc deux fois dans le n-uplet : à sa position d'origine $i$ et à la position $k$.
+        \1 Pour chaque terme de cette somme, l'indice courant de la sommation $i$ prend une valeur distincte de $k$. Le vecteur $x_i$ apparaît donc deux fois dans le $n$-uplet : à sa position d'origine $i$ et à la position $k$.
         \1 Puisque $\varphi$ est alternée, chacun de ces sous-termes s'annulent identiquement. La somme de termes nuls étant nulle, on obtient :
         $$\varphi(x_1, \dots, x_n) = 0_\Kset$$
     \end{outline}
@@ -1017,10 +1017,10 @@ Cette section ne fait pas partie du cours officiel.
     \end{align*}
     L'application $\varphi_f$ est linéaire par rapport à sa $k$-ième variable pour tout $k \in [\![1,n]\!]$, elle est donc $n$-linéaire sur $E$.
 
-    \item Montrons que $\varphi_f$ est une forme alternée. Soit $(x_1, \dots, x_n) \in E^n$ un n-uplet tel qu'il existe deux indices distincts $k < l$ pour lesquels $x_k = x_l = x$. Analysons les termes de la somme $\varphi_f(x_1, \dots, x_n)$ :
+    \item Montrons que $\varphi_f$ est une forme alternée. Soit $(x_1, \dots, x_n) \in E^n$ un $n$-uplet tel qu'il existe deux indices distincts $k < l$ pour lesquels $x_k = x_l = x$. Analysons les termes de la somme $\varphi_f(x_1, \dots, x_n)$ :
     $$\varphi_f(x_1, \dots, x_n) = \sum_{i=1}^n \varphi(x_1, \dots, x_k, \dots, x_l, \dots, x_{i-1}, f(x_i), x_{i+1}, \dots, x_n)$$
     \begin{itemize}
-        \item Pour tout indice $i \notin \{k, l\}$, le n-uplet sur lequel est évalué $\varphi$ contient toujours $x_k$ et $x_l$ intacts. Comme $x_k = x_l = x$, et que la forme $\varphi$ d'origine est alternée, tous ces termes s'annulent identiquement.
+        \item Pour tout indice $i \notin \{k, l\}$, le $n$-uplet sur lequel est évalué $\varphi$ contient toujours $x_k$ et $x_l$ intacts. Comme $x_k = x_l = x$, et que la forme $\varphi$ d'origine est alternée, tous ces termes s'annulent identiquement.
         \item Il ne subsiste donc dans la somme que les deux termes associés aux indices $i = k$ et $i = l$ :
         \begin{align*}
             \varphi_f(x_1, \dots, x_n) &= \varphi(x_1, \dots, f(x_k), \dots, x_l, \dots, x_n) + \varphi(x_1, \dots, x_k, \dots, f(x_l), \dots, x_n) \\
@@ -1133,13 +1133,26 @@ Cette section ne fait pas partie du cours officiel.
         v = (2,0,3) \\
         w = (3,-1,4)
     \end{cases}$$
-    On écrit la matrice associée : $\det_{\mathcal{B}}(u,v,w) = \left|\begin{matrix} 1 & 2 & 3 \\ -1 & 0 & -1 \\ 2 & 3 & 4 \end{matrix}\right|$.
+    On écrit le déterminant associé : $\det_{\mathcal{B}}(u,v,w) = \left|\begin{matrix} 1 & 2 & 3 \\ -1 & 0 & -1 \\ 2 & 3 & 4 \end{matrix}\right|$.
     
     En appliquant la formule de développement explicite pour $n=3$, on trouve :
     \begin{align*}
         \det_{\mathcal{B}}(u,v,w) &= 1 \cdot 0 \cdot 4 + 2 \cdot (-1) \cdot 2 + 3 \cdot (-1) \cdot 3 - 2 \cdot (-1) \cdot 4 - 3 \cdot 0 \cdot 2 - 1 \cdot (-1) \cdot 3 \\
         &= 0 - 4 - 9 + 8 - 0 + 3 = -2
     \end{align*} 
+\end{example}
+
+\begin{example}[Un autre dans $\R^3$]
+    Dans $\R^3$, muni de la base canonique $\mathcal{B} = (e_1, e_2, e_3)$, calculons le déterminant du système de vecteurs suivants :
+    $$\begin{cases}
+        u = (1,-1,3) \\
+        v = (2,0,-3) \\
+        w = (3,-3,-4)
+    \end{cases}$$
+    On écrit le déterminant associé : $\det_{\mathcal{B}}(u,v,w) = \left|\begin{matrix} 1 & 2 & 3 \\ -1 & 0 & -3 \\ 2 & 3 & -4 \end{matrix}\right|$.
+
+    On trouve :
+    $$\det_{\mathcal{B}}(u,v,w) = \dots = 31$$
 \end{example}
 
 \begin{example}[Polynômes de degré au plus $2$]
@@ -1149,7 +1162,7 @@ Cette section ne fait pas partie du cours officiel.
         Q = 2-3X \\
         R = X - 2X^2
     \end{cases}$$
-    On dresse le tableau des coordonnées en colonne : $\det_{\mathcal{B}}(P,Q,R) = \left|\begin{matrix} 1 & 2 & 0 \\ -2 & -3 & 1 \\ 1 & 0 & -2 \end{matrix}\right|$.
+    On écrit le déterminant associé : $\det_{\mathcal{B}}(P,Q,R) = \left|\begin{matrix} 1 & 2 & 0 \\ -2 & -3 & 1 \\ 1 & 0 & -2 \end{matrix}\right|$.
     
     En développant, on obtient explicitement :
     \begin{align*}
@@ -1172,7 +1185,7 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
 \end{property}
 
 \begin{proof}
-    Considérons une forme $n$-linéaire alternée $\varphi \in \mathscr A_n(E)$ et $(u_1, \dots, u_n) \in E^n$ un n-uplet de vecteurs. Les coordonnées de ces vecteurs dans la base $\mathcal{B}$ s'écrivent :
+    Considérons une forme $n$-linéaire alternée $\varphi \in \mathscr A_n(E)$ et $(u_1, \dots, u_n) \in E^n$ un $n$-uplet de vecteurs. Les coordonnées de ces vecteurs dans la base $\mathcal{B}$ s'écrivent :
     $$\forall j \in [\![1,n]\!], \quad u_j = \sum_{i=1}^n a_{i,j} e_i$$
     En utilisant la linéarité de $\varphi$ par rapport à chacune de ses composantes, on développe l'expression globale par rapport aux familles d'indices :
     \begin{align*}
@@ -1184,9 +1197,9 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
         &= \sum_{(i_1,\dots,i_n) \in [\![1,n]\!]^n} \left(\prod_{k=1}^n a_{i_k,k}\right) \cdot \varphi(e_{i_1}, e_{i_2}, \dots, e_{i_n}) \\
         &= \sum_{f \in [\![1,n]\!]^{[\![1,n]\!]}} \left(\prod_{k=1}^n a_{f(k),k}\right) \cdot \varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)})
     \end{align*}
-    L'indice de sommation $f$ décrit l'ensemble des applications de $[\![1,n]\!]$ dans lui-même. Si une fonction $f$ n'est pas injective, il existe deux indices distincts $k < l$ tels que $f(k) = f(l)$. Le n-uplet associé possède alors deux vecteurs identiques. La forme $\varphi$ étant alternée, ce terme s'annule :
+    L'indice de sommation $f$ décrit l'ensemble des applications de $[\![1,n]\!]$ dans lui-même. Si une fonction $f$ n'est pas bijective, sachant qu'elle est définie de $[\![1,n]\!]$ vers lui-même, elle ne sera pas injective, ce qui implique qu'il existe deux indices distincts $k \ne l$ tels que $f(k) = f(l)$. Le $n$-uplet associé possède alors deux vecteurs identiques. La forme $\varphi$ étant alternée, ce terme s'annule :
     $$\varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)}) = 0_\Kset$$
-    On peut par conséquent restreindre la somme aux seules applications injectives, c'est-à-dire aux permutations $\sigma \in S_n$ :
+    On peut par conséquent restreindre la somme aux seules applications injectives (donc bijectives), c'est-à-dire aux permutations $\sigma \in S_n$ :
     $$\varphi(u_1,\dots,u_n) = \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varphi(e_{\sigma(1)}, e_{\sigma(2)}, \dots, e_{\sigma(n)})$$
     Par propriété d'antisymétrie sur les formes alternées, l'action de la permutation $\sigma$ sur la base extrait sa signature : $\varphi(e_{\sigma(1)}, \dots, e_{\sigma(n)}) = \varepsilon(\sigma) \cdot \varphi(e_1, \dots, e_n)$. On réinjecte cette relation dans la somme :
     \begin{align*}
@@ -1194,7 +1207,7 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
         &= \varphi(e_1, e_2, \dots, e_n) \cdot \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k} \\
         &= \varphi(e_1, e_2, \dots, e_n) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)
     \end{align*}
-    La relation étant vérifiée pour tout n-uplet, on en conclut l'égalité des formes :
+    La relation étant vérifiée pour tout $n$-uplet, on en conclut l'égalité des formes :
     $$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
 \end{proof}
 
@@ -1203,15 +1216,17 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
 \end{property}
 
 \begin{proof}
-    L'application du déterminant $\det_\mathcal{B}$ appartient à l'espace $\mathscr A_n(E)$. En lui appliquant directement la propriété précédente évaluée sur les vecteurs de la base $\mathcal{B}$, on obtient :
+    L'application du déterminant $\det_\mathcal{B}$ appartient à l'espace $\mathscr A_n(E)$. En lui appliquant directement la propriété précédente, on obtient :
     $$\det_\mathcal{B} = \det_\mathcal{B}(e_1, \dots, e_n) \cdot \det_\mathcal{B}$$
-    L'application déterminant n'étant pas identiquement nulle, son unique coefficient multiplicateur sur elle-même est nécessairement l'élément neutre scalaire, d'où $\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$.
+    L'application déterminant n'étant pas nulle, son unique coefficient multiplicateur sur elle-même est nécessairement 1, d'où $\det_{\mathcal{B}}(e_1, \dots, e_n) = 1$.
+    On peut aussi démontrer cette propriété en considérant quelconque $\varphi \in \mathscr A_n(E)$ et en évaluant la relation sur $(e_1, \dots, e_n)$ :
+        $$\varphi(e_1, \dots, e_n) = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}(e_1, \dots, e_n) \implies \det_{\mathcal{B}}(e_1, \dots, e_n) = 1$$
 \end{proof}
 
 \begin{property}
     Si $\mathcal{B}'$ est une autre base de $E$, alors :
     $$\det_{\mathcal{B}'} = \det_{\mathcal{B}'}(\mathcal B) \cdot \det_{\mathcal{B}}$$
-    Cela implique l'identité scalaire inverse suivante :
+    Cela implique l'identité suivante :
     $$\det_{\mathcal{B'}}(\mathcal B) \cdot \det_{\mathcal{B}}(\mathcal{B}') = 1$$
 \end{property}
 
@@ -1225,11 +1240,9 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
 
 \begin{remark}
     Comme $\det_\mathcal{B} \in \mathscr A_n(E)$, toutes les propriétés d'une forme $n$-linéaires alternée s'appliquent à l'application déterminant :
-    $$\begin{cases}
-        \det_{\mathcal{B}}(u_{\sigma(1)}, \dots, u_{\sigma(n)}) = \eps(\sigma) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n) \\
-        \det_{\mathcal{B}}\left(u_1 + \sum_{i=2}^{n}\lambda_i u_i, u_2, \dots, u_n\right) = \det_{\mathcal{B}}(u_1, u_2, \dots, u_n) \\
-        (u_1, \dots, u_n) \text{ est une base de } E \iff \det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset
-    \end{cases}$$
+    $$\det_{\mathcal{B}}(u_{\sigma(1)}, \dots, u_{\sigma(n)}) = \eps(\sigma) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)$$
+    $$\det_{\mathcal{B}}\left(u_1 + \sum_{i=2}^{n}\lambda_i u_i, u_2, \dots, u_n\right) = \det_{\mathcal{B}}(u_1, u_2, \dots, u_n)$$
+    $$\boxed{(u_1, \dots, u_n) \text{ est une base de } E \iff \det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset}$$
 \end{remark}
 
 \begin{proof}[Démonstration du troisième point de la remarque]
@@ -1241,7 +1254,7 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
         
         \item[$\impliedby$] Supposons par l'absurde que $\det_{\mathcal{B}}(u_1, \dots, u_n) \ne 0_\Kset$ et que la famille $B'$ ne soit pas une base de $E$.
         
-        Puisque le cardinal de $B'$ est exactement égal à $\dim(E) = n$, le fait que $B'$ ne soit pas une base implique nécessairement que la famille est liée (si elle était libre, elle serait maximale et formerait une base).
+        Puisque le cardinal de $B'$ est exactement égal à $\dim(E) = n$, le fait que $B'$ ne soit pas une base \textbf{implique nécessairement que la famille est liée} (si elle était libre, elle serait maximale et formerait une base).
         
         Or, d'après la propriété d'annulation des formes alternées sur les familles liées, on a :
         $$\det_{\mathcal{B}}(u_1, \dots, u_n) = 0_\Kset$$
@@ -1307,21 +1320,24 @@ Pour les propriétés suivantes, on considère $E$ un $\Kset$-espace vectoriel d
             &= \alpha \varphi_1(f(u_1), \dots, f(u_n)) + \varphi_2(f(u_1), \dots, f(u_n)) \\
             &= \alpha \Psi(\varphi_1)(u_1, \dots, u_n) + \Psi(\varphi_2)(u_1, \dots, u_n)
         \end{align*}
-        L'égalité étant vraie pour tout n-uplet de vecteurs, on a $\Psi(\alpha \varphi_1 + \varphi_2) = \alpha \Psi(\varphi_1) + \Psi(\varphi_2)$. L'application $\Psi$ est donc un endomorphisme de l'espace $\mathscr{A}_n(E)$, soit $\Psi \in \mathcal{L}(\mathscr{A}_n(E))$.
+        L'égalité étant vraie pour tout $n$-uplet de vecteurs, on a $\Psi(\alpha \varphi_1 + \varphi_2) = \alpha \Psi(\varphi_1) + \Psi(\varphi_2)$. L'application $\Psi$ est donc un endomorphisme de l'espace $\mathscr{A}_n(E)$, donc :
+        $$\Psi \in \mathcal{L}(\mathscr{A}_n(E))$$
 
         \1 \textbf{Étape 3 : Application de l'argument de dimension}
-        \2 Nous avons démontré précédemment que l'espace vectoriel $\mathscr{A}_n(E)$ des formes $n$-linéaires alternées est de dimension $1$. 
-        \2 Or, tout endomorphisme d'un espace vectoriel de dimension $1$ est une homothétie vectorielle. En effet, si l'on fixe une base $(\varphi_0)$ de $\mathscr{A}_n(E)$, l'image $\Psi(\varphi_0)$ appartient à $\mathscr{A}_n(E)$ et s'écrit de manière unique comme un multiple scalaire de la base : $\exists ! \lambda \in \Kset$ tel que $\Psi(\varphi_0) = \lambda \cdot \varphi_0$.
-        \2 Par linéarité de $\Psi$, pour toute autre forme $\varphi \in \mathscr{A}_n(E)$ s'écrivant $\varphi = \alpha \varphi_0$, on obtient :
-        $$\Psi(\varphi) = \Psi(\alpha \varphi_0) = \alpha \Psi(\varphi_0) = \alpha (\lambda \cdot \varphi_0) = \lambda \cdot (\alpha \varphi_0) = \lambda \cdot \varphi$$
-        L'endomorphisme $\Psi$ est donc l'homothétie de rapport $\lambda$, soit $\Psi = \lambda \cdot \Id_{\mathscr{A}_n(E)}$.
+        \2 On sait que $\forall \varphi \in \mathscr A_n(E), \Psi(\varphi) \in \mathscr A_n(E)$ et que $\Psi \in \mathcal L(\mathcal A_n(E))$. On sait aussi que $\underset\Kset\dim\mathscr A_n(E) = 1$. Par conséquent, la famille $(\varphi, \Psi(\varphi))$ est liée pour toute forme $\varphi \in \mathscr A_n(E)$.
+
+        \2 Le lemme suivant est donné pour justifier la relation d'homothétie qui va suivre :
+        $$\boxed{\si g \in \mathcal L(E) \et \forall x \in E, (x,g(x)) \text{ est liée} \text{ alors } \exists ! \lambda \in \Kset, \forall x \in E, g(x) = \lambda x}$$
+
+        \2 En appliquant ce lemme à l'endomorphisme $\Psi$ de l'espace $\mathscr{A}_n(E)$, on trouve qu'il existe un unique scalaire $\lambda \in \Kset$ tel que :
+        $$\exists ! \lambda \in \Kset \tq \Psi = \lambda\Id_{\mathscr{A}_n(E)}$$
+
+        \2 Pour toute forme $n$-linéaire alternée $\varphi \in \mathscr{A}_n(E)$, on a donc :
+        $$\Psi(\varphi) = \lambda \cdot \varphi$$
 
         \1 \textbf{Étape 4 : Conclusion}
-        \2 Par définition de l'égalité de deux applications, on a pour toute forme $\varphi \in \mathscr{A}_n(E)$ :
-        $$\Psi(\varphi) = \lambda \cdot \varphi$$
-        En évaluant cette relation sur un système de vecteurs quelconque $(u_1, \dots, u_n)$, on trouve :
+        \2 En évaluant la relation précédente sur un système de vecteurs quelconque $(u_1, \dots, u_n)$, on trouve la relation suivante, avec $\lambda$ le même scalaire unique dont l'unicité est garantie par celle du rapport de l'homothétie associée à $\Psi$.:
         $$\forall \varphi \in \mathscr{A}_n(E), \ \forall (u_1, \dots, u_n) \in E^n, \quad \varphi(f(u_1), \dots, f(u_n)) = \lambda \cdot \varphi(u_1, \dots, u_n)$$
-        L'unicité de $\lambda$ est garantie par l'unicité du rapport de l'homothétie associée à $\Psi$.
     \end{outline}
 \end{proof}
 
@@ -1455,7 +1471,7 @@ On résout cet exercice en appliquant la propriété du déterminant d'une compo
     \det(u)^2 &= (-1)^n
 \end{align*}
 
-Comme $\det(u)^2$ est un carré (donc positif), il est nécessaire que $(-1)^n$ soit lui aussi positif, ce qui n'est possible que si $n$ est pair.
+Comme $\det(u)^2$ est un carré (donc positif), sachant qu'on travaille dans $E$ qui est un $\R$-espace vectoriel, il est nécessaire que $(-1)^n$ soit lui aussi positif, ce qui n'est possible que si $n$ est pair.
 
 \chapter*{Exercices d'assimilation}
 
@@ -1530,7 +1546,8 @@ On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversi
 \begin{remark}
     \begin{enumerate}
         \item Soient $c_1, \dots, c_n$ les colonnes de la matrice $A$. Par définition de l'endomorphisme canoniquement associé à une matrice, on a $u(e_i) = c_i$ pour tout $i \in [\![1,n]\!]$. Par conséquent, le déterminant de la matrice $A$ correspond au déterminant de la famille de ses colonnes exprimée dans la base canonique :
-        $$\det(A) = \det_{\mathcal{B}_c}(c_1, \dots, c_n)$$
+        $$\det(A) = \det_{\mathcal{B}_c}(\tilde c_1, \dots, \tilde c_n)$$
+        On rappelle que $\tilde c_k$ désigne le $n$-uplet de coordonnées des colonnes.
         \item Si $A = (a_{i,j})_{1 \le i,j \le n}$, alors :
         \begin{align*}
             \det(A) &= \begin{vmatrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\ a_{2,1} & a_{2,2} & \dots & a_{2,n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{vmatrix} \\
@@ -1547,19 +1564,14 @@ On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversi
 
 \begin{property}
     Le déterminant d'une matrice ne change pas s'il on ajoute à une colonne une combinaison linéaire d'autres colonnes.
-
-    $$\forall i \in [\![1,n]\!], \ \forall (\lambda_j)_{j \neq i} \in \Kset^{n-1}, \quad \det(c_1, \dots, c_i + \sum_{\substack{j=1 \\ j \neq i}}^n \lambda_j c_j, \dots, c_n) = \det(c_1, \dots, c_i, \dots, c_n)$$
-
-    $$c_i \leftarrow c_i + \sum_{j \in [\![1,n]\!]\setminus{\{i\}}} \lambda_j c_j \text{ laisse le déterminant invariant}$$
+    $$\forall i \in [\![1,n]\!], \ \forall (\lambda_j)_{j \neq i} \in \Kset^{n-1}, \quad \det(\tilde c_1, \dots, \tilde c_i + \sum_{\substack{j=1 \\ j \neq i}}^n \lambda_j \tilde c_j, \dots, \tilde c_n) = \det(\tilde c_1, \dots, \tilde c_i, \dots, \tilde c_n)$$
+    $$\tilde c_i \leftarrow \tilde c_i + \sum_{j \in [\![1,n]\!]\setminus{\{i\}}} \lambda_j \tilde c_j \text{ laisse le déterminant invariant}$$
 \end{property}
-
-\begin{proof}
-    \textbf{recop is eternal}
-\end{proof}
+\todo{prev à étud}
 
 \begin{property}
     Une permutation $\sigma$ appliquée sur les colonnes d'une matrice multiplie le déterminant par le signe de la permutation :
-    $$\forall \sigma \in S_n, \det(c_{\sigma(1)}, \dots, c_{\sigma(n)}) = \varepsilon(\sigma) \cdot \det(c_1, \dots, c_n)$$
+    $$\forall \sigma \in S_n, \det(\tilde c_{\sigma(1)}, \dots, \tilde c_{\sigma(n)}) = \varepsilon(\sigma) \cdot \det(\tilde c_1, \dots, \tilde c_n)$$
 \end{property}
 
 \begin{property}
@@ -1578,14 +1590,20 @@ On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversi
 \end{property}
 
 \begin{proof}
-    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal M_n(\Kset)$. Par définition du déterminant d'une matrice, on a :
-    $$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+    On considère la matrice $A$ et sa transposée comme suit :
+    $$A = (a_{i,j})_{1 \le i,j \le n} \quad \text{et} \quad ^t A = (b_{i,j})_{1 \le i,j \le n}$$
+    En développant le déterminant de la transposée, on trouve :
+    \begin{align*}
+        \det(^t A) &= \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} b_{\sigma(k), k} \\
+        &= \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{k, \sigma(k)}
+    \end{align*}
     En effectuant le changement de variable $\tau = \sigma^{-1}$, on trouve :
     \begin{align*}
-        \det(A) &= \sum_{\tau \in S_n} \varepsilon(\tau^{-1}) \cdot \prod_{k=1}^{n} a_{\tau^{-1}(k), k} \\
-        &= \sum_{\tau \in S_n} \varepsilon(\tau) \cdot \prod_{k=1}^{n} a_{k, \tau(k)} \\
-        &= \sum_{\tau \in S_n} \varepsilon(\tau) \cdot \prod_{k=1}^{n} (^t A)_{\tau(k), k} = \det(^t A)
+        \det(^t A) &= \sum_{\tau \in S_n} \varepsilon(\tau^{-1}) \cdot \prod_{k=1}^{n} a_{k, \tau^{-1}(k)} \\
+        &= \sum_{\tau \in S_n} \varepsilon(\tau) \cdot \prod_{k=1}^{n} a_{\tau(k), k} \\
+        &= \det(A)
     \end{align*}
+    On rappelle que $\eps(\tau^{-1}) = \eps(\tau)$ pour toute permutation $\tau$.
 \end{proof}
 
 Le lemme suivant sera utilisé pour démontrer une propriété importante du déterminant d'une matrice triangulaire. 
@@ -1662,9 +1680,8 @@ Le lemme suivant sera utilisé pour démontrer une propriété importante du dé
     $$\det(A) = (-1)^{n-1} \ne 0$$
     On en déduit aussi que $A \in \GL_n(\Kset)$.
 
-    \textbf{On note cette matrice $A = P_\sigma$. C'est la matrice de la permutation $\sigma$ dans la base canonique.}
+    \textbf{On rappelle que cette matrice est $A = P_\sigma$, la matrice de la permutation $\sigma$ dans la base canonique.}
 \end{example}
-\todo{absolument pas sûr de ce que j'ai écrit ici}
 
 \begin{remark}
     Pour $A_1, \dots, A_r \in \mathcal M_n(\Kset)$, on a :
@@ -1673,7 +1690,7 @@ Le lemme suivant sera utilisé pour démontrer une propriété importante du dé
 \end{remark}
 
 \begin{remark}
-    Si $A \in \mathcal M_n(\Kset)$ est une matrice nilpotente, alors $\det(A) = 0_\Kset$ et $A$ n'est pas inversible.
+    Si $A \in \mathcal M_n(\Kset)$ est une matrice nilpotente, alors $\det(A) = 0_\Kset$ et $A$ n'est pas inversible, car $\det(A^p) = (\det(A))^p = 0_\Kset$ pour un indice de nilpotence $p \in \N^*$.
 \end{remark}
 
 \begin{remark}
@@ -1685,6 +1702,39 @@ Le lemme suivant sera utilisé pour démontrer une propriété importante du dé
 \end{proof}
 
 On rappelle qu'une matrice antisymétrique de taille $n$ est une matrice $M = (m_{i,j})_{1 \le i,j \le n}$ telle que $m_{j,i} = -m_{i,j}$ pour tout $(i, j) \in [\![1,n]\!]^2$.
+
+\begin{exercise}
+    Soit $n\ge 2$. Soit $A \in \mathcal M_n(\Kset)$ une matrice telle que $\forall X \in \mathcal M_n(\Kset)$ :
+    $$\det(A + X) = \det(A) + \det(X)$$
+    Montrer que $A$ est la matrice nulle.
+\end{exercise}
+
+\begin{outline}
+\1 \textbf{Première étape : le déterminant de $A$ est nul.}
+    \2 En injectant $X=A$ dans l'égalité de l'énoncé, on trouve :
+    \begin{align*}
+        \det(A + A) &= \det(A) + \det(A) \\
+        \det(2A) &= 2 \cdot \det(A) \\
+        2^n \cdot \det(A) &= 2 \cdot \det(A)
+    \end{align*}
+    D'où $\det(A) = 0_\Kset$ sachant que $n \ge 2$.\\
+    Et donc $A$ n'est pas inversible.
+\1 \textbf{Deuxième étape : $A$ est de rang nul.}
+    \2 Supposons que $A$ soit de rang $r \in [\![1,n[\![$, sachant que $r \ne n$ car $A$ n'est pas inversible.
+    \2 $A$ est donc équivalente à une matrice $J_r$.
+    \2 Par conséquent, il existe $P, Q \in \GL_n(\Kset)$ tels que $A = P J_r Q$.
+    \2 En injectant $X = P Q$ dans l'égalité de l'énoncé, on trouve :
+    \begin{align*}
+        \det(A + P Q) &= \det(A) + \det(P Q) \\
+        \det(P J_r Q + P Q) &= 0 + 1 \\
+        \det(P (J_r + I_n) Q) &= 1 \\
+        \det(J_r + I_n) &= 1
+    \end{align*}
+    \2 Or, $J_r + I_n$ est une matrice triangulaire supérieure dont les éléments diagonaux sont égaux à $2$ pour les $r$ premières lignes et à $1$ pour les $n-r$ dernières lignes. En appliquant la formule du déterminant d'une matrice triangulaire, on trouve :
+    $$\det(J_r + I_n) = 2^r \cdot 1^{n-r} = 2^r \ne 1$$
+    Sachant que $r \ge 1$.
+    \2 On obtient une contradiction, ce qui prouve que $A$ ne peut pas être de rang $r \in [\![1,n[\![$. Par conséquent, $A$ est de rang nul, c'est-à-dire que $A$ est la matrice nulle.
+\end{outline}
 
 \section{Mineur, cofacteur et comatrice}
 
@@ -1707,6 +1757,26 @@ Dans les trois définitions suivantes, $A = (a_{i,j})_{1 \le i,j \le n} \in \mat
     On appelle la comatrice de $A$ la matrice carrée de taille $n$ dont les éléments sont les cofacteurs de $A$ :
     $$\Com(A) = (A_{i,j})_{1 \le i,j \le n}$$
 \end{definition}
+
+\begin{example}[Matrice carrée de taille 2 générique]
+    $$A = \left(\begin{matrix} a & c \\ b & d \end{matrix}\right)$$
+    Listons tous les mineurs de $A$ :
+    \begin{align*}
+        \Delta_{1,1} &= d \\
+        \Delta_{1,2} &= b \\
+        \Delta_{2,1} &= c \\
+        \Delta_{2,2} &= a
+    \end{align*}
+    En appliquant la formule du cofacteur, on trouve :
+    \begin{align*}
+        A_{1,1} &= (-1)^{1+1} \cdot \Delta_{1,1} = d \\
+        A_{1,2} &= (-1)^{1+2} \cdot \Delta_{1,2} = -b \\
+        A_{2,1} &= (-1)^{2+1} \cdot \Delta_{2,1} = -c \\
+        A_{2,2} &= (-1)^{2+2} \cdot \Delta_{2,2} = a
+    \end{align*}
+    La comatrice de $A$ est donc donnée par :
+    $$\Com(A) = \left(\begin{matrix} d & -b \\ -c & a \end{matrix}\right)$$
+\end{example}
 
 \begin{example}[Matrice carrée de taille 2 générique]
     $$A = \left(\begin{matrix} a & b \\ c & d \end{matrix}\right)$$
@@ -1801,11 +1871,11 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
 \begin{proof}
     Démontrons le développement suivant la $j$-ième colonne. Soit $j \in [\![1,n]\!]$ fixé.
     
-    En exprimant la colonne $c_j$ comme combinaison linéaire des vecteurs de la base $\mathcal B = (e_1,\dots,e_n)$ définie par :
+    En exprimant la colonne $c_j$ comme combinaison linéaire des vecteurs de la base $\mathcal B = (E_1,\dots,E_n)$ définie par :
 
-    $$e_i = \left(\begin{matrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{matrix}\right) \text{ avec } 1 \text{ à la position } i$$
-    ... on obtient : ($c_j = \sum_{i=1}^n a_{i,j} e_i$) et en exploitant la $n$-linéarité du déterminant par rapport à sa $j$-ième colonne, on isole chaque coefficient de la manière suivante :
-    
+    $$E_i = \left(\begin{matrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{matrix}\right) \text{ avec } 1 \text{ à la position } i$$
+    ... on obtient : ($c_j = \sum_{i=1}^n a_{i,j} E_i$) et en exploitant la $n$-linéarité du déterminant par rapport à sa $j$-ième colonne, on isole chaque coefficient de la manière suivante :
+    $$\det(A) = \det_\mathcal{B}(\tilde c_1, \dots, \tilde c_n) = \det_\mathcal{B}(c_1, \dots, c_{j-1}, \sum_{i=1}^n a_{i,j} E_i, c_{j+1}, \dots, c_n)$$
     $$\det(A) = \sum_{i=1}^n a_{i,j} \cdot \left|\begin{matrix} 
         a_{1,1} & \dots & a_{1,j-1} & 0 & a_{1,j+1} & \dots & a_{1,n} \\
         \vdots & & \vdots & \vdots & \vdots & & \vdots \\
@@ -1813,7 +1883,7 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
         \vdots & & \vdots & \vdots & \vdots & & \vdots \\
         a_{n,1} & \dots & a_{n,j-1} & 0 & a_{n,j+1} & \dots & a_{n,n}
     \end{matrix}\right| \begin{matrix} \ \\ \ \\ \leftarrow \text{ ligne } i \\ \ \\ \ \end{matrix}$$
-    $$\begin{matrix} \qquad \qquad \qquad \qquad \ \ \uparrow \\ \qquad \qquad \qquad \quad \text{colonne } j \end{matrix}$$
+    $$\begin{matrix} \qquad \quad \uparrow \\ \qquad \qquad \qquad \text{colonne } j \end{matrix}$$
 
     Afin de ramener le pivot $1$ au coin inférieur droit (position $(n,n)$), on opère les migrations successives par transpositions adjacentes :
 
@@ -1843,7 +1913,7 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
 
     La structure finale obtenue présente une $n$-ième colonne composée exclusivement de zéros à l'exception du $1$ en position terminale $(n,n)$. Le bloc supérieur gauche de dimensions $(n-1) \times (n-1)$ correspond exactement à la sous-matrice d'origine privée de sa ligne $i$ et de sa colonne $j$.
 
-    Par application directe de la propriété de réduction par bloc inférieur démontrée à la section précédente, le déterminant de cette matrice globale est rigoureusement égal au déterminant de ce sous-bloc, qui s'identifie par définition au mineur $\Delta_{i,j}$ :
+    Par application directe de la propriété de réduction par bloc inférieur démontrée dans la section précédente, le déterminant de cette matrice globale est égal au déterminant de ce sous-bloc, qui s'identifie par définition au mineur $\Delta_{i,j}$ :
     $$\left|\begin{matrix} 
         a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
         \vdots & & \vdots & \vdots & & \vdots & \vdots \\
@@ -1886,7 +1956,7 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
     D'où $\det(A) = -9 \ne 0$, et $A \in \GL_3(\R)$.
 \end{example}
 
-\begin{example}[Matrice tridiagonale à diagonales constantes]
+\begin{exercise}[Matrice tridiagonale à diagonales constantes]
     Soit $n \ge 1$ et soient $a, b, c \in \R$. On considère le déterminant $\Delta_n$ d'une matrice tridiagonale de taille $n$ défini par :
     $$\Delta_n = \left|\begin{matrix} 
         a & c & 0 & \dots & 0 \\
@@ -1895,64 +1965,68 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
         \vdots & \ddots & \ddots & \ddots & c \\
         0 & \dots & 0 & b & a 
     \end{matrix}\right|_{(n)}$$
-    Montrons que pour tout $n \ge 1$, ce déterminant vérifie la relation de récurrence d'ordre 2 suivante :
+    \begin{enumerate}
+        \item Montrer que pour tout $n \ge 1$, ce déterminant vérifie la relation de récurrence d'ordre 2 suivante :
     $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+        \item En considérant le cas particulier où $a = 2$ et $b = c = 1$, trouver une expression explicite de $\Delta_n$ en fonction de $n$.
+    \end{enumerate}
 
-    Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
-    $$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
-    
-    Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
-    
-    Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
-    $$M_{2,1} = \left|\begin{matrix} 
-        c & 0 & 0 & \dots & 0 \\
-        b & a & c & \ddots & \vdots \\
-        0 & b & a & \ddots & 0 \\
-        \vdots & \ddots & \ddots & \ddots & c \\
-        0 & \dots & 0 & b & a 
-    \end{matrix}\right|_{(n+1)}$$
-    
-    Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
-    $$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
-        a & c & 0 & \dots & 0 \\
-        b & a & c & \ddots & \vdots \\
-        0 & b & a & \ddots & 0 \\
-        \vdots & \ddots & \ddots & \ddots & c \\
-        0 & \dots & 0 & b & a 
-    \end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
-    
-    En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
-    $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+\end{exercise}
 
-    Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
-    $$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
+Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
+$$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
 
-    L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
-    $$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
+Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
 
-    Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
-    $$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
+Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
+$$M_{2,1} = \left|\begin{matrix} 
+    c & 0 & 0 & \dots & 0 \\
+    b & a & c & \ddots & \vdots \\
+    0 & b & a & \ddots & 0 \\
+    \vdots & \ddots & \ddots & \ddots & c \\
+    0 & \dots & 0 & b & a 
+\end{matrix}\right|_{(n+1)}$$
 
-    Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
-    \begin{itemize}
-        \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
-        \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
-    \end{itemize}
+Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
+$$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
+    a & c & 0 & \dots & 0 \\
+    b & a & c & \ddots & \vdots \\
+    0 & b & a & \ddots & 0 \\
+    \vdots & \ddots & \ddots & \ddots & c \\
+    0 & \dots & 0 & b & a 
+\end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
 
-    En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
-    $$\begin{cases}
-        \alpha \cdot 1 + \beta = 2 \\
-        \alpha \cdot 2 + \beta = 3
-    \end{cases} \iff \begin{cases}
-        \alpha + \beta = 2 \\
-        2\alpha + \beta = 3
-    \end{cases}$$
+En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
+$$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
 
-    Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
+$$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
 
-    On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
-    $$\Delta_n = n + 1$$
-\end{example}
+L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
+$$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
+
+Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
+$$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
+
+Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
+\begin{itemize}
+    \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
+    \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
+\end{itemize}
+
+En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
+$$\begin{cases}
+    \alpha \cdot 1 + \beta = 2 \\
+    \alpha \cdot 2 + \beta = 3
+\end{cases} \iff \begin{cases}
+    \alpha + \beta = 2 \\
+    2\alpha + \beta = 3
+\end{cases}$$
+
+Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+
+On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
+$$\Delta_n = n + 1$$
 
 \begin{exercise}
     On considère la matrice carrée de taille $n$ $A$ suivante, et la fonction $f : \R \to \R$ définie par le déterminant de la matrice obtenue en ajoutant $x$ à tous les éléments de $A$ :
