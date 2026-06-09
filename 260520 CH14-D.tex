@@ -1973,60 +1973,60 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
 
 \end{exercise}
 
-Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
-$$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
+% Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
+% $$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
 
-Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
+% Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
 
-Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
-$$M_{2,1} = \left|\begin{matrix} 
-    c & 0 & 0 & \dots & 0 \\
-    b & a & c & \ddots & \vdots \\
-    0 & b & a & \ddots & 0 \\
-    \vdots & \ddots & \ddots & \ddots & c \\
-    0 & \dots & 0 & b & a 
-\end{matrix}\right|_{(n+1)}$$
+% Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
+% $$M_{2,1} = \left|\begin{matrix} 
+%     c & 0 & 0 & \dots & 0 \\
+%     b & a & c & \ddots & \vdots \\
+%     0 & b & a & \ddots & 0 \\
+%     \vdots & \ddots & \ddots & \ddots & c \\
+%     0 & \dots & 0 & b & a 
+% \end{matrix}\right|_{(n+1)}$$
 
-Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
-$$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
-    a & c & 0 & \dots & 0 \\
-    b & a & c & \ddots & \vdots \\
-    0 & b & a & \ddots & 0 \\
-    \vdots & \ddots & \ddots & \ddots & c \\
-    0 & \dots & 0 & b & a 
-\end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
+% Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
+% $$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
+%     a & c & 0 & \dots & 0 \\
+%     b & a & c & \ddots & \vdots \\
+%     0 & b & a & \ddots & 0 \\
+%     \vdots & \ddots & \ddots & \ddots & c \\
+%     0 & \dots & 0 & b & a 
+% \end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
 
-En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
-$$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+% En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
+% $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
 
-Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
-$$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
+% Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
+% $$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
 
-L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
-$$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
+% L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
+% $$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
 
-Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
-$$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
+% Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
+% $$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
 
-Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
-\begin{itemize}
-    \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
-    \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
-\end{itemize}
+% Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
+% \begin{itemize}
+%     \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
+%     \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
+% \end{itemize}
 
-En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
-$$\begin{cases}
-    \alpha \cdot 1 + \beta = 2 \\
-    \alpha \cdot 2 + \beta = 3
-\end{cases} \iff \begin{cases}
-    \alpha + \beta = 2 \\
-    2\alpha + \beta = 3
-\end{cases}$$
+% En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
+% $$\begin{cases}
+%     \alpha \cdot 1 + \beta = 2 \\
+%     \alpha \cdot 2 + \beta = 3
+% \end{cases} \iff \begin{cases}
+%     \alpha + \beta = 2 \\
+%     2\alpha + \beta = 3
+% \end{cases}$$
 
-Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+% Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
 
-On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
-$$\Delta_n = n + 1$$
+% On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
+% $$\Delta_n = n + 1$$
 
 \begin{exercise}
     On considère la matrice carrée de taille $n$ $A$ suivante, et la fonction $f : \R \to \R$ définie par le déterminant de la matrice obtenue en ajoutant $x$ à tous les éléments de $A$ :
@@ -2039,50 +2039,50 @@ $$\Delta_n = n + 1$$
     \end{enumerate}
 \end{exercise}
 
-L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer $\det(A)$ (qui est égal à $f(0)$).
+% L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer $\det(A)$ (qui est égal à $f(0)$).
 
-\begin{outline}
-    \1 Montrons que $f \in \R_1[X]$. $f$ est définie par l'expression suivante :
-    $$f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
-    On peut réaliser l'opération élémentaire suivante sur les colonnes de la matrice : $C_i \leftarrow C_i - C_n$ pour tout $i \in [\![1,n-1]\!]$. On rappelle que cette opération ne modifie pas le déterminant de la matrice. On trouve alors :
-    $$f(x) = \left|\begin{matrix} 
-    -1 & 0 & \dots & 0 & 3+x \\ 
-    -2 & -1 & \dots & 0 & 3+x \\ 
-    \vdots & \vdots & \ddots & \vdots & \vdots \\ 
-    -1 & -1 & \dots & -1 & 2+x \end{matrix}\right|$$
-    (On peut aussi réaliser l'opération $C_i \leftarrow C_i - C_{i+1}$ pour aboutir à un résultat similaire).
-    En développant ce déterminant suivant la première ligne, on trouve :
-    \begin{align*}
-        f(x) &= \sum_{i=1}^{n} a_{1,i} A_{1,i} = a_{1,1} A_{1,1} + a_{1,n} A_{1,n} \\
-        &= -1 \cdot A_{1,1} + (3+x) \cdot A_{1,n} \\
-        &= A_{1,n} \cdot x + (3A_{1,n} - A_{1,1})
-    \end{align*}
-    Comme $A_{1,n}$ et $A_{1,1}$ sont des constantes dans $\R$, cela veut dire que :
-    $$\exists a,b \in \R \tqp f(x) = ax + b \text{ i.e.: } f \in \R_1[X]$$
+% \begin{outline}
+%     \1 Montrons que $f \in \R_1[X]$. $f$ est définie par l'expression suivante :
+%     $$f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
+%     On peut réaliser l'opération élémentaire suivante sur les colonnes de la matrice : $C_i \leftarrow C_i - C_n$ pour tout $i \in [\![1,n-1]\!]$. On rappelle que cette opération ne modifie pas le déterminant de la matrice. On trouve alors :
+%     $$f(x) = \left|\begin{matrix} 
+%     -1 & 0 & \dots & 0 & 3+x \\ 
+%     -2 & -1 & \dots & 0 & 3+x \\ 
+%     \vdots & \vdots & \ddots & \vdots & \vdots \\ 
+%     -1 & -1 & \dots & -1 & 2+x \end{matrix}\right|$$
+%     (On peut aussi réaliser l'opération $C_i \leftarrow C_i - C_{i+1}$ pour aboutir à un résultat similaire).
+%     En développant ce déterminant suivant la première ligne, on trouve :
+%     \begin{align*}
+%         f(x) &= \sum_{i=1}^{n} a_{1,i} A_{1,i} = a_{1,1} A_{1,1} + a_{1,n} A_{1,n} \\
+%         &= -1 \cdot A_{1,1} + (3+x) \cdot A_{1,n} \\
+%         &= A_{1,n} \cdot x + (3A_{1,n} - A_{1,1})
+%     \end{align*}
+%     Comme $A_{1,n}$ et $A_{1,1}$ sont des constantes dans $\R$, cela veut dire que :
+%     $$\exists a,b \in \R \tqp f(x) = ax + b \text{ i.e.: } f \in \R_1[X]$$
 
-    \1 On peut retrouver les valeurs de $a,b$ en calculant $f(-1)$ et $f(-3)$ :
-    \begin{itemize}
-        \item $f(-1) = \left|\begin{matrix} 1 & 2 & \dots & 2 \\ 0 & 1 & \dots & 2 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & 1 \end{matrix}\right| = 1$
-        \item $f(-3) = \left|\begin{matrix} -1 & 0 & \dots & 0 \\ -2 & -1 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ -2 & -2 & \dots & -1 \end{matrix}\right| = (-1)^n$
-    \end{itemize}
-    On rappelle que les déterminants d'une matrice triangulaire sont égaux au produit de leurs éléments diagonaux. En injectant ces deux résultats dans l'expression de $f$, on trouve :
-    \begin{align*}
-        f(-1) &= a \cdot (-1) + b = -a + b = 1 \\
-        f(-3) &= a \cdot (-3) + b = -3a + b = (-1)^n
-    \end{align*}
-    En résolvant ce système d'équations, on trouve :
-    $$\begin{cases}
-        -a + b = 1 \\
-        -3a + b = (-1)^n
-    \end{cases} \iff \begin{cases}
-        2a = 1 - (-1)^n \\
-        b = 1 + a
-    \end{cases}$$
-    Par conséquent, pour tout $x \in \R$, on a :
-    $$f(x) = \frac{1 - (-1)^n}{2} \cdot x + \frac{3 - (-1)^n}{2}$$
-    En évaluant cette expression en $x=0$, on trouve :
-    $$\det(A) = f(0) = \frac{3 - (-1)^n}{2}$$
-\end{outline}
+%     \1 On peut retrouver les valeurs de $a,b$ en calculant $f(-1)$ et $f(-3)$ :
+%     \begin{itemize}
+%         \item $f(-1) = \left|\begin{matrix} 1 & 2 & \dots & 2 \\ 0 & 1 & \dots & 2 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & 1 \end{matrix}\right| = 1$
+%         \item $f(-3) = \left|\begin{matrix} -1 & 0 & \dots & 0 \\ -2 & -1 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ -2 & -2 & \dots & -1 \end{matrix}\right| = (-1)^n$
+%     \end{itemize}
+%     On rappelle que les déterminants d'une matrice triangulaire sont égaux au produit de leurs éléments diagonaux. En injectant ces deux résultats dans l'expression de $f$, on trouve :
+%     \begin{align*}
+%         f(-1) &= a \cdot (-1) + b = -a + b = 1 \\
+%         f(-3) &= a \cdot (-3) + b = -3a + b = (-1)^n
+%     \end{align*}
+%     En résolvant ce système d'équations, on trouve :
+%     $$\begin{cases}
+%         -a + b = 1 \\
+%         -3a + b = (-1)^n
+%     \end{cases} \iff \begin{cases}
+%         2a = 1 - (-1)^n \\
+%         b = 1 + a
+%     \end{cases}$$
+%     Par conséquent, pour tout $x \in \R$, on a :
+%     $$f(x) = \frac{1 - (-1)^n}{2} \cdot x + \frac{3 - (-1)^n}{2}$$
+%     En évaluant cette expression en $x=0$, on trouve :
+%     $$\det(A) = f(0) = \frac{3 - (-1)^n}{2}$$
+% \end{outline}
 
 \begin{property}
     Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
@@ -2112,13 +2112,267 @@ L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer
 
 \section{Application : Résolution d'un système de Cramer}
 
+Soit $(L) : AX = Y$ un système linéaire de $n$ équations à $n$ inconnues, où $A \in \mathcal{GL}_n(\Kset)$ est une matrice inversible, $X = \left(\begin{matrix} x_1 \\ \vdots \\ x_n \end{matrix}\right) \in \mathcal{M}_{n,1}(\Kset)$ est le vecteur colonne des inconnues, et $Y \in \mathcal{M}_{n,1}(\Kset)$ est le second membre.
+
+Notons $(C_1, \dots, C_n)$ les colonnes de la matrice $A$. Par définition du produit matriciel, le système $(L)$ se réécrit sous forme d'une combinaison linéaire des colonnes de $A$ :
+$$(L) \iff \sum_{k=1}^n x_k C_k = Y$$
+
+Soit $i \in [\![1,n]\!]$ un indice fixé. Évaluons le déterminant de la matrice obtenue en remplaçant sa $i$-ième colonne par le vecteur second membre $Y$. Par linéarité du déterminant par rapport à sa $i$-ième colonne, on injecte la combinaison linéaire précédente :
+\begin{align*}
+    \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, Y, C_{i+1}, \dots, C_n) &= \det_{\mathcal{B}_c}\left(C_1, \dots, C_{i-1}, \sum_{k=1}^n x_k C_k, C_{i+1}, \dots, C_n\right) \\
+    &= \sum_{k=1}^n x_k \cdot \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, C_k, C_{i+1}, \dots, C_n)
+\end{align*}
+
+Or, l'application $\det_{\mathcal{B}_c}$ est une forme $n$-linéaire alternée. Par conséquent :
+\begin{itemize}
+    \item Pour tout $k \neq i$, la colonne $C_k$ apparaît deux fois dans le déterminant (en position $k$ et en position $i$). Le déterminant d'un système comportant deux vecteurs identiques étant nul, le terme s'annule.
+    \item Pour $k = i$, le système de vecteurs est exactement la base des colonnes d'origine de la matrice, redonnant $\det(A)$.
+\end{itemize}
+
+L'ensemble des termes de la somme s'annule donc par alternance, à l'exception exclusive du terme d'indice $k = i$ :
+$$\sum_{k=1}^n x_k \cdot \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, C_k, C_{i+1}, \dots, C_n) = x_i \cdot \det_{\mathcal{B}_c}(C_1, \dots, C_n) = x_i \cdot \det(A)$$
+On obtient ainsi l'identité scalaire intermédiaire suivante :
+$$\forall i \in [\![1,n]\!], \quad \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, Y, C_{i+1}, \dots, C_n) = x_i \cdot \det(A)$$
+
+La matrice $A$ étant inversible par hypothèse, son déterminant est non nul ($\det(A) \neq 0_\Kset$). On isole alors de manière unique chaque composante $x_i$ du vecteur solution $X$, ce qui établit les formules de Cramer :
+$$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, Y, C_{i+1}, \dots, C_n)}{\det(A)}$$
+
+\begin{example}[Application des formules de Cramer en dimension 3]
+    Soit le système linéaire $(L)$ défini dans $\R^3$ par :
+    $$(L) : \begin{cases}
+        2x - y + z = 1 \\
+        x - 3y + 2z = 0 \\
+        3x - 2z = -1
+    \end{cases}$$
+
+    \textbf{Identifions les composants matriciels.} On extrait du système la matrice des coefficients $A$, ses vecteurs colonnes $(C_1, C_2, C_3)$ et le vecteur second membre $Y$ :
+    $$A = \begin{pmatrix} 2 & -1 & 1 \\ 1 & -3 & 2 \\ 3 & 0 & -2 \end{pmatrix}, \quad 
+    C_1 = \begin{pmatrix} 2 \\ 1 \\ 3 \end{pmatrix}, \quad 
+    C_2 = \begin{pmatrix} -1 \\ -3 \\ 0 \end{pmatrix}, \quad 
+    C_3 = \begin{pmatrix} 1 \\ 2 \\ -2 \end{pmatrix} \quad \text{et} \quad 
+    Y = \begin{pmatrix} 1 \\ 0 \\ -1 \end{pmatrix}$$
+
+    \textbf{Calculons le déterminant principal $\Delta$.}
+    $$\Delta = \det(A) = \left|\begin{matrix} 2 & -1 & 1 \\ 1 & -3 & 2 \\ 3 & 0 & -2 \end{matrix}\right| = 12 - 6 + 0 - (-9 + 0 + 2) = 6 - (-7) = 13$$
+    Puisque $\Delta \neq 0$, le système est un système de Cramer ; il admet une unique solution.
+
+    \textbf{Appliquons visuellement les substitutions de colonnes.} Pour chaque inconnue, on remplace la colonne correspondante par le vecteur second membre $Y$ :
+
+    \begin{itemize}
+        \item \textbf{Pour l'inconnue $x$ (Substitution de la colonne 1 : $C_1 \leftarrow Y$)} :
+        $$\Delta_x = \det(\mathbf{Y}, C_2, C_3) = \left|\begin{matrix} \mathbf{1} & -1 & 1 \\ \mathbf{0} & -3 & 2 \\ \mathbf{-1} & 0 & -2 \end{matrix}\right| = 6 + 2 + 0 - (3 + 0 + 0) = 8 - 3 = 5$$
+        
+        \item \textbf{Pour l'inconnue $y$ (Substitution de la colonne 2 : $C_2 \leftarrow Y$)} :
+        $$\Delta_y = \det(C_1, \mathbf{Y}, C_3) = \left|\begin{matrix} 2 & \mathbf{1} & 1 \\ 1 & \mathbf{0} & 2 \\ 3 & \mathbf{-1} & -2 \end{matrix}\right| = 0 + 6 - 1 - (0 - 4 - 2) = 5 - (-6) = 11$$
+        
+        \item \textbf{Pour l'inconnue $z$ (Substitution de la colonne 3 : $C_3 \leftarrow Y$)} :
+        $$\Delta_z = \det(C_1, C_2, \mathbf{Y}) = \left|\begin{matrix} 2 & -1 & \mathbf{1} \\ 1 & -3 & \mathbf{0} \\ 3 & 0 & \mathbf{-1} \end{matrix}\right| = 6 + 0 + 0 - (-9 + 0 + 1) = 6 - (-8) = 14$$
+    \end{itemize}
+
+    \textbf{Déduisons-en la solution finale unique.} Par application directe des formules de Cramer $x_i = \frac{\Delta_{x_i}}{\Delta}$, on obtient les coordonnées de l'unique vecteur solution :
+    $$x = \frac{\Delta_x}{\Delta} = \frac{5}{13}, \quad y = \frac{\Delta_y}{\Delta} = \frac{11}{13}, \quad z = \frac{\Delta_z}{\Delta} = \frac{14}{13}$$
+    
+    L'ensemble des solutions du système est défini par le singleton :
+    $$\mathcal{S} = \left\{\left(\frac{5}{13}, \frac{11}{13}, \frac{14}{13}\right)\right\}$$
+\end{example}
+
 \chapter{Compléments}
 
 \section{Réduction d'une matrice}
 
-\section{Polynôme caractéristique d'un endomorphisme}
+\subsection{Introduction et définitions fondamentales}
 
-\section{Théorème de Cayley-Hamilton}
+\begin{definition}[Objectif de la réduction]
+    Réduire un endomorphisme ou une matrice carrée consiste à rechercher une base privilégiée dans laquelle sa représentation matricielle est la plus simple possible.
+    \begin{itemize}
+        \item \textbf{Diagonalisation :} Déterminer si la matrice est semblable à une matrice diagonale.
+        \item \textbf{Trigonalisation :} Déterminer si la matrice est semblable à une matrice triangulaire (supérieure ou inférieure).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Polynôme caractéristique]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$.
+    \begin{itemize}
+        \item Pour un endomorphisme $f \in \mathcal{L}(E)$, on appelle \textbf{polynôme caractéristique} de $f$ le polynôme noté $\chi_f$ défini par :
+        $$\chi_f(X) = \det(X \cdot \Id_E - f)$$
+        \item Pour une matrice carrée $A \in \mathcal{M}_n(\Kset)$, on appelle \textbf{polynôme caractéristique} de $A$ le polynôme noté $\chi_A$ défini par :
+        $$\chi_A(X) = \det(X \cdot I_n - A)$$
+    \end{itemize}
+\end{definition}
+
+\begin{property}[Structure du polynôme caractéristique]
+    Pour toute matrice carrée $A \in \mathcal{M}_n(\Kset)$, $\chi_A$ est un polynôme unitaire de degré $n$ dont les coefficients extrêmes sont remarquables :
+    $$\chi_A(X) = X^n - \text{Tr}(A)X^{n-1} + \dots + (-1)^n \det(A)$$
+    Par conséquent, on a $\deg(\chi_A) = n$, ce qui implique d'après le théorème de d'Alembert-Gauss que le cardinal du spectre de $A$ (l'ensemble de ses valeurs propres) est majoré par la dimension de l'espace :
+    $$\text{Card}\bigl(\text{Sp}_{\Kset}(A)\bigr) \le n$$
+\end{property}
+
+\begin{theorem}[Caractérisation spectrale]
+    Soit $f \in \mathcal{L}(E)$ et $\lambda \in \Kset$. On a la chaîne d'équivalences logiques suivante :
+    \begin{align*}
+        \lambda \in \text{Sp}_{\Kset}(f) &\iff f - \lambda \cdot \Id_E \text{ n'est pas inversible} \\
+        &\iff \lambda \cdot \Id_E - f \text{ n'est pas inversible} \\
+        &\iff \det(\lambda \cdot \Id_E - f) = 0_\Kset \\
+        &\iff \chi_f(\lambda) = 0_\Kset
+    \end{align*}
+    Les valeurs propres d'un endomorphisme (ou d'une matrice) sont donc exactement les \textbf{racines} de son polynôme caractéristique.
+\end{theorem}
+
+\subsection{Exemples d'application}
+
+\begin{example}[Cas général d'une matrice d'ordre 2]
+    Soit $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathcal{M}_2(\Kset)$. Calculons son polynôme caractéristique :
+    $$\chi_A(X) = \det(X \cdot I_2 - A) = \left|\begin{matrix} X-a & -b \\ -c & X-d \end{matrix}\right|$$
+    En développant ce déterminant d'ordre 2, on trouve :
+    \begin{align*}
+        \chi_A(X) &= (X-a)(X-d) - (-b)(-c) \\
+        &= X^2 - (a+d)X + (ad - bc)
+    \end{align*}
+    On retrouve bien la formule structurelle du cours : $\chi_A(X) = X^2 - \text{Tr}(A)X + \det(A)$.
+\end{example}
+
+\begin{example}[Cas d'une matrice d'ordre 3]
+    Soit la matrice carrée $A = \begin{pmatrix} 4 & -2 & -2 \\ 1 & 0 & -1 \\ 3 & -2 & -1 \end{pmatrix} \in \mathcal{M}_3(\R)$. 
+    Son polynôme caractéristique est défini par :
+    $$\chi_A(X) = \left|\begin{matrix} X-4 & 2 & 2 \\ -1 & X & 1 \\ -3 & 2 & X+1 \end{matrix}\right|$$
+    
+    En appliquant la règle de Sarrus pour développer ce déterminant d'ordre 3, on sépare les produits des diagonales directes et des antidiagonales :
+    $$\chi_A(X) = \Bigl[ X(X-4)(X+1) + \bigl(2 \cdot 1 \cdot (-3)\bigr) + \bigl(2 \cdot (-1) \cdot 2\bigr) \Bigr] - \Bigl[ \bigl(2 \cdot X \cdot (-3)\bigr) + \bigl(1 \cdot 2 \cdot (X-4)\bigr) + \bigl((X+1) \cdot (-1) \cdot 2\bigr) \Bigr]$$
+    $$\chi_A(X) = \Bigl[ X(X-4)(X+1) - 6 - 4 \Bigr] - \Bigl[ -6X + 2(X-4) - 2(X+1) \Bigr]$$
+    $$\chi_A(X) = \Bigl[ X(X-4)(X+1) - 10 \Bigr] - \Bigl[ -6X - 10 \Bigr]$$
+    
+    En simplifiant par effacement du terme constant $-10$, on peut factoriser par $X$ :
+    \begin{align*}
+        \chi_A(X) &= X(X-4)(X+1) + 6X \\
+        &= X \bigl[ (X-4)(X+1) + 6 \bigr] \\
+        &= X \bigl[ X^2 - 3X - 4 + 6 \bigr] \\
+        &= X \bigl[ X^2 - 3X + 2 \bigr]
+    \end{align*}
+    En recherchant les racines évidentes du polynôme du second degré du second facteur, on obtient la forme entièrement scindée suivante :
+    $$\chi_A(X) = X(X-1)(X-2)$$
+    
+    Les racines de $\chi_A$ étant les valeurs propres de la matrice, on en déduit immédiatement le spectre de $A$ :
+    $$\text{Sp}_{\R}(A) = \{0, 1, 2\}$$
+\end{example}
+
+\section{Diagonalisation d'un endomorphisme et d'une matrice}
+
+\begin{definition}[Diagonalisabilité]
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$ et soit $f \in \mathcal{L}(E)$.
+    L'endomorphisme $f$ est dit \textbf{diagonalisable} s'il existe une base $\mathcal{B}$ de $E$ entièrement formée de vecteurs propres de $f$.
+    
+    En termes matriciels, cela équivaut à dire que la matrice $A = [f]_{\mathcal{B}_c}$ (représentation dans la base canonique) est semblable à une matrice diagonale :
+    $$\exists P \in \mathcal{GL}_n(\Kset) \quad \text{telle que} \quad [f]_{\mathcal{B}_c} = P \cdot [f]_{\mathcal{B}} \cdot P^{-1}$$
+    où $[f]_{\mathcal{B}} \in \mathcal{D}_n(\Kset)$ est la matrice diagonale constituée des valeurs propres associées :
+    $$[f]_{\mathcal{B}} = \text{diag}(\lambda_1, \dots, \lambda_n) = \begin{pmatrix} \lambda_1 & 0 & \dots & 0 \\ 0 & \lambda_2 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \lambda_n \end{pmatrix}$$
+    La matrice de passage associée est définie par $P = P_{\mathcal{B}_c \to \mathcal{B}} = \text{Pass}(\mathcal{B}_c, \mathcal{B})$, dont les colonnes correspondent aux vecteurs de la base propre $\mathcal{B} = (u_1, \dots, u_n)$.
+\end{definition}
+
+\begin{theorem}[Théorème de Cayley-Hamilton]
+    Le polynôme caractéristique d'un opérateur est un polynôme annulateur de cet opérateur.
+    \begin{itemize}
+        \item Pour tout endomorphisme $f \in \mathcal{L}(E)$ : $\chi_f(f) = 0_{\mathcal{L}(E)}$
+        \item Pour toute matrice $A \in \mathcal{M}_n(\Kset)$ : $\chi_A(A) = 0_{\mathcal{M}_n(\Kset)}$
+    \end{itemize}
+    \textit{(Démonstration admise en classe de Sup)}
+\end{theorem}
+
+\subsection{Critères généraux de diagonalisabilité}
+
+\begin{theorem}[Propriétés des sous-espaces propres]
+    Soit $f \in \mathcal{L}(E)$. On suppose que son polynôme caractéristique $\chi_f$ est entièrement scindé sur $\Kset$, et on note son spectre par $\text{Sp}_{\Kset}(f) = \{\lambda_1, \dots, \lambda_r\}$, de telle sorte que :
+    $$\chi_f(X) = \prod_{i=1}^r (X - \lambda_i)^{\alpha_i} \quad \text{avec} \quad \sum_{i=1}^r \alpha_i = n$$
+    
+    Les propriétés fondamentales suivantes sont vérifiées :
+    \begin{enumerate}
+        \item \textbf{Encadrement de la dimension :} Pour chaque valeur propre $\lambda_i$, la dimension du sous-espace propre associé $E_{\lambda_i} = \ker(f - \lambda_i \cdot \Id_E)$ est encadrée par sa multiplicité algébrique :
+        $$\forall i \in [\![1,r]\!], \quad 1 \le \dim(E_{\lambda_i}) \le \alpha_i$$
+        
+        \item \textbf{Condition nécessaire et suffisante :} L'endomorphisme $f$ est diagonalisable si et seulement si la dimension de chaque sous-espace propre est rigoureusement égale à la multiplicité algébrique de la racine associée :
+        $$f \text{ est diagonalisable} \iff \forall i \in [\![1,r]\!], \ \dim(E_{\lambda_i}) = \alpha_i \iff E = \bigoplus_{i=1}^r E_{\lambda_i}$$
+        
+        \item \textbf{Condition suffisante (Valeurs propres distinctes) :} Si l'endomorphisme $f$ admet $n$ valeurs propres distinctes (c'est-à-dire si $r = n$ et $\alpha_i = 1$ pour tout $i$), alors $f$ est immédiatement diagonalisable.
+        
+        \item \textbf{Critère par polynôme annulateur :} L'endomorphisme $f$ est diagonalisable si et seulement s'il admet un polynôme annulateur scindé à racines simples sur $\Kset$ :
+        $$\exists P \in \Kset[X] \quad \text{tel que} \quad P(f) = 0_{\mathcal{L}(E)} \ \text{et } P \text{ est scindé à racines simples}$$
+    \end{enumerate}
+\end{theorem}
+
+\section{Trigonalisation d'un endomorphisme et d'une matrice}
+
+\begin{definition}[Trigonalisabilité]
+    Un endomorphisme $f \in \mathcal{L}(E)$ est dit \textbf{trigonalisable} s'il existe une base $\mathcal{B}$ de $E$ dans laquelle sa matrice représentative est triangulaire supérieure (ou inférieure) :
+    $$[f]_{\mathcal{B}} \in \mathcal{T}_{n,s}(\Kset) \quad \text{ou} \quad [f]_{\mathcal{B}} \in \mathcal{T}_{n,i}(\Kset)$$
+\end{definition}
+
+\begin{property}
+    Un endomorphisme $f \in \mathcal{L}(E)$ (respectivement une matrice $A$) est trigonalisable si et seulement si son polynôme caractéristique $\chi_f$ est scindé sur $\Kset[X]$.
+\end{property}
+
+\begin{consequence}
+    Puisque tout polynôme non nul de $\C[X]$ est entièrement scindé d'après la clôture algébrique de $\C$ :
+    \begin{itemize}
+        \item Si $E$ est un $\C$-espace vectoriel, tout endomorphisme $f \in \mathcal{L}(E)$ est systématiquement trigonalisable.
+        \item Toute matrice carrée complexe $A \in \mathcal{M}_n(\C)$ est trigonalisable.
+    \end{itemize}
+\end{consequence}
+
+\section{Calcul du déterminant de Vandermonde}
+
+\begin{definition}
+    Soient $\lambda_1, \dots, \lambda_n \in \Kset^n$ des scalaires. On appelle \textbf{matrice de Vandermonde} associée la matrice carrée définie par la famille de puissances successives $\text{Van}(\lambda_1, \dots, \lambda_n) = (\lambda_i^{j-1})_{1 \le i,j \le n}$.
+    Son déterminant, noté $V(\lambda_1, \dots, \lambda_n)$, est explicité par la forme :
+    $$V(\lambda_1, \dots, \lambda_n) = \left|\begin{matrix} 
+        1 & \lambda_1 & \lambda_1^2 & \dots & \lambda_1^{n-1} \\
+        1 & \lambda_2 & \lambda_2^2 & \dots & \lambda_2^{n-1} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & \lambda_n & \lambda_n^2 & \dots & \lambda_n^{n-1}
+    \end{matrix}\right|$$
+\end{definition}
+
+\begin{proof}
+    Calculons ce déterminant par réduction algorithmique. On effectue de manière successive sur les colonnes, en partant de la droite vers la gauche (pour $j$ allant de $n$ décroissant jusqu'à $2$), l'opération élémentaire suivante :
+    $$C_j \leftarrow C_j - \lambda_1 \cdot C_{j-1}$$
+    Cette combinaison linéaire laisse le déterminant invariant et génère des zéros sur l'intégralité de la première ligne après le premier coefficient :
+    $$V(\lambda_1, \dots, \lambda_n) = \left|\begin{matrix} 
+        1 & 0 & 0 & \dots & 0 \\
+        1 & \lambda_2 - \lambda_1 & \lambda_2(\lambda_2 - \lambda_1) & \dots & \lambda_2^{n-2}(\lambda_2 - \lambda_1) \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & \lambda_n - \lambda_1 & \lambda_n(\lambda_n - \lambda_1) & \dots & \lambda_n^{n-2}(\lambda_n - \lambda_1)
+    \end{matrix}\right|$$
+    
+    Par développement de Laplace suivant cette première ligne, le déterminant se réduit à l'ordre $n-1$ :
+    $$V(\lambda_1, \dots, \lambda_n) = \left|\begin{matrix} 
+        \lambda_2 - \lambda_1 & \lambda_2(\lambda_2 - \lambda_1) & \dots & \lambda_2^{n-2}(\lambda_2 - \lambda_1) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \lambda_n - \lambda_1 & \lambda_n(\lambda_n - \lambda_1) & \dots & \lambda_n^{n-2}(\lambda_n - \lambda_1)
+    \end{matrix}\right|$$
+    
+    En utilisant la multilinéarité par rapport aux lignes, on peut factoriser chaque ligne $i$ (pour $i$ allant de $2$ à $n$) par le terme constant $(\lambda_i - \lambda_1)$ :
+    $$V(\lambda_1, \dots, \lambda_n) = \left( \prod_{j=2}^n (\lambda_j - \lambda_1) \right) \cdot \left|\begin{matrix} 
+        1 & \lambda_2 & \dots & \lambda_2^{n-2} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & \lambda_n & \dots & \lambda_n^{n-2}
+    \end{matrix}\right|$$
+    
+    On reconnaît dans le membre de droite l'expression exacte du déterminant de Vandermonde d'ordre $n-1$, soit $V(\lambda_2, \dots, \lambda_n)$. On obtient la formule de réduction par récurrence :
+    $$V(\lambda_1, \dots, \lambda_n) = \prod_{j=2}^n (\lambda_j - \lambda_1) \cdot V(\lambda_2, \dots, \lambda_n)$$
+    
+    Par itérations successives (ou raisonnement par récurrence finie), on conclut de manière générale :
+    $$V(\lambda_1, \dots, \lambda_n) = \prod_{1 \le i < j \le n} (\lambda_j - \lambda_i)$$
+\end{proof}
+
+\begin{remark}
+    Conséquence immédiate de cette formule produit : si et seulement si les scalaires $\lambda_1, \dots, \lambda_n$ sont distincts deux à deux, le déterminant de Vandermonde est non nul :
+    $$V(\lambda_1, \dots, \lambda_n) \neq 0_\Kset$$
+    Ce qui équivaut à affirmer que la matrice associée $\text{Van}(\lambda_1, \dots, \lambda_n)$ est inversible.
+\end{remark}
+
+\begin{center}
+    \rule{0.5\textwidth}{1pt}\\
+    Fin du Chapitre XIV-D.\\
+    \rule{0.5\textwidth}{1pt}
+\end{center}
 
 \printindex
 \end{document}
