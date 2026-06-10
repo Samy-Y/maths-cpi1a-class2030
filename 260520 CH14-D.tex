@@ -1567,7 +1567,6 @@ On conclut qu'au moins l'un des deux endomorphismes $f$ ou $g$ n'est pas inversi
     $$\forall i \in [\![1,n]\!], \ \forall (\lambda_j)_{j \neq i} \in \Kset^{n-1}, \quad \det(\tilde c_1, \dots, \tilde c_i + \sum_{\substack{j=1 \\ j \neq i}}^n \lambda_j \tilde c_j, \dots, \tilde c_n) = \det(\tilde c_1, \dots, \tilde c_i, \dots, \tilde c_n)$$
     $$\tilde c_i \leftarrow \tilde c_i + \sum_{j \in [\![1,n]\!]\setminus{\{i\}}} \lambda_j \tilde c_j \text{ laisse le déterminant invariant}$$
 \end{property}
-\todo{prev à étud}
 
 \begin{property}
     Une permutation $\sigma$ appliquée sur les colonnes d'une matrice multiplie le déterminant par le signe de la permutation :
@@ -1956,6 +1955,33 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
     D'où $\det(A) = -9 \ne 0$, et $A \in \GL_3(\R)$.
 \end{example}
 
+\begin{example}
+    Calculons le déterminant de la matrice suivante :
+    $$A = \left(\begin{matrix}
+    2 & 1 & 0 \\
+    -1 & -4 & 2 \\
+    -3 & 1 & -2 \\
+    \end{matrix}\right)$$
+    Faisons un développement suivant la première ligne de $A$.
+    \begin{align*}
+        \det(A) &= \sum_{j=1}^{3} a_{1,j} A_{1,j} \\
+                &= 2 \cdot A_{1,1} + 1 \cdot A_{1,2} + 0 \cdot A_{1,3} \\
+                &= 2 \cdot A_{1,1} + A_{1,2} \\
+                &= 2 \cdot \left|\begin{matrix}
+                -4 & 2 \\
+                1 & -2
+                \end{matrix}\right| + (-1)^{1+2} \cdot \left|\begin{matrix}
+                -1 & 2 \\
+                -3 & -2
+                \end{matrix}\right| \\
+                &= 2 \cdot ( (-4)(-2) - (2)(1) ) + (-1) \cdot ( (-1)(-2) - (2)(-3) ) \\
+                &= 2 \cdot (8 - 2) + (-1) \cdot (2 + 6) \\
+                &= 2 \cdot 6 + (-1) \cdot 8 \\
+                &= 12 - 8 = 4
+    \end{align*}
+    D'où $\det(A) = 4 \ne 0$, et $A \in \GL_3(\R)$.
+\end{example}
+
 \begin{exercise}[Matrice tridiagonale à diagonales constantes]
     Soit $n \ge 1$ et soient $a, b, c \in \R$. On considère le déterminant $\Delta_n$ d'une matrice tridiagonale de taille $n$ défini par :
     $$\Delta_n = \left|\begin{matrix} 
@@ -1973,60 +1999,68 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
 
 \end{exercise}
 
-% Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
-% $$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
+Considérons la matrice sous sa forme de taille $n+2$ et développons son déterminant suivant sa première colonne. Cette colonne ne présentant que deux éléments non nuls ($a$ et $b$). Son développement donne alors :
+$$\Delta_{n+2} = a \cdot (-1)^{1+1} M_{1,1} + b \cdot (-1)^{2+1} M_{2,1}$$
 
-% Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette sous-matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$. 
+Le mineur $M_{1,1}$ correspond au déterminant de la sous-matrice de taille $n+1$ obtenue en supprimant la première ligne et la première colonne. Cette matrice conserve la structure d'origine, d'où $M_{1,1} = \Delta_{n+1}$.
 
-% Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
-% $$M_{2,1} = \left|\begin{matrix} 
-%     c & 0 & 0 & \dots & 0 \\
-%     b & a & c & \ddots & \vdots \\
-%     0 & b & a & \ddots & 0 \\
-%     \vdots & \ddots & \ddots & \ddots & c \\
-%     0 & \dots & 0 & b & a 
-% \end{matrix}\right|_{(n+1)}$$
+$$M_{1,1} = \left|\begin{matrix} 
+    a & c & 0 & \dots & 0 \\
+    b & a & c & \ddots & \vdots \\
+    0 & b & a & \ddots & 0 \\
+    \vdots & \ddots & \ddots & \ddots & c \\
+    0 & \dots & 0 & b & a
+\end{matrix}\right|_{(n+1)} = \Delta_{n+1}$$
 
-% Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$ de cette sous-matrice, on obtient :
-% $$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
-%     a & c & 0 & \dots & 0 \\
-%     b & a & c & \ddots & \vdots \\
-%     0 & b & a & \ddots & 0 \\
-%     \vdots & \ddots & \ddots & \ddots & c \\
-%     0 & \dots & 0 & b & a 
-% \end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
+Le mineur $M_{2,1}$ s'écrit quant à lui sous la forme suivante de taille $n+1$ :
+$$M_{2,1} = \left|\begin{matrix} 
+    c & 0 & 0 & \dots & 0 \\
+    b & a & c & \ddots & \vdots \\
+    0 & b & a & \ddots & 0 \\
+    \vdots & \ddots & \ddots & \ddots & c \\
+    0 & \dots & 0 & b & a 
+\end{matrix}\right|_{(n+1)}$$
 
-% En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
-% $$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
+Développons maintenant ce mineur $M_{2,1}$ suivant sa première ligne. Le seul élément non nul de cette ligne étant le coefficient $c$ situé en position $(1,1)$, on obtient :
+$$M_{2,1} = c \cdot (-1)^{1+1} \cdot \left|\begin{matrix} 
+    a & c & 0 & \dots & 0 \\
+    b & a & c & \ddots & \vdots \\
+    0 & b & a & \ddots & 0 \\
+    \vdots & \ddots & \ddots & \ddots & c \\
+    0 & \dots & 0 & b & a 
+\end{matrix}\right|_{(n)} = c \cdot \Delta_n$$
 
-% Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
-% $$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
+En injectant ces deux résultats dans l'équation de départ, on retrouve bien :
+$$\Delta_{n+2} = a\Delta_{n+1} - bc\Delta_n$$
 
-% L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
-% $$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
+Considérons le cas particulier où $a = 2$ et $b = c = 1$. La relation de récurrence d'ordre 2 devient une équation linéaire homogène à coefficients constants :
+$$\Delta_{n+2} - 2\Delta_{n+1} + \Delta_n = 0$$
 
-% Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
-% $$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
+L'équation caractéristique $(E_c)$ associée à cette suite est définie par :
+$$X^2 - 2X + 1 = 0 \iff (X - 1)^2 = 0$$
 
-% Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
-% \begin{itemize}
-%     \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
-%     \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
-% \end{itemize}
+Cette équation admet une unique racine double réelle $r_0 = 1$. D'après les propriétés (vues dans le chapitre III) sur les suites récurrentes linéaires du second ordre, il existe un unique couple de scalaires $(\alpha, \beta) \in \R^2$ tel que :
+$$\forall n \ge 1, \quad \Delta_n = (\alpha n + \beta) \cdot (1)^n = \alpha n + \beta$$
 
-% En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
-% $$\begin{cases}
-%     \alpha \cdot 1 + \beta = 2 \\
-%     \alpha \cdot 2 + \beta = 3
-% \end{cases} \iff \begin{cases}
-%     \alpha + \beta = 2 \\
-%     2\alpha + \beta = 3
-% \end{cases}$$
+Pour déterminer les constantes $\alpha$ et $\beta$, on calcule directement les conditions initiales du système pour $n=1$ et $n=2$ :
+\begin{itemize}
+    \item Pour $n = 1$ : $\Delta_1 = |2| = 2$
+    \item Pour $n = 2$ : $\Delta_2 = \left|\begin{matrix} 2 & 1 \\ 1 & 2 \end{matrix}\right| = 2 \cdot 2 - 1 \cdot 1 = 3$
+\end{itemize}
 
-% Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+En évaluant l'expression générale de $\Delta_n$ en $n=1$ et $n=2$, on obtient le système d'équations linéaires suivant :
+$$\begin{cases}
+    \alpha \cdot 1 + \beta = 2 \\
+    \alpha \cdot 2 + \beta = 3
+\end{cases} \iff \begin{cases}
+    \alpha + \beta = 2 \\
+    2\alpha + \beta = 3
+\end{cases}$$
 
-% On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
-% $$\Delta_n = n + 1$$
+Par soustraction de la première ligne à la seconde ($L_2 \leftarrow L_2 - L_1$), on isole directement $\alpha = 1$. Par substitution dans $L_1$, on trouve également $\beta = 1$.
+
+On en conclut que pour tout $n \ge 1$, l'expression explicite du déterminant de cette matrice tridiagonale particulière est :
+$$\Delta_n = n + 1$$
 
 \begin{exercise}
     On considère la matrice carrée de taille $n$ $A$ suivante, et la fonction $f : \R \to \R$ définie par le déterminant de la matrice obtenue en ajoutant $x$ à tous les éléments de $A$ :
@@ -2039,61 +2073,107 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
     \end{enumerate}
 \end{exercise}
 
-% L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer $\det(A)$ (qui est égal à $f(0)$).
+L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer $\det(A)$ (qui est égal à $f(0)$).
 
-% \begin{outline}
-%     \1 Montrons que $f \in \R_1[X]$. $f$ est définie par l'expression suivante :
-%     $$f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
-%     On peut réaliser l'opération élémentaire suivante sur les colonnes de la matrice : $C_i \leftarrow C_i - C_n$ pour tout $i \in [\![1,n-1]\!]$. On rappelle que cette opération ne modifie pas le déterminant de la matrice. On trouve alors :
-%     $$f(x) = \left|\begin{matrix} 
-%     -1 & 0 & \dots & 0 & 3+x \\ 
-%     -2 & -1 & \dots & 0 & 3+x \\ 
-%     \vdots & \vdots & \ddots & \vdots & \vdots \\ 
-%     -1 & -1 & \dots & -1 & 2+x \end{matrix}\right|$$
-%     (On peut aussi réaliser l'opération $C_i \leftarrow C_i - C_{i+1}$ pour aboutir à un résultat similaire).
-%     En développant ce déterminant suivant la première ligne, on trouve :
-%     \begin{align*}
-%         f(x) &= \sum_{i=1}^{n} a_{1,i} A_{1,i} = a_{1,1} A_{1,1} + a_{1,n} A_{1,n} \\
-%         &= -1 \cdot A_{1,1} + (3+x) \cdot A_{1,n} \\
-%         &= A_{1,n} \cdot x + (3A_{1,n} - A_{1,1})
-%     \end{align*}
-%     Comme $A_{1,n}$ et $A_{1,1}$ sont des constantes dans $\R$, cela veut dire que :
-%     $$\exists a,b \in \R \tqp f(x) = ax + b \text{ i.e.: } f \in \R_1[X]$$
+\begin{outline}
+    \1 Montrons que $f \in \R_1[X]$. $f$ est définie par l'expression suivante :
+    $$f(x) = \left|\begin{matrix} 2+x & 3+x & \dots & 3+x \\ 1+x & 2+x & \dots & 3+x \\ \vdots & \vdots & \ddots & \vdots \\ 1+x & 1+x & \dots & 2+x \end{matrix}\right|$$
+    On peut réaliser l'opération élémentaire suivante sur les colonnes de la matrice : $C_i \leftarrow C_i - C_{i+1}$ pour tout $i \in [\![1,n-1]\!]$. On rappelle que cette opération ne modifie pas le déterminant de la matrice. On trouve alors :
+    $$f(x) = \left|\begin{matrix} 
+    -1 &  0 & 0 & \dots & 0 & 3+x \\ 
+    -1 & -1 & 0 &\dots & 0 & 3+x \\
+    0  & -1 & -1 & \dots & 0 & 3+x \\
+    \vdots & \vdots & \ddots & \ddots & \vdots & \vdots \\ 
+    0 & 0 & \dots & -1 & -1 & 3+x \\
+    0 & 0 & \dots & 0 & -1 & 2+x \end{matrix}\right|$$
+    En développant ce déterminant suivant la $n$-ième colonne, on trouve :
+    \begin{align*}
+        f(x) &= \sum_{i=1}^{n} a_{i,n} (f(x))_{i,n} = a_{1,n} (f(x))_{1,1} + a_{2,n} (f(x))_{2,n} \\
+        &= (3+x) \cdot (f(x))_{1,n} + (2+x) \cdot (f(x))_{2,n} \\
+        &= x\cdot\underbrace{((f(x))_{1,n} + (f(x))_{2,n})}_{\in \R} + \underbrace{3 \cdot (f(x))_{1,n} + 2 \cdot (f(x))_{2,n}}_{\in \R}
+    \end{align*}
+    Comme $(f(x))_{1,n} + (f(x))_{2,n}$ et $3 \cdot (f(x))_{1,n} + 2 \cdot (f(x))_{2,n}$ sont des constantes dans $\R$, cela veut dire que :
+    $$\exists a,b \in \R \tqp f(x) = ax + b \text{ i.e.: } f \in \R_1[X]$$
 
-%     \1 On peut retrouver les valeurs de $a,b$ en calculant $f(-1)$ et $f(-3)$ :
-%     \begin{itemize}
-%         \item $f(-1) = \left|\begin{matrix} 1 & 2 & \dots & 2 \\ 0 & 1 & \dots & 2 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & 1 \end{matrix}\right| = 1$
-%         \item $f(-3) = \left|\begin{matrix} -1 & 0 & \dots & 0 \\ -2 & -1 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ -2 & -2 & \dots & -1 \end{matrix}\right| = (-1)^n$
-%     \end{itemize}
-%     On rappelle que les déterminants d'une matrice triangulaire sont égaux au produit de leurs éléments diagonaux. En injectant ces deux résultats dans l'expression de $f$, on trouve :
-%     \begin{align*}
-%         f(-1) &= a \cdot (-1) + b = -a + b = 1 \\
-%         f(-3) &= a \cdot (-3) + b = -3a + b = (-1)^n
-%     \end{align*}
-%     En résolvant ce système d'équations, on trouve :
-%     $$\begin{cases}
-%         -a + b = 1 \\
-%         -3a + b = (-1)^n
-%     \end{cases} \iff \begin{cases}
-%         2a = 1 - (-1)^n \\
-%         b = 1 + a
-%     \end{cases}$$
-%     Par conséquent, pour tout $x \in \R$, on a :
-%     $$f(x) = \frac{1 - (-1)^n}{2} \cdot x + \frac{3 - (-1)^n}{2}$$
-%     En évaluant cette expression en $x=0$, on trouve :
-%     $$\det(A) = f(0) = \frac{3 - (-1)^n}{2}$$
-% \end{outline}
+    \begin{itemize}
+        \item On peut aussi aboutir au même résultat en effectuant l'opération élémentaire suivante sur les colonnes :
+    \end{itemize}
+    $$C_i \leftarrow C_i - C_n \text{ pour tout } i \in [\![1,n-1]\!]$$
+
+    \1 On peut retrouver les valeurs de $a,b$ en calculant $f(-1)$ et $f(-3)$ :
+    \begin{itemize}
+        \item $f(-1) = \left|\begin{matrix} 1 & 2 & \dots & 2 \\ 0 & 1 & \dots & 2 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & 1 \end{matrix}\right| = 1$
+        \item $f(-3) = \left|\begin{matrix} -1 & 0 & \dots & 0 \\ -2 & -1 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ -2 & -2 & \dots & -1 \end{matrix}\right| = (-1)^n$
+    \end{itemize}
+    On rappelle que les déterminants d'une matrice triangulaire sont égaux au produit de leurs éléments diagonaux. En injectant ces deux résultats dans l'expression de $f$, on trouve :
+    \begin{align*}
+        f(-1) &= a \cdot (-1) + b = -a + b = 1 \\
+        f(-3) &= a \cdot (-3) + b = -3a + b = (-1)^n
+    \end{align*}
+    En résolvant ce système d'équations, on trouve :
+    $$\begin{cases}
+        -a + b = 1 \\
+        -3a + b = (-1)^n
+    \end{cases} \iff \begin{cases}
+        2a = 1 - (-1)^n \\
+        b = 1 + a
+    \end{cases}$$
+    Par conséquent, pour tout $x \in \R$, on a :
+    $$f(x) = \frac{1 - (-1)^n}{2} \cdot x + \frac{3 - (-1)^n}{2}$$
+    En évaluant cette expression en $x=0$, on trouve :
+    $$\det(A) = f(0) = \frac{3 - (-1)^n}{2}$$
+\end{outline}
 
 \begin{property}
-    Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
-    $$A\times\,^t\Com(A) = \,^t\Com(A)\times A=\det(A) \cdot I_n$$
-
-    La matrice $^t\Com(A) = \tilde{A}$ est appelée la \textbf{matrice complémentaire} de $A$. 
+    Soit $A \in \mathcal{M}_n(\Kset)$ une matrice carrée de taille $n \in \N^*$. On a l'identité suivante :
+    $$A \times \,^t\Com(A) = \,^t\Com(A) \times A = \det(A) \cdot I_n$$
+    La matrice $\,^t\Com(A)$ est parfois appelée la \textbf{matrice complémentaire} (ou \textbf{adjugate}) de $A$.
 \end{property}
 
 \begin{proof}
-    aight lowkirkenuinely gl yall i'm too tired to write another proof rn \faIcon{tired} \faIcon{seedling} \faIcon{heart-broken}
+    Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal{M}_n(\Kset)$. Notons $B = \,^t\Com(A)$. Par définition de la transposition et des cofacteurs, le coefficient général de $B$ est donné par :
+    $$\forall i,k \in [\![1,n]\!], \quad b_{i,k} = A_{k,i}$$
+
+    Considérons le produit matriciel $D = B \times A = \,^t\Com(A) \times A$. Par définition du produit de deux matrices, le coefficient général $d_{i,j}$ de $D$ situé à la ligne $i$ et à la colonne $j$ s'écrit :
+    $$\forall i,j \in [\![1,n]\!], \quad d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j} = \sum_{k=1}^n a_{k,j} A_{k,i}$$
+
+    Pour évaluer cette somme, nous devons distinguer deux cas selon la position du coefficient dans la matrice produit :
+
+    \begin{itemize}
+        \item \textbf{Cas 1 : Sur la diagonale principale ($i = j$)}
+        En injectant $j = i$ dans la relation, la somme devient :
+        $$d_{i,i} = \sum_{k=1}^n a_{k,i} A_{k,i}$$
+        On reconnaît immédiatement la formule du développement du déterminant de la matrice $A$ suivant sa $i$-ième colonne. On a donc :
+        $$\forall i \in [\![1,n]\!], \quad d_{i,i} = \det(A)$$
+
+        \item \textbf{Cas 2 : Hors de la diagonale principale ($i \neq j$)}
+        Si $i \neq j$, la somme $\sum_{k=1}^n a_{k,j} A_{k,i}$ correspond au développement de Laplace suivant sa $i$-ième colonne d'une matrice fictive, notée $A^{(i \leftarrow j)}$, obtenue en remplaçant la $i$-ième colonne de $A$ par sa $j$-ième colonne.
+        $$A^{(i \leftarrow j)} = \begin{pmatrix} c_1 & \dots & \underbrace{c_j}_{\text{position } i} & \dots & \underbrace{c_j}_{\text{position } j} & \dots & c_n \end{pmatrix}$$
+        Cette matrice présente deux colonnes rigoureusement identiques (aux positions $i$ et $j$). Le déterminant étant une forme alternée, on a $\det(A^{(i \leftarrow j)}) = 0_\Kset$. Par conséquent :
+        $$\forall i \neq j, \quad d_{i,j} = 0_\Kset$$
+    \end{itemize}
+
+    En regroupant ces deux cas à l'aide du symbole de Kronecker $\delta_{i,j}$, on a $d_{i,j} = \det(A) \cdot \delta_{i,j}$. La matrice produit $D$ est donc une matrice diagonale dont tous les termes valent $\det(A)$ :
+    $$\,^t\Com(A) \times A = \begin{pmatrix} \det(A) & 0 & \dots & 0 \\ 0 & \det(A) & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \det(A) \end{pmatrix} = \det(A) \cdot I_n$$
+
+    \paragraph{Démonstration de la commutativité :}
+    Pour établir que $A \times \,^t\Com(A) = \det(A) \cdot I_n$, on applique la relation fondamentale que l'on vient de prouver à la matrice transposée $\,^tA$ :
+    $$\,^t\Com(\,^tA) \times \,^tA = \det(\,^tA) \cdot I_n$$
+    
+    En utilisant le lemme de structure de la comatrice démontre précédemment, on sait que $\Com(\,^tA) = \,^t\Com(A)$. En prenant la transposée de chaque membre, on a :
+    $$\,^t\Com(\,^tA) = \,^t(\,^t\Com(A)) = \Com(A)$$
+    De plus, le déterminant est invariant par transposition ($\det(\,^tA) = \det(A)$). L'égalité se simplifie en :
+    $$\Com(A) \times \,^tA = \det(A) \cdot I_n$$
+    
+    En appliquant l'opérateur de transposition $\,^t(\cdot)$ de chaque côté de cette égalité matricielle, et en utilisant la propriété d'inversion de l'ordre du produit $(\,^t(M \times N) = \,^tN \times \,^tM)$, on obtient :
+    $$\,^t(\Com(A) \times \,^tA) = \,^t(\det(A) \cdot I_n) \implies \bigl(\,^t(\,^tA)\bigr) \times \,^t\Com(A) = \det(A) \cdot \,^tI_n$$
+    Comme $\,^t(\,^tA) = A$ et $\,^tI_n = I_n$, on valide de manière définitive la seconde identité :
+    $$A \times \,^t\Com(A) = \det(A) \cdot I_n$$
 \end{proof}
+
+\begin{remark}
+    $$\Com(\,^tA) = \,^t\Com(A)$$
+\end{remark}
 
 \begin{consequence}
     Soit $A \in \mathcal M_n(\Kset)$ une matrice carrée de taille $n$. Alors :
@@ -2110,13 +2190,27 @@ Cette propriété sera utilisée pour démontrer la formule d'expansion du déte
     \end{itemize}
 \end{consequence}
 
+\begin{proof}
+    En effet, si $\det(A) = 0$, alors $A\times \,^t\Com(A) = 0$, alors $^t\Com(A)$ est un élément non nul du noyau de $A$, i.e. $\Imf(\Com(A)) \subset \Ker(A)$. Par conséquent, d'après le théorème du rang, on trouve que :
+    $$\rang(\Com(A)) \le n - \rang(A)$$
+    <recop>
+\end{proof}
+
 \section{Application : Résolution d'un système de Cramer}
 
 Soit $(L) : AX = Y$ un système linéaire de $n$ équations à $n$ inconnues, où $A \in \mathcal{GL}_n(\Kset)$ est une matrice inversible, $X = \left(\begin{matrix} x_1 \\ \vdots \\ x_n \end{matrix}\right) \in \mathcal{M}_{n,1}(\Kset)$ est le vecteur colonne des inconnues, et $Y \in \mathcal{M}_{n,1}(\Kset)$ est le second membre.
 
 Notons $(C_1, \dots, C_n)$ les colonnes de la matrice $A$. Par définition du produit matriciel, le système $(L)$ se réécrit sous forme d'une combinaison linéaire des colonnes de $A$ :
-$$(L) \iff \sum_{k=1}^n x_k C_k = Y$$
-
+\begin{align*}
+    (L) &\iff 
+    \left(\begin{matrix} a_{1,1} & a_{1,2} & \dots & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \dots & a_{2,n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n,1} & a_{n,2} & \dots & a_{n,n} \end{matrix}\right) \cdot \left(\begin{matrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{matrix}\right) = Y \\
+    &\iff \left(\begin{matrix} x_1 a_{1,1} + x_2 a_{1,2} + \dots + x_n a_{1,n} \\ x_1 a_{2,1} + x_2 a_{2,2} + \dots + x_n a_{2,n} \\ \vdots \\ x_1 a_{n,1} + x_2 a_{n,2} + \dots + x_n a_{n,n} \end{matrix}\right) = \left(\begin{matrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{matrix}\right)
+    \\
+    &\iff \sum_{k=1}^n x_k C_k = Y \\
+\end{align*}
 Soit $i \in [\![1,n]\!]$ un indice fixé. Évaluons le déterminant de la matrice obtenue en remplaçant sa $i$-ième colonne par le vecteur second membre $Y$. Par linéarité du déterminant par rapport à sa $i$-ième colonne, on injecte la combinaison linéaire précédente :
 \begin{align*}
     \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, Y, C_{i+1}, \dots, C_n) &= \det_{\mathcal{B}_c}\left(C_1, \dots, C_{i-1}, \sum_{k=1}^n x_k C_k, C_{i+1}, \dots, C_n\right) \\
@@ -2128,9 +2222,9 @@ Or, l'application $\det_{\mathcal{B}_c}$ est une forme $n$-linéaire alternée. 
     \item Pour tout $k \neq i$, la colonne $C_k$ apparaît deux fois dans le déterminant (en position $k$ et en position $i$). Le déterminant d'un système comportant deux vecteurs identiques étant nul, le terme s'annule.
     \item Pour $k = i$, le système de vecteurs est exactement la base des colonnes d'origine de la matrice, redonnant $\det(A)$.
 \end{itemize}
-
 L'ensemble des termes de la somme s'annule donc par alternance, à l'exception exclusive du terme d'indice $k = i$ :
 $$\sum_{k=1}^n x_k \cdot \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, C_k, C_{i+1}, \dots, C_n) = x_i \cdot \det_{\mathcal{B}_c}(C_1, \dots, C_n) = x_i \cdot \det(A)$$
+\textit{On peut aussi réecrire les termes à l'intérieur de la somme avec le symbole de Kronecker comme suit : $x_k \cdot \delta_{k,i} \cdot \det(A)$.}
 On obtient ainsi l'identité scalaire intermédiaire suivante :
 $$\forall i \in [\![1,n]\!], \quad \det_{\mathcal{B}_c}(C_1, \dots, C_{i-1}, Y, C_{i+1}, \dots, C_n) = x_i \cdot \det(A)$$
 
