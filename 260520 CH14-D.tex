@@ -2270,6 +2270,48 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
     $$\mathcal{S} = \left\{\left(\frac{5}{13}, \frac{11}{13}, \frac{14}{13}\right)\right\}$$
 \end{example}
 
+\begin{exercise}
+    Soit $A,B \in \mathcal{M}_n(\Z) \cap \mathcal{GL}_n(\R)$ deux matrices inversibles à coefficients entiers telles que :
+    $$\det(A)\wedge \det(B) = 1$$
+    Montrer que $\exists U,V \in \mathcal{M}_n(\Z)$ tels que $A\times U + B \times V = I_n$.
+\end{exercise}
+
+\begin{outline}
+    Pour démontrer cette identité, nous allons utiliser le théorème de Bézout appliqué à $\Z$, puis effectuer un passage à l'ensemble des matrices en multipliant par l'identité $I_n$.
+
+    \1 \textbf{Nature des déterminants.} Tout d'abord, remarquons que les déterminants de $A$ et $B$ sont des entiers. En effet, en utilisant la définition du déterminant d'une matrice carrée, on trouve que :
+    $$\begin{cases}
+    \det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{i=1}^n a_{i,\sigma(i)} \\
+    \det(B) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{i=1}^n b_{i,\sigma(i)}
+    \end{cases}$$
+    (Sachant que les sommes sont \textit{finies} ! Autrement, on ne pourrait pas conclure que les déterminants sont des entiers.)
+
+    \1 \textbf{Application du théorème de Bézout.} Puisque $\det(A)\wedge \det(B) = 1$, sachant que $\det(A)$ et $\det(B)$ sont (forcément) des entiers, il existe des entiers relatifs $u,v \in \Z$ tels que :
+    $$u \cdot \det(A) + v \cdot \det(B) = 1$$
+
+    \1 \textbf{Passage à l'ensemble des matrices.} En multipliant chaque terme de l'identité précédente par la matrice identité $I_n$, on trouve :
+    $$u \cdot \det(A) \cdot I_n + v \cdot \det(B) \cdot I_n = 1 \cdot I_n$$
+    En utilisant la propriété sur les matrices complémentaires, on peut réécrire les termes de gauche :
+    $$
+        u \cdot \det(A) \cdot I_n + v \cdot \det(B) \cdot I_n = u \cdot (A \times \,^t\Com(A)) + v \cdot (B \times \,^t\Com(B))
+    $$
+    \1 \textbf{Vérification des matrices $U$ et $V$.} En posant $U = u \cdot \,^t\Com(A)$ et $V = v \cdot \,^t\Com(B)$, on trouve que :
+    \begin{align*}
+        A \times U + B \times V &= A \times (u \cdot \,^t\Com(A)) + B \times (v \cdot \,^t\Com(B)) \\
+        &= u \cdot (A \times \,^t\Com(A)) + v \cdot (B \times \,^t\Com(B))
+    \end{align*}
+    Il faut maintenant montrer que ces deux matrices appartiennent à l'ensemble $\mathcal{M}_n(\Z)$, i.e. que leurs coefficients sont des entiers. En effet, les coefficients de $U$ sont de la forme $u \cdot A_{i,j}$, où $A_{i,j}$ est un cofacteur de la matrice $A$. Par définition d'un cofacteur, on a :
+    $$A_{i,j} = (-1)^{i+j} \cdot \Delta_{i,j}$$
+    Où $\Delta_{i,j}$ est le mineur de $A$ associé à $(i,j)$. Tous les termes mis en jeu dans le calcul de ce mineur sont des entiers.
+
+    \1 \textbf{Conclusion.} En injectant ces résultats dans l'expression de $A \times U + B \times V$, on trouve :
+    \begin{align*}
+        A \times U + B \times V &= u \cdot (A \times \,^t\Com(A)) + v \cdot (B \times \,^t\Com(B)) \\
+        &= u \cdot (\det(A) \cdot I_n) + v \cdot (\det(B) \cdot I_n)
+        \\&= 1 \cdot I_n
+    \end{align*}
+\end{outline}
+
 \chapter{Compléments}
 
 \section{Réduction d'une matrice}
@@ -2284,39 +2326,51 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
     \end{itemize}
 \end{definition}
 
+Les avantages d'une réduction sont nombreux. Comme les matrices obtenues sont semblables à celles d'origine, elles ont les mêmes propriétés : même déterminant, même trace. Elles représentent aussi le même endomorphisme linéaire, mais dans une base différente. Les calculs de trace, de rang et de déterminant sont plus simples à réaliser sur une matrice diagonale ou triangulaire.
+
 \begin{definition}[Polynôme caractéristique]
-    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$.
-    \begin{itemize}
-        \item Pour un endomorphisme $f \in \mathcal{L}(E)$, on appelle \textbf{polynôme caractéristique} de $f$ le polynôme noté $\chi_f$ défini par :
-        $$\chi_f(X) = \det(X \cdot \Id_E - f)$$
-        \item Pour une matrice carrée $A \in \mathcal{M}_n(\Kset)$, on appelle \textbf{polynôme caractéristique} de $A$ le polynôme noté $\chi_A$ défini par :
-        $$\chi_A(X) = \det(X \cdot I_n - A)$$
-    \end{itemize}
+    Soit $E$ un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$. Soient $B$ une base de $E$, $f \in \mathcal{L}(E)$ un endomorphisme de $E$ et $A = [f]_B$ la matrice de $f$ dans la base $B$. Le \textbf{polynôme caractéristique} de $f$ (respectivement de $A$) est défini par :
+    $$\chi_f(X) = \det(X \cdot \Id_E - f) \quad \text{et} \quad \chi_A(X) = \det(X \cdot I_n - A)$$
 \end{definition}
 
-\begin{property}[Structure du polynôme caractéristique]
-    Pour toute matrice carrée $A \in \mathcal{M}_n(\Kset)$, $\chi_A$ est un polynôme unitaire de degré $n$ dont les coefficients extrêmes sont remarquables :
-    $$\chi_A(X) = X^n - \text{Tr}(A)X^{n-1} + \dots + (-1)^n \det(A)$$
-    Par conséquent, on a $\deg(\chi_A) = n$, ce qui implique d'après le théorème de d'Alembert-Gauss que le cardinal du spectre de $A$ (l'ensemble de ses valeurs propres) est majoré par la dimension de l'espace :
-    $$\text{Card}\bigl(\text{Sp}_{\Kset}(A)\bigr) \le n$$
-\end{property}
+Dans la littérature, on trouve aussi les notations suivantes pour le polynôme caractéristique : $\chi_f(X) = \det(f - X \cdot \Id_E)$ et $\chi_A(X) = \det(A - X \cdot I_n)$. 
 
-\begin{theorem}[Caractérisation spectrale]
+\begin{attention}
+    \begin{itemize}
+        \item Le polynôme défini précédemment est \textit{unitaire}, mais il faut faire attention lors des calculs à ne pas confondre les signes.
+        $$\det(X \cdot I_n - A) = \det(-(A - X \cdot I_n)) = (-1)^n \cdot \det(A - X \cdot I_n)$$
+
+        \item Un polynôme caractéristique n'est pas un \textit{polynôme minimal} ! Un polynôme \textit{annulateur} n'est pas forcément un polynôme caractéristique !
+        
+        \item En effet, le polynôme annulateur peut être de n'importe quel degré. Le polynôme caractéristique est un polynôme de degré strictement égal à la dimension de l'espace vectoriel.
+    \end{itemize}
+\end{attention}
+\todo{a revoir}
+
+\begin{remark}[Caractérisation spectrale]
     Soit $f \in \mathcal{L}(E)$ et $\lambda \in \Kset$. On a la chaîne d'équivalences logiques suivante :
     \begin{align*}
         \lambda \in \text{Sp}_{\Kset}(f) &\iff f - \lambda \cdot \Id_E \text{ n'est pas inversible} \\
         &\iff \lambda \cdot \Id_E - f \text{ n'est pas inversible} \\
         &\iff \det(\lambda \cdot \Id_E - f) = 0_\Kset \\
-        &\iff \chi_f(\lambda) = 0_\Kset
+        &\iff \chi_f(\lambda) = 0_\Kset \\
+        &\iff \lambda \text{ est une racine de } \chi_f
     \end{align*}
     Les valeurs propres d'un endomorphisme (ou d'une matrice) sont donc exactement les \textbf{racines} de son polynôme caractéristique.
-\end{theorem}
+\end{remark}
+
+\begin{remark}[Forme générale du polynôme caractéristique]
+    Pour toute matrice carrée $A \in \mathcal{M}_n(\Kset)$, $\chi_A$ est un polynôme unitaire de degré $n$ dont les coefficients extrêmes sont remarquables :
+    $$\chi_A(X) = X^n - \text{Tr}(A)X^{n-1} + \dots + (-1)^n \det(A)$$
+    Par conséquent, on a $\deg(\chi_A) = n$, ce qui implique d'après le théorème de d'Alembert-Gauss que le cardinal du spectre de $A$ (l'ensemble de ses valeurs propres) est majoré par la dimension de l'espace :
+    $$\text{Card}\bigl(\text{Sp}_{\Kset}(A)\bigr) \le n$$
+\end{remark}
 
 \subsection{Exemples d'application}
 
 \begin{example}[Cas général d'une matrice d'ordre 2]
-    Soit $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathcal{M}_2(\Kset)$. Calculons son polynôme caractéristique :
-    $$\chi_A(X) = \det(X \cdot I_2 - A) = \left|\begin{matrix} X-a & -b \\ -c & X-d \end{matrix}\right|$$
+    Soit $A = \begin{pmatrix} a & c \\ b & d \end{pmatrix} \in \mathcal{M}_2(\Kset)$. Calculons son polynôme caractéristique :
+    $$\chi_A(X) = \det(X \cdot I_2 - A) = \left|\begin{matrix} X-a & -c \\ -b & X-d \end{matrix}\right|$$
     En développant ce déterminant d'ordre 2, on trouve :
     \begin{align*}
         \chi_A(X) &= (X-a)(X-d) - (-b)(-c) \\
@@ -2359,6 +2413,7 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
     $$\exists P \in \mathcal{GL}_n(\Kset) \quad \text{telle que} \quad [f]_{\mathcal{B}_c} = P \cdot [f]_{\mathcal{B}} \cdot P^{-1}$$
     où $[f]_{\mathcal{B}} \in \mathcal{D}_n(\Kset)$ est la matrice diagonale constituée des valeurs propres associées :
     $$[f]_{\mathcal{B}} = \text{diag}(\lambda_1, \dots, \lambda_n) = \begin{pmatrix} \lambda_1 & 0 & \dots & 0 \\ 0 & \lambda_2 & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \lambda_n \end{pmatrix}$$
+    (avec $\forall i \in [\![1,n]\!], \lambda_i \in \Sp_{\Kset}(f)$)
     La matrice de passage associée est définie par $P = P_{\mathcal{B}_c \to \mathcal{B}} = \text{Pass}(\mathcal{B}_c, \mathcal{B})$, dont les colonnes correspondent aux vecteurs de la base propre $\mathcal{B} = (u_1, \dots, u_n)$.
 \end{definition}
 
@@ -2368,7 +2423,7 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
         \item Pour tout endomorphisme $f \in \mathcal{L}(E)$ : $\chi_f(f) = 0_{\mathcal{L}(E)}$
         \item Pour toute matrice $A \in \mathcal{M}_n(\Kset)$ : $\chi_A(A) = 0_{\mathcal{M}_n(\Kset)}$
     \end{itemize}
-    \textit{(Démonstration admise en classe de Sup)}
+    \textit{(Démonstration admise car trop technique. On dispose des outils pour la démontrer.)}
 \end{theorem}
 
 \subsection{Critères généraux de diagonalisabilité}
@@ -2386,9 +2441,6 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
         $$f \text{ est diagonalisable} \iff \forall i \in [\![1,r]\!], \ \dim(E_{\lambda_i}) = \alpha_i \iff E = \bigoplus_{i=1}^r E_{\lambda_i}$$
         
         \item \textbf{Condition suffisante (Valeurs propres distinctes) :} Si l'endomorphisme $f$ admet $n$ valeurs propres distinctes (c'est-à-dire si $r = n$ et $\alpha_i = 1$ pour tout $i$), alors $f$ est immédiatement diagonalisable.
-        
-        \item \textbf{Critère par polynôme annulateur :} L'endomorphisme $f$ est diagonalisable si et seulement s'il admet un polynôme annulateur scindé à racines simples sur $\Kset$ :
-        $$\exists P \in \Kset[X] \quad \text{tel que} \quad P(f) = 0_{\mathcal{L}(E)} \ \text{et } P \text{ est scindé à racines simples}$$
     \end{enumerate}
 \end{theorem}
 
@@ -2399,9 +2451,41 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
     $$[f]_{\mathcal{B}} \in \mathcal{T}_{n,s}(\Kset) \quad \text{ou} \quad [f]_{\mathcal{B}} \in \mathcal{T}_{n,i}(\Kset)$$
 \end{definition}
 
-\begin{property}
+\begin{theorem}[Critère de trigonalisabilité]
     Un endomorphisme $f \in \mathcal{L}(E)$ (respectivement une matrice $A$) est trigonalisable si et seulement si son polynôme caractéristique $\chi_f$ est scindé sur $\Kset[X]$.
-\end{property}
+
+    $$\chi_f \text{ est scindé sur } \Kset[X] \iff f \text{ est trigonalisable}$$
+
+    Si $\chi_f$ est scindé à racines simples, alors $f$ est même diagonalisable.
+
+    $$\chi_f \text{ est scindé à racines simples} \implies f \text{ est diagonalisable}$$
+\end{theorem}
+
+\begin{example}
+    $$A = \left(\begin{matrix} 1 & \dots & 1 \\ 1 & \dots & 1 \\ \vdots & \ddots & \vdots \\ 1 & \dots & 1 \end{matrix}\right) \in \mathcal{M}_n(\Kset) \quad \tq n \ge 1 \quad \text{(matrice magique)}$$
+    Le polynôme caractéristique de $A$ est défini par :
+    $$\chi_A(X) = \det(X \cdot I_n - A) = \left|\begin{matrix} X-1 & -1 & \dots & -1 \\ -1 & X-1 & \dots & -1 \\ \vdots & \vdots & \ddots & \vdots \\ -1 & -1 & \dots & X-1 \end{matrix}\right|$$
+    On effectue ensuite les opérations élémentaires suivantes sur les colonnes :
+    $$C_1 \leftarrow C_1 + (C_2 + \dots + C_n)$$
+    $$\implies \chi_A(X) = \left|\begin{matrix} X - n & -1 & \dots & -1 \\ X-n & X-1 & \dots & -1 \\ \vdots & \vdots & \ddots & \vdots \\ X-n & -1 & \dots & X-1 \end{matrix}\right|$$
+    Le déterminant est une forme $n$-linéaire alternée. En développant par rapport à la première colonne, on trouve que :
+    $$\chi_A(X) = (X-n) \cdot \left|\begin{matrix} 1 & \dots & -1 \\ \vdots & \ddots & \vdots \\ 1 & \dots & X-1 \end{matrix}\right|$$
+        En effectuant les opérations élémentaires suivantes sur les lignes :
+        $$L_i \leftarrow L_i - L_1 \quad \text{pour tout } i \in [\![2,n]\!]$$
+    $$\implies \chi_A(X) = (X-n) \cdot \left|\begin{matrix} 1 & \dots & -1 \\ 0 & \dots & X \\ \vdots & \ddots & \vdots \\ 0 & \dots & X \end{matrix}\right|$$
+    En développant à nouveau par rapport à la première ligne, on trouve que :
+    $$\chi_A(X) = (X)^{n-1} \cdot (X - n)$$
+    Le polynôme caractéristique de $A$ est scindé sur $\Kset[X]$, ce qui implique que $A$ est trigonalisable. On trouve, à partir des racines de ce polynôme, que :
+    $$\Sp_{\Kset}(A) = \{0, n\}$$
+
+    $A$ est de rang $\rang(A) = 1$. On a donc :
+    $$\dim(\ker(A)) = n - \rang(A) = n - 1$$
+    \begin{itemize}
+        \item Soit $X \in \Ker(A - nI_n)$. En injectant dans l'équation matricielle, on trouve que $X$ est un vecteur propre associé à la valeur propre $n$ :
+        $$A \cdot X = n \cdot X$$
+    \end{itemize}
+\end{example}
+\todo{recop =(}
 
 \begin{consequence}
     Puisque tout polynôme non nul de $\C[X]$ est entièrement scindé d'après la clôture algébrique de $\C$ :
@@ -2410,6 +2494,7 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
         \item Toute matrice carrée complexe $A \in \mathcal{M}_n(\C)$ est trigonalisable.
     \end{itemize}
 \end{consequence}
+
 
 \section{Calcul du déterminant de Vandermonde}
 
@@ -2425,7 +2510,7 @@ $$\forall i \in [\![1,n]\!], \quad x_i = \frac{\det_{\mathcal{B}_c}(C_1, \dots, 
 \end{definition}
 
 \begin{proof}
-    Calculons ce déterminant par réduction algorithmique. On effectue de manière successive sur les colonnes, en partant de la droite vers la gauche (pour $j$ allant de $n$ décroissant jusqu'à $2$), l'opération élémentaire suivante :
+    Calculons ce déterminant par réduction algorithmique. On effectue de manière successive sur les colonnes, \textbf{en partant de la droite vers la gauche} (pour $j$ allant de $n$ décroissant jusqu'à $2$), l'opération élémentaire suivante :
     $$C_j \leftarrow C_j - \lambda_1 \cdot C_{j-1}$$
     Cette combinaison linéaire laisse le déterminant invariant et génère des zéros sur l'intégralité de la première ligne après le premier coefficient :
     $$V(\lambda_1, \dots, \lambda_n) = \left|\begin{matrix} 
