@@ -22,7 +22,7 @@ Soit $A$ un anneau intègre commutatif. On souhaite construire le plus petit cor
 \begin{example}
     Par exemple, si $A = \Z$, alors le corps de fractions de $A$ est $\Q$, le corps des nombres rationnels.
 
-    $$Q = \{\frac{N}{D} \mid N \in \Z, D \in \Z^* \}$$
+    $$\Q = \{\frac{N}{D} \mid N \in \Z, D \in \Z^* \}$$
 
     L'écriture $\frac ND$ n'est pas unique. En effet...
 
@@ -130,11 +130,11 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 \end{property}
 
 \begin{proof}
-    On peut procéder par deux méthodes, soit en montrer que le noyau $\ker(f) = \{0_A\}$ (par équivalences successives sans avoir à passer par une double inclusion), soit en montrant que $f$ est injective directement (en étudiant l'égalité $f(N) = f(N')$ avec $N, N' \in A$).
+    On peut procéder par deux méthodes, soit en montrant que le noyau $\ker(f) = \{0_A\}$ (par équivalences successives sans avoir à passer par une double inclusion), soit en montrant que $f$ est injective directement (en étudiant l'égalité $f(N) = f(N')$ avec $N, N' \in A$).
 \end{proof}
 
 \begin{remark}
-    Par conséquent, on peut identifier $A$ à son image $f(A)$ dans $\Kset$. Et $f : A \to f(A)$ est un isomorphisme d'anneaux.$A$ est donc isomorphe à $f(A)$, qui est un sous-anneau de $\Kset$. Ainsi, on peut considérer $A$ comme un sous-anneau de $\Kset$, et on dit que $\Kset$ est un corps de fractions de $A$.
+    Par conséquent, on peut identifier $A$ à son image $f(A)$ dans $\Kset$. Et $f : A \to f(A)$ est un isomorphisme d'anneaux. \textbf{$A$ est donc isomorphe à $f(A)$}, qui est un sous-anneau de $\Kset$. Ainsi, on peut considérer $A$ comme un sous-anneau de $\Kset$, et on dit que $\Kset$ est un corps de fractions de $A$.
 \end{remark}
 
 \begin{theorem}
@@ -144,10 +144,13 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 \end{theorem}
 
 \begin{proof}
-    Soit $L$ un corps contenant $A$. On souhaite montrer que $\Kset \subseteq L$.
+    Nous allons montrer que, pour tout corps $L$ contenant $A$, $\Kset$ est forcément inclus dans $L$ ($\Kset \subseteq L$), ce qui implique que $\Kset$ est le plus petit corps contenant $A$.
+
+    Soit $L$ un corps contenant $A$.
 
     \begin{outline}
-        \1 Soit $\frac ND \in \Kset$ avec $N \in A$ et $D \in A^*$. Comme $L$ est un corps contenant $A$, on a $N \in L$ et $D \in L^*$ (car $D$ est non nul dans $A$, il est aussi non nul dans $L$).
+        \1 Soit $\frac ND \in \Kset$ une fraction arbitraire avec $N \in A$ et $D \in A^*$. 
+        \1 Comme $L$ est un corps contenant $A$, on a $N \in L$ et $D \in L^*$ (car $D$ est non nul dans $A$, il est aussi non nul dans $L$).
         \1 Par conséquent, $\frac ND = N \cdot D^{-1} \in L$.
         \1 Ainsi, tout élément de $\Kset$ est aussi un élément de $L$, ce qui implique que $\Kset \subseteq L$.
     \end{outline}
@@ -187,10 +190,11 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 
 \begin{remark}[Valeur du degré d'une fraction rationnelle]
     Pour toute fraction $F \in \Kset(X)$, on a $\deg(F) \in \Z\cup\{-\infty\}$.
+    $$\forall F \in \Kset(X), \deg(F) \in \Z\cup\{-\infty\}$$
+    Avec $\deg(F)= \deg(\frac ND) = -\infty$ si et seulement si $F = 0_\Kset(X)$, donc si et seulement si $N = 0_\Kset[X]$ (en posant $F = \frac ND$ avec $N, D \in \Kset[X]$ et $D \neq 0_\Kset[X]$).
 
-    avec $\deg(F)= \deg(\frac ND) = -\infty$ si et seulement si $F = 0_\Kset(X)$, donc si et seulement si $N = 0_\Kset[X]$ (en posant $F = \frac ND$ avec $N, D \in \Kset[X]$ et $D \neq 0_\Kset[X]$).
-
-    En effet, $\deg(F) = \underbracket{\deg(N)}_{\in \N\cup\{-\infty\}} - \underbracket{\deg(D)}_{\in \N} \in \Z\cup\{-\infty\}$. 
+    En effet, $\deg(F) = \underbracket{\deg(N)}_{\in \N\cup\{-\infty\}} - \underbracket{\deg(D)}_{\in \N} \in \Z\cup\{-\infty\}$.
+    $$\forall F \in \Kset(X), \deg(F) = -\infty \iff F = 0_\Kset(X)$$
 \end{remark}
 
 \begin{remark}[Degré d'un polynôme vu comme une fraction rationnelle]
@@ -273,7 +277,7 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
     &= \deg(A'B - AB') - \deg(B^2)\\
     &\leq \max(\deg(A'B), \deg(AB')) - 2\deg(B)\\
     &\le \max(\deg(A') + \deg(B), \deg(A) + \deg(B')) - 2\deg(B)\\
-    &\le \max((\deg(A) - 1) + \deg(B), \deg(A) + (\deg(B) - 1)) - 2\deg(B)\\
+    &\le \max\bigl((\deg(A) - 1) + \deg(B), \deg(A) + (\deg(B) - 1)\bigr) - 2\deg(B)\\
     &\le \max(\deg(A) + \deg(B) - 1, \deg(A) + \deg(B) - 1) - 2\deg(B)\\
     &\le \deg(A) + \deg(B) - 1 - 2\deg(B)\\
     &\le \deg(A) - \deg(B) - 1\\
@@ -346,6 +350,8 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 
 \begin{theorem}[Forme irréductible d'une fraction rationnelle]
     Soit $F \in \Kset(X)$. Alors, il existe un unique couple $(A,B) \in \Kset[X]^2$ tel que $A \wedge B = 1$, $B$ est unitaire et $F = \frac AB$.
+
+    $$\forall F \in \Kset(X), \exists! (A,B) \in \Kset[X]^2, A \wedge B = 1, B \text{ unitaire et } F = \frac AB$$
 \end{theorem}
 
 \begin{proof}
@@ -357,14 +363,15 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
         \3 On sait que $D$ admet un coefficient dominant non nul, disons $d$, car $D \neq 0_\Kset[X]$.
         \3 On pose $N_1 = d^{-1} \cdot N$ et $D_1 = d^{-1} \cdot D$. Alors, $N_1$ et $D_1$ sont des polynômes de $\Kset[X]$ avec $D_1$ unitaire
         \2 On a alors : $\frac{N_1}{D_1} = \frac ND$.
-        \3 On peut se permettre d'écrire $F = \frac{N_1}{D_1}$ car ils agissent comme d'autres représentants de cette classe d'équivalence.
+        \2 \textbf{On peut se permettre d'écrire $F = \frac{N_1}{D_1}$ car ils agissent comme d'autres représentants de cette classe d'équivalence.}
         \1 Montrons qu'on peut écrire $F$ sous la forme $\frac AB$ avec $A, B \in \Kset[X]$, $A \wedge B = 1$, $B$ unitaire et $\cfd(B) = 1$.
+        \2 On a noté $F = \frac{N_1}{D_1}$ avec $N_1, D_1 \in \Kset[X]$ et $D_1$ unitaire.
         \2 Soit $C = N_1 \wedge D_1$.
-        \2 Alors il existe un couple $(A,B) \in \Kset[X]^2$ tel que $N_1 = CA$ et $D_1 = CB$.
+        \2 Il existe un couple $(A,B) \in \Kset[X]^2$ tels que $A \wedge B = 1$ et $N_1 = CA$ et $D_1 = CB$.
         \2 Donc $F = \frac AB \avec A \wedge B = 1 \et \cfd(B) = 1$, sachant que $D_1$ et $C$ sont unitaires.
-        \1 \textbf{Unicité} : Supposons que $F$ puisse s'écrire sous la forme $\frac AB$ et $\frac{A'}{B'}$ avec $A, B, A', B' \in \Kset[X]$, $A \wedge B = 1$, $A' \wedge B' = 1$, $B$ unitaire et $B'$ unitaire. Alors, on a :
+        \1 \textbf{Unicité} : Supposons que $F$ puisse s'écrire sous la forme $\frac AB$ et $\frac{A'}{B'}$ avec $A, B, A', B' \in \Kset[X]$, $A \wedge B = A' \wedge B' = 1$, $B$ et $B'$ unitaire. Alors, on a :
         \2 $A'B = AB'$ (en utilisant l'égalité $\frac AB = \frac{A'}{B'}$).
-        \2 Comme $B \mid A' B$, alors en utilisant le théorème de Gauss, on trouve que $B \mid B'$. De même, $B' \mid A B'$, donc $B' \mid B$ (sachant que $A$ et $B$ sont premiers entre eux).
+        \2 Comme $B \mid A B'$, alors en utilisant le théorème de Gauss (sachant que $A \wedge B = 1$), on trouve que $B \mid B'$. De la même manière, $B' \mid A' B$, donc $B' \mid B$.
         \2 Ainsi, $B$ et $B'$ sont deux polynômes qui divisent mutuellement l'un l'autre, ils sont donc associés à un élément unitaire près. Mais comme ils sont déjà unitaires, alors $B = B'$.
     \end{outline}
 \end{proof}
@@ -380,7 +387,7 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
         \2 $A \in \Kset[X] \setminus \{0\}$.
         \2 $P \in \Kset[X]$ irréductible.
         \2 $n \in \N^*$
-        \1 tels que $F = \frac{A}{P^n}$, avec $\deg(A) < \deg(P)$ (!).
+        \1 tels que $F = \frac{A}{P^n}$, avec $\deg(A) < \deg(P)$ \faIcon{exclamation-triangle}.
     \end{outline}
 \end{definition}
 
@@ -405,14 +412,24 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
     \end{cases}$$
 
     $E$ est appelé la partie entière de $F$, et $G$ est appelé la partie fractionnaire de $F$.
+
+    $$\forall F \in \Kset(X), \exists! (E, G) \in \Kset[X] \times \Kset(X), F = E + G \et \deg(G) < 0$$
 \end{property}
 
 \begin{proof}
-    On pose $F = \frac AB \in \Kset(X)$ avec $A, B \in \Kset[X]$ et $B \neq 0_\Kset[X]$.
+    \textbf{On utilise simplement la division euclidienne de polynômes pour démontrer l'existence et l'unicité du couple $(E, G)$.}
 
-    On effectue la division euclidienne de $A$ par $B$, ce qui nous donne un quotient $E \in \Kset[X]$ et un reste $R \in \Kset[X]$ tels que $A = EB + R$ avec $\deg(R) < \deg(B)$.
+    \begin{itemize}
+        \item On pose $F = \frac AB \in \Kset(X)$ avec $A, B \in \Kset[X]$ et $B \neq 0_\Kset[X]$.
 
-    Donc $F = \frac{EB + R}{B} = E + \frac RB$.
+        \item On effectue la division euclidienne de $A$ par $B$, ce qui nous donne l'expression de $A$ suivante :
+        $$A = EB + R$$
+        avec $E, R \in \Kset[X]$ et $\deg(R) < \deg(B)$, où $E$ est le quotient (et agit comme la partie entière de $F$) et $R$ est le reste.
+
+        \item On peut donc réecrire $F$ de la manière suivante :
+        $$F = \frac{EB + R}{B} = E + \frac RB$$
+        avec $E \in \Kset[X]$ et $\deg(\frac RB) = \deg(R) - \deg(B) < 0$ (car $\deg(R) < \deg(B)$).
+    \end{itemize}
 
     L'existence du couple $(E, G)$ est ainsi démontrée en posant $G = \frac RB$. L'unicité est démontrée implicitement, car le quotient et le reste de la division euclidienne sont uniques.
 \end{proof}
@@ -424,6 +441,15 @@ Nous allons donc construire une classe d'équivalence pour résoudre ce problèm
 \section{Décomposition en éléments simples (cas général)}
 
 On va préparer une généralisation du théorème de décomposition en éléments simples (DES) pour les fractions rationnelles à coefficients dans un corps quelconque $\Kset$ en se basant sur deux propriétés :
+
+\begin{itemize}
+    \item La première : Toute fraction $F$ qui peut s'écrire sous la forme $\frac{A}{B_1 \cdots B_n}$ avec $B_i$ et $B_j$ premiers entre eux pour tout $i \neq j$, peut se décomposer en une somme de fractions de la forme $\frac{A_i}{B_i}$, avec $\deg(A_i) < \deg(B_i)$.
+    $$\forall F \in \Kset(X) \tqf F = \frac{A}{B_1 \cdots B_n} \et \forall i \neq j, B_i \wedge B_j = 1$$
+    $$\exists! (A_1, \dots, A_n) \in \Kset[X]^n, F = \sum_{i=1}^{n}\frac{A_i}{B_i} \et \forall i, \deg(A_i) < \deg(B_i)$$
+    \item La deuxième : Toute fraction $F$ qui peut s'écrire sous la forme $\frac{A}{B^n}$ avec $n \in \N^*$, peut se décomposer en une somme de fractions de la forme $\frac{A_k}{B^k}$, avec $\deg(A_k) < \deg(B)$.
+    $$\forall F \in \Kset(X) \tqf F = \frac{A}{B^n} \et n \in \N^*, \exists! (A_1, \dots, A_n) \in \Kset[X]^n$$
+    $$F = \sum_{k=1}^{n}\frac{A_k}{B^k} \et \forall k, \deg(A_k) < \deg(B)$$
+\end{itemize}
 
 \begin{property}
     Soient $A$ et $B_1,\dots,B_n \in \Kset[X]$ tels que $B_i$ et $B_j$ sont deux à deux premiers entre eux.
@@ -441,6 +467,36 @@ On va préparer une généralisation du théorème de décomposition en élémen
     La preuve a été faite en tant qu'exercice hors-classe. Il ne faut pas oublier de démontrer l'existence (via division euclidienne et en considérant la somme des quotients comme une partie entière de la fraction) et l'unicité (en considérant un autre couple vérifiant les mêmes propriétés, et/ou par absurde) de la décomposition pendant l'initialisation de la récurrence, dans le cas où $n=2$. L'hérédité devient ensuite triviale, en recyclant tout simplement la démonstration du cas de base $n=2$.
 
     \textit{L'unicité ne peut pas être démontrée par la division euclidienne parce qu'elle dépend des constantes $U$ et $V$ de Bézout, qui ne sont pas uniques.}
+
+    \begin{outline}
+        \1 \textbf{Initialisation ($n=1$ et $n=2$) :}
+            \2 Le cas $n=1$ est trivial. Établissons le cas critique $n=2$. Soit $F = \frac{A}{B_1 B_2}$ avec $\deg(A) < \deg(B_1 B_2)$.
+            \2 \textbf{Existence pour $n=2$ :}
+                \3 Puisque $B_1 \wedge B_2 = 1_A$, il existe un couple $(u,v) \in \Kset[X]^2$ tel que $u B_1 + v B_2 = 1_A$.
+                \3 En injectant cette identité au numérateur, on obtient : $A = A(u B_1 + v B_2) = A v B_2 + A u B_1$.
+                \3 Par division par le produit $B_1 B_2$, la fraction se sépare : $F = \frac{Av}{B_1} + \frac{Au}{B_2}$.
+                \3 On ajuste les degrés par division euclidienne de $Av$ par $B_1$ et de $Au$ par $B_2$ :
+                   \[ Av = Q_1 B_1 + A_1 \quad \text{avec} \quad \deg(A_1) < \deg(B_1) \]
+                   \[ Au = Q_2 B_2 + A_2 \quad \text{avec} \quad \deg(A_2) < \deg(B_2) \]
+                \3 En substituant, il vient : $F = (Q_1 + Q_2) + \frac{A_1}{B_1} + \frac{A_2}{B_2}$.
+                \3 Comme $\deg(F) < 0$ et que la partie fractionnaire induite vérifie également $\deg\left(\frac{A_1}{B_1} + \frac{A_2}{B_2}\right) < 0$, l'unicité de la partie entière d'une fraction rationnelle impose $Q_1 + Q_2 = 0_A$, validant l'existence.
+            \2 \textbf{Unicité pour $n=2$ :}
+                \3 Supposons qu'il existe deux décompositions : $F = \frac{A_1}{B_1} + \frac{A_2}{B_2} = \frac{\tilde{A}_1}{B_1} + \frac{\tilde{A}_2}{B_2}$.
+                \3 Par regroupement des termes de même dénominateur, on obtient : $\frac{A_1 - \tilde{A}_1}{B_1} = \frac{\tilde{A}_2 - A_2}{B_2}$.
+                \3 L'égalité polynomiale associée s'écrit : $(A_1 - \tilde{A}_1)B_2 = (\tilde{A}_2 - A_2)B_1$.
+                \3 $B_1$ divise le membre de droite, donc $B_1 \mid (A_1 - \tilde{A}_1)B_2$. Comme $B_1 \wedge B_2 = 1_A$, le théorème de Gauss implique que $B_1 \mid (A_1 - \tilde{A}_1)$.
+                \3 Or, par hypothèse sur les degrés, $\deg(A_1 - \tilde{A}_1) < \deg(B_1)$. Le seul polynôme divisible par $B_1$ de degré strictement inférieur est le polynôme nul. On a donc $A_1 = \tilde{A}_1$, ce qui entraîne $A_2 = \tilde{A}_2$.
+        
+        \1 \textbf{Hérédité :}
+            \2 Supposons la propriété vérifiée au rang $n$. Soit $F = \frac{A}{B_1 \cdots B_n B_{n+1}}$ avec $\deg(F) < 0$.
+            \2 Posons le bloc de produit complémentaire $B' = B_2 \cdots B_{n+1}$. 
+            \2 Les polynômes $(B_i)$ étant deux à deux premiers entre eux on a : $B_1 \wedge B' = 1_A$.
+            \2 En appliquant le cas de base $n=2$ à la fraction $\frac{A}{B_1 B'}$, il existe un unique couple $(A_1, A')$ tel que :
+               \[ F = \frac{A_1}{B_1} + \frac{A'}{B'} \quad \text{avec} \quad \deg(A_1) < \deg(B_1) \ \et \ \deg(A') < \deg(B') \]
+            \2 Par hypothèse de récurrence appliquée à la fraction $\frac{A'}{B'} = \frac{A'}{B_2 \cdots B_{n+1}}$, il existe un unique $(n)$-uplet $(A_2, \dots, A_{n+1})$ tel que :
+               \[ \frac{A'}{B'} = \sum_{i=2}^{n+1} \frac{A_i}{B_i} \quad \text{avec} \quad \forall i \in [\![2, n+1]\!], \ \deg(A_i) < \deg(B_i) \]
+            \2 La substitution de la somme dans l'égalité de $F$ donne la décomposition attendue au rang $n+1$. L'unicité globale est garantie par l'unicité de chaque étape intermédiaire.
+    \end{outline}
 \end{proof}
 
 \begin{example}
@@ -463,15 +519,22 @@ On va préparer une généralisation du théorème de décomposition en élémen
 \end{proof}
 
 \begin{example}
-    $F = \frac{X^5-3X^4+2X^2+2}{(X^2+1)^3} \in \R(X)$.
+    $$F = \frac{X^5-3X^4+2X^2+2}{(X^2+1)^3} \in \R(X)$$
 
-    Pour décomposer cette fraction, on peut utiliser deux méthodes. Comme le degré de $F$ est négatif, on peut l'écrire sous la forme d'une somme de la forme $\frac{A_k}{B^k}$, puis multiplier par le dénominateur afin d'aboutir ensuite à un système de six équations à six inconnues, dont la résolution sera (évidemment) assez laborieuse.
+    Pour décomposer cette fraction, on peut utiliser deux méthodes.
+    \begin{outline}
+        \1 Comme le degré de $F$ est négatif, on peut l'écrire sous la forme d'une somme de la forme $\frac{A_k}{B^k}$, puis multiplier par le dénominateur afin d'aboutir ensuite à un système de six équations à six inconnues, dont la résolution sera (évidemment) assez laborieuse.
+        \1 Cependant, la deuxième méthode, plus rapide, est exactement analogue à celle qui a été utilisée dans la preuve.
+        
+        \2 On pose $A= X^5-3X^4+2X^2+2$, et on décompose $F = \frac{A_1}{(X^2+1)} + \frac{A_2}{(X^2+1)^2} + \frac{A_3}{(X^2+1)^3}$, avec $\deg(A_k) < 2$ pour $k \in \{1,2,3\}$.
+        \2 On effectue ensuite la division euclidienne de $A$ par $X^2 + 1$ pour trouver un quotient $Q$ et un reste $R$ tels que $A = Q(X^2 + 1) + R$ avec $\deg(R) < 2$.
+        \2 On trouve alors $Q = X^3 - 3X^2 - X + 5$ et $R=X-3$.
+        \2 Par conséquent, $F = \frac{Q}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
+        \2 Ensuite, on effectue la division euclidienne de $Q$ par $X^2 + 1$ pour trouver un quotient $Q_1$ et un reste $R_1$ tels que $Q = Q_1(X^2 + 1) + R_1$ avec $\deg(R_1) < 2$.
+        \2 On trouve alors $Q_1 = X - 3$ et $R_1 = -2X + 8$.
+        \2 Par conséquent, $F = \frac{Q_1}{(X^2+1)} + \frac{R_1}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
+    \end{outline}
     
-    Cependant, la deuxième méthode, plus rapide, est exactement analogue à celle qui a été utilisée dans la preuve. On pose $A= X^5-3X^4+2X^2+2$, et on décompose $F = \frac{A_1}{(X^2+1)} + \frac{A_2}{(X^2+1)^2} + \frac{A_3}{(X^2+1)^3}$, avec $\deg(A_k) < 2$ pour $k \in \{1,2,3\}$.
-
-    On effectue ensuite la division euclidienne de $A$ par $X^2 + 1$ pour trouver un quotient $Q$ et un reste $R$ tels que $A = Q(X^2 + 1) + R$ avec $\deg(R) < 2$. On trouve alors $Q = X^3 - 3X^2 - X + 5$ et $R=X-3$. Par conséquent, $F = \frac{Q}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
-
-    Ensuite, on effectue la division euclidienne de $Q$ par $X^2 + 1$ pour trouver un quotient $Q_1$ et un reste $R_1$ tels que $Q = Q_1(X^2 + 1) + R_1$ avec $\deg(R_1) < 2$. On trouve alors $Q_1 = X - 3$ et $R_1 = -2X + 8$. Par conséquent, $F = \frac{Q_1}{(X^2+1)} + \frac{R_1}{(X^2+1)^2} + \frac{R}{(X^2+1)^3}$.
 \end{example}
 
 \begin{theorem}[D.E.S. d'une fraction rationnelle]
@@ -510,10 +573,9 @@ On va préparer une généralisation du théorème de décomposition en élémen
     \begin{outline}
         \1 On factorise le dénominateur $B$ en produit de facteurs irréductibles deux à deux distincts, c'est à dire $B = \prod_{i=1}^r (X - \alpha_i)^{\alpha_i} \prod_{j=1}^s (X^2 + a_j X + b_j)^{\beta_j}$ avec $\alpha_i, a_j, b_j \in \R$, $\alpha_i$ distincts, $a_j^2 - 4b_j < 0$ et $j \in [\![1,s]\!]$.
         \1 Ensuite, on utilise le théorème de D.E.S. pour trouver un unique élément $E \in \R[X]$ et une famille unique $(A_{i,j})_{\underset{i \in [\![1,r]\!]}{j \in [\![1,\alpha_i]\!]}}$ d'éléments de $\R[X]$ et une famille unique $(B_{k,l})_{\underset{k \in [\![1,s]\!]}{l \in [\![1,\beta_k]\!]}}$ d'éléments de $\R[X]$ tels que $F = E + \sum_{i=1}^r \sum_{j=1}^{\alpha_i} \frac{A_{i,j}}{(X - \alpha_i)^j} + \sum_{k=1}^s \sum_{l=1}^{\beta_k} \frac{B_{k,l}}{(X^2 + a_k X + b_k)^l}$ avec $\deg(A_{i,j}) < 1$ pour tout $i \in [\![1,r]\!]$ et tout $j \in [\![1,\alpha_i]\!]$, et $\deg(B_{k,l}) < 2$ pour tout $k \in [\![1,s]\!]$ et tout $l \in [\![1,\beta_k]\!]$.
-        \1 On peut aussi utiliser le 
     \end{outline}
 
-\end{exercise}\todo{recop}
+\end{exercise}
 
 \section{Techniques de décomposition en éléments simples}
 
@@ -561,7 +623,7 @@ On va préparer une généralisation du théorème de décomposition en élémen
     \end{outline}
 \end{example}
 
-\section{Méthode par pôles doubles}
+\subsection{Méthode par pôles doubles}
 
 \begin{property}
     Soit $F = \frac AB \avec A \wedge B = 1$ et $B = (X - a)^2 \cdot Q$ avec $Q(a) \neq 0$ et $a \in \Kset$.
