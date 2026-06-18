@@ -55,6 +55,7 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
             \2 On pose $e = (e_n)_n \in A^\N$ définie par $e_0 = 1_A$, et $\forall n \ge 1, e_n = 0_A$.
             \2 On utilisera le \textit{Symbole de Kronecker} pour montrer que $e$ est l'élément neutre pour la multiplication $\times$.
             \3 Le symbole de Kronecker $\delta_{x,y}$ est défini par $\delta_{x,y} = 1$ si $x=y$ et $\delta_{x,y} = 0$ sinon.
+            \2 On identifie donc $e$ à la suite $(\delta_{n,0})_n$.
             \2 Soit $(x_n)_n \in A^\N$. On pose $e\times (x_n)_n = (c_n)_n$.
             \2 En utilisant la définition du produit, on trouve que $c_n = \sum_{k=0}^n \delta_{k,0} \times x_{n-k}$.
             \2 En utilisant la définition du symbole de Kronecker, on trouve que $c_n = x_n$ pour tout $n$, et sachant que la multiplication est commutative dans $A$, \textbf{ce qui prouve que $e$ est l'élément neutre pour la multiplication $\times$}.
@@ -75,7 +76,7 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
 \end{proof}
 
 \begin{property}[Conservation de l'intégrité]
-    Si $A$ est un anneau intègre, alors $A[X]$ est aussi un anneau intègre.
+    Si $A$ est un anneau intègre, alors $A^\N$ est aussi un anneau intègre.
 \end{property}
 
 \begin{proof}
@@ -423,45 +424,35 @@ Ce chapitre est consacré aux polynômes à coefficients dans un anneau. Nous y 
 
 \begin{proof}
     \begin{outline}
-        \1 Si $\deg(B) < \deg(A)$,
-        
-        \2 Alors $B=0\cdot A + B$ est une division euclidienne de $B$ par $A$.
+        \1 \textbf{Démonstration de l'existence (par récurrence forte sur $n = \deg(A)$) :}
+            \2 Soit $B \in \Kset[X]\setminus\{0\}$ un polynôme fixé de degré $m \in \N$ et de coefficient dominant $b_m \neq 0$.
+            
+            \2 \textbf{Initialisation / Cas trivial ($\deg(A) < \deg(B)$) :}
+                \3 Si $\deg(A) < m$, on pose simplement $Q = 0_{\Kset[X]}$ et $R = A$.
+                \3 L'égalité $A = B \cdot 0_{\Kset[X]} + A$ est vérifiée de facto avec $\deg(R) = \deg(A) < \deg(B)$, ce qui valide l'existence.
 
-        \2 Cela implique que $(Q,R) = (0,B)$ et $\deg(R) = \deg(B) < \deg(A)$.
+            \2 \textbf{Hérédité / Cas général ($\deg(A) \ge \deg(B)$) :}
+                \3 Supposons la propriété d'existence vérifiée pour tout polynôme de degré strictement inférieur à $n$ (avec $n \ge m$). 
+                \3 Soit $A = \sum_{k=0}^{n}a_k X^k$ un polynôme de degré $n$, avec $a_n \ne 0$.
+                \3 \textbf{Étape de réduction du degré :} On introduit le polynôme $A_1 = A - a_n b_m^{-1} X^{n-m} \cdot B$.
+                \3 Par élimination mutuelle des termes dominants de $A$ et de ce produit, le coefficient de degré $n$ de $A_1$ s'annule, garantissant que $\deg(A_1) < n$.
+                \3 \textbf{Application de l'hypothèse de récurrence :} On applique l'hypothèse forte à $A_1$. Il existe un couple $(Q_1, R) \in \Kset[X]^2$ tel que :
+                   \[ A_1 = B \cdot Q_1 + R \quad \text{avec} \quad \deg(R) < \deg(B) \]
+                \3 \textbf{Reconstruction de la division globale :} En substituant l'expression de $A_1$, on obtient :
+                   \[ A - a_n b_m^{-1} X^{n-m} \cdot B = B \cdot Q_1 + R \]
+                   \[ A = B \cdot \underbrace{\left(Q_1 + a_n b_m^{-1} X^{n-m}\right)}_{=Q} + R \]
+                \3 Le couple $(Q,R)$ répond aux conditions au rang $n$, ce qui achève l'hérédité.
 
-        \1 Si $\deg(B) \ge \deg(A)$,
-
-        \2 Cela implique que $B \ne 0$.
-
-        \2 On pose $B = \sum_{k=0}^{m}b_k X^k$ avec $b_m \ne 0$, et $A = \sum_{k=0}^{n}a_k X^k$ avec $a_n \ne 0$.
-
-        \2 Le degré de $B$ est $m$ et le degré de $A$ est $n$, donc $m \ge n$.
-
-        \2 Nous allons procéder par récurrence forte sur $m$.
-
-        \3 \textbf{Initialisation :} Si $m < n$, la propriété est vérifiée comme montré dans le premier cas.
-
-        \3 \textbf{Hérédité :} Supposons que la propriété est vérifiée pour tout $k \le m - 1$. Nous allons montrer qu'elle est également vérifiée pour $m$.
-
-        \3 On pose $B_1 = B - b_m a_n^{-1} X^{m-n} \cdot A$. Alors $B_1$ est un polynôme de degré inférieur à $m$ (en prenant le degré de $B$ et le degré de $b_m a_n^{-1} X^{m-n} \cdot A$).
-
-        \3 Le coefficient dominant de $B_1$ est nul, car $b_m - b_m a_n^{-1} a_n = 0$.
-
-        \3 Le degré de $B_1$ est donc strictement inférieur à $m$. On peut donc appliquer l'hypothèse de récurrence à $B_1$. On peut donc écrire $B_1 = A \cdot Q_1 + R$ avec $\deg(R) < \deg(A)$.
-
-        Donc $B = A \cdot Q + R$ avec $Q = Q_1 + b_m a_n^{-1} X^{m-n}$.
-
-        \3 On a donc trouvé un couple $(Q,R) \in \Kset[X]^2$ tel que $B = A\cdot Q + R$ et $\deg(R) < \deg(B)$.
-
-        \2 Montrons maintenant l'unicité de ce couple.
-
-        \3 Supposons qu'il existe un autre couple $(Q',R') \in \Kset[X]^2$ tel que $B = A\cdot Q' + R'$ et $\deg(R') < \deg(B)$.
-
-        \3 En soustrayant les deux égalités, on trouve que $A\cdot \underbrace{(Q-Q')}_{=Q} = \underbrace{R' - R}_{=R}$.
-
-        \3 Comme $\deg(AQ) = \deg(A) + \deg(Q) = \deg(R) \le \max(\deg(R), \deg(R'))$, on trouve que $\deg(Q) < 0$, ce qui implique que $Q = 0$, et par conséquent que $R = 0$.
-
-        \3 Donc $Q = Q'$ et $R = R'$, ce qui montre l'unicité du couple $(Q,R)$.
+        \1 \textbf{Démonstration de l'unicité du couple $(Q,R)$ :}
+            \2 Supposons l'existence de deux couples $(Q,R)$ et $(Q',R')$ vérifiant les conditions du théorème.
+            \2 Par différence des deux égalités $A = BQ + R$ et $A = BQ' + R'$, on obtient par factorisation :
+               \[ B \cdot (Q - Q') = R' - R \]
+            \2 Supposons par l'absurde que $Q \neq Q'$. Alors $Q - Q' \neq 0_{\Kset[X]}$, ce qui donne sur les degrés :
+               \[ \deg\left(B \cdot (Q - Q')\right) = \deg(B) + \deg(Q - Q') \ge \deg(B) \]
+            \2 Or, par propriété des restes, la majoration de la différence impose :
+               \[ \deg(R' - R) \le \max(\deg(R'), \deg(R)) < \deg(B) \]
+            \2 On aboutit à la contradiction $\deg(B) \le \dots < \deg(B)$, ce qui impose $Q = Q'$.
+            \2 En réinjectant $Q = Q'$ dans la relation de différence, il vient immédiatement $R = R'$.
     \end{outline}
 \end{proof}
 

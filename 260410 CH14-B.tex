@@ -896,11 +896,48 @@ $$E = \bigoplus_{i=1}^{r} \Ker(P_i(f))$$
 % kholle spetsialne
 
 \begin{proof}
-    recop
+    $\Longrightarrow$ Soit $H$ un hyperplan de $E$.
+Il existe $a \in E \setminus \{0_E\}$ tel que $E = H \oplus \mathbb{K} \cdot a$. On peut exprimer tout vecteur $x \in E$ sous la forme 
 
-    % si x in e tq x in ker phi, alors phi x = 0
-    % donc ** implique x = h_x + 0_E in H
-    % c/c ker phi = H
+$$\forall x \in E, \exists! (h_x, \lambda_x) \in H \times \mathbb{K} \text{tel que } x = h_x + \lambda_x \cdot a$$
+
+On pose $\varphi : E \to \mathbb{K}$ l'application qui à $x = h_x + \lambda_x \cdot a$ associe $\varphi(x) = \lambda_x$.
+D'où $\forall x \in E, \exists! h_x \in H$ tel que $x = h_x + \varphi(x) \cdot a$.
+
+\begin{itemize}
+    \item Montrons que $\varphi$ est linéaire : soient $x, y \in E$ et $\alpha \in \mathbb{K}$.
+    On a $x = h_x + \varphi(x) \cdot a$ et $y = h_y + \varphi(y) \cdot a$.
+    D'où $x + \alpha y = h_x + \alpha h_y + (\varphi(x) + \alpha \varphi(y)) \cdot a$.
+    Or, par définition, on a aussi $x + \alpha y = h_{x+\alpha y} + \varphi(x + \alpha y) \cdot a$.
+    Donc par unicité de la décomposition, on obtient :
+    $\varphi(x + \alpha y) = \varphi(x) + \alpha \varphi(y)$, soit $\varphi \in \mathcal{L}(E, \mathbb{K})$.
+    
+    \item Noyau de $\varphi$ :
+    $x \in \ker(\varphi) \iff \varphi(x) = 0 \iff x = h_x \in H$, donc $\ker(\varphi) = H$.
+    
+    \item Non-nullité de $\varphi$ :
+    Comme $a \in E$, on a $a = 0_E + 1 \cdot a = h_a + \varphi(a) \cdot a$.
+    D'où par unicité, $\varphi(a) = 1 \neq 0$.
+    \end{itemize}
+    Conclusion du sens direct : $\exists \varphi \in \mathcal{L}(E, \mathbb{K}) \setminus \{0\}$ tel que $\ker(\varphi) = H$.
+
+    $\Longleftarrow$ Supposons qu'il existe $\varphi \in \mathcal{L}(E, \mathbb{K}) \setminus \{0\}$ tel que $\ker(\varphi) = H$.
+    Montrons que $H = \ker(\varphi)$ est un hyperplan de $E$, c'est-à-dire que $\forall b \in E \setminus H, E = H \oplus \mathbb{K} \cdot b$.
+    Soit $b \in E \setminus H$.
+
+    \begin{itemize}
+        \item Intersection : soit $x \in H \cap (\mathbb{K} \cdot b)$.
+        On a $\varphi(x) = 0$ et $\exists \lambda \in \mathbb{K}$ tel que $x = \lambda \cdot b$.
+        D'où $\varphi(x) = 0 = \varphi(\lambda \cdot b) = \lambda \cdot \varphi(b)$.
+        Si $\lambda \neq 0$, alors $\varphi(b) = 0 \implies b \in \ker(\varphi) = H$, ce qui est absurde car $b \notin H$.
+        Donc $\lambda = 0 \implies x = 0_E$, d'où $H \cap (\mathbb{K} \cdot b) = \{0_E\}$.
+        
+        \item Somme : soit $x \in E$, cherchons $\lambda \in \mathbb{K}$ tel que $x - \lambda \cdot b \in H$.
+        $x - \lambda \cdot b \in H \iff \varphi(x - \lambda \cdot b) = 0 \iff \varphi(x) - \lambda \cdot \varphi(b) = 0 \iff \lambda = \frac{\varphi(x)}{\varphi(b)}$ (car $\varphi(b) \neq 0$ puisque $b \notin H$).
+        On peut alors écrire :
+        $$x = \underbrace{x - \frac{\varphi(x)}{\varphi(b)} \cdot b}_{\in H} + \underbrace{\frac{\varphi(x)}{\varphi(b)} \cdot b}_{\in \mathbb{K} \cdot b}$$
+    \end{itemize}
+    D'où $E = H \oplus \mathbb{K} \cdot b$, ce qui montre que $H$ est un hyperplan de $E$.
 \end{proof}
 
 \begin{exercise}

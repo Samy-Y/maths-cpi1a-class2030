@@ -1433,7 +1433,7 @@ Dans $E$, un $\Kset$-espace vectoriel de dimension finie $n \in \N^*$, les propr
         \item \textit{On rappelle que la définition énonce que pour une forme $n$-linéaire alternée $\varphi$ et un endomorphisme $f$, on a $\varphi(f(u_1), \dots, f(u_n)) = \det(f) \cdot \varphi(u_1, \dots, u_n)$ pour tout système de vecteurs $(u_1, \dots, u_n)$. En appliquant cette relation à la forme $\det_{\mathcal{B}}$ et au système de vecteurs $u_i = g(e_i)$, on trouve l'égalité ci-dessus.}
     \end{itemize}
     
-    En reconnaissant dans le terme de droite la définition du déterminant de l'endomorphisme $g$ exprimé dans la base $\mathcal{B}$, soit $\det_{\mathcal{B}}(g(e_1), \dots, g(e_n)) = \det(g)$, l'égalité se simplifie immédiatement par substitution scalaire :
+    En reconnaissant dans le terme de droite la définition du déterminant de l'endomorphisme $g$ exprimé dans la base $\mathcal{B}$, soit $\det_{\mathcal{B}}(g(e_1), \dots, g(e_n)) = \det(g)$, l'égalité se simplifie immédiatement :
     $$\det(f \circ g) = \det(f) \cdot \det(g)$$
 \end{proof}
 
@@ -2160,7 +2160,7 @@ L'objectif de cet exercice est d'utiliser $f$ comme intermédiaire pour exprimer
     Pour établir que $A \times \,^t\Com(A) = \det(A) \cdot I_n$, on applique la relation fondamentale que l'on vient de prouver à la matrice transposée $\,^tA$ :
     $$\,^t\Com(\,^tA) \times \,^tA = \det(\,^tA) \cdot I_n$$
     
-    En utilisant le lemme de structure de la comatrice démontre précédemment, on sait que $\Com(\,^tA) = \,^t\Com(A)$. En prenant la transposée de chaque membre, on a :
+    On sait que $\Com(\,^tA) = \,^t\Com(A)$ (enfin... pas vraiment... voir remarque ci-dessous). En prenant la transposée de chaque membre, on a :
     $$\,^t\Com(\,^tA) = \,^t(\,^t\Com(A)) = \Com(A)$$
     De plus, le déterminant est invariant par transposition ($\det(\,^tA) = \det(A)$). L'égalité se simplifie en :
     $$\Com(A) \times \,^tA = \det(A) \cdot I_n$$

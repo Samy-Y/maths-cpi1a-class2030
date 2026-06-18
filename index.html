@@ -242,6 +242,51 @@
         #commits-container p {
             font-size: 0.95rem;
         }
+
+        .chapter.special-kholle {
+            background-color: #fff59d;
+            border: 3px solid #111;
+            box-shadow: 5px 5px 0px #111;
+            transform: rotate(-1deg);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+        }
+
+        .chapter.special-kholle:hover {
+            transform: translate(-2px, -2px) rotate(1deg);
+            box-shadow: 8px 8px 0px #111;
+        }
+
+        .chapter.special-kholle .chapter-name {
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #c62828;
+            font-style: italic;
+        }
+
+        /* Style cartoony et asymétrique pour le badge WIP */
+        .chapter.special-kholle .quality-badge.badge-WIP {
+            background-color: #e040fb;
+            color: white;
+            border: 2px solid #111;
+            border-radius: 0px;
+            transform: rotate(6deg) translateY(-2px);
+            box-shadow: 2px 2px 0px #111;
+            font-weight: 900;
+        }
+
+        .chapter.special-kholle .btn-primary {
+            background-color: #ff1744;
+            border: 2px solid #111;
+            box-shadow: 2px 2px 0px #111;
+            border-radius: 2px;
+            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+        }
+
+        .chapter.special-kholle .btn-primary:hover {
+            background-color: #ff5252;
+            box-shadow: 3px 3px 0px #111;
+        }
     </style>
 </head>
 <body>
@@ -538,6 +583,15 @@
                     <a href="./260520 CH14-D.tex" class="btn-icon btn-source" target="_blank" title="Code source">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
                     </a>
+                </div>
+            </div>
+            <div class="chapter special-kholle" data-id="999">
+                <div class="chapter-header">
+                    <span class="chapter-name">⚠️ Document Spécial : "Khôlle Spéciale" !</span>
+                    <span class="quality-badge badge-WIP" title="Qualité WIP : (Ne sera jamais terminé)">WIP</span>
+                </div>
+                <div class="chapter-buttons">
+                    <a href="./kholle_speciale.pdf" class="btn-primary" target="_blank">Voir le document</a>
                 </div>
             </div>
     </div>

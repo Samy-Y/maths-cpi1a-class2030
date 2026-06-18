@@ -1,0 +1,1512 @@
+%! TEX program = latexmk
+%! TEX options = -pdf -pdflatex=pdflatex -interaction=nonstopmode -synctex=1 "%DOC%"
+
+\documentclass[11pt, a4paper]{article}
+
+% ── Encodage & langue ──────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+% ── Typographie texte : TeX Gyre Termes (Times New Roman libre) ───────────
+\usepackage{tgtermes}
+\usepackage{outlines}
+
+% ── Typographie mathématique : newtxmath (lisse & moderne) ────────────────
+\usepackage[vvarbb]{newtxmath}
+
+% ── Mise en page ──────────────────────────────────────────────────────────
+\usepackage[
+  top=2.4cm, bottom=2.4cm,
+  left=2.8cm, right=2.8cm,
+  headheight=14pt
+]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.08}
+
+% ── Mathématiques ─────────────────────────────────────────────────────────*
+\let\Bbbk\relax
+\let\openbox\relax
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+
+% ── En-têtes & pieds de page ──────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyhead[L]{\small\textit{Recueil -- Khôlle Spéciale}}
+\fancyhead[R]{\small\thepage}
+
+% ── Couleurs & encadrés ───────────────────────────────────────────────────
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\definecolor{instructionbg}{RGB}{245, 247, 252}
+\definecolor{instructionborder}{RGB}{70, 100, 180}
+
+\tcbset{
+  instructionstyle/.style={
+    enhanced,
+    breakable,
+    colback=instructionbg,
+    colframe=instructionborder,
+    boxrule=0.6pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries\small,
+    title={Instruction},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={
+      colback=instructionborder, colframe=instructionborder,
+      arc=2pt, boxrule=0pt
+    },
+    before upper={\setlength{\parskip}{4pt}},
+  }
+}
+
+\definecolor{methodbg}{RGB}{243, 250, 240}
+\definecolor{methodborder}{RGB}{127, 184, 103}
+
+\tcbset{
+  methodstyle/.style={
+    enhanced,
+    breakable,
+    colback=methodbg,
+    colframe=methodborder,
+    boxrule=0.6pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries\small,
+    title={Méthode},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={
+      colback=methodborder, colframe=methodborder,
+      arc=2pt, boxrule=0pt
+    },
+    before upper={\setlength{\parskip}{4pt}},
+  }
+}
+
+% ── Rappel Technique : Style "Pince" ──────────────────────────────────────
+\tcbset{
+  recallstyle/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=white,
+    % La pince latérale
+    borderline west={3pt}{0pt}{gray!60},
+    sharp corners,
+    boxrule=0pt,
+    % Marges internes
+    left=10pt, right=0pt, top=2pt, bottom=2pt,
+    % Configuration du titre
+    fonttitle=\bfseries\color{gray!90},
+    title={Rappel technique},
+    % Désactive le bloc coloré derrière le titre
+    attach title to upper,
+    after title={.\quad},
+    % Optionnel : ajout d'un léger espacement vertical
+    before={\vspace{6pt}},
+    after={\vspace{6pt}},
+  }
+}
+
+\newtcolorbox{rappel}{recallstyle}
+
+% ── Environnements théorèmes ──────────────────────────────────────────────
+\theoremstyle{definition}
+\newtheorem*{remarque}{Remarque}
+
+% ── Listes ────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=3pt, leftmargin=1.4em}
+\setlist[enumerate]{noitemsep, topsep=3pt, leftmargin=1.4em}
+
+% ── Hyperliens ────────────────────────────────────────────────────────────
+\usepackage[hidelinks]{hyperref}
+
+% ── Commandes utiles ──────────────────────────────────────────────────────
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\tCom}[1]{\,{}^t\!\mathrm{Com}(#1)}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\Huge\bfseries Recueil Spécial}\\[0.6em]
+  {\Large\itshape pour la Khôlle Spéciale}\\[3cm]
+  \rule{0.5\linewidth}{0.4pt}\\[2em]
+  % auteur
+  {\Large Samy Youssoufine}\\[2em]
+  {\large Mathématiques -- Démonstrations classiques -- EMINES CPI-1A}\\[0.4em]
+  {\normalsize\color{gray} Polynômes · Espaces vectoriels · Matrices · Déterminants}
+  \vfill
+\end{titlepage}
+
+\tableofcontents
+
+\thispagestyle{empty}
+\clearpage
+
+\section{Chapitre XII --- Polynômes}
+
+\begin{tcolorbox}[instructionstyle]
+Montrer que si $A$ est un anneau intègre, alors $A^\mathbb N$ est aussi un anneau intègre.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+  On procède par l'absurde en supposant que $A^\mathbb N$ admet des diviseurs de 0. On définit les indices du premier terme non-nul des suites $(a_n)_n$ et $(b_n)_n$ qu'on notera $i_0$ et $j_0$. On tronque les suites et on fixe $n = i_0 + j_0$. On calcule le produit de Cauchy $c_n = a_n \times b_n$ et on obtient une contradiction avec le fait que $A$ est un anneau intègre.
+\end{tcolorbox}
+
+On procède par absurde en supposant qu'il existe $(a_n)_n,(b_n)_n \in A^\mathbb{N}$ tels que $(a_n)_n \times (b_n)_n = 0_{A^\mathbb{N}}$ avec $(a_n)_n \ne 0$ et $(b_n)_n \ne 0$
+\begin{itemize}
+\item On définit d'abord $i_0$ et $j_0$ les indices du premier terme non-nul des suites $(a_n)_n$ et $(b_n)_n$ respectivement.
+\[
+\begin{cases} i_0 = \mathrm{min}(\{n \in \mathbb{N} ~\mid~ a_n \ne 0\}) \\ j_0 = \mathrm{min}(\{n \in \mathbb{N} ~\mid~ b_n \ne 0\})\end{cases}
+\]
+\item On peut donc tronquer les suites $(a_n)_n$ et $(b_n)_n$ de la manière suivante :
+\[
+\begin{cases} \forall i < i_0, a_i = 0 \\ \forall j < j_0, b_j = 0\end{cases}
+\]
+\item Le produit $a_n \times b_n = c_n$ de Cauchy est défini pour tout $n \in \mathbb{N}$ comme suit :
+\[
+\forall n \in \mathbb{N} : c_n = a_n \times b_n = \sum_{i+j=n} a_ib_j
+\]
+\item On fixe donc $n = i_0 + j_0$. La somme devient :
+\end{itemize}
+\[
+c_{i_0 + j_0} = \sum_{i+j=i_0+j_0} a_ib_j
+\]
+\begin{itemize}
+\item Si $i < i_0$ alors $a_i = 0$ et le produit s'annule.
+\item Si $i > i_0$ alors $j = j_0 + i_0 - i$ est forcément plus petit que $j_0$ et le produit s'annule.
+\item Si $i=i_0$ on a $j = j_0$. Le produit est donc réduit à :
+\[
+c_{i_0+j_0} = a_{i_0} b_{j_0} = 0
+\]
+\item D'après l'énoncé, $A$ est un anneau intègre, cela implique donc que $a_{i_0} = 0$ ou $b_{i_0} = 0$, ce qui contredit notre hypothèse de départ.
+\item On en déduit que $A^\mathbb{N}$ n'admet pas de diviseurs de 0. Un théorème en amont énonce déjà que $A^\mathbb{N}$ est un anneau de $A$, donc $A^\mathbb{N}$ est un anneau intègre.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Montrer que les éléments inversibles de $\mathbb{K}[X]$ sont les polynômes de degré 0.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+  On procède par double implication. Dans le sens direct, on utilise la propriété du degré d'un produit de polynômes. Dans le sens indirect, on part du fait que $P$ est un monôme d'un unique élément non-nul $a$ de $\mathbb K$. Comme cet élément $a$ est non-nul et que $\mathbb K$ est un corps, alors cet élément est inversible. En posant $Q = a^{-1}$, on a $P \times Q =1$. Donc $P$ est inversible dans $\mathbb K[X]$.
+\end{tcolorbox}
+
+\[
+P \in \mathbb{U}_{\mathbb{K}[X]} \iff \deg(P) = 0
+\]
+
+On divise la démonstration dans le sens direct et indirect.
+
+\begin{itemize}
+\item Dans le sens direct $\implies$, dire que $P$ est inversible équivaut à dire que $\exists Q \in \mathbb{K}[X] , P\times Q = 1$
+\item Le degré de ce polynôme $P\times Q$ est $\deg(P\times Q) = \deg(P) + \deg(Q) = 0$.
+\item Comme $P$ et $Q$ sont non-nuls ($Q$ est non-nul, trivial), alors leurs degrés sont $\ge 0$. Dans ce cas, on déduit clairement que leurs degrés sont nuls. CQFD.
+\item Dans le sens indirect $\impliedby$, on part du fait que $P$ est un monôme d'un unique élément non-nul $a$ de $\mathbb K$.
+\item Comme cet élément $a$ est non-nul et que $\mathbb K$ est un corps, alors cet élément est inversible.
+\item En posant $Q = a^{-1}$, on a $P \times Q =1$. Donc $P$ est inversible dans $\mathbb K[X]$.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+\textbf{Division Euclidienne :} Montrer que pour tout polynômes $A,B \in \mathbb K[X]$ avec $B \ne 0$, il existe un unique couple $(Q,R) \in \mathbb K[X]^2$ tels que $A = B\times Q + R$ et $\deg(R) < \deg(B)$.
+\end{tcolorbox}
+
+\begin{itemize}
+\item On procède par récurrence forte sur $n = \deg(A)$.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+\textbf{Formule de Taylor polynomiale :} Soit $P \in \mathbb{K}[X]$ tel que $\deg(P) = n$ et $a \in \mathbb{K}$. Montrer que :
+\[
+P = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!}(X-a)^k
+\]
+\end{tcolorbox}
+
+\subsection*{Première approche (Cours)}
+
+\begin{tcolorbox}[methodstyle]
+  On procède par linéarité en évaluant l'effet de la dérivation sur les monômes de la base canonique $\{X^0, \dots, X^n\}$. On décompose les monômes de la base en utilisant la formule du binôme de Newton sur $Q_i = X^i = (X-a+a)^i$. On identifie ensuite les coefficients par dérivation et on réinjecte la valeur de ce coefficient dans l'expression d'origine de $Q_i$. On combine ensuite la linéarité globale et on inverse la sommation pour identifier le bloc sommatif interne à l'expression de la dérivée $k$-ième de $P$ évaluée au point $a$. On valide ainsi la formule de Taylor.
+\end{tcolorbox}
+
+On démontre le résultat par linéarité en évaluant l'effet de la dérivation sur les monômes de la base canonique $\{X^0, \dots, X^n\}$.
+\begin{itemize}
+  \item \textbf{Étape 1 : Décomposition des monômes de la base}
+  \begin{itemize}
+    \item On pose $Q_i = X^i$ pour tout $i \in [\![0,n]\!]$. Par translation, $Q_i = (X - a + a)^i$.
+    \item L'application directe de la formule du binôme de Newton donne :
+    $$Q_i = \sum_{k=0}^i C_i^k a^{i-k}(X-a)^k$$
+  \end{itemize}
+  \item \textbf{Étape 2 : Identification des coefficients par dérivation}
+  \begin{itemize}
+    \item On calcule la dérivée $k$-ième du polynôme $Q_i$ puis on l'évalue au point $X = a$. Par annulation de tous les termes contenant le facteur $(a-a)$ sauf le terme constant résiduel obtenu pour le rang de dérivation $j=k$, on obtient :
+    $$Q_i^{(k)}(a) = k! \cdot C_i^k a^{i-k} \implies C_i^k a^{i-k} = \frac{Q_i^{(k)}(a)}{k!}$$
+    \item On réinjecte la valeur de ce coefficient dans l'expression d'origine de $Q_i$ :
+    $$Q_i = \sum_{k=0}^i \frac{Q_i^{(k)}(a)}{k!}(X-a)^k$$
+  \end{itemize}
+  \item \textbf{Étape 3 : Combinaison linéaire globale et inversion de sommation}
+  \begin{itemize}
+    \item On décompose le polynôme quelconque $P$ sur la base canonique : $P = \sum_{i=0}^n \lambda_i X^i = \sum_{i=0}^n \lambda_i Q_i$.
+    \item En substituant l'expression de $Q_i$ établie à l'étape précédente, il vient :
+    $$P = \sum_{i=0}^n \lambda_i \sum_{k=0}^i \frac{Q_i^{(k)}(a)}{k!}(X-a)^k$$
+    \item Le domaine d'indices est défini par la condition triangulaire $0 \le k \le i \le n$. En inversant l'ordre des symboles de sommation, l'expression devient :
+    $$P = \sum_{k=0}^n \frac{1}{k!} \left( \sum_{i=k}^n \lambda_i Q_i^{(k)}(a) \right) (X-a)^k$$
+  \end{itemize}
+  \item \textbf{Étape 4 : Identification finale}
+  \begin{itemize}
+    \item Par linéarité de la dérivation successive, le bloc sommatif interne correspond exactement à l'expression de la dérivée $k$-ième de $P$ évaluée au point $a$ :
+    $$P^{(k)}(a) = \sum_{i=k}^n \lambda_i Q_i^{(k)}(a)$$
+    \item Par substitution de cette égalité dans la double somme, on valide la formule de Taylor :
+    $$P = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!}(X-a)^k$$
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Deuxième approche (Bases)}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Montrer que $\mathbb K[X]$ est un anneau principal.
+\end{tcolorbox}
+
+\begin{rappel}
+	Un anneau principal est un anneau commutatif unitaire dans lequel tout idéal est principal, c'est-à-dire engendré par un unique élément. Dans notre cas, on aurait donc :
+	$$\forall I \subset \mathbb K[X] \text{ idéal}, \exists P_0 \in \mathbb K[X], I = \langle P_0 \rangle$$
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+  On procède par disjonction de cas. Si l'idéal est réduit à 0, il est engendré par le polynôme nul. Sinon, on choisit un polynôme non-nul de degré minimal dans l'idéal et on montre que tout élément de l'idéal est un multiple de ce polynôme par double-inclusion. Un sens de l'inclusion est immédiat par définition d'un idéal. L'autre sens est obtenu par la division euclidienne et l'absurde sur le degré du reste.
+\end{tcolorbox}
+
+\textbf{Considérons un idéal $I$ arbitraire de $\mathbb K[X]$.}
+
+\begin{itemize}
+\item \textbf{Si $I$ est réduit à 0, donc $I = \{0\}$, alors $I$ est engendré par $0$.}
+\[
+I = 0 \cdot \mathbb K[X]
+\]
+\item \textbf{Si $I$ n'est pas réduit à $0$}, alors il existe un polynôme non-nul $P \in I$ de degré minimal $d$. Traduisons cela plus effectivement.
+\item Posons l'ensemble ordonné des degrés des polynômes de $I$, noté $E$ :
+\[
+E = \{\deg(P) \text{ tel que } P \in I\setminus\{0\}\}
+\]
+\item $E$ est bel et bien non vide, parce que $I$ n'est pas réduit à 0.
+\item $E \subset N$, donc $E$ admet un minimum $d$.
+\item On peut donc dire que :
+\[
+\exists P_0 \in I\setminus\{0\}, \deg(P_0) = d
+\]
+\item \textbf{Nous allons montrer que $I = P_0 \cdot \mathbb{K}[X] = \langle P_0 \rangle$.}
+\item D'après la définition même d'un idéal, on sait que :
+\[
+P_0\cdot \mathbb K[X] \subset I
+\]
+\item Il suffit donc de montrer que $I \subset P_0 \cdot \mathbb K [X]$.
+\item Pour cela, on considère un polynôme arbitraire $B \in I$.
+\item On effectue la D.E. de ce polynôme par $P_0$. On trouve que :
+\[
+\exists ! (Q,R) \in \mathbb K[X]^2, B = P_0 \times Q + R \quad \text{avec} \quad \deg(R) < \deg(P_0) = d
+\]
+\item En réarrangeant les termes, on trouve que $R = B - P_0 \times Q$, et d'après la définition d'un idéal, cela veut dire que $R \in I$.
+\begin{itemize}
+\item Si $R \ne 0$, alors son degré serait non-nul est inférieur à celui de $P_0$, or le degré de $P_0$ est défini comme étant le degré minimal de l'idéal $I$. C'est absurde.
+\item L'unique possibilité est restante est $R = 0$. Par conséquent, $B = P_0\times Q$
+\end{itemize}
+\item On en déduit que tout élément arbitraire $B$ de $I$ appartient à $P_0 \cdot \mathbb K[X]$.
+\item D'où $I \subset P_0 \cdot \mathbb K[X]$.
+\item Par double-inclusion, $I = \langle P_0 \rangle$. 
+\end{itemize}
+On en déduit que, dans tous les cas, $I$ est principal.
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Soit $P \in \mathbb{K}[X]$, $\alpha \in \mathbb{K}$ et $s \in \mathbb{N}^*$. Montrer que $\alpha$ est une racine de multiplicité $s$ de $P$ si et seulement si :
+\[
+\forall k \in [\![0, s-1]\!], P^{(k)}(\alpha) = 0 \quad \text{et} \quad P^{(s)}(\alpha) \neq 0
+\]
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+  On effectue une division euclidienne de $P$ par $(X-\alpha)^s$ en utilisant la formule de Taylor pour identifier le quotient et le reste (qui sont uniques). On traduit ensuite la condition de divisibilité d'ordre $s$ par l'annulation du reste. Enfin, on identifie le quotient et on traduit la condition de non-divisibilité par l'annulation de la $s$-ième dérivée.
+\end{tcolorbox}
+
+La démonstration s'appuie sur l'unicité de la division euclidienne et par la formule de Taylor en $\alpha$.
+
+\begin{itemize}
+\item \textbf{Étape 1 : Isolement du reste et du quotient par Taylor}
+  \begin{itemize}
+  \item On écrit le développement de Taylor de $P$ au point $\alpha$ en scindant la sommation au rang $s$ :
+\[
+P = \sum_{k=0}^n \frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^k = (X-\alpha)^s \cdot \sum_{k=s}^n \frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^{k-s} + \sum_{k=0}^{s-1} \frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^k
+\]
+  \item Par propriété du degré, le second bloc de droite possède un degré strictement inférieur à $s$. Par unicité de la division euclidienne de $P$ par $(X-\alpha)^s$, on identifie directement le quotient $Q$ et le reste $R$ :
+  \end{itemize}
+\[
+Q = \sum_{k=s}^n \frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^{k-s} \quad \text{et} \quad R = \sum_{k=0}^{s-1} \frac{P^{(k)}(\alpha)}{k!}(X-\alpha)^k
+\]
+\item \textbf{Étape 2 : Traduction de la divisibilité d'ordre $s$}
+  \begin{itemize}
+  \item Par définition de la multiplicité, $\alpha$ est racine d'ordre au moins $s$ si et seulement si $(X-\alpha)^s \mid P$, ce qui équivaut à l'annulation du reste $R$.
+  \item La famille de polynômes $\left((X-\alpha)^k\right)_{0 \le k \le s-1}$ étant libre (degrés échelonnés), le polynôme $R$ est nul si et seulement si tous ses coefficients sont nuls :
+  \end{itemize}
+\[
+R = 0 \iff \forall k \in [\![0, s-1]\!], P^{(k)}(\alpha) = 0
+\]
+\item \textbf{Étape 3 : Verrouillage de la multiplicité exacte par la non-divisibilité}
+  \begin{itemize}
+  \item Sous la condition $R=0$, on a $P = (X-\alpha)^s Q$. Pour que la multiplicité soit exactement égale à $s$, il faut et il suffit que $(X-\alpha) \nmid Q$, c'est-à-dire que $\alpha$ ne soit pas racine de $Q$ ($Q(\alpha) \neq 0$).
+  \item On évalue le polynôme quotient $Q$ en remplaçant $X$ par $\alpha$. Tous les termes s'annulent par la présence du facteur $(\alpha-\alpha)$ à l'exception du premier terme constant correspondant à l'indice $k=s$ :
+\[
+Q(\alpha) = \frac{P^{(s)}(\alpha)}{s!}
+\]
+  \item Le factoriel étant non nul, l'indivisibilité se traduit par : $Q(\alpha) \neq 0 \iff P^{(s)}(\alpha) \neq 0$.
+  \end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Soit $p \in \mathbb{R}[X]$, $z \in \mathbb{C}$ et $s \in \mathbb{N}^*$. Montrer que si $z$ est une racine de multiplicité $s$ de $p$, alors son conjugué $\bar{z}$ est aussi racine de $p$ avec la même multiplicité $s$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+  On utilise la caractérisation de la multiplicité par les polynômes dérivés successifs combinée à la stabilité de $\mathbb{R}[X]$ par la conjugaison complexe.
+\end{tcolorbox}
+
+La démonstration exploite la caractérisation de la multiplicité par les polynômes dérivés successifs combinée à la stabilité de $\mathbb{R}[X]$ par la conjugaison complexe.
+
+\begin{itemize}
+\item \textbf{Étape 1 : Conjugaison des polynômes réels}
+\begin{itemize}
+\item Soit un polynôme $p = \sum_{m=0}^n a_m X^m \in \mathbb{R}[X]$. Par définition, tous ses coefficients sont réels : $\forall m \in [\![0, n]\!], a_m \in \mathbb{R} \implies \bar{a}_m = a_m$.
+\item L'évaluation en tout complexe $z$ vérifie :
+\end{itemize}
+\[
+\overline{p(z)} = \overline{\sum_{m=0}^n a_m z^m} = \sum_{m=0}^n \bar{a}_m \bar{z}^m = \sum_{m=0}^n a_m \bar{z}^m = p(\bar{z})
+\]
+\item Puisque la dérivation successive d'un polynôme à coefficients réels préserve la nature de ses coefficients, cette relation s'étend trivialement à toutes les dérivées de $p$ :
+\[
+\forall k \in \mathbb{N}, \quad p^{(k)}(\bar{z}) = \overline{p^{(k)}(z)}
+\]
+\item \textbf{Étape 2 : Traduction par la caractérisation par les dérivées}
+\begin{itemize}
+\item Dire que $z$ est une racine de multiplicité $s$ de $p$ équivaut à la double condition sur ses dérivées :
+\end{itemize}
+\[
+\forall k \in [\![0, s-1]\!], \quad p^{(k)}(z) = 0 \quad \text{et} \quad p^{(s)}(z) \neq 0
+\]
+\item \textbf{Étape 3 : Passage au conjugué et identification}
+\begin{itemize}
+\item On applique l'opérateur de conjugaison aux relations de l'étape précédente :
+\begin{itemize}
+\item Pour la condition d'annulation ($k < s$) : $p^{(k)}(z) = 0 \implies \overline{p^{(k)}(z)} = \overline{0} \implies p^{(k)}(\bar{z}) = 0$.
+\item Pour la condition d'arrêt ($k = s$) : $p^{(s)}(z) \neq 0 \implies \overline{p^{(s)}(z)} \neq 0 \implies p^{(s)}(\bar{z}) \neq 0$.
+\end{itemize}
+\end{itemize}
+\item \textbf{Étape 4 : Conclusion}
+\begin{itemize}
+\item Le complexe $\bar{z}$ valide de manière exacte le critère d'ordre et la caractérisation par les dérivées successives. Sa multiplicité est donc égale à $s$.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Montrer que les uniques polynômes irréductibles de $\mathbb{R}[X]$ sont les polynômes de degré 1 et les polynômes de degré 2 n'admettant aucune racine réelle ($\Delta < 0$).
+\end{tcolorbox}
+
+\begin{rappel}
+	Un polynôme $P \in \mathbb{K}[X]$ de degré $\ge 1$ est dit irréductible (ou premier) dans $\mathbb{K}[X]$ lorsque les seuls diviseurs de $P$ dans $\mathbb{K}[X]$ sont les polynômes constants non-nuls et les polynômes associés à $P$ ($\lambda P \text{ tel que } \lambda \in \mathbb{K}^*$).
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par disjonction de cas selon le degré du polynôme. On montre que les polynômes de degré 1 sont irréductibles par définition. Pour les polynômes de degré 2, on distingue les cas selon le signe du discriminant $\Delta$. Enfin, pour les polynômes de degré supérieur ou égal à 3, on montre qu'ils sont tous réductibles en utilisant le théorème de d'Alembert-Gauss et la propriété de conjugaison des racines ($(X-\bar{z})(X-z) = X^2 - 2\text{Re}(z)X + |z|^2 \in \mathbb{R}[X]$).
+\end{tcolorbox}
+
+La démonstration se segmente par une disjonction des cas selon le degré du polynôme $P \in \mathbb{R}[X]$.
+
+\begin{itemize}
+\item \textbf{Cas 1 : $\deg(P) = 1$}
+\begin{itemize}
+\item Par définition, un polynôme de degré 1 ne peut pas se factoriser en produit de deux polynômes de degrés strictement inférieurs. Tout polynôme de degré 1 est donc irréductible dans $\mathbb{R}[X]$.
+\end{itemize}
+\item \textbf{Cas 2 : $\deg(P) = 2$}
+\begin{itemize}
+\item \textbf{Si $\Delta \ge 0$ :} $P$ admet au moins une racine réelle $\alpha$. D'après le théorème d'annulation, $(X-\alpha) \mid P$. On peut donc écrire $P = (X-\alpha)Q$ avec $\deg(Q)=1$. Les deux facteurs étant non constants, $P$ est réductible.
+\item \textbf{Si $\Delta < 0$ :} Supposons par l'absurde que $P$ soit réductible. Il se factorise alors nécessairement sous la forme $P = P_1 P_2$ avec $\deg(P_1)=\deg(P_2)=1$. Or, tout polynôme de degré 1 dans $\mathbb{R}[X]$ admet une racine réelle. Cela impliquerait que $P$ possède une racine réelle, ce qui contredit l'hypothèse $\Delta < 0$. $P$ est donc irréductible.
+\end{itemize}
+\item \textbf{Cas 3 : $\deg(P) \ge 3$ (Montrons qu'ils sont tous réductibles)}
+\begin{itemize}
+\item \textbf{Sous-cas A (Si $P$ admet une racine réelle $\alpha$) :} On factorise immédiatement par son monôme minimal : $P = (X-\alpha)Q$ avec $\deg(Q) \ge 2$. Aucun des facteurs n'est une constante, donc $P$ est réductible.
+\item \textbf{Sous-cas B (Si $P$ n'admet aucune racine réelle) :}
+\begin{itemize}
+	\item On plonge le polynôme dans le corps des complexes : $P \in \mathbb{R}[X] \subset \mathbb{C}[X]$. D'après le théorème de d'Alembert-Gauss, $P$ admet au moins une racine complexe $z \in \mathbb{C} \setminus \mathbb{R}$.
+	\item D'après la propriété de conjugaison des racines, son conjugué $\bar{z}$ est également racine de $P$ avec la même multiplicité. Comme $z \notin \mathbb{R}$, on a $z \neq \bar{z}$.
+	\item Les deux racines étant distinctes, les monômes associés sont premiers entre eux dans $\mathbb{C}[X]$. Le produit des facteurs divise donc $P$ :
+	\item On développe ce produit de facteurs conjugués : $(X-z)(X-\bar{z}) = X^2 - 2\text{Re}(z)X + |z|^2$.
+	\item Ce polynôme est de degré 2 et possède des coefficients strictement réels. On a donc trouvé un facteur réel propre de degré 2 qui divise $P$ (car $\deg(P) \ge 3$). Par conséquent, $P$ est réductible.
+\end{itemize}
+\end{itemize}
+\[
+(X-z)(X-\bar{z}) \mid P
+\]
+\item \textbf{Conclusion :} Les seuls blocs irréductibles sont bien les degrés 1 et les degrés 2 sans racine réelle.
+\end{itemize}
+
+\clearpage
+
+
+\section{Chapitre XIV-A --- Espaces vectoriels}
+
+\begin{tcolorbox}[instructionstyle]
+
+
+\textbf{Théorème d'extension d'une famille libre :} Soit $(e_1, \dots, e_{n+1})$ une famille d'éléments de $E$. Montrer que :
+
+$(e_1, \dots, e_{n+1})$ est libre $\iff$ $(e_1, \dots, e_n)$ est libre et $e_{n+1} \notin \text{Vect}(e_1, \dots, e_n)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+  On procède par double implication. Dans le sens direct, on utilise le fait que toute sous-famille d'une famille libre est libre et on raisonne par l'absurde sur la dépendance linéaire du vecteur ``terminal''/final, qui contredit l'hypothèse de liberté de la famille initiale. Dans le sens indirect, on part de la combinaison linéaire nulle globale et on raisonne par l'absurde sur le coefficient du vecteur terminal, qui contredit l'hypothèse de séparation.
+\end{tcolorbox}
+
+La démonstration repose sur l'équivalence entre la dépendance linéaire et la capacité d'un vecteur à s'exprimer comme combinaison linéaire des autres.
+
+\begin{itemize}
+\item \textbf{Sens direct ($\implies$) :}
+\begin{itemize}
+\item Par propriété de structure, toute sous-famille d'une famille libre est libre, ce qui valide directement la liberté de $(e_1, \dots, e_n)$.
+\item Supposons par l'absurde que $e_{n+1} \in \text{Vect}(e_1, \dots, e_n)$. Il existe alors des scalaires $(\lambda_1, \dots, \lambda_n) \in \mathbb{K}^n$ tels que $e_{n+1} = \sum_{k=1}^n \lambda_k e_k$.
+\item Par transposition, on construit la relation : $\sum_{k=1}^n \lambda_k e_k - 1_{\mathbb{K}} \cdot e_{n+1} = 0$. Le coefficient de $e_{n+1}$ étant non nul ($-1 \neq 0$), la famille globale est liée, ce qui contredit l'hypothèse.
+\end{itemize}
+\item \textbf{Sens indirect ($\impliedby$) :}
+\begin{itemize}
+\item Soit la combinaison linéaire nulle globale : $\sum_{k=1}^{n+1} \lambda_k e_k = 0$.
+\item Supposons par l'absurde que $\lambda_{n+1} \neq 0$. Le scalaire étant inversible dans le corps $\mathbb{K}$, on isole le vecteur terminal :
+\[
+e_{n+1} = \sum_{k=1}^n \left(-\lambda_{n+1}^{-1} \lambda_k\right) e_k \implies e_{n+1} \in \text{Vect}(e_1, \dots, e_n)
+\]
+\item Cette inclusion contredit directement l'hypothèse de séparation. On a donc nécessairement $\lambda_{n+1} = 0$.
+\item L'égalité initiale s'effondre et se réduit à la somme partielle $\sum_{k=1}^n \lambda_k e_k = 0$.
+\item L'hypothèse de liberté de la sous-famille $(e_1, \dots, e_n)$ impose immédiatement l'annulation de tous les coefficients restants : $\forall k \in [\![1, n]\!], \lambda_k = 0$.
+\item L'intégralité des coefficients étant nuls, la famille globale est libre.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+\textbf{Liberté des familles échelonnées :} Soit $(e_1, \dots, e_n)$ une famille libre de $E$. Montrer que toute famille $(v_1, \dots, v_p)$ échelonnée par rapport à $(e_k)$ est libre.
+\end{tcolorbox}
+
+\begin{rappel}
+	Une famille de $p$ éléments dans un espace vectoriel $E$ de dimension finie $n$ est dite échelonnée s'il existe une application strictement croissante $\varphi : [\![1, p]\!] \to [\![1, n]\!]$ telle que :
+	\[\forall i \in [\![1, p]\!], \quad v_i = \sum_{j=\varphi(i)}^n \alpha_{i,j} e_j \quad \text{avec} \quad \alpha_{i,\varphi(i)} \neq 0\]
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par l'absurde. On suppose que la famille est liée et on construit une combinaison linéaire nulle à coefficients non tous nuls. On isole le premier coefficient non nul et on projette la combinaison sur le vecteur de tête de la famille échelonnée. La liberté de la base de référence impose l'annulation du coefficient du vecteur de tête, ce qui contredit l'hypothèse.
+\end{tcolorbox}
+
+Pour assainir les notations, on structure explicitement la décomposition de chaque vecteur sur la base de référence via l'application strictement croissante de saut d'indice $\varphi : [\![1, p]\!] \to [\![1, n]\!]$ :
+\[
+\forall i \in [\![1, p]\!], \quad v_i = \alpha_i e_{\varphi(i)} + \sum_{j=\varphi(i)+1}^n \beta_{i,j} e_j \quad \text{avec} \quad \alpha_i \neq 0
+\]
+
+\begin{itemize}
+\item \textbf{Étape 1 : Hypothèse d'absurde et isolation du premier terme}
+\begin{itemize}
+\item Supposons la famille $(v_1, \dots, v_p)$ liée. Il existe une combinaison linéaire nulle à coefficients non tous nuls : $\sum_{i=1}^p \lambda_i v_i = 0_E$.
+\item On introduit l'indice critique $i_0$, représentant le \textbf{premier coefficient non nul} de la combinaison :
+\end{itemize}
+\end{itemize}
+\[
+i_0 = \mathrm{min}(\{i \in [\![1, p]\!] ~\mid~ \lambda_i \neq 0\}) \implies \forall i < i_0, \lambda_i = 0
+\]
+\begin{itemize}
+\item La sommation s'ampute de ses premiers termes nuls et s'isole sur son pivot :
+\[
+\lambda_{i_0} v_{i_0} + \sum_{i=i_0+1}^p \lambda_i v_i = 0_E
+\]
+\item \textbf{Étape 2 : Organisation structurelle des indices par blocs}
+\begin{itemize}
+\item On substitue les vecteurs par leur décomposition en mettant en évidence le comportement de l'indice de tête $\varphi(i_0)$ :
+\begin{itemize}
+\item \textbf{Le vecteur pivot :} $\lambda_{i_0} v_{i_0} = \lambda_{i_0} \alpha_{i_0} e_{\varphi(i_0)} + \lambda_{i_0} \sum_{j=\varphi(i_0)+1}^n \beta_{i_0,j} e_j$
+\item \textbf{Le bloc des vecteurs suivants ($i > i_0$) :} Par stricte croissance de $\varphi$, on a $\forall i > i_0, \varphi(i) \ge \varphi(i_0)+1$. Tous les vecteurs suivants se situent donc exclusivement dans le sous-espace engendré par les éléments lointains de la base :
+\end{itemize}
+\end{itemize}
+\[
+\sum_{i=i_0+1}^p \lambda_i v_i \in \text{Vect}\left(e_{\varphi(i_0)+1}, \dots, e_n\right)
+\]
+\item On peut donc réécrire ces derniers vecteurs sous la forme condensée :
+\[
+\sum_{i=i_0+1}^p \lambda_i v_i = \sum_{k=\varphi(i_0)+1}^n \Gamma_k e_k
+\]
+\end{itemize}
+\begin{itemize}
+\item \textbf{Étape 3 : Projection sur le vecteur de tête $e_{\varphi(i_0)}$}
+\begin{itemize}
+\item En regroupant les termes de la combinaison globale sur la base libre $(e_k)$, le vecteur de tête $e_{\varphi(i_0)}$ n'apparaît \textbf{que} dans le développement du terme pivot $v_{i_0}$. L'équation globale se réécrit sous la forme condensée :
+\end{itemize}
+\end{itemize}
+\[
+\left(\lambda_{i_0} \alpha_{i_0}\right) e_{\varphi(i_0)} + \sum_{k=\varphi(i_0)+1}^n \Gamma_k e_k = 0_E
+\]
+\begin{itemize}
+\item La famille $(e_1, \dots, e_n)$ étant libre, tous les coefficients de cette combinaison linéaire sont obligatoirement nuls. On extrait l'équation sur le terme de tête : \(
+\lambda_{i_0} \alpha_{i_0} = 0
+\)
+\item \textbf{Étape 4 : Contradiction et conclusion}
+\begin{itemize}
+\item Par intégrité du corps $\mathbb{K}$, $\lambda_{i_0} \alpha_{i_0} = 0 \implies \lambda_{i_0} = 0$ ou $\alpha_{i_0} = 0$.
+\item Or, $\alpha_{i_0} \neq 0$ par définition d'une famille échelonnée (coefficient dominant non nul), et $\lambda_{i_0} \neq 0$ par définition du minimum de l'Étape 1.
+\item Cette contradiction réfute l'hypothèse de dépendance linéaire. La famille est libre.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Dans un $\mathbb K$-espace vectoriel $E$, où $(e_1,\dots,e_n)$ est une famille de vecteurs, montrer que si $v_1,\dots,v_{n+1} \in \mathrm{Vect}(e_1,\dots,e_n)$ alors $(v_1,\dots,v_{n+1})$ est liée.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par récurrence sur le nombre de vecteurs $n$. Le cas de base $n=1$ est trivial. Pour l'étape d'hérédité, on procède par disjonctions de cas. Comme on peut écrire $v_j = \sum_{i=1}^n \lambda_{i,j} e_i$, on distingue le cas où tous les scalaires de la dernière ligne sont nuls (la famille est alors contenue dans un espace de dimension $n-1$, et l'hypothèse de récurrence s'applique) et le cas où au moins un scalaire de la dernière ligne est non nul. Dans ce dernier cas, on isole le vecteur de base correspondant et on effectue un changement de variable pour obtenir une famille réduite de $n$ vecteurs dans un espace engendré par $n-1$ éléments.
+\end{tcolorbox}
+
+La démonstration se fait par récurrence sur $n \in \mathbb{N}^*$.
+
+\begin{itemize}
+\item \textbf{Initialisation :} Le cas $n=1$ est trivial (deux vecteurs colinéaires à un même vecteur de base forment une famille liée).
+\item \textbf{Hérédité :} On suppose la propriété vraie pour $n-1$ et on montre qu'elle est vraie pour $n$.
+\begin{itemize}
+\item Tout vecteur $v_j$ pour $j \in [\![1, n+1]\!]$ se décompose sur la base : $v_j = \sum_{i=1}^n \lambda_{i,j}e_i$.
+\item Si tous les scalaires de la dernière ligne coordonnées ($\lambda_{n,k}$) sont nuls, alors $\forall j, v_j \in \mathrm{Vect}(e_1,\dots,e_{n-1})$. D'après l'hypothèse de récurrence ($n+1$ vecteurs dans un espace engendré par $n-1$ éléments), la famille est liée.
+\item Sinon, il existe au moins un scalaire $\lambda_{n,j_0} \neq 0$. Par symétrie des rôles, on réordonne les indices pour fixer $j_0 = n+1$, impliquant $\lambda_{n,n+1} \neq 0$.
+\end{itemize}
+\item \textbf{Élimination du pivot de base $e_n$ :}
+\begin{itemize}
+\item On isole le dernier vecteur de base $e_n$ à l'aide de la dernière coordonnée non nulle du vecteur $v_{n+1}$ :
+\end{itemize}
+\[
+e_n = \lambda_{n,n+1}^{-1} \left( v_{n+1} - \sum_{i=1}^{n-1} \lambda_{i,n+1} e_i \right)
+\]
+\item \textbf{Changement de variable (Famille réduite $(w_j)$) :}
+\begin{itemize}
+\item On substitue $e_n$ dans l'expression de tous les autres vecteurs $v_j$ pour $j \in [\![1, n]\!]$ :
+\end{itemize}
+\[
+v_j = \sum_{i=1}^{n-1} \lambda_{i,j} e_i + \lambda_{n,j} \lambda_{n,n+1}^{-1} \left( v_{n+1} - \sum_{i=1}^{n-1} \lambda_{i,n+1} e_i \right)
+\]
+\begin{itemize}
+\item On regroupe les termes pour éliminer la dépendance en $e_n$ en définissant la variable combinatoire $w_j$ :
+\[
+w_j = v_j - \lambda_{n,j} \lambda_{n,n+1}^{-1} v_{n+1} = \sum_{i=1}^{n-1} \left( \lambda_{i,j} - \lambda_{n,j}\lambda_{n,n+1}^{-1}\lambda_{i,n+1} \right) e_i
+\]
+\item Par structure, les $n$ vecteurs de la famille $(w_1, \dots, w_n)$ appartiennent tous à l'espace restreint $\mathrm{Vect}(e_1, \dots, e_{n-1})$.
+\end{itemize}
+\item \textbf{Application de l'hypothèse de récurrence forte :}
+\begin{itemize}
+\item La famille $(w_1, \dots, w_n)$ compte $n$ éléments au sein d'un espace engendré par $n-1$ vecteurs. Par hypothèse de récurrence, elle est liée.
+\item Il existe donc un système de scalaires $(\alpha_1, \dots, \alpha_n) \neq (0, \dots, 0)$ tel que :
+\end{itemize}
+\[
+\sum_{j=1}^n \alpha_j w_j = 0_E
+\]
+\item \textbf{Reconstruction de la liaison globale :}
+\begin{itemize}
+\item On développe la somme en réinjectant la définition de $w_j$ :
+\end{itemize}
+\[
+\sum_{j=1}^n \alpha_j \left( v_j - \lambda_{n,j} \lambda_{n,n+1}^{-1} v_{n+1} \right) = 0_E \iff \sum_{j=1}^n \alpha_j v_j + \underbrace{\left( - \sum_{j=1}^n \alpha_j \lambda_{n,j} \lambda_{n,n+1}^{-1} \right)}_{= \alpha_{n+1}} v_{n+1} = 0_E
+\]
+\item On obtient une combinaison linéaire nulle sur la famille d'origine : $\sum_{j=1}^{n+1} \alpha_j v_j = 0_E$.
+\item La sous-famille de coefficients $(\alpha_1, \dots, \alpha_n)$ étant non triviale, le vecteur global $(\alpha_1, \dots, \alpha_{n+1})$ est obligatoirement non nul.
+\item \textbf{Conclusion :} La famille complète $(v_1, \dots, v_{n+1})$ est liée, validant l'hérédité.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+\textbf{Théorème de la base incomplète (extraction d'une base) :} Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension finie et $G = \{g_1, \dots, g_m\}$ une famille génératrice de $E$. Si $L_0$ est une famille libre telle que $L_0 \subset G$, montrer qu'il existe une base $B$ de $E$ telle que $L_0 \subset B \subset G$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On recherche une famille libre dite ``maximale'' (de cardinal maximal) coincée entre $L_0$ et $G$. Pour cela, on considère un ensemble $I$ des cardinaux des familles libres intermédiaires, situées entre $L_0$ et $G$. L'ensemble $I$ est non vide et majoré (par $\mathrm{Card}(G)$), donc il admet un maximum $n$. On choisit une famille libre $B$ de cardinal $n$ telle que $L_0 \subset B \subset G$. Il reste à montrer que cette famille est génératrice. On raisonne par l'absurde : si ce n'était pas le cas, il existerait un vecteur du générateur externe qui ne serait pas dans $\mathrm{Vect}(B)$. L'adjonction de ce vecteur à la famille libre $B$ produirait une nouvelle famille libre de cardinal $n+1$, ce qui contredirait la maximalité de $n$.
+\end{tcolorbox}
+
+L'idée fondamentale est d'extraire une famille libre de cardinal maximal coincée entre $L_0$ et $G$, puis de montrer par l'absurde qu'elle est nécessairement génératrice.
+
+\begin{itemize}
+\item \textbf{Étape 1 : Construction du candidat maximal par le bon ordre de $\mathbb{N}$}
+\begin{itemize}
+\item On introduit l'ensemble $I$ des cardinaux des familles libres intermédiaires :
+\[
+I = \{\text{card}(L) \text{ tel que } L \text{ est libre et } L_0 \subset L \subset G\}
+\]
+\item $I$ est non vide car $\text{card}(L_0) \in I$.
+\item $I$ est majoré par $m = \text{card}(G)$ car aucune sous-famille libre de $G$ ne peut dépasser son cardinal.
+\item $I$ étant une partie de $\mathbb{N}$ non vide et majorée, elle admet un maximum, noté $n = \max(I)$.
+\item Par définition, il existe donc une famille libre $B$ telle que $L_0 \subset B \subset G$ avec $\text{card}(B) = n$.
+\end{itemize}
+\item \textbf{Étape 2 : Démonstration du caractère générateur (Raisonnement par l'absurde)}
+\begin{itemize}
+\item Pour montrer que $B$ est une base, il reste à prouver que $\text{Vect}(B) = E$. Comme $E = \text{Vect}(G)$, il suffit de montrer que $G \subset \text{Vect}(B)$.
+\item Supposons par l'absurde qu'il existe un vecteur du générateur externe : $\exists k \in [\![1, m]\!]$ tel que $g_k \notin \text{Vect}(B)$.
+\item D'après le théorème d'extension d'une famille libre, l'adjonction de ce vecteur préserve la liberté : la famille $B' = B \cup \{g_k\}$ est libre.
+\item De plus, par construction, on conserve l'encadrement structurel : $L_0 \subset B \subset B' \subset G$.
+\item On calcule le cardinal de cette nouvelle famille :
+\[
+\text{card}(B') = \text{card}(B) + 1 = n + 1
+\]
+
+\item Remplissant toutes les conditions, on en déduit que $(n+1) \in I$.
+\item L'affirmation $(n+1) \in I$ contredit directement la définition de $n$ comme étant le maximum absolu de l'ensemble $I$ ($n + 1 > n$).
+\item L'hypothèse de départ est donc fausse : $G \subset \text{Vect}(B) \implies \text{Vect}(B) = \text{Vect}(G) = E$.
+\item La famille $B$ est libre par construction et génératrice par effondrement de l'absurde ; c'est donc une base de $E$.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+\textbf{Théorème de la base incomplète/extraite :} Dans un $\mathbb K$-espace vectoriel $E$ de dimension finie, montrer que :
+\begin{itemize}
+    \item Si $L$ est une famille libre de $E$, alors on peut la compléter en une base de $E$.
+\[
+\exists B \text{ base de } E \text{ telle que } L \subset B
+\]
+    \item Si $G$ est une famille génératrice de $E$, alors on peut en extraire une base de $E$.
+\[
+\exists B \text{ base de } E \text{ telle que } B \subset G
+\]
+\end{itemize}
+\end{tcolorbox}
+
+Soit $L$ une famille libre de $E$. Puisque $E$ est de dimension finie, il existe une famille génératrice finie $G_E$. La famille $L \cup G_E$ est alors génératrice de $E$ et vérifie trivialement l'inclusion $L \subset (L \cup G_E)$.
+
+En appliquant la propriété énoncée et démontrée précédemment à la famille libre $L$ et à la famille génératrice $L \cup G_E$, il existe une base $B$ de $E$ telle que :
+\[ L \subset B \subset (L \cup G_E) \]
+L'inclusion $L \subset B$ montre que la famille libre $L$ a été complétée en une base $B$ de $E$.
+
+Soit $G$ une famille génératrice de $E$. Soit $L_0 = \emptyset$ la famille vide. Par convention algébrique, la famille vide est libre et vérifie l'inclusion initiale $L_0 \subset G$.
+
+En appliquant la propriété fondamentale à la famille libre $L_0$ et à la famille génératrice $G$, il existe une base $B$ de $E$ telle que :
+\[ \emptyset \subset B \subset G \]
+L'inclusion $B \subset G$ montre que la base $B$ est entièrement extraite de la famille génératrice $G$.
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+Dans un $\mathbb K$-espace vectoriel $E$ doté des sous-espaces $F_1,\dots,F_n$, montrer que :
+\[
+\sum_{k=1}^n F_k \text{ est une somme directe } \iff \exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k \text{ tel que } x = \sum_{k=1}^n x_k
+\]
+\end{tcolorbox}
+
+\begin{remarque}
+La définition d'une somme direct de $F_k$ énonce que :
+\[
+\forall (x_1,\dots,x_n) \in \prod_{k=1}^n F_k, \quad \sum_{k=1}^n x_k = 0_E \implies x_k = 0_E, \forall k \in \dots
+\]
+\end{remarque}
+
+La démonstration est décomposée selon le sens direct/indirect.
+\begin{itemize}
+\item Dans le sens direct $\implies$, on pose $y_k$ vérifiant les mêmes propriétés et en réutilise la définition pour montrer que $x_k - y_k = 0_E$.
+\item Dans le sens indirect $\impliedby$, on pose juste $x = 0_E = \sum_{k=1}^n x_k$. Comme $0_E = 0_E + \dots + 0_E$, et qu'on sait (par hypothèse) qu'il admet une écriture unique, alors $x_k = 0_E$ pour tout $k$ compris entre 1 et $n$. On a donc vérifié la définition, et $\sum_{k=1}^n F_k$ est donc bel et bien une somme directe.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Soit $H$ un sev propre de $E$. Montrer que :
+\[
+H \text{ est un hyperplan de } E \iff \forall b \in E \setminus H, \ E = H \oplus \mathbb{K} \cdot b
+\]
+\end{tcolorbox}
+
+\begin{itemize}
+\item \textbf{Sens indirect ($\impliedby$) :} - Trivial par définition : un hyperplan est un sous-espace qui admet au moins une droite vectorielle comme supplémentaire. La condition étant vraie pour tout $b \notin H$, l'existence est largement vérifiée.
+\item \textbf{Sens direct ($\implies$) :}
+\begin{itemize}
+\item \textbf{Substitution du vecteur de base :}
+\begin{itemize}
+\item Puisque $H$ est un hyperplan, il existe un vecteur $a \notin H$ tel que $E = H \oplus \mathbb{K} \cdot a$.
+\item Soit $b \in E \setminus H$. On décompose $b$ sur cette somme directe : $b = h_1 + \lambda_1 a$ (avec $h_1 \in H$).
+\item Comme $b \notin H$, on a nécessairement $\lambda_1 \neq 0$, ce qui permet d'isoler le pivot original : $a = \lambda_1^{-1}(b - h_1)$.
+\end{itemize}
+\item \textbf{Génération de l'espace ($E = H + \mathbb{K} \cdot b$) :}
+\begin{itemize}
+\item Tout vecteur $x \in E$ se décompose sous la forme $x = h_2 + \lambda_2 a$. En injectant l'expression de $a$, on obtient :
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\[
+x = h_2 + \lambda_2 \lambda_1^{-1}(b - h_1) = \underbrace{(h_2 - \lambda_2 \lambda_1^{-1} h_1)}_{\in H} + \underbrace{(\lambda_2 \lambda_1^{-1})}_{\in \mathbb{K}} b
+\]
+
+\begin{itemize}
+\item \textbf{Tranchage de l'intersection ($H \cap \mathbb{K} \cdot b = \{0_E\}$) :}
+\begin{itemize}
+\item Soit $x \in H \cap \mathbb{K} \cdot b$. Il existe $\lambda \in \mathbb{K}$ tel que $x = \lambda b \in H$.
+\item Comme $b \notin H$ par hypothèse géométrique, la seule possibilité pour que le produit scalaire appartienne à $H$ est que $\lambda = 0$, d'où $x = 0_E$.
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+
+\section{Chapitre XIV-B --- Applications linéaires}
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que tout hyperplan $H$ d'un $\mathbb{K}$-espace vectoriel $E$ est le noyau d'une forme linéaire non nulle $\varphi \in \mathcal{L}(E, \mathbb{K})$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par double implication. Dans le sens direct, on utilise la définition d'un hyperplan pour construire une application linéaire $\varphi$ qui à tout vecteur $x \in E$ associe le scalaire $\lambda_x$ de la décomposition $x = h_x + \lambda_x a$ où $h_x \in H$ et $\lambda_x \in \mathbb{K}$, sachant que $E = H \oplus \mathbb{K} \cdot a$. On montre ensuite que $\varphi$ est linéaire, que son noyau est exactement $H$, et que $\varphi$ n'est pas nulle. Dans le sens indirect, on part d'une forme linéaire non nulle $\varphi$ et on montre que son noyau est un hyperplan en vérifiant les conditions de somme directe avec tout vecteur $b \notin H$.
+\end{tcolorbox}
+
+$\Longrightarrow$ Soit $H$ un hyperplan de $E$.
+Il existe $a \in E \setminus \{0_E\}$ tel que $E = H \oplus \mathbb{K} \cdot a$. On peut exprimer tout vecteur $x \in E$ sous la forme 
+
+$$\forall x \in E, \exists! (h_x, \lambda_x) \in H \times \mathbb{K} \text{tel que } x = h_x + \lambda_x \cdot a$$
+
+On pose $\varphi : E \to \mathbb{K}$ l'application qui à $x = h_x + \lambda_x \cdot a$ associe $\varphi(x) = \lambda_x$.
+D'où $\forall x \in E, \exists! h_x \in H$ tel que $x = h_x + \varphi(x) \cdot a$.
+
+\begin{itemize}
+    \item Montrons que $\varphi$ est linéaire : soient $x, y \in E$ et $\alpha \in \mathbb{K}$.
+    On a $x = h_x + \varphi(x) \cdot a$ et $y = h_y + \varphi(y) \cdot a$.
+    D'où $x + \alpha y = h_x + \alpha h_y + (\varphi(x) + \alpha \varphi(y)) \cdot a$.
+    Or, par définition, on a aussi $x + \alpha y = h_{x+\alpha y} + \varphi(x + \alpha y) \cdot a$.
+    Donc par unicité de la décomposition, on obtient :
+    $\varphi(x + \alpha y) = \varphi(x) + \alpha \varphi(y)$, soit $\varphi \in \mathcal{L}(E, \mathbb{K})$.
+    
+    \item Noyau de $\varphi$ :
+    $x \in \ker(\varphi) \iff \varphi(x) = 0 \iff x = h_x \in H$, donc $\ker(\varphi) = H$.
+    
+    \item Non-nullité de $\varphi$ :
+    Comme $a \in E$, on a $a = 0_E + 1 \cdot a = h_a + \varphi(a) \cdot a$.
+    D'où par unicité, $\varphi(a) = 1 \neq 0$.
+\end{itemize}
+Conclusion du sens direct : $\exists \varphi \in \mathcal{L}(E, \mathbb{K}) \setminus \{0\}$ tel que $\ker(\varphi) = H$.
+
+$\Longleftarrow$ Supposons qu'il existe $\varphi \in \mathcal{L}(E, \mathbb{K}) \setminus \{0\}$ tel que $\ker(\varphi) = H$.
+Montrons que $H = \ker(\varphi)$ est un hyperplan de $E$, c'est-à-dire que $\forall b \in E \setminus H, E = H \oplus \mathbb{K} \cdot b$.
+Soit $b \in E \setminus H$.
+
+\begin{itemize}
+    \item Intersection : soit $x \in H \cap (\mathbb{K} \cdot b)$.
+    On a $\varphi(x) = 0$ et $\exists \lambda \in \mathbb{K}$ tel que $x = \lambda \cdot b$.
+    D'où $\varphi(x) = 0 = \varphi(\lambda \cdot b) = \lambda \cdot \varphi(b)$.
+    Si $\lambda \neq 0$, alors $\varphi(b) = 0 \implies b \in \ker(\varphi) = H$, ce qui est absurde car $b \notin H$.
+    Donc $\lambda = 0 \implies x = 0_E$, d'où $H \cap (\mathbb{K} \cdot b) = \{0_E\}$.
+    
+    \item Somme : soit $x \in E$, cherchons $\lambda \in \mathbb{K}$ tel que $x - \lambda \cdot b \in H$.
+    $x - \lambda \cdot b \in H \iff \varphi(x - \lambda \cdot b) = 0 \iff \varphi(x) - \lambda \cdot \varphi(b) = 0 \iff \lambda = \frac{\varphi(x)}{\varphi(b)}$ (car $\varphi(b) \neq 0$ puisque $b \notin H$).
+    On peut alors écrire :
+    $$x = \underbrace{x - \frac{\varphi(x)}{\varphi(b)} \cdot b}_{\in H} + \underbrace{\frac{\varphi(x)}{\varphi(b)} \cdot b}_{\in \mathbb{K} \cdot b}$$
+\end{itemize}
+D'où $E = H \oplus \mathbb{K} \cdot b$, ce qui montre que $H$ est un hyperplan de $E$.
+
+\clearpage
+
+\section{Chapitre XIV-C et XIV-D --- Matrices et Déterminants}
+
+\begin{tcolorbox}[instructionstyle]
+
+Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$
+\[
+A_1 \sim A_2 \iff \exists f \in \mathcal L(E), \exists B_1,B_2 \text{ bases de } E, A_2 = [f]_{B_2} \text{ et } A_1 = [f]_{B_1}
+\]
+\end{tcolorbox}
+
+On décompose la démonstration selon le sens direct/indirect.
+
+\textbf{Démonstration dans le sens indirect $\impliedby$ :}
+
+\begin{itemize}
+\item Soit $f \in \mathcal L(E)$ et $B_1,B_2$ deux bases de $E$ telles que $A_2 = [f]_{B_2}$ et $A_1 = [f]_{B_1}$.
+\item On utilise les matrices de passage pour trouver que $[f]_{B_1} = P_{B_1}^{B_2} \times [f]_{B_2} \times P_{B_2}^{B_1}$.
+\item Donc $A_1 = P_{B_1}^{B_2} \times A_2 \times P_{B_2}^{B_1}$.
+\item Comme $P_{B_1}^{B_2} = (P_{B_2}^{B_1})^{-1}$, on trouve que $A_1 = P_{B_1}^{B_2} \times A_2 \times (P_{B_1}^{B_2})^{-1}$.
+\item Donc $A_1 \sim A_2$.
+\end{itemize}
+
+\textbf{Démonstration dans le sens direct $\implies$ :}
+
+\begin{itemize}
+\item Soit $P \in \mathrm{GL}_n(\mathbb{K})$ telle que $A_1 = P A_2 P^{-1}$.
+\item On sait qu'il existe un endomorphisme associé canoniquement à chacune des deux matrices $A_1$ et $A_2$.
+\item On pose arbitrairement $f \in \mathcal L(\mathbb{K}^n)$ tel que $[f]_{B_C^{(n)}} = A_1$.
+\item On va maintenant chercher une deuxième base $B$ de $\mathbb{K}^n$ telle que $[f]_B = A_2$.
+\item Soit $B$ la base formée par les colonnes de $P^{-1}$.
+\item Alors $P^{-1} = P_{B_C^{(n)}}^B$.
+\item D'où $A_2 = P^{-1} A_1 P = P_{B_C^{(n)}}^B \times A_1 \times P_{B}^{B_C^{(n)}}$.
+\item Donc $A_2 = P_{B_C^{(n)}}^B \times [f]_{B_C^{(n)}} \times P_{B}^{B_C^{(n)}}$.
+\item Donc $A_2 = [f]_B$. CQFD.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+Soit $f \in \mathcal{L}(E,F)$ avec $\dim(E)=p$, $\dim(F)=n$ et $\text{rg}(f)=r \neq 0$. Montrer qu'il existe une base $B$ de $E$ et une base $C$ de $F$ telles que :
+
+\[
+\text{Mat}(f,B,C) = \begin{pmatrix} I_r & 0_{r, \ p-r} \\ 0_{n-r, \ r} & 0_{n-r, \ p-r} \end{pmatrix}_{(n,p)}
+\]
+\end{tcolorbox}
+
+\begin{itemize}
+\item \textbf{Étape 1 : Alignement de la source $E$ sur le noyau $\text{Ker}(f)$}
+\begin{itemize}
+\item D'après le théorème du rang, $\dim(\text{Ker}(f)) = p - r$. On extrait une base du noyau : $(e_{r+1}, \dots, e_p)$.
+\item Par le théorème de la base incomplète, on complète cette famille libre en une base $B$ de $E$ :
+\end{itemize}
+\[
+B = (\underbrace{e_1, \dots, e_r}_{\text{hors de } \text{Ker}(f)}, \ \underbrace{e_{r+1}, \dots, e_p}_{\in \text{Ker}(f)})
+\]
+\item \textbf{Étape 2 : Alignement du but $F$ sur l'image $\text{Im}(f)$}
+\begin{itemize}
+\item Par linéarité, l'image est générée par les images de la base $B$. Les éléments du noyau s'annulant ($f(e_{r+1}) = \dots = f(e_p) = 0_F$), le système générateur se réduit aux premiers termes :
+\end{itemize}
+\[
+\text{Im}(f) = \text{Vect}\left(f(e_1), \dots, f(e_r)\right)
+\]
+\item Cette famille génératrice compte $r$ vecteurs et $\dim(\text{Im}(f)) = r$ par hypothèse. C'est donc une base de $\text{Im}(f)$, donc elle est libre dans $F$.
+\item Par le théorème de la base incomplète, on la complète en une base globale $C$ de $F$ :
+\[
+C = (\underbrace{f(e_1), \dots, f(e_r)}_{\text{base de } \text{Im}(f)}, \ \underbrace{\varepsilon_{r+1}, \dots, \varepsilon_n}_{\text{complément dans } F})
+\]
+\item \textbf{Étape 3 : Cartographie matricielle (Évaluation des blocs)}
+\begin{itemize}
+\item On calcule les coordonnées des images $f(e_j)$ exprimées dans la base $C$ pour remplir les colonnes de la matrice :
+\begin{itemize}
+\item \textbf{Bloc Gauche ($j \in [\!|1, r|\!]$) :} Chaque $f(e_j)$ est par construction le $j$-ième vecteur de la base $C$. Ses coordonnées forment la matrice identité $I_r$ complétée par des zéros en dessous.
+\item \textbf{Bloc Droit ($j \in [\!|r+1, p|\!]$) :} Chaque $e_j$ appartenant au noyau, $f(e_j) = 0_F$. Ses coordonnées génèrent des colonnes entièrement nulles.
+\end{itemize}
+\end{itemize}
+\item \textbf{Visualisation mnémonique de la structure :}
+\end{itemize}
+
+\[
+\begin{array}{cc} & \begin{array}{ccc|ccc} \color{cyan}e_1 & \color{cyan}\cdots & \color{cyan}e_r & \color{orange}e_{r+1} & \color{orange}\cdots & \color{orange}e_p \end{array} \\ \begin{array}{c} \color{cyan}f(e_1) \\ \vdots \\ \color{cyan}f(e_r) \\ \hline \varepsilon_{r+1} \\ \vdots \\ \varepsilon_n \end{array} & \left( \begin{array}{ccc|ccc} 1 & & 0 & 0 & \cdots & 0 \\ & \ddots & & \vdots & & \vdots \\ 0 & & 1 & 0 & \cdots & 0 \\ \hline 0 & \cdots & 0 & 0 & \cdots & 0 \\ \vdots & & \vdots & \vdots & & \vdots \\ 0 & \cdots & 0 & 0 & \cdots & 0 \end{array} \right) \end{array}
+\]
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+
+Montrer que \( \forall A \in \mathcal M_n(\mathbb K), A \times \,^t\mathrm{Com}(A) = \,^t\mathrm{Com}(A) \times A = \det(A) \cdot I_n \)
+\end{tcolorbox}
+
+Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal{M}_n(\mathbb{K})$. Notons $B = \,^t\mathrm{Com}(A)$. Par définition de la transposition et des cofacteurs, le coefficient général de $B$ est donné par :
+\[
+\forall i,k \in [\![1,n]\!], \quad b_{i,k} = A_{k,i}
+\]
+Considérons le produit matriciel $D = B \times A = \,^t\mathrm{Com}(A) \times A$. Par définition du produit de deux matrices, le coefficient général $d_{i,j}$ de $D$ situé à la ligne $i$ et à la colonne $j$ s'écrit :
+\[
+\forall i,j \in [\![1,n]\!], \quad d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j} = \sum_{k=1}^n a_{k,j} A_{k,i}
+\]
+Pour évaluer cette somme, nous devons distinguer deux cas selon la position du coefficient dans la matrice produit :
+
+\begin{itemize}
+\item \textbf{Cas 1 : Sur la diagonale principale ($i = j$)}
+\begin{itemize}
+\item En injectant $j = i$ dans la relation, la somme devient :
+\end{itemize}
+\end{itemize}
+
+\[
+d_{i,i} = \sum_{k=1}^n a_{k,i} A_{k,i}
+\]
+
+\begin{itemize}
+\item On reconnaît immédiatement la formule du développement du déterminant de la matrice $A$ suivant sa $i$-ième colonne. On a donc :
+\end{itemize}
+\[
+\forall i \in [\![1,n]\!], \quad d_{i,i} = \det(A)
+\]
+\begin{itemize}
+\item \textbf{Cas 2 : Hors de la diagonale principale ($i \neq j$)}
+\begin{itemize}
+\item Si $i \neq j$, la somme $\sum_{k=1}^n a_{k,j} A_{k,i}$ correspond au développement de Laplace suivant sa $i$-ième colonne d'une matrice fictive, notée $A^{(i \leftarrow j)}$, obtenue en remplaçant la $i$-ième colonne de $A$ par sa $j$-ième colonne.
+\end{itemize}
+\end{itemize}
+\[
+A^{(i \leftarrow j)} = \begin{pmatrix} c_1 & \dots & \underbrace{c_j}_{\text{position } i} & \dots & \underbrace{c_j}_{\text{position } j} & \dots & c_n \end{pmatrix}
+\]
+\begin{itemize}
+\item Cette matrice présente deux colonnes rigoureusement identiques (aux positions $i$ et $j$). Le déterminant étant une forme alternée, on a $\det(A^{(i \leftarrow j)}) = 0_\mathbb{K}$. Par conséquent :
+\end{itemize}
+\[
+\forall i \neq j, \quad d_{i,j} = 0_\mathbb{K}
+\]
+\begin{itemize}
+\item En regroupant ces deux cas à l'aide du symbole de Kronecker $\delta_{i,j}$, on a $d_{i,j} = \det(A) \cdot \delta_{i,j}$. La matrice produit $D$ est donc une matrice diagonale dont tous les termes valent $\det(A)$ :
+\end{itemize}
+\[
+\,^t\mathrm{Com}(A) \times A = \begin{pmatrix} \det(A) & 0 & \dots & 0 \\ 0 & \det(A) & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \det(A) \end{pmatrix} = \det(A) \cdot I_n
+\]
+\textbf{Démonstration de la commutativité :}
+Pour établir que $A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n$, on applique la relation fondamentale que l'on vient de prouver à la matrice transposée $\,^tA$ :
+\[
+\,^t\mathrm{Com}(\,^tA) \times \,^tA = \det(\,^tA) \cdot I_n
+\]
+En utilisant le lemme de structure de la comatrice démontre précédemment, on sait que $\mathrm{Com}(\,^tA) = \,^t\mathrm{Com}(A)$. En prenant la transposée de chaque membre, on a :
+\[
+\,^t\mathrm{Com}(\,^tA) = \,^t(\,^t\mathrm{Com}(A)) = \mathrm{Com}(A)
+\]
+De plus, le déterminant est invariant par transposition ($\det(\,^tA) = \det(A)$). L'égalité se simplifie en :
+\[
+\mathrm{Com}(A) \times \,^tA = \det(A) \cdot I_n
+\]
+En appliquant l'opérateur de transposition $\,^t(\cdot)$ de chaque côté de cette égalité matricielle, et en utilisant la propriété d'inversion de l'ordre du produit $(\,^t(M \times N) = \,^tN \times \,^tM)$, on obtient :
+\[
+\,^t(\mathrm{Com}(A) \times \,^tA) = \,^t(\det(A) \cdot I_n) \implies \bigl(\,^t(\,^tA)\bigr) \times \,^t\mathrm{Com}(A) = \det(A) \cdot \,^tI_n
+\]
+Comme $\,^t(\,^tA) = A$ et $\,^tI_n = I_n$, on valide de manière définitive la seconde identité :
+\[
+A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n
+\]
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+Montrer que \( \varepsilon : \begin{matrix} (S_n,\circ) \to (\{-1, 1\},\times) \\ \sigma \mapsto \varepsilon(\sigma) \end{matrix} \) est un morphisme de groupes.
+\end{tcolorbox}
+
+\begin{remarque}
+    Il a été déjà démontré en amont que $\varepsilon$ est bien définie (carré de la définition).
+\end{remarque}
+
+Pour montrer que $\varepsilon$ est un morphisme de groupes, il suffit de montrer que pour toutes permutations $\sigma_1$ et $\sigma_2$ de $S_n$, on a :
+\[
+\varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)
+\]
+On sait que $\varepsilon(\sigma) \in \{-1, 1\}$ pour toute permutation $\sigma$ de $S_n$. Donc $\varepsilon$ est une application de $S_n$ dans $\{-1, 1\}$.
+Soient $\sigma_1$ et $\sigma_2$ deux permutations de $S_n$. Calculons $\varepsilon(\sigma_1 \circ \sigma_2)$ :
+
+\begin{align*}
+	\varepsilon(\sigma_1 \circ \sigma_2) &= \prod_{1 \le i < j \le n} \frac{(\sigma_1 \circ \sigma_2)(j) - (\sigma_1 \circ \sigma_2)(i)}{j - i} \\
+	&= \prod_{1 \le i < j \le n} \frac{\sigma_1(\sigma_2(j)) - \sigma_1(\sigma_2(i))}{j - i}
+\end{align*}
+On peut réécrire le produit ci-dessus en regroupant les termes de la manière suivante :
+\[
+\varepsilon(\sigma_1 \circ \sigma_2) = \prod_{1 \le i < j \le n} \frac{\sigma_1(\sigma_2(j)) - \sigma_1(\sigma_2(i))}{\sigma_2(j) - \sigma_2(i)} \cdot \frac{\sigma_2(j) - \sigma_2(i)}{j - i}
+\]
+Comme $\sigma_1$ est une permutation, elle est bijective, donc on peut effectuer un changement de variable (muette) dans le premier produit. En posant $k = \sigma_2(i)$ et $l = \sigma_2(j)$, on obtient :
+\[
+\varepsilon(\sigma_1 \circ \sigma_2) = \prod_{1 \le k \ne l \le n} \frac{\sigma_1(l) - \sigma_1(k)}{l - k} \cdot \prod_{1 \le i < j \le n} \frac{\sigma_2(j) - \sigma_2(i)}{j - i}
+\]
+On reconnaît dans le premier produit la signature de $\sigma_1$ et dans le second produit la signature de $\sigma_2$ (sachant qu'elles sont toutes deux bijectives) :
+\[
+\varepsilon(\sigma_1 \circ \sigma_2) = \varepsilon(\sigma_1) \cdot \varepsilon(\sigma_2)
+\]
+Ainsi, $\varepsilon$ est un morphisme de groupes de $(S_n, \circ)$ dans $(\{-1, 1\}, \times)$.
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que toute permutation de $S_n$ peut être exprimée comme un produit de transpositions.
+	$$S_n = \langle \tau_{i,j} \text{ tel que } i \ne j \in [\![1,n]\!] \rangle$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par récurrence sur $n$. L'initialisation est triviale pour $n=1$ et $n=2$. L'hypothèse de récurrence consiste à supposer que toute permutation de $S_n$ peut être exprimée comme un produit de transpositions. On montre alors l'hérédité en considérant une permutation $\sigma \in S_{n+1}$ et en distinguant deux cas selon que $\sigma(n+1) = n+1$ ou non. Dans le premier cas, on applique l'hypothèse de récurrence à la restriction de $\sigma$ à $\{1, 2, \dots, n\}$. Dans le second cas, on utilise une transposition pour échanger $\sigma(n+1)$ et $n+1$, puis on applique l'hypothèse de récurrence à la permutation résultante.
+\end{tcolorbox}
+
+Nous allons procéder par récurrence sur $n$.
+
+Pour $n=1$ et $n=2$, la démonstration est triviale, car $S_1$ ne contient que la permutation identité, et $S_2$ contient deux permutations, dont une est une transposition.
+
+Supposons que la propriété soit vraie pour $n$ et montrons qu'elle est vraie pour $n+1$.
+
+Soit $\sigma \in S_{n+1}$. Si $\sigma(n+1) = n+1$, alors on peut considérer la restriction de $\sigma$ à l'ensemble $\{1, 2, \dots, n\}$, qui est une permutation de $S_n$. Par hypothèse de récurrence, cette restriction peut être exprimée comme un produit de transpositions.
+$$\sigma_{\mid \{1, 2, \dots, n\}} = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
+Pour $i \in \{1, \dots, r\}$, on peut étendre chaque transposition
+$\tau_i$ à une transposition $\tau_{i'}$ de $S_{n+1}$ en laissant $n+1$ inchangé. Ainsi, on peut exprimer $\sigma$ comme un produit de transpositions de $S_{n+1}$.
+$$\begin{cases} 
+	\tau_{i'~\mid \{1, 2, \dots, n\}} = \tau_i \\
+	\tau_{i'}(n+1) = n+1
+\end{cases}$$
+$$\sigma = \tau_{1'} \circ \tau_{2'} \circ \dots \circ \tau_{r'}$$
+Sinon, si $\sigma(n+1) \ne n+1$, alors on peut échanger $\sigma(n+1)$ et $n+1$ à l'aide de la transposition $\tau_{\sigma(n+1),n+1}$. Ainsi, on peut exprimer $\sigma$ comme un produit de transpositions de $S_{n+1}$.
+$$\sigma = \tau_{\sigma(n+1),n+1} \circ (\tau_{\sigma(n+1),n+1} \circ \sigma)$$
+(sachant que $\tau_{\sigma(n+1),n+1} \circ \sigma$ peut être exprimé comme un produit de transpositions de $S_{n+1}$ par le cas précédent).
+
+On peut aussi former une nouvelle permutation définie par :
+$$\forall i \in [\![1,n]\!], \begin{cases}
+	\sigma'(i) = \sigma(i) \\
+	\sigma'(n+1) = \tau_{\sigma(n+1),n+1}(\sigma(n+1)) = n+1
+\end{cases}$$
+Ainsi, $\sigma' \in S_{n+1}$ et $\sigma'(n+1) = n+1$. Par le cas précédent, $\sigma'$ peut être exprimée comme un produit de transpositions de $S_{n+1}$.
+
+Par principe de récurrence, la propriété est vraie pour tout $n \in \N^*$.
+$$\forall n \in \N^*, \forall \sigma \in S_n, \exists r \in \N^*, \exists \tau_1, \dots, \tau_r \text{ transpositions de } S_n : \sigma = \tau_1 \circ \tau_2 \circ \dots \circ \tau_r$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que l'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, appelé le \textbf{groupe alterné} d'ordre $n$ et noté $\mathcal{A}_n$. Montrer ensuite que son cardinal est égal à la moitié du cardinal de $S_n$, soit $\mathrm{Card}(\mathcal{A}_n) = \frac{n!}{2}$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	$\mathcal{A}_n$ est le noyau du morphisme de groupes signature $\varepsilon : S_n \to \{-1, 1\}$. Le noyau d'un morphisme de groupes est toujours un sous-groupe. Pour montrer que $\mathrm{Card}(\mathcal{A}_n) = \frac{n!}{2}$, on peut construire une bijection entre $\mathcal{A}_n$ et $\mathcal{E}_n$ en utilisant une transposition fixe.
+\end{tcolorbox}
+
+Pour démontrer que l'ensemble des permutations paires de $S_n$ forme un sous-groupe de $S_n$, on peut vérifier les trois propriétés classiques (stabilité, existence d'un élément neutre, existence d'inverses) pour cet ensemble.
+    
+Mais une méthode plus rapide consiste à considérer $\mathcal{A}_n$ comme le noyau de l'application (et même de la \textbf{forme linéaire}) signature $\varepsilon$. En effet, l'élément neutre du groupe d'arrivée de $\varepsilon$ est $1$, et les éléments de $S_n$ qui sont envoyés sur $1$ par $\varepsilon$ sont précisément les permutations paires. Ainsi, $\mathcal{A}_n = \ker(\varepsilon)$. Le noyau $\mathcal{A}_n$ est donc un sous-groupe de $S_n$.
+
+Pour démontrer que le cardinal de $\mathcal{A}_n$ est égal à la moitié du cardinal de $S_n$, on utilise le fait que $S_n$ est la réunion disjointe de l'ensemble des permutations paires $\mathcal{A}_n$ et de l'ensemble des permutations impaires $\mathcal{E}_n$ :
+$$S_n = \mathcal{A}_n \cup \mathcal{E}_n \text{ et } \mathcal{A}_n \cap \mathcal{E}_n = \emptyset$$
+
+Par conséquent, on a :
+$$\mathrm{Card}(S_n) = \mathrm{Card}(\mathcal{A}_n) + \mathrm{Card}(\mathcal{E}_n)$$
+
+Montrons que $\mathcal{A}_n$ et $\mathcal{E}_n$ ont le même cardinal en construisant une bijection entre ces deux ensembles. Soit $\tau$ une transposition fixée de $S_n$ (par exemple, $\tau = (1 \ 2)$). On définit l'application suivante :
+$$\varphi : \begin{matrix} \mathcal{A}_n \to \mathcal{E}_n \\ \sigma \mapsto \tau \circ \sigma \end{matrix}$$
+
+Vérifions d'abord que $\varphi$ est bien définie, c'est-à-dire que pour tout $\sigma \in \mathcal{A}_n$, $\varphi(\sigma)$ appartient bien à $\mathcal{E}_n$. Par morphisme de la signature :
+$$\varepsilon(\varphi(\sigma)) = \varepsilon(\tau \circ \sigma) = \varepsilon(\tau) \cdot \varepsilon(\sigma) = (-1) \cdot 1 = -1$$
+L'image de toute permutation paire par $\varphi$ est donc bien une permutation impaire.
+
+Montrons maintenant que $\varphi$ est une bijection. Pour cela, on construit son application réciproque. Considérons l'application suivante :
+$$\psi : \begin{matrix} \mathcal{E}_n \to \mathcal{A}_n \\ \delta \mapsto \tau \circ \delta \end{matrix}$$
+Par un raisonnement identique sur les signatures ($\varepsilon(\tau \circ \delta) = (-1) \cdot (-1) = 1$), $\psi$ est bien définie de $\mathcal{E}_n$ vers $\mathcal{A}_n$.
+
+Calculons les compositions de ces deux applications :
+\begin{itemize}
+	\item Pour tout $\sigma \in \mathcal{A}_n$ :
+	$$(\psi \circ \varphi)(\sigma) = \psi(\tau \circ \sigma) = \tau \circ (\tau \circ \sigma) = (\tau \circ \tau) \circ \sigma$$
+	Comme $\tau$ est une transposition, elle est involutive ($\tau \circ \tau = \mathrm{Id}$). On a donc :
+	$$(\psi \circ \varphi)(\sigma) = \mathrm{Id} \circ \sigma = \sigma$$
+	Ainsi, $\psi \circ \varphi = \mathrm{Id}_{\mathcal{A}_n}$.
+
+	\item Pour tout $\delta \in \mathcal{E}_n$ :
+	$$(\varphi \circ \psi)(\delta) = \varphi(\tau \circ \delta) = \tau \circ (\tau \circ \delta) = (\tau \circ \tau) \circ \delta = \mathrm{Id} \circ \delta = \delta$$
+	Ainsi, $\varphi \circ \psi = \mathrm{Id}_{\mathcal{E}_n}$.
+\end{itemize}
+
+L'application $\varphi$ admet une application réciproque (qui est $\psi$), elle est donc bijective. 
+
+Par conséquent, les ensembles $\mathcal{A}_n$ et $\mathcal{E}_n$ ont le même cardinal :
+$$\mathrm{Card}(\mathcal{A}_n) = \mathrm{Card}(\mathcal{E}_n)$$
+
+En injectant ce résultat dans l'équation des cardinaux de la partition, on obtient :
+$$\mathrm{Card}(S_n) = 2 \mathrm{Card}(\mathcal{A}_n) \implies \mathrm{Card}(\mathcal{A}_n) = \frac{\mathrm{Card}(S_n)}{2} = \frac{n!}{2}$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que toute forme $p$-linéaire antisymétrique est alternée, et que toute forme $p$-linéaire alternée est antisymétrique, sous l'hypothèse que $\text{car}(\mathbb{K}) \neq 2$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	La démonstration est décomposée selon le sens direct/indirect. Dans le sens direct, on montre qu'une forme $p$-linéaire antisymétrique est alternée en utilisant l'antisymétrie pour montrer que la forme s'annule lorsque deux arguments sont égaux. Dans le sens indirect, on évalue la forme sur un vecteur dupliqué $x_i + x_j$ aux positions $i$ et $j$, puis on utilise la linéarité pour développer la relation et montrer que la forme est antisymétrique.
+\end{tcolorbox}
+
+La démonstration est décomposée selon le sens direct/indirect.
+\begin{outline}
+	\1 \textbf{Sens direct : $\implies$}
+	\2 Soit $\varphi$ une forme $p$-linéaire antisymétrique. Montrons qu'elle est alternée.
+	\2 Soit $(x_1,\dots,x_p) \in E^p$ un $n$-uplet tel qu'il existe deux indices distincts $i < j$ avec $x_i = x_j = x$.
+	\2 Par antisymétrie, l'échange des composantes aux indices $i$ et $j$ produit :
+	$$\varphi(x_1, \dots, x, \dots, x, \dots, x_p) = -\varphi(x_1, \dots, x, \dots, x, \dots, x_p)$$
+	\2 On en déduit que $2 \cdot \varphi(x_1, \dots, x_p) = 0_\mathbb{K}$. Comme $\text{car}(\mathbb{K}) \neq 2$, l'élément $2$ est inversible dans le corps, ce qui implique :
+	$$\varphi(x_1, \dots, x_p) = 0_\mathbb{K}$$
+	\2 La forme $\varphi$ est donc alternée.
+
+	\1 \textbf{Sens indirect : $\impliedby$}
+	\2 Soit $\varphi$ une forme $p$-linéaire alternée. Montrons qu'elle est antisymétrique.
+	\2 Soit $(x_1,\dots,x_p) \in E^p$ et deux indices distincts $i < j$. Évaluons la forme sur un vecteur dupliqué $x_i + x_j$ aux positions $i$ et $j$ :
+	$$\varphi(x_1, \dots, x_i + x_j, \dots, x_i + x_j, \dots, x_p) = 0_\mathbb{K}$$
+	\2 Par linéarité par rapport à la $i$-ième variable, puis par rapport à la $j$-ième variable, on développe la relation en quatre termes :
+	\begin{align*}
+		\varphi(x_1, \dots, x_i, \dots, x_i, \dots, x_p) &+ \varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) \\
+		+\, \varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p) &+ \varphi(x_1, \dots, x_j, \dots, x_j, \dots, x_p) = 0_\mathbb{K}
+	\end{align*}
+	\2 Puisque $\varphi$ est alternée, le premier terme (où $x_i$ est répété) et le quatrième terme (où $x_j$ est répété) sont nuls. L'équation se simplifie en :
+	$$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) + \varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p) = 0_\mathbb{K}$$
+	\2 Ce qui donne immédiatement par transposition de terme :
+	$$\varphi(x_1, \dots, x_i, \dots, x_j, \dots, x_p) = -\varphi(x_1, \dots, x_j, \dots, x_i, \dots, x_p)$$
+	\2 La forme $\varphi$ est donc antisymétrique.
+\end{outline}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Toute forme $n$-linéaire alternée de $E$ est un multiple scalaire du déterminant dans la base $\mathcal{B}$ :
+    $$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par développement de la forme alternée $\varphi$ sur les vecteurs $u_1, \dots, u_n$ exprimés dans la base $\mathcal{B}$. On utilise la linéarité et l'antisymétrie de $\varphi$ pour montrer que l'évaluation de $\varphi$ sur ces vecteurs est égale à la valeur de $\varphi$ sur la base multipliée par le déterminant des coordonnées des vecteurs, i.e. :
+	\[
+	\varphi(u_1, \dots, u_n) = \sum_{f \in [\![1,n]\!]^{[\![1,n]\!]}} \left(\prod_{k=1}^n a_{f(k),k}\right) \cdot \varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)})
+	\]
+	Les fonctions $f$ non bijectives donnent des termes nuls, donc on restreint la somme aux permutations $\sigma \in S_n$. L'antisymétrie de $\varphi$ permet d'extraire la signature de la permutation, ce qui conduit à l'expression finale :
+	\[
+	\varphi(u_1, \dots, u_n) = \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varepsilon(\sigma) \varphi(e_1, \dots, e_n) = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)
+	\]
+\end{tcolorbox}
+
+Considérons une forme $n$-linéaire alternée $\varphi \in \mathscr A_n(E)$ et $(u_1, \dots, u_n) \in E^n$ un $n$-uplet de vecteurs. Les coordonnées de ces vecteurs dans la base $\mathcal{B}$ s'écrivent :
+$$\forall j \in [\![1,n]\!], \quad u_j = \sum_{i=1}^n a_{i,j} e_i$$
+En utilisant la linéarité de $\varphi$ par rapport à chacune de ses composantes, on développe l'expression globale par rapport aux familles d'indices :
+\begin{align*}
+	\varphi(u_1,\dots,u_n) &= \varphi\left(\sum_{i_1=1}^n a_{i_1,1} e_{i_1}, u_2, \dots, u_n\right) \\
+	&= \sum_{i_1=1}^n a_{i_1,1} \varphi(e_{i_1}, u_2, \dots, u_n) \\
+	&= \sum_{1 \le i_1, i_2 \le n} a_{i_1,1} a_{i_2,2} \varphi(e_{i_1}, e_{i_2}, u_3, \dots, u_n) \\
+	&\vdots \\
+	&= \sum_{1 \le i_1, i_2, \dots, i_n \le n} a_{i_1,1} a_{i_2,2} \dots a_{i_n,n} \varphi(e_{i_1}, e_{i_2}, \dots, e_{i_n}) \\
+	&= \sum_{(i_1,\dots,i_n) \in [\![1,n]\!]^n} \left(\prod_{k=1}^n a_{i_k,k}\right) \cdot \varphi(e_{i_1}, e_{i_2}, \dots, e_{i_n}) \\
+	&= \sum_{f \in [\![1,n]\!]^{[\![1,n]\!]}} \left(\prod_{k=1}^n a_{f(k),k}\right) \cdot \varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)})
+\end{align*}
+L'indice de sommation $f$ décrit l'ensemble des applications de $[\![1,n]\!]$ dans lui-même. Si une fonction $f$ n'est pas bijective, sachant qu'elle est définie de $[\![1,n]\!]$ vers lui-même, elle ne sera pas injective, ce qui implique qu'il existe deux indices distincts $k \ne l$ tels que $f(k) = f(l)$. Le $n$-uplet associé possède alors deux vecteurs identiques. La forme $\varphi$ étant alternée, ce terme s'annule :
+$$\varphi(e_{f(1)}, e_{f(2)}, \dots, e_{f(n)}) = 0_\mathbb{K}$$
+On peut par conséquent restreindre la somme aux seules applications injectives (donc bijectives), c'est-à-dire aux permutations $\sigma \in S_n$ :
+$$\varphi(u_1,\dots,u_n) = \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varphi(e_{\sigma(1)}, e_{\sigma(2)}, \dots, e_{\sigma(n)})$$
+Par propriété d'antisymétrie sur les formes alternées, l'action de la permutation $\sigma$ sur la base extrait sa signature : $\varphi(e_{\sigma(1)}, \dots, e_{\sigma(n)}) = \varepsilon(\sigma) \cdot \varphi(e_1, \dots, e_n)$. On réinjecte cette relation dans la somme :
+\begin{align*}
+	\varphi(u_1,\dots,u_n) &= \sum_{\sigma \in S_n} \left(\prod_{k=1}^n a_{\sigma(k),k}\right) \cdot \varepsilon(\sigma) \varphi(e_1, e_2, \dots, e_n) \\
+	&= \varphi(e_1, e_2, \dots, e_n) \cdot \sum_{\sigma \in S_n} \varepsilon(\sigma) \prod_{k=1}^n a_{\sigma(k),k} \\
+	&= \varphi(e_1, e_2, \dots, e_n) \cdot \det_{\mathcal{B}}(u_1, \dots, u_n)
+\end{align*}
+La relation étant vérifiée pour tout $n$-uplet, on en conclut l'égalité des formes :
+$$\forall \varphi \in \mathscr A_n(E), \quad \varphi = \varphi(e_1, \dots, e_n) \cdot \det_{\mathcal{B}}$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Soit $f \in \mathcal{L}(E)$. Montrer qu'il existe un unique scalaire $\lambda \in \mathbb{K}$ tel que :
+	$$\forall \varphi \in \mathscr A_n(E), \quad \Psi(\varphi) = \lambda \cdot \varphi$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On définit l'application $\Psi$ qui, à chaque forme $n$-linéaire alternée $\varphi$, associe l'application $\Psi(\varphi)$ définie par :
+	$$\Psi(\varphi) : \begin{matrix} E^n \to \mathbb{K} \\ (u_1, \dots, u_n) \mapsto \varphi(f(u_1), \dots, f(u_n)) \end{matrix}$$
+	On montre que $\Psi$ est bien définie de $\mathscr{A}_n(E)$ dans $\mathscr{A}_n(E)$ et qu'elle est linéaire. Ensuite, comme $\dim(\mathscr{A}_n(E)) = 1$, on applique un lemme donné (homothétie) pour conclure qu'il existe un unique scalaire $\lambda \in \mathbb{K}$ tel que $\Psi = \lambda \cdot \mathrm{Id}_{\mathscr{A}_n(E)}$, ce qui implique que pour toute forme $n$-linéaire alternée $\varphi$, on a $\Psi(\varphi) = \lambda \cdot \varphi$.
+\end{tcolorbox}
+
+Soit $f \in \mathcal{L}(E)$. Introduisons l'application $\Psi$ qui, à chaque forme $n$-linéaire alternée $\varphi$, associe l'application $\Psi(\varphi)$ définie par :
+$$\Psi(\varphi) : \begin{matrix} E^n \to \mathbb{K} \\ (u_1, \dots, u_n) \mapsto \varphi(f(u_1), \dots, f(u_n)) \end{matrix}$$
+
+\begin{outline}
+	\1 \textbf{Étape 1 : $\Psi$ est bien définie de $\mathscr{A}_n(E)$ dans $\mathscr{A}_n(E)$}
+	\2 Par linéarité de $f$ et par $n$-linéarité de $\varphi$, il est immédiat que $\Psi(\varphi)$ est une forme $n$-linéaire sur $E$.
+	\2 Montrons qu'elle est alternée. Soit $(u_1, \dots, u_n) \in E^n$ tel qu'il existe deux indices distincts $i \neq j$ avec $u_i = u_j$. Par linéarité de $f$, on a $f(u_i) = f(u_j)$. La forme $\varphi$ étant alternée, on en déduit :
+	$$\Psi(\varphi)(u_1, \dots, u_n) = \varphi(f(u_1), \dots, f(u_i), \dots, f(u_j), \dots, f(u_n)) = 0_\mathbb{K}$$
+	Ainsi, pour toute forme $\varphi \in \mathscr{A}_n(E)$, on a $\Psi(\varphi) \in \mathscr{A}_n(E)$.
+
+	\1 \textbf{Étape 2 : $\Psi$ est une application linéaire}
+	\2 Soient $\varphi_1, \varphi_2 \in \mathscr{A}_n(E)$ et $\alpha \in \mathbb{K}$. Pour tout $(u_1, \dots, u_n) \in E^n$ :
+	\begin{align*}
+		\Psi(\alpha \varphi_1 + \varphi_2)(u_1, \dots, u_n) &= (\alpha \varphi_1 + \varphi_2)(f(u_1), \dots, f(u_n)) \\
+		&= \alpha \varphi_1(f(u_1), \dots, f(u_n)) + \varphi_2(f(u_1), \dots, f(u_n)) \\
+		&= \alpha \Psi(\varphi_1)(u_1, \dots, u_n) + \Psi(\varphi_2)(u_1, \dots, u_n)
+	\end{align*}
+	L'égalité étant vraie pour tout $n$-uplet de vecteurs, on a $\Psi(\alpha \varphi_1 + \varphi_2) = \alpha \Psi(\varphi_1) + \Psi(\varphi_2)$. L'application $\Psi$ est donc un endomorphisme de l'espace $\mathscr{A}_n(E)$, donc :
+	$$\Psi \in \mathcal{L}(\mathscr{A}_n(E))$$
+
+	\1 \textbf{Étape 3 : Application de l'argument de dimension}
+	\2 On sait que $\forall \varphi \in \mathscr A_n(E), \Psi(\varphi) \in \mathscr A_n(E)$ et que $\Psi \in \mathcal L(\mathcal A_n(E))$. On sait aussi que $\underset{\mathbb{K}}\dim\mathscr A_n(E) = 1$. Par conséquent, la famille $(\varphi, \Psi(\varphi))$ est liée pour toute forme $\varphi \in \mathscr A_n(E)$.
+
+	\2 Le lemme suivant est donné pour justifier la relation d'homothétie qui va suivre :
+	$$\boxed{\text{ si } g \in \mathcal L(E) \text{ et } \forall x \in E, (x,g(x)) \text{ est liée} \text{ alors } \exists ! \lambda \in \mathbb{K}, \forall x \in E, g(x) = \lambda x}$$
+
+	\2 En appliquant ce lemme à l'endomorphisme $\Psi$ de l'espace $\mathscr{A}_n(E)$, on trouve qu'il existe un unique scalaire $\lambda \in \mathbb{K}$ tel que :
+	$$\exists ! \lambda \in \mathbb{K} \text{ tel que } \Psi = \lambda \cdot \mathrm{Id}_{\mathscr{A}_n(E)}$$
+
+	\2 Pour toute forme $n$-linéaire alternée $\varphi \in \mathscr{A}_n(E)$, on a donc :
+	$$\Psi(\varphi) = \lambda \cdot \varphi$$
+
+	\1 \textbf{Étape 4 : Conclusion}
+	\2 En évaluant la relation précédente sur un système de vecteurs quelconque $(u_1, \dots, u_n)$, on trouve la relation suivante, avec $\lambda$ le même scalaire unique dont l'unicité est garantie par celle du rapport de l'homothétie associée à $\Psi$.:
+	$$\forall \varphi \in \mathscr{A}_n(E), \ \forall (u_1, \dots, u_n) \in E^n, \quad \varphi(f(u_1), \dots, f(u_n)) = \lambda \cdot \varphi(u_1, \dots, u_n)$$
+\end{outline}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Soit $f, g \in \mathcal{L}(E)$. Montrer que :
+	$$\det(f \circ g) = \det(f) \cdot \det(g)$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On utilise la définition du déterminant d'un endomorphisme $f$ comme le scalaire $\lambda$ tel que $\varphi(f(u_1), \dots, f(u_n)) = \lambda \cdot \varphi(u_1, \dots, u_n)$ pour toute forme $n$-linéaire alternée $\varphi$. En appliquant cette définition à la composée $f \circ g$ sur les vecteurs de la base $\mathcal{B} = (e_1, \dots, e_n)$, on obtient l'égalité recherchée.
+\end{tcolorbox}
+
+Soit $\mathcal{B} = (e_1, \dots, e_n)$ la base de $E$. Par le corollaire de structure, le déterminant de la composée $f \circ g$ correspond au déterminant de la famille des images de la base $\mathcal{B}$ exprimée dans cette même base :
+$$\det(f \circ g) = \det_{\mathcal{B}}\bigl((f \circ g)(e_1), \dots, (f \circ g)(e_n)\bigr) = \det_{\mathcal{B}}\bigl(f(g(e_1)), \dots, f(g(e_n))\bigr)$$
+
+Or, l'application $\det_{\mathcal{B}}$ est une forme $n$-linéaire alternée ($\det_{\mathcal{B}} \in \mathscr{A}_n(E)$). On peut donc lui appliquer la définition du déterminant de l'endomorphisme $f$ pour le système de vecteurs défini par $u_i = g(e_i)$ pour tout $i \in [\![1,n]\!]$ :
+$$\det_{\mathcal{B}}\bigl(f(g(e_1)), \dots, f(g(e_n))\bigr) = \det(f) \cdot \det_{\mathcal{B}}(g(e_1), \dots, g(e_n))$$
+
+\begin{itemize}
+	\item \textit{On rappelle que la définition énonce que pour une forme $n$-linéaire alternée $\varphi$ et un endomorphisme $f$, on a $\varphi(f(u_1), \dots, f(u_n)) = \det(f) \cdot \varphi(u_1, \dots, u_n)$ pour tout système de vecteurs $(u_1, \dots, u_n)$. En appliquant cette relation à la forme $\det_{\mathcal{B}}$ et au système de vecteurs $u_i = g(e_i)$, on trouve l'égalité ci-dessus.}
+\end{itemize}
+
+En reconnaissant dans le terme de droite la définition du déterminant de l'endomorphisme $g$ exprimé dans la base $\mathcal{B}$, soit $\det_{\mathcal{B}}(g(e_1), \dots, g(e_n)) = \det(g)$, l'égalité se simplifie immédiatement :
+$$\det(f \circ g) = \det(f) \cdot \det(g)$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Soit $A \in T_{n,s}(\mathbb{K})$ une matrice triangulaire supérieure (ou inférieure). Montrer que le déterminant de $A$ est égal au produit des éléments diagonaux de $A$ :
+	$$\det(A) = \prod_{i=1}^{n} a_{i,i}$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On utilise la définition du déterminant d'une matrice $A$ :
+	$$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+	On remarque que pour une matrice triangulaire supérieure, les éléments situés en dessous de la
+	diagonale sont nuls. Par conséquent, si la permutation $\sigma$ vérifie $\sigma(k) > k$ pour au moins un indice $k$, alors le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$ s'annule. La seule permutation qui contribue à la somme est l'identité, ce qui conduit à l'égalité :
+	$$\det(A) = \varepsilon(\mathrm{Id}_{[\![1,n]\!]}) \cdot \prod_{k=1}^{n} a_{k,k} = 1 \cdot \prod_{i=1}^{n} a_{i,i}$$
+	Pour une matrice triangulaire inférieure, on utilise le fait que la transposée d'une matrice triangulaire inférieure est une matrice triangulaire supérieure, et que le déterminant d'une matrice est égal au déterminant de sa transposée.
+\end{tcolorbox}
+
+Soit $A = (a_{i,j})_{1 \le i,j \le n} \in T_{n,s}(\mathbb{K})$ une matrice triangulaire supérieure (on traite uniquement ce cas pour l'instant). Par définition du déterminant d'une matrice, on a :
+$$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+Or, les éléments situés en dessous de la diagonale de $A$ sont nuls. Par conséquent, si la permutation $\sigma$ vérifie $\sigma(k) > k$ pour au moins un indice $k$, alors le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$ s'annule.
+$$\exists k_0 \in [\![1,n]\!], \sigma(k_0) > k_0 \implies \prod_{k=1}^{n} a_{\sigma(k), k} = 0_\mathbb{K} \text{ sachant que } \forall i > j, a_{i,j} = 0$$ 
+En revanche, si la permutation $\sigma$ vérifie $\sigma(k) \le k$ pour tout indice $k$, alors le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$ correspond au produit des éléments diagonaux de $A$. 
+En appliquant un lemme démontré précédemment dans le cours (voir cours complet du chapitre XIV-D), on trouve que la seule permutation qui contribue à la somme est l'identité. L'égalité se simplifie alors en :
+$$\det(A) = \varepsilon(\mathrm{Id}_{[\![1,n]\!]}) \cdot \prod_{k=1}^{n} a_{k,k} = 1 \cdot \prod_{i=1}^{n} a_{i,i}$$
+Comme une matrice triangulaire inférieure n'est que la transposée d'une matrice triangulaire supérieure, on conclut que la même formule s'applique également aux matrices triangulaires inférieures, car :
+$$\det(A) = \det(^t A) = \prod_{i=1}^{n} ({}^t A)_{i,i} = \prod_{i=1}^{n} a_{i,i}$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Soit $A \in \mathcal M_n(\mathbb{K})$, dont $a_{n,n} = 1$ et $\forall i \in [\![1,n-1]\!], a_{i,n} = 0_\mathbb{K}$.
+    $$A = \left(\begin{matrix} a_{1,1} & \dots & a_{1,n-1} & 0 \\ \vdots & \ddots & \vdots & \vdots \\ a_{n-1,1} & \dots & a_{n-1,n-1} & 0 \\ a_{n,1} & \dots & a_{n,n-1} & 1 \end{matrix}\right)$$
+    Montrer que $\det(A) = \Delta_{n,n}$, i.e.:
+    $$\det(A) = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} \\ \vdots & \ddots & \vdots \\ a_{n-1,1} & \dots & a_{n-1,n-1} \end{matrix}\right| = \left|\begin{matrix} a_{1,1} & \dots & a_{1,n-1} & 0 \\ \vdots & \vdots & \vdots & \vdots \\ \vdots & \vdots & \vdots & \vdots \\ a_{n,1} & \dots & a_{n,n-1} & 1 \end{matrix}\right|$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On utilise la définition du déterminant d'une matrice $A$ :
+	$$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+	On remarque que les permutations $\sigma \in S_n$ qui vérifient $\sigma(n) \ne n$ font s'annuler le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$, car $a_{i,n} = 0_\mathbb{K}$ pour tout $i \in [\![1,n-1]\!]$. Les seules permutations qui contribuent à la somme sont celles qui vérifient $\sigma(n) = n$. On note cet ensemble de permutations $G$ :
+	$$G = \{\sigma \in S_n \text{ telle que } \sigma(n) = n\}$$
+	Le déterminant de $A$ se simplifie alors en :
+	$$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+	Comme $a_{n,n} = 1$, on peut supprimer ce terme du produit :
+	$$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \left(\prod_{k=1}^{n-1} a_{\sigma(k), k}\right)$$
+	On montre ensuite que $G$ est en bijection avec $S_{n-1}$, ce qui permet de réécrire la somme en termes de permutations de $S_{n-1}$ et ainsi retrouver le mineur $\Delta_{n,n}$.
+\end{tcolorbox}
+
+Par définition, le déterminant de $A$ est donné par :
+$$\det(A) = \sum_{\sigma \in S_n} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+Les permutations de $S_n$ qui vérifient $\sigma(n) \ne n$ font s'annuler le produit $\prod_{k=1}^{n} a_{\sigma(k), k}$, car $a_{i,n} = 0_\mathbb{K}$ pour tout $i \in [\![1,n-1]\!]$.
+
+Les seules permutations qui contribuent à la somme sont celles qui vérifient $\sigma(n) = n$. Cet ensemble de permutations sera noté $G$, comme suit :
+$$G = \{\sigma \in S_n \text{ telle que } \sigma(n) = n\}$$
+
+Le déterminant de $A$ se simplifie alors en :
+$$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \prod_{k=1}^{n} a_{\sigma(k), k}$$
+Comme $a_{n,n} = 1$, on peut supprimer ce terme du produit :
+$$\det(A) = \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \left(\prod_{k=1}^{n-1} a_{\sigma(k), k}\right)$$
+
+Maintenant, nous allons montrer que :
+$$G \sim S_{n-1}$$
+... Ce qui nous permettra d'effectuer un changement de variable à l'intérieur de la somme et ainsi retrouver le mineur $\Delta_{n,n}$. Il faut donc construire une bijection entre $G$ et $S_{n-1}$.
+
+On remarque que pour tout $\sigma \in G$, comme $\sigma(n) = n$, la restriction de $\sigma$ à l'ensemble $[\![1,n-1]\!]$ est une permutation de cet ensemble.
+$$\sigma \in G \implies \sigma_{|[\![1,n-1]\!]} \in S_{n-1}$$
+
+Construisons l'application suivante :
+$$f : \begin{matrix} G & \to & S_{n-1} \\ \sigma & \mapsto & \sigma_{|[\![1,n-1]\!]} \end{matrix}$$
+
+L'application est bien définie, car la restriction de $\sigma$ à $[\![1,n-1]\!]$ est une permutation de cet ensemble, comme démontré juste avant.
+
+\begin{itemize}
+	\item \textbf{Injectivité :} Soient $\sigma, \tau \in G$ tels que $f(\sigma) = f(\tau)$. Par définition de $f$, on a $\sigma_{|[\![1,n-1]\!]} = \tau_{|[\![1,n-1]\!]}$. De plus, comme $\sigma(n) = n$ et $\tau(n) = n$, on trouve que $\sigma(k) = \tau(k)$ pour tout $k \in [\![1,n]\!]$, soit $\sigma = \tau$.
+	\item \textbf{Surjectivité :} Soit $\sigma' \in S_{n-1}$. Construisons la permutation $\sigma \in S_n$ suivante :
+	$$\sigma(k) = \begin{cases} \sigma'(k) & \text{si } k \in [\![1,n-1]\!] \\ n & \text{si } k = n \end{cases}$$
+	Par construction, $\sigma$ est une permutation de $[\![1,n]\!]$ qui vérifie $\sigma(n) = n$. Par conséquent, $\sigma \in G$. De plus, $f(\sigma) = \sigma_{|[\![1,n-1]\!]} = \sigma'$, ce qui prouve que $f$ est surjective.
+	\item On note aussi le fait que, si $\sigma \in G$ et $\tau = f(\sigma)$, alors $\varepsilon(\sigma) = \varepsilon(\tau)$, car $\sigma$ et $\tau$ ont la même décompositions en cycles à supports disjoints, sachant que $\sigma(n) = n$ et $\sigma_{|[\![1,n-1]\!]} = \tau$.
+\end{itemize}
+
+On conclut que $f$ est une bijection entre $G$ et $S_{n-1}$, et que $\varepsilon(\sigma) = \varepsilon(f(\sigma))$ pour tout $\sigma \in G$. Par conséquent, on peut effectuer le changement de variable $\tau = f(\sigma)$ à l'intérieur de la somme :
+\begin{align*}
+	\det(A) &= \sum_{\sigma \in G} \varepsilon(\sigma) \cdot \left(\prod_{k=1}^{n-1} a_{\sigma(k), k}\right) \\
+	&= \sum_{\tau \in S_{n-1}} \varepsilon(\tau) \cdot \left(\prod_{k=1}^{n-1} a_{\tau(k), k}\right) \\
+	&= \det\bigl((a_{i,j})_{1 \le i,j \le n-1}\bigr) \\
+	&= \Delta_{n,n}
+\end{align*}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Soit $A \in M_n(\mathbb{K})$. Montrer que le déterminant de $A$ peut se calculer par développement suivant une colonne (ou une ligne) quelconque :
+	$$\det(A) = \sum_{i=1}^{n} a_{i,j} \cdot \det(A_{i,j})$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On exprime d'abord le déterminant de la matrice comme le déterminant formé par ses vecteurs colonnes, i.e. $\det(A) = \det_\mathcal{B}(\tilde{c}_1, \dots, \tilde{c}_n)$, où $\tilde{c}_j$ est la $j$-ième colonne de $A$. Ensuite, on exprime cette colonne comme une combinaison linéaire des vecteurs de la base canonique ``matricielle'' $\mathcal{B} = (E_1, \dots, E_n)$, où $E_i$ est le vecteur colonne avec un 1 à la position $i$ et des 0 ailleurs. En utilisant la $n$-linéarité du déterminant par rapport à sa $j$-ième colonne, on obtient la somme suivante :
+	$$\det(A) = \sum_{i=1}^{n} a_{i,j} \cdot \det_\mathcal{B}(c_1, \dots, c_{j-1}, E_i, c_{j+1}, \dots, c_n)$$
+	On effectue ensuite des transpositions de colonnes et de lignes pour ramener le pivot $1$ à la position $(n,n)$, ce qui introduit un facteur de signe $(-1)^{i+j}$. Enfin, on reconnaît le déterminant du mineur $A_{i,j}$ dans la matrice obtenue après ces transpositions, ce qui permet d'écrire :
+	$$\det(A) = \sum_{i=1}^{n} a_{i,j} \cdot (-1)^{i+j} \cdot \det(A_{i,j})$$
+\end{tcolorbox}
+
+Démontrons le développement suivant la $j$-ième colonne. Soit $j \in [\![1,n]\!]$ fixé.
+    
+En exprimant la colonne $c_j$ comme combinaison linéaire des vecteurs de la base $\mathcal B = (E_1,\dots,E_n)$ définie par :
+
+$$E_i = \left(\begin{matrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{matrix}\right) \text{ avec } 1 \text{ à la position } i$$
+... on obtient : ($c_j = \sum_{i=1}^n a_{i,j} E_i$) et en exploitant la $n$-linéarité du déterminant par rapport à sa $j$-ième colonne, on isole chaque coefficient de la manière suivante :
+$$\det(A) = \det_\mathcal{B}(\tilde c_1, \dots, \tilde c_n) = \det_\mathcal{B}(c_1, \dots, c_{j-1}, \sum_{i=1}^n a_{i,j} E_i, c_{j+1}, \dots, c_n)$$
+$$\det(A) = \sum_{i=1}^n a_{i,j} \cdot \left|\begin{matrix} 
+	a_{1,1} & \dots & a_{1,j-1} & 0 & a_{1,j+1} & \dots & a_{1,n} \\
+	\vdots & & \vdots & \vdots & \vdots & & \vdots \\
+	a_{i,1} & \dots & a_{i,j-1} & 1 & a_{i,j+1} & \dots & a_{i,n} \\
+	\vdots & & \vdots & \vdots & \vdots & & \vdots \\
+	a_{n,1} & \dots & a_{n,j-1} & 0 & a_{n,j+1} & \dots & a_{n,n}
+\end{matrix}\right| \begin{matrix} \ \\ \ \\ \leftarrow \text{ ligne } i \\ \ \\ \ \end{matrix}$$
+$$\begin{matrix} \qquad \quad \uparrow \\ \qquad \qquad \qquad \text{colonne } j \end{matrix}$$
+
+Afin de ramener le pivot $1$ au coin inférieur droit (position $(n,n)$), on opère les migrations successives par transpositions adjacentes :
+
+\begin{outline}
+	\1 \textbf{Étape 1 : Migration de la colonne $j$ vers la colonne $n$}
+	\2 On effectue $n-j$ transpositions successives de colonnes pour propulser le vecteur colonne colonne par colonne vers l'extrémité droite. Chaque permutation inversant le signe du déterminant, on extrait le facteur $(-1)^{n-j}$ :
+	$$\det(A) = \sum_{i=1}^n a_{i,j} \cdot (-1)^{n-j} \cdot \left|\begin{matrix} 
+		a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+		\vdots & & \vdots & \vdots & & \vdots & \vdots \\
+		a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1 \\
+		\vdots & & \vdots & \vdots & & \vdots & \vdots \\
+		a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0
+	\end{matrix}\right| \begin{matrix} \ \\ \ \\ \leftarrow \text{ ligne } i \\ \ \\ \ \end{matrix}$$
+
+	\1 \textbf{Étape 2 : Migration de la ligne $i$ vers la ligne $n$}
+	\2 On effectue de la même manière $n-i$ transpositions de lignes pour descendre la ligne $i$ tout en bas de la matrice. Cette opération génère un second facteur de signe égal à $(-1)^{n-i}$ :
+	$$\det(A) = \sum_{i=1}^n a_{i,j} \cdot \underbrace{(-1)^{n-j} (-1)^{n-i}}_{(-1)^{i+j}} \cdot \left|\begin{matrix} 
+		a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+		\vdots & & \vdots & \vdots & & \vdots & \vdots \\
+		a_{i-1,1} & \dots & a_{i-1,j-1} & a_{i-1,j+1} & \dots & a_{i-1,n} & 0 \\
+		a_{i+1,1} & \dots & a_{i+1,j-1} & a_{i+1,j+1} & \dots & a_{i+1,n} & 0 \\
+		\vdots & & \vdots & \vdots & & \vdots & \vdots \\
+		a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0 \\
+		a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1
+	\end{matrix}\right|$$
+\end{outline}
+
+La structure finale obtenue présente une $n$-ième colonne composée exclusivement de zéros à l'exception du $1$ en position terminale $(n,n)$. Le bloc supérieur gauche de dimensions $(n-1) \times (n-1)$ correspond exactement à la sous-matrice d'origine privée de sa ligne $i$ et de sa colonne $j$.
+
+Par application directe de la propriété de réduction par bloc inférieur démontrée dans la section précédente, le déterminant de cette matrice globale est égal au déterminant de ce sous-bloc, qui s'identifie par définition au mineur $\Delta_{i,j}$ :
+$$\left|\begin{matrix} 
+	a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} & 0 \\
+	\vdots & & \vdots & \vdots & & \vdots & \vdots \\
+	a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n} & 0 \\
+	a_{i,1} & \dots & a_{i,j-1} & a_{i,j+1} & \dots & a_{i,n} & 1
+\end{matrix}\right| = \left|\begin{matrix} 
+	a_{1,1} & \dots & a_{1,j-1} & a_{1,j+1} & \dots & a_{1,n} \\
+	\vdots & & \vdots & \vdots & & \vdots \\
+	a_{n,1} & \dots & a_{n,j-1} & a_{n,j+1} & \dots & a_{n,n}
+\end{matrix}\right| = \Delta_{i,j}$$
+
+En réinjectant cette simplification à l'intérieur de la somme linéaire globale, on valide de manière définitive la formule du cofacteur :
+$$\det(A) = \sum_{i=1}^n a_{i,j} \cdot (-1)^{i+j} \cdot \Delta_{i,j} = \sum_{i=1}^n a_{i,j} A_{i,j}$$
+
+Le développement par rapport aux lignes s'obtient de manière calquée en appliquant la même décomposition linéaire sur la matrice transposée $^t A$, en vertu de la propriété d'invariance par transposition $\det(A) = \det(^t A)$.
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que pour toute matrice carrée $A \in \mathcal{M}_n(\mathbb{K})$, on a :
+	$$\,^t\mathrm{Com}(A) \times A = A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	% on note le coeff général de B = t com a
+	% ensuite en considère le produit matriciel D = B * A
+	% on calcul le coeff général de D
+	% on évalue la somme en distinguant deux cas : sur la diagonale et hors de la diagonale
+	% sur sa diagonale, on a d_{i,i} = det(A)
+	% hors de la diagonale, on a d_{i,j} = 0, parce que le déterminant d'une matrice avec deux colonnes identiques est nul
+	% les seuls coefficients qui restent sont donc ceux de la diagonale, et ils valent tous det(A)
+	% on conclut que D = det(A) * I_n
+	% pour démontrer la commutativité, on applique la relation précédente à la matrice transposée ^t A, et on utilise le fait que Com(^t A) = ^t Com(A) et que det(^t A) = det(A)
+	% il faut réecrire ces commentaires proprement
+	Pour démontrer cette relation, on procède en deux étapes : d'abord, on montre que $\,^t\mathrm{Com}(A) \times A = \det(A) \cdot I_n$, puis on établit la commutativité du produit avec $A$. Pour cela, on introduit la matrice $B = \,^t\mathrm{Com}(A)$ et on considère le produit matriciel $D = B \times A$. On calcule le coefficient général de $D$, qui est :
+	$$\forall i,j \in [\![1,n]\!], \quad d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j}$$
+	Pour évaluer ces coefficients, on distingue deux cas : lorsque $i = j$ (sur la diagonale) et lorsque $i \neq j$ (hors de la diagonale). Sur la diagonale, on retrouve le développement du déterminant de $A$ suivant la $i$-ième colonne, ce qui donne $d_{i,i} = \det(A)$. Hors de la diagonale, on obtient un déterminant d'une matrice avec deux colonnes identiques, ce qui implique que $d_{i,j} = 0$. Ainsi, tous les coefficients hors de la diagonale sont nuls et ceux sur la diagonale valent $\det(A)$, ce qui conduit à :
+	$$\,^t\mathrm{Com}(A) \times A = \det(A) \cdot I_n$$
+	Pour démontrer la commutativité, on applique cette relation à la matrice transposée $\,^tA$ et on utilise les propriétés $\mathrm{Com}(\,^tA) = \,^t\mathrm{Com}(A)$ et $\det(\,^tA) = \det(A)$.
+\end{tcolorbox}
+
+Soit $A = (a_{i,j})_{1 \le i,j \le n} \in \mathcal{M}_n(\mathbb{K})$. Notons $B = \,^t\mathrm{Com}(A)$. Par définition de la transposition et des cofacteurs, le coefficient général de $B$ est donné par :
+$$\forall i,k \in [\![1,n]\!], \quad b_{i,k} = A_{k,i}$$
+
+Considérons le produit matriciel $D = B \times A = \,^t\mathrm{Com}(A) \times A$. Par définition du produit de deux matrices, le coefficient général $d_{i,j}$ de $D$ situé à la ligne $i$ et à la colonne $j$ s'écrit :
+$$\forall i,j \in [\![1,n]\!], \quad d_{i,j} = \sum_{k=1}^n b_{i,k} a_{k,j} = \sum_{k=1}^n a_{k,j} A_{k,i}$$
+
+Pour évaluer cette somme, nous devons distinguer deux cas selon la position du coefficient dans la matrice produit :
+
+\begin{itemize}
+	\item \textbf{Cas 1 : Sur la diagonale principale ($i = j$)}
+	En injectant $j = i$ dans la relation, la somme devient :
+	$$d_{i,i} = \sum_{k=1}^n a_{k,i} A_{k,i}$$
+	On reconnaît immédiatement la formule du développement du déterminant de la matrice $A$ suivant sa $i$-ième colonne. On a donc :
+	$$\forall i \in [\![1,n]\!], \quad d_{i,i} = \det(A)$$
+
+	\item \textbf{Cas 2 : Hors de la diagonale principale ($i \neq j$)}
+	Si $i \neq j$, la somme $\sum_{k=1}^n a_{k,j} A_{k,i}$ correspond au développement de Laplace suivant sa $i$-ième colonne d'une matrice fictive, notée $A^{(i \leftarrow j)}$, obtenue en remplaçant la $i$-ième colonne de $A$ par sa $j$-ième colonne.
+	$$A^{(i \leftarrow j)} = \begin{pmatrix} c_1 & \dots & \underbrace{c_j}_{\text{position } i} & \dots & \underbrace{c_j}_{\text{position } j} & \dots & c_n \end{pmatrix}$$
+	Cette matrice présente deux colonnes rigoureusement identiques (aux positions $i$ et $j$). Le déterminant étant une forme alternée, on a $\det(A^{(i \leftarrow j)}) = 0_\mathbb{K}$. Par conséquent :
+	$$\forall i \neq j, \quad d_{i,j} = 0_\mathbb{K}$$
+\end{itemize}
+
+En regroupant ces deux cas à l'aide du symbole de Kronecker $\delta_{i,j}$, on a $d_{i,j} = \det(A) \cdot \delta_{i,j}$. La matrice produit $D$ est donc une matrice diagonale dont tous les termes valent $\det(A)$ :
+$$\,^t\mathrm{Com}(A) \times A = \begin{pmatrix} \det(A) & 0 & \dots & 0 \\ 0 & \det(A) & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \det(A) \end{pmatrix} = \det(A) \cdot I_n$$
+
+\paragraph{Démonstration de la commutativité :}
+Pour établir que $A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n$, on applique la relation fondamentale que l'on vient de prouver à la matrice transposée $\,^tA$ :
+$$\,^t\mathrm{Com}(\,^tA) \times \,^tA = \det(\,^tA) \cdot I_n$$
+
+On sait que $\mathrm{Com}(\,^tA) = \,^t\mathrm{Com}(A)$. En prenant la transposée de chaque membre, on a :
+$$\,^t\mathrm{Com}(\,^tA) = \,^t(\,^t\mathrm{Com}(A)) = \mathrm{Com}(A)$$
+De plus, le déterminant est invariant par transposition ($\det(\,^tA) = \det(A)$). L'égalité se simplifie en :
+$$\mathrm{Com}(A) \times \,^tA = \det(A) \cdot I_n$$
+
+En appliquant l'opérateur de transposition $\,^t(\cdot)$ de chaque côté de cette égalité matricielle, et en utilisant la propriété d'inversion de l'ordre du produit $(\,^t(M \times N) = \,^tN \times \,^tM)$, on obtient :
+$$\,^t(\mathrm{Com}(A) \times \,^tA) = \,^t(\det(A) \cdot I_n) \implies \bigl(\,^t(\,^tA)\bigr) \times \,^t\mathrm{Com}(A) = \det(A) \cdot \,^tI_n$$
+Comme $\,^t(\,^tA) = A$ et $\,^tI_n = I_n$, on valide de manière définitive la seconde identité :
+$$A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n$$
+
+\end{document}
