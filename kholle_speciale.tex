@@ -1051,6 +1051,132 @@ Pour montrer que $\ker(P(u)) + \ker(Q(u)) = \ker((PQ)(u))$, on procède par doub
 \section{Chapitre XIV-C --- Matrices}
 
 \begin{tcolorbox}[instructionstyle]
+	Montrer que pour tout $\mathbb K$-espaces vectoriels $E$ et $F$ de dimensions finies $p$ et $n$ respectivement, il existe un isomorphisme canonique entre $\mathcal L(E,F)$ et $\mathcal M_{n,p}(\mathbb K)$.
+\end{tcolorbox}
+
+\begin{rappel}
+	Une application linéaire de $E$ vers $F$ est caractérisée par les images de la base de $E$ dans $F$.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On pose $\psi : \mathcal L(E,F) \to \mathcal M_{n,p}(\mathbb K)$ l'application qui à chaque application linéaire $f$ associe sa matrice dans des bases fixées de $E$ et $F$, i.e. $\psi(f) = \mathrm{Mat}(f,B,C)$. On montre que $\psi$ est bien définie, injective et surjective, ce qui établit l'isomorphisme entre les deux espaces vectoriels.
+	
+	Pour montrer que $\psi$ est surjective, on prend une matrice $A \in \mathcal M_{n,p}(\mathbb K)$ et on construit une application linéaire $f$ telle que $\mathrm{Mat}(f,B,C) = A$, en faisant en sorte qu'elle associe à chaque vecteur de la base de $B = (e_1, \dots, e_p)$ de $E$ une combinaison linéaire des vecteurs de la base $C = (f_1, \dots, f_n)$ de $F$ avec les coefficients donnés par les colonnes de la matrice $A$, i.e. $f(e_j) = \sum_{i=1}^{n} a_{ij} f_i$ pour chaque $j = 1, \dots, p$. Ainsi, on obtient une application linéaire $f$ dont la matrice dans les bases $B$ et $C$ est exactement $A$, ce qui prouve la surjectivité de $\psi$.
+\end{tcolorbox}
+
+Pour montrer que $\psi$ est un isomorphisme de $E$ vers $F$, il faut vérifier que :
+\begin{itemize}
+	\item $\psi$ est bien définie.
+	\item $\psi$ est une application linéaire.
+	\item $\psi$ est injective.
+	\item $\psi$ est surjective.
+\end{itemize}
+\textbf{$\psi$ est bien définie :}
+\begin{itemize}
+	\item On a $\forall f \in \mathcal L(E,F)$.
+	\item On a $\mathrm{Mat}(f,B,C) = \psi(f) \in \mathcal M_{n,p}(\mathbb{K})$.
+	\item Donc $\psi$ est définie.
+\end{itemize}
+\textbf{$\psi$ est une application linéaire :}
+\begin{outline}
+\1 On pose $N = \mathrm{Mat}(f,B,C) = (a_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+\2 On a donc $N = \left(\begin{matrix} f(e_1) & \cdots & f(e_p)\\
+a_{1,1} & \cdots & a_{1,p} \\
+\vdots & & \vdots \\
+a_{n,1} & \cdots & a_{n,p}
+\end{matrix}\right)$.
+\1 On pose $M = \mathrm{Mat}(g,B,C) = (b_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+\2 Donc $\forall j \in [\![1,p]\!], g(e_j) = \sum_{i=1}^{n}b_{i,j}c_i$.
+\1 Donc $N + \lambda M = (a_{i,j} + b_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}}$.
+\1 Or $\forall j \in [\![1,p]\!], (f+\lambda g)(e_j)$.
+\begin{align*}
+	(f+ \lambda g)(e_j) &= f(e_j) + \lambda g(e_j)\\
+	&= \sum_{i=1}^n a_{i,j} c_i + \lambda \sum_{i=1}^{n}b_{i,j}c_i\\
+	&= \sum_{i=1}^{n}(a_{i,j}+\lambda b_{i,j})\cdot c_i
+\end{align*}
+\1 Cela implique que $\underbrace{\mathrm{Mat}(f+\lambda g,B,C)}_{=\psi(f+\lambda g)}= \underbrace{N}_{\psi(g)} + \lambda \underbrace{M}_{\psi(g)}$.
+\1 Donc $\psi \in \mathcal L(\mathcal L(E,F), \mathcal M_{n,p}(\mathbb{K}))$.
+\end{outline}
+\textbf{$\psi$ est injective :}
+\begin{outline}
+\1 Soit $f \in \ker(\psi)$. Donc $\psi(f) = 0_{n,p}$.
+\1 Donc $\forall 1 \le j \le p, f(e_j) = 0_F$.
+\1 Or $f(E) = \mathrm{Vect}(f(B)) = \{0_F\}$.
+\1 Donc $f = 0_{\mathcal L(E,F)}$.
+\1 i.e. $\ker(\psi) = 0_{\mathcal L(E,F)}$.
+\1 Et donc $\psi$ est injective !
+\end{outline}
+\textbf{$\psi$ est surjective :}
+\begin{outline}
+	\1 Soit $A = (a_{i,j})_{\substack{1 \le i \le n\\ 1 \le j \le p}} \in \mathcal M_{n,p}(\mathrm{K})$.
+	\1 On pose $f : \begin{matrix} E &\to &F \\ e_j &\mapsto &\sum_{i=1}^n a_{i,j} c_i \end{matrix}$ pour tout $1 \le j \le p$.
+	\1 $f$ est bien définie, car $B$ est une base de $E$.
+	\1 $f$ est linéaire, car $C$ est une base de $F$.
+	\1 Donc $f \in \mathcal L(E,F)$.
+	\1 Or $\psi(f) = \mathrm{Mat}(f,B,C) = A$.
+	\1 Donc $\psi$ est surjective !
+\end{outline}
+On a montré que $\psi$ est un isomorphisme de $\mathbb{K}$-ev. entre $\mathcal L(E,F)$ et $\mathcal M_{n,p}(\mathbb{K})$.
+
+\clearpage 
+
+\begin{tcolorbox}[instructionstyle]
+Soient $E, F, G$ trois $\mathbb{K}$-ev de dimensions finies $q, p, n$, de bases respectives $B = (e_1,\dots,e_q)$, $C = (c_1,\dots,c_p)$ et $D = (d_1,\dots,d_n)$.
+Soient $f \in \mathcal L(E,F)$ et $g \in \mathcal L(F,G)$ de matrices $A_1 = \mathrm{Mat}(f,B,C) = (b_{i,j})$ et $A_2 = \mathrm{Mat}(g,C,D) = (a_{i,j})$.
+
+Montrer que $\mathrm{Mat}(g \circ f, B, D) = (\alpha_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le q}}$ où $\alpha_{i,j} = \sum_{k=1}^p a_{i,k} b_{k,j}$.
+\end{tcolorbox}
+
+\begin{rappel}
+Par définition de la matrice d'une application linéaire :
+$$\forall j \in \llbracket 1,q \rrbracket, \quad f(e_j) = \sum_{k=1}^p b_{k,j} c_k \quad \text{et} \quad \forall k \in \llbracket 1,p \rrbracket, \quad g(c_k) = \sum_{i=1}^n a_{i,k} d_i$$
+L'unicité de la décomposition dans une base permet l'identification des coefficients d'un vecteur.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+On calcule $(g \circ f)(e_j)$ de deux manières : par sa définition matricielle directe, et en développant $g(f(e_j))$ par linéarité. L'interversion des sommes finies permet d'isoler le coefficient recherché par identification dans la base $D$.
+\end{tcolorbox}
+
+\vspace{0.4cm}
+\textbf{Démonstration :}
+
+Soit $j \in \llbracket 1,q \rrbracket$. On pose $\mathrm{Mat}(g \circ f, B, D) = (\alpha_{i,j})$. Par définition :
+$$(g \circ f)(e_j) = \sum_{i=1}^n \alpha_{i,j} d_i \quad (\ast)$$
+
+Par définition de la composée et par linéarité de $g$ :
+$$(g \circ f)(e_j) = g\left(f(e_j)\right) = g\left(\sum_{k=1}^p b_{k,j} c_k\right) = \sum_{k=1}^p b_{k,j} g(c_k)$$
+
+En injectant la décomposition de $g(c_k)$ dans la base $D$ :
+$$(g \circ f)(e_j) = \sum_{k=1}^p b_{k,j} \left(\sum_{i=1}^n a_{i,k} d_i\right)$$
+
+Les sommes étant finies, on permute l'ordre des sommations et on utilise la commutativité du corps $\mathbb{K}$ :
+$$(g \circ f)(e_j) = \sum_{i=1}^n \left(\sum_{k=1}^p a_{i,k} b_{k,j}\right) d_i \quad (\ast\ast)$$
+
+La famille $D$ étant une base de $G$, la décomposition de chaque vecteur y est unique. Par identification des coefficients entre $(\ast)$ et $(\ast\ast)$, on obtient pour tout $i \in \llbracket 1,n \rrbracket$ :
+$$\alpha_{i,j} = \sum_{k=1}^p a_{i,k} b_{k,j}$$
+
+Ce coefficient correspond par définition au terme général de la matrice produit $A_2 \times A_1$. Ainsi :
+$$\mathrm{Mat}(g \circ f, B, D) = \mathrm{Mat}(g, C, D) \times \mathrm{Mat}(f, B, C)$$
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$ :
+	
+	\begin{align*}
+		A_1 \text{ éq } A_2 \iff \exists f \in \mathcal L(E,F), \exists B_1,B_2 \text{ bases de } E, \exists C_1,C_2 \text{ bases de } F
+		\\
+		A_2 = \mathrm{Mat}(f,B_2,C_2) \text{ et } A_1 = \mathrm{Mat}(f,B_1,C_1)
+	\end{align*}
+\end{tcolorbox}
+
+\clearpage
+
+
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
 
 Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$ :
 \[
