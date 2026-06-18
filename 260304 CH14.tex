@@ -465,21 +465,39 @@ Ce chapitre est consacré à l'algèbre linéaire. Nous traiterons les espaces v
     \begin{enumerate}
         \item $B = (e_1,\dots,e_n)$ est une base de $E$ si et seulement si : 
         $$\forall x \in E, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$$
-        \item $B$ est une base de $E$ si et seulement si : 
-        $$\forall x \in E, \exists n\in \N^*, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x= \sum_{i=1}^{n}\lambda_i e_i$$
+        \item $B = (e_i)_{i \in \N^*}$ est une base de $E$ si et seulement si : 
+        $$\forall x \in E \setminus \{0_E\}, \exists ! n \in \N^*, \exists ! (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq \lambda_n \neq 0 \text{ et } x = \sum_{i=1}^{n}\lambda_i e_i$$
     \end{enumerate}
 \end{property}
 
 \begin{proof}
-    \begin{outline}
-        \1 \textbf{Démonstration de la première propriété :}
-            \2 $\implies$ : Soit $B$ une famille génératrice de $E$. On a donc $\forall x \in E, \exists (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$. Si $\exists \beta_1,\dots,\beta_n \in \Kset$ tels que $x = \sum_{k=1}^n \beta_k e_k$, alors $\sum_{k=1}^n (\lambda_k - \beta_k) e_k = 0$, donc $\forall k \in \{1,\dots,n\}, \lambda_k - \beta_k = 0$, donc $\lambda_k = \beta_k$ (sachant que $B$ est une famille libre).
-            \2 $\impliedby$ : On a $\forall x \in E$, $\exists (\lambda_1,\dots,\lambda_n) \in \Kset^n \tq x = \sum_{k=1}^n \lambda_k e_k$, donc $B$ est une famille génératrice de $E$. De plus, si $\sum_{k=1}^n \lambda_k e_k = 0$, alors $\sum_{k=1}^n \lambda_k e_k = \sum_{k=1}^n 0 \cdot e_k = 0$, (par unicité des scalaires) donc $\forall k \in \{1,\dots,n\}, \lambda_k = 0$, donc $B$ est une famille libre.
-        \1 \textbf{Démonstration de la deuxième propriété :}
-            
-    \end{outline}
+    \begin{itemize}
+        \item \textbf{Démonstration de la première propriété :}
+        \begin{itemize}
+            \item[$\implies$] : Supposons que $B$ est une base de $E$. Par définition, $B$ est une famille génératrice, donc tout vecteur $x \in E$ admet au moins une décomposition $x = \sum_{k=1}^n \lambda_k e_k$. Supposons qu'il existe une autre décomposition $x = \sum_{k=1}^n \beta_k e_k$. Par soustraction, on obtient $\sum_{k=1}^n (\lambda_k - \beta_k) e_k = 0_E$. Comme $B$ est une base, elle est également libre. Sa liberté implique que tous les coefficients sont nuls : $\forall k \in \{1,\dots,n\}, \lambda_k - \beta_k = 0$, d'où $\lambda_k = \beta_k$. La décomposition est donc unique.
+            \item[$\impliedby$] : L'existence d'une décomposition pour tout $x \in E$ assure immédiatement que $B$ est une famille génératrice de $E$. Pour la liberté, considérons $(\lambda_1,\dots,\lambda_n) \in \Kset^n$ tel que $\sum_{k=1}^n \lambda_k e_k = 0_E$. Or, on sait que $0_E = \sum_{k=1}^n 0 \cdot e_k$. Par l'hypothèse d'unicité de la décomposition du vecteur nul, on en déduit par identification que $\forall k \in \{1,\dots,n\}, \lambda_k = 0$. La famille $B$ est donc libre, ce qui en fait une base.
+        \end{itemize}
+
+        \item \textbf{Démonstration de la deuxième propriété :}
+        \begin{itemize}
+            \item[$\implies$] : Supposons que $B = (e_i)_{i \in \N^*}$ est une base de $E$. Soit $x \in E \setminus \{0_E\}$. Comme $B$ est génératrice, $x$ est combinaison linéaire d'un nombre fini de vecteurs de $B$. Il existe donc un indice maximal $n \in \N^*$ pour lequel le coefficient associé est non nul, d'où l'existence de la décomposition $x = \sum_{i=1}^n \lambda_i e_i$ avec $\lambda_n \neq 0$. 
+            Pour l'unicité, supposons qu'il existe $m \in \N^*$ tel que $x = \sum_{i=1}^m \mu_i e_i$ avec $\mu_m \neq 0$. Supposons par l'absurde que $n > m$. On peut prolonger la seconde somme par des coefficients nuls jusqu'à $n$ ($\mu_i = 0$ pour $i > m$). Par soustraction, on obtient $\sum_{i=1}^n (\lambda_i - \mu_i) e_i = 0_E$. La famille $B$ étant une base, toute sous-famille finie est libre. Donc $\forall i \in \{1,\dots,n\}, \lambda_i = \mu_i$. Pour $i = n$, on aurait $\lambda_n = \mu_n = 0$, ce qui contredit l'hypothèse $\lambda_n \neq 0$. Par symétrie, on en déduit $n = m$. La liberté de la sous-famille libre $(e_1,\dots,e_n)$ impose ensuite l'unicité des scalaires $\lambda_i = \mu_i$ pour tout $i \in \{1,\dots,n\}$.
+            \item[$\impliedby$] Supposons que tout vecteur de $E$ admette une unique décomposition sous forme de combinaison linéaire finie d'éléments de $B$.
+            \begin{itemize}
+                \item \textbf{Caractère générateur :} L'existence d'une telle famille de scalaires presque nulle pour tout vecteur $x \in E$ garantit par définition que $\text{Vect}(B) = E$, donc $B$ engendre $E$.
+                
+                \item \textbf{Liberté :} Soit $J \subset I$ une sous-famille finie d'indices et $(\alpha_j)_{j \in J}$ une famille de scalaires telle que :
+                \[ \sum_{j \in J} \alpha_j e_j = 0_E \]
+                On définit une famille de scalaires $(\lambda_i)_{i \in I}$ sur $I$ en posant $\lambda_i = \alpha_i$ si $i \in J$ et $\lambda_i = 0$ sinon. Cette famille est presque nulle par construction et vérifie $\sum_{i \in I} \lambda_i e_i = 0_E$.
+                
+                Or, le vecteur nul $0_E$ admet une décomposition triviale évidente où tous les scalaires sont nuls : $\sum_{i \in I} 0 \cdot e_i = 0_E$. Par l'hypothèse d'unicité de la décomposition appliquée au vecteur $0_E$, on identifie les coefficients terme à terme :
+                \[ \forall i \in I, \quad \lambda_i = 0 \]
+                En se restreignant aux indices de la sous-famille $J$, on obtient $\forall j \in J, \alpha_j = 0$. La famille $B$ est donc libre.
+            \end{itemize}
+            La famille $B$ étant libre et génératrice, elle constitue une base de $E$.
+        \end{itemize}
+    \end{itemize}
 \end{proof}
-\todo{recop}
 
 \begin{theorem}
     Soient $n \in \N^*$, $E$ un $\Kset$-ev. et $e_1,\dots,e_n$ des éléments de $E$.
@@ -1397,7 +1415,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 \end{theorem}
 
 \begin{proof}
-    Pour tout $1 \le i \le n$, on pose $B_i = (e_{i,j})_{1 \le j \le n_i}$, avec $n_i = \card B_i = \underset\Kset\dim(F_i)$.
+    Pour tout $1 \le i \le n$, on pose $B_i = (e_{i,j})_{1 \le j \le n_i}$, avec $n_i = \card {B_i} = \underset\Kset\dim(F_i)$.
 
     Soit $x \in \bigoplus_{k=1}^n F_k$, alors $\exists ! (x_1,\dots,x_n) \in \prod_{k=1}^n F_k$ tels que $x = \sum_{k=1}^n x_k$.
 
@@ -1405,7 +1423,7 @@ Et pour le vecteur $v_2 = \lambda_1' e_1 + \lambda_2' e_2 + \cdots + \lambda_n' 
 
     Donc $x = \sum_{i=1}^n\sum_{j=1}^{n_i} \lambda_{i,j} e_{i,j}$.
 
-    Et donc $B = (e_i,j)_{\substack{1 \le i \le n \\ 1 \le j \le n_i}}$ est une famille génératrice de $\bigoplus_{k=1}^n F_k$.
+    Et donc $B = (e_{i,j})_{\substack{1 \le i \le n \\ 1 \le j \le n_i}}$ est une famille génératrice de $\bigoplus_{k=1}^n F_k$.
 \end{proof}
 
 \begin{remark}

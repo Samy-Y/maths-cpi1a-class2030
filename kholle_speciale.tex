@@ -735,6 +735,40 @@ I = \{\text{card}(L) \text{ tel que } L \text{ est libre et } L_0 \subset L \sub
 \clearpage
 
 \begin{tcolorbox}[instructionstyle]
+	Montrer que, dans un espace vectoriel $E$ de dimension finie $n$, toute famille libre de cardinal $n$ est une base, et que toute famille génératrice de cardinal $n$ est une base.
+\end{tcolorbox}
+
+\begin{rappel}
+	Toutes les bases d'un espace vectoriel de dimension finie ont le même cardinal, égal à la dimension de l'espace. En effet, pour deux bases arbitraires $\mathcal{B}_1$ et $\mathcal{B}_2$, on a $\mathrm{Card}(\mathcal{B}_1) \le \mathrm{Card}(\mathcal{B}_2)$ et $\mathrm{Card}(\mathcal{B}_2) \le \mathrm{Card}(\mathcal{B}_1)$, d'où l'égalité des cardinaux.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par double implication. Dans le sens direct, on utilise le théorème de la base incomplète pour compléter la famille libre en une base. Comme la dimension est $n$, la famille libre de cardinal $n$ doit déjà être une base. Dans le sens indirect, on utilise le théorème de la base incomplète pour extraire une base de la famille génératrice. Comme la dimension est $n$, la famille génératrice de cardinal $n$ doit déjà être une base.
+\end{tcolorbox}
+
+\begin{itemize}
+	\item ($\impliedby$) Dans le sens indirect, le résultat est clair (si une famille est une base, alors elle est génératrice et dans un espace vectoriel de dimension $n$, elle est de cardinal $n$).
+	\item ($\implies$) Dans le sens direct, on applique le théorème de la base incomplète à la famille libre $L$ et à la famille génératrice $G$ pour construire une base $B$ de $E$ telle que $L \subset B \subset G$. Comme $\mathrm{Card}(L) = n$ et $\mathrm{Card}(B) = n$, alors $L = B$, donc $L$ est une base de $E$. De même, comme $\mathrm{Card}(G) = n$ et $\mathrm{Card}(B) = n$, alors $G = B$, donc $G$ est une base de $E$.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer qu'un $\mathbb K$-espace vectoriel $E$ est de dimension infinie si et seulement si $E$ admet une famille libre infinie.
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On procède par double implication. Dans le sens direct, on construit une famille libre infinie par récurrence en ajoutant à chaque étape un vecteur qui n'appartient pas à l'espace engendré par les vecteurs déjà choisis. Dans le sens indirect, on raisonne par l'absurde : si $E$ est de dimension finie, toute famille libre est nécessairement finie, donc il ne peut pas exister de famille libre infinie.
+\end{tcolorbox}
+
+\begin{itemize}
+	\item[$\impliedby$] Dans le sens indirect, si $E$ est de dimension finie, alors $E$ admet une famille génératrice de cardinal fini $d$, et toute famille libre aura un cardinal inférieur ou égal à $d$. Ainsi, il ne peut pas exister de famille libre infinie.
+	\item[$\implies$] Dans le sens direct, on construit une famille libre infinie par récurrence. On choisit un vecteur $e_1 \in E \setminus \{0_E\}$, puis on suppose avoir construit une famille libre $(e_1, \dots, e_n)$. Comme $E$ est de dimension infinie, il existe un vecteur $e_{n+1} \in E$ qui n'appartient pas à l'espace engendré par $(e_1, \dots, e_n)$. On ajoute ce vecteur à la famille pour obtenir $(e_1, \dots, e_n, e_{n+1})$, qui est encore libre. En répétant ce processus indéfiniment, on obtient une famille libre infinie.
+\end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
 
 Dans un $\mathbb K$-espace vectoriel $E$ doté des sous-espaces $F_1,\dots,F_n$, montrer que :
 \[
@@ -754,6 +788,46 @@ La démonstration est décomposée selon le sens direct/indirect.
 \item Dans le sens direct $\implies$, on pose $y_k$ vérifiant les mêmes propriétés et en réutilise la définition pour montrer que $x_k - y_k = 0_E$.
 \item Dans le sens indirect $\impliedby$, on pose juste $x = 0_E = \sum_{k=1}^n x_k$. Comme $0_E = 0_E + \dots + 0_E$, et qu'on sait (par hypothèse) qu'il admet une écriture unique, alors $x_k = 0_E$ pour tout $k$ compris entre 1 et $n$. On a donc vérifié la définition, et $\sum_{k=1}^n F_k$ est donc bel et bien une somme directe.
 \end{itemize}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	\textbf{Formule de Grassmann :} Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension finie, et $F$ et $G$ deux sev de $E$. Montrer que :
+	\[\underset{\mathbb{K}}{\dim}(F + G) = \underset{\mathbb{K}}{\dim}(F) + \underset{\mathbb{K}}{\dim}(G) - \underset{\mathbb{K}}{\dim}(F \cap G)\]
+\end{tcolorbox}
+
+\begin{rappel}
+	Il faut savoir démontrer que tout sous-espace vectoriel $F$ d'un espace vectoriel $E$ de dimension finie admet un supplémentaire dans $E$, c'est-à-dire qu'il existe un sous-espace vectoriel $G$ de $E$ tel que $E = F \oplus G$. Il est aussi intéressant de pouvoir redémontrer $\dim(F \oplus G) = \dim(F) + \dim(G)$ à partir de la définition d'une somme directe.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On démontre d'abord que $F \cap G$ admet un supplémentaire $H$ dans $F$, en démontrant plus généralement que tout sous-espace vectoriel d'un espace vectoriel de dimension finie admet un supplémentaire (via théorème de la base incomplète). Ensuite, on démontre que $F+G$ est de dimension finie et que $F+G = H \oplus G$. Enfin, on conclut en calculant les dimensions de $F$, $G$ et $F+G$ à partir de la décomposition directe.
+\end{tcolorbox}
+
+Montrons que tout sous-espace vectoriel $F$ d'un espace vectoriel $E$ de dimension finie admet un supplémentaire $G$ dans $E$ (i.e. $E = F \oplus G$). On admettra que $F$ n'est pas trivial (non réduit à $\{0_E\}$), sinon la démonstration est immédiate.
+\begin{itemize}
+	\item On sait que $F$ est de dimension finie, notée $p$.
+	\item Considérons $B_1 = (e_1, \dots, e_p)$ une base de $F$.
+	\item Comme $B_1$ est aussi une famille libre de $E$, on peut la compléter en une base $B = (e_1, \dots, e_p, e_{p+1}, \dots, e_n)$ de $E$, où $n$ est la dimension de $E$.
+	\item On pose $H = \text{Vect}(e_{p+1}, \dots, e_n)$. Par construction, $H$ est un supplémentaire de $F$ dans $E$, c'est-à-dire que $E = F \oplus H$.
+	\item En effet, pour tout $x \in E$, on peut écrire $x = \sum_{i=1}^p \alpha_i e_i + \sum_{j=p+1}^n \beta_j e_j$, avec $\sum_{i=1}^p \alpha_i e_i \in F$ et $\sum_{j=p+1}^n \beta_j e_j \in H$. De plus, l'intersection $F \cap H = \{0_E\}$, car les vecteurs de $B_1$ et de $H$ sont linéairement indépendants.
+\end{itemize}
+Montrons que $F+G$ est de dimension finie et que $F+G = H \oplus G$.
+\begin{itemize}
+	\item $F+G$ est de dimension finie, car $F$ et $G$ sont de dimension finie. En effet, on peut poser $F = \text{Vect}(B_1)$ et $G = \text{Vect}(B_2)$, où $B_1$ et $B_2$ sont des bases de $F$ et $G$ respectivement. Alors, $F+G = \text{Vect}(B_1 \cup B_2)$, qui est de dimension finie.
+	\item $F \cap G$ est aussi un sous-espace vectoriel de $E$, de dimension finie.
+	\item Alors, d'après ce qui précède, $F \cap G$ admet un supplémentaire $H$ dans $F$, c'est-à-dire que $F = (F \cap G) \oplus H$.
+\end{itemize}
+Montrons que $F+G = H \oplus G$.
+\begin{itemize}
+	\item Comme $H \subset F$, l'intersection $G \cap H = \{0_E\}$, car $G \cap H = G \cap (F \cap H) = H \cap (F \cap G)$ et $H \cap (F \cap G) = \{0_E\}$.
+	\item Soit $x \in F+G$. Alors, $x = f + g$ avec $f \in F$ et $g \in G$. Comme $F = (F \cap G) \oplus H$, on peut écrire $f = h + k$ avec $h \in H$ et $k \in F \cap G$. Ainsi, $x = h + k + g$. Comme $k + g \in G$, on a $x = h + (k + g)$ avec $h \in H$ et $(k + g) \in G$. De plus, l'intersection $H \cap G = \{0_E\}$, donc la décomposition est unique. Ainsi, $F+G = H \oplus G$.
+\end{itemize}
+
+On en déduit donc que $\dim(F+G) = \dim(H) + \dim(G)$. De plus, $\dim(F) = \dim(F \cap G) + \dim(H)$, donc $\dim(H) = \dim(F) - \dim(F \cap G)$. En substituant cette expression dans la formule précédente, on obtient :
+\[
+\dim(F+G) = \dim(F) - \dim(F \cap G) + \dim(G)
+\]
 
 \clearpage
 
@@ -796,8 +870,47 @@ x = h_2 + \lambda_2 \lambda_1^{-1}(b - h_1) = \underbrace{(h_2 - \lambda_2 \lamb
 
 \clearpage
 
-
 \section{Chapitre XIV-B --- Applications linéaires}
+
+\begin{tcolorbox}[instructionstyle]
+	\textbf{Théorème du rang :} Soit $E$ et $F$ deux $\mathbb{K}$-espaces vectoriels avec $\underset{\mathbb{K}}{\dim}(E) = n < +\infty$. Montrer que pour toute application linéaire $f \in \mathcal{L}(E, F)$, on a :
+	\[\underset{\mathbb{K}}{\dim}(\ker(f)) + \underset{\mathbb{K}}{\dim}(\mathrm{Im}(f)) = n\]
+\end{tcolorbox}
+
+\begin{rappel}
+	Il faut savoir démontrer que, si $H$ est un supplémentaire de $\ker(f)$ dans $E$, i.e. $E = \ker(f) \oplus H$, alors $H$ est isomorphe à $\mathrm{Im}(f)$, i.e. $H \sim \mathrm{Im}(f)$.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	On considère d'abord $H$ un supplémentaire de $\ker(f)$ dans $E$, c'est-à-dire que $E = \ker(f) \oplus H$. On montre ensuite que la restriction de $f$ à $H$ est injective et que son image est exactement $\mathrm{Im}(f)$. Ainsi, on obtient un isomorphisme entre $H$ et $\mathrm{Im}(f)$, ce qui permet de conclure que $\dim(H) = \dim(\mathrm{Im}(f))$. Enfin, on utilise la formule de la dimension pour obtenir le théorème du rang.
+\end{tcolorbox}
+
+Soit $H$ un supplémentaire de $\ker(f)$ dans $E$, c'est-à-dire que $E = \ker(f) \oplus H$. On considère la restriction de $f$ à $H$, notée $f|_H : H \to F$.
+$$f|_H(x) = f(x) \quad \forall x \in H$$
+Pour tout $x \in H$, on a bien $f|_H(x) \in \mathrm{Im}(f)$, donc $f|_H$ est une application linéaire de $H$ dans $\mathrm{Im}(f)$, i.e. :
+$$f|_H \in \mathcal{L}(H, \mathrm{Im}(f))$$
+Montrons maintenant que son noyau est réduit au vecteur nul. Soit $x \in \ker(f|_H)$, c'est-à-dire que $f|_H(x) = 0_F$ et $x \in H$. Comme $f|_H(x) = f(x)$, on a $f(x) = 0_F$, donc $x \in \ker(f)$. Mais $x \in H$ et $H \cap \ker(f) = \{0_E\}$, donc $x = 0_E$. Ainsi, $\ker(f|_H) = \{0_E\}$, ce qui montre que $f|_H$ est injective.
+
+Montrons maintenant que $f|_H$ est surjective sur $\mathrm{Im}(f)$. On a $E = H \oplus \ker(f)$, donc $f(E) = f(H) + f(\ker(f)) = f(H) + \{0_F\} = f(H)$. Ainsi, $\mathrm{Im}(f) = f(H)$, ce qui montre que $f|_H$ est surjective sur $\mathrm{Im}(f)$.
+
+Ainsi, $f|_H$ est un isomorphisme entre $H$ et $\mathrm{Im}(f)$, ce qui implique que $\dim(H) = \dim(\mathrm{Im}(f))$. Enfin, on utilise la formule de la dimension pour obtenir :
+\[\dim(E) = \dim(\ker(f)) + \dim(H) = \dim(\ker(f)) + \dim(\mathrm{Im}(f))\]
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
+	Montrer que, si $f \in \mathcal L(E)$ est un projecteur, alors $E = \ker(f) \oplus \mathrm{Im}(f)$.
+\end{tcolorbox}
+
+\begin{outline}
+	\1 On montre que l'intersection de $\mathrm{Im}(f)$ et $\ker(f)$ est réduite au vecteur nul.
+	\2 On prend $x \in \mathrm{Im}(f) \cap \ker(f)$, alors $\exists y \in E$ tel que $x = f(y)$, et $f(x) = 0_E$, donc $f(f(y)) = 0_E$, donc $f(y) = 0_E$, donc $x = f(y) = 0_E$.
+	\1 On montre que $E = \mathrm{Im}(f) + \ker(f)$.
+	\2 On remarque directement que $\forall x \in E, f^2(x) = f(x) \implies f(f(x)) = f(x) \implies f(f(x)-x)=0_E \implies f(x)-x \in \ker(f)$. Donc $x = f(x) + (x - f(x))$ avec $f(x) \in \mathrm{Im}(f)$ et $x - f(x) \in \ker(f)$, et par conséquent, $E = \mathrm{Im}(f) + \ker(f)$.
+	\1 Donc $E = \mathrm{Im}(f) \oplus \ker(f)$.
+\end{outline}
+
+\clearpage
 
 \begin{tcolorbox}[instructionstyle]
 	Montrer que tout hyperplan $H$ d'un $\mathbb{K}$-espace vectoriel $E$ est le noyau d'une forme linéaire non nulle $\varphi \in \mathcal{L}(E, \mathbb{K})$.
@@ -853,6 +966,38 @@ D'où $E = H \oplus \mathbb{K} \cdot b$, ce qui montre que $H$ est un hyperplan 
 \clearpage
 
 \begin{tcolorbox}[instructionstyle]
+	Montrer que $\forall f \in \mathcal L(E)$, si $f$ est une involution, alors $E = \ker(f - \mathrm{Id}_E) \oplus \ker(f + \mathrm{Id}_E)$.
+\end{tcolorbox}
+
+\begin{rappel}
+	Une involution est un endomorphisme $f$ tel que $f^2 = \mathrm{Id}_E$. Toute symétrie par rapport à $F$ parallèlement à $G$ où $E = F \oplus G$, c'est-à-dire $\forall x \in F, s(x) = x$ et $\forall y \in G, s(y) = -y$, est une involution. La propriété que nous allons démontrer nous permettra aussi d'établir la réciproque : toute involution est une symétrie par rapport à $\ker(f - \mathrm{Id}_E)$ parallèlement à $\ker(f + \mathrm{Id}_E)$.
+\end{rappel}
+
+\begin{tcolorbox}[methodstyle]
+	En premier, on montre que l'intersection $\ker(f - \mathrm{Id}_E) \cap \ker(f + \mathrm{Id}_E) = \{0_E\}$ en utilisant la définition d'une involution. Ensuite, on procède par analyse-synthèse pour montrer que tout vecteur $x \in E$ peut s'écrire de manière unique comme la somme d'un vecteur de $\ker(f - \mathrm{Id}_E)$ et d'un vecteur de $\ker(f + \mathrm{Id}_E)$. On décomposera le vecteur $x$ sous la forme $x = \frac{1}{2}(x + f(x)) + \frac{1}{2}(x - f(x))$ et on montrera que les deux termes appartiennent respectivement à $\ker(f - \mathrm{Id}_E)$ et $\ker(f + \mathrm{Id}_E)$.
+\end{tcolorbox}
+
+\begin{outline}
+	\1 Montrons que $\ker(f - \mathrm{Id}_E) \cap \ker(f + \mathrm{Id}_E) = \{0_E\}$.
+	\2 Soit $x \in \ker(f - \mathrm{Id}_E) \cap \ker(f + \mathrm{Id}_E)$, alors $f(x) = x$ et $f(x) = -x$, donc $x = 0_E$, et par conséquent, $\ker(f - \mathrm{Id}_E) \cap \ker(f + \mathrm{Id}_E) = \{0_E\}$.
+	\1 Montrons que $E = \ker(f - \mathrm{Id}_E) + \ker(f + \mathrm{Id}_E)$.
+	\2 Soit $x \in E$. On va procéder par analyse-synthèse.
+	\2 \textit{Analyse :}
+	\3 On suppose que $x = x_1 + x_2$ avec $x_1 \in \ker(f - \mathrm{Id}_E)$ et $x_2 \in \ker(f + \mathrm{Id}_E)$.
+	\3 Alors $f(x) = f(x_1) + f(x_2) = x_1 - x_2$.
+	\3 Donc $\begin{cases}x_1 + x_2 = x\\ x_1 - x_2 = f(x)\end{cases}$, et par conséquent, $\begin{cases}x_1 = \frac{x + f(x)}{2}\\ x_2 = \frac{x - f(x)}{2}\end{cases}$.
+	\2 \textit{Synthèse :}
+	\3 On pose $x_1 = \frac{x + f(x)}{2}$ et $x_2 = \frac{x - f(x)}{2}$.
+	\3 Alors $f(x_1) = \frac{f(x) + f^2(x)}{2} = \frac{f(x) + x}{2} = x_1$.
+	\3 Et $f(x_2) = \frac{f(x) - f^2(x)}{2} = \frac{f(x) - x}{2} = -x_2$.
+	\3 Donc $x_1 \in \ker(f - \mathrm{Id}_E)$ et $x_2 \in \ker(f + \mathrm{Id}_E)$.
+	\3 Alors $x = x_1 + x_2$.
+	\1 Donc $E = \ker(f - \mathrm{Id}_E) \oplus \ker(f + \mathrm{Id}_E)$.
+\end{outline}
+
+\clearpage
+
+\begin{tcolorbox}[instructionstyle]
 	\textbf{Lemme des noyaux :} Soit $u \in \mathcal L(E)$. Soient $P$ et $Q$ deux polynômes de $\mathbb K[X]$ premiers entre eux. Montrer que :
 	$$\ker((PQ)(u)) = \ker(P(u)) \oplus \ker(Q(u))$$
 \end{tcolorbox}
@@ -903,7 +1048,7 @@ Pour montrer que $\ker(P(u)) + \ker(Q(u)) = \ker((PQ)(u))$, on procède par doub
 
 \clearpage
 
-\section{Chapitre XIV-C et XIV-D --- Matrices et Déterminants}
+\section{Chapitre XIV-C --- Matrices}
 
 \begin{tcolorbox}[instructionstyle]
 
@@ -987,6 +1132,8 @@ C = (\underbrace{f(e_1), \dots, f(e_r)}_{\text{base de } \text{Im}(f)}, \ \under
 \]
 
 \clearpage
+
+\section{Chapitre XIV-D --- Déterminants}
 
 \begin{tcolorbox}[instructionstyle]
 

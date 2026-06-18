@@ -807,26 +807,52 @@ Le reste des exercices est laissé en tant que preuve des propriétés suivantes
 \end{theorem}
 
 \begin{proof}
-    \begin{outline}
-        \1 En utilisant le théorème de Bézout, on trouve $U,V \in \Kset[X]$ tels que $UP_1 + VP_2 = 1$.
-        \1 On passe au polynôme d'endomorphisme pour trouver $(UP_1)(f) + (VP_2)(f) = \Id_E$.
-        \1 Cela nous donne :
-        $$\begin{cases}
-        U(f)\circ P_1(f) + V(f)\circ P_2(f) = \Id_E\\
-        P_1(f)\circ U(f) + P_2(f)\circ V(f) = \Id_E
-        \end{cases}$$
-        \1 Soit $x \in \Ker(P_1(f)) \cap \Ker(P_2(f))$.
-        \1 Donc $x \in E$ et $\begin{cases} P_1(f)(x) = 0_E\\ P_2(f)(x) = 0_E\end{cases}$.
-        \1 Donc 
-    \end{outline}
+    Puisque $P$ et $Q$ sont premiers entre eux ($\mathrm{pgcd}(P,Q) = 1$), il existe $U,V \in \mathbb K[X]$ tels que $UP + VQ = 1$. En évaluant en $u$, on obtient l'identité d'endomorphismes :
+$$U(u)P(u) + V(u)Q(u) = \mathrm{Id}_E$$
+
+Pour montrer que $\ker(P(u)) + \ker(Q(u)) = \ker((PQ)(u))$, on procède par double inclusion.
+\begin{outline}
+	\1 \textbf{Montrons l'inclusion $\ker(P(u)) + \ker(Q(u)) \subset \ker((PQ)(u))$ :}
+	\2 Soit $x \in \ker(P(u))$ et $y \in \ker(Q(u))$. Alors $P(u)(x) = 0$ et $Q(u)(y) = 0$.
+	\2 Par commutativité des polynômes d'endomorphismes, on a :
+	$$\begin{cases}
+	(PQ)(u)(x) = (Q(u)\circ P(u))(x) = Q(u)(P(u)(x)) = Q(u)(0) = 0 \\
+	(PQ)(u)(y) = (P(u)\circ Q(u))(y) = P(u)(Q(u)(y)) = P(u)(0) = 0
+	\end{cases}$$
+	\2 Cela implique que :
+	$$\ker(P(u)) \subset \ker((PQ)(u)) \quad \text{et} \quad \ker(Q(u)) \subset \ker((PQ)(u))$$
+	\2 Par structure de sous-espace vectoriel, leur somme est également incluse dans le sous-espace de destination :
+	$$\ker(P(u)) + \ker(Q(u)) \subset \ker((PQ)(u))$$
+	\1 \textbf{Montrons l'inclusion $\ker((PQ)(u)) \subset \ker(P(u)) + \ker(Q(u))$ :}
+	\2 Soit $x \in \ker((PQ)(u))$. Alors $(PQ)(u)(x) = 0$.
+	\2 En utilisant l'identité d'endomorphismes, on a :
+	$$x = \mathrm{Id}_E(x) = U(u)P(u)(x) + V(u)Q(u)(x)$$
+	\2 Posons $a = V(u)Q(u)(x)$ et $b = U(u)P(u)(x)$. Alors $x = a + b$.
+	\2 Il reste à montrer que $a \in \ker(P(u))$ et $b \in \ker(Q(u))$.
+	\3 Pour $a$ :
+	$$P(u)(a) = P(u)(V(u)Q(u)(x)) = V(u)P(u)Q(u)(x) = V(u)(PQ)(u)(x) = V(u)(0) = 0$$
+	\3 Pour $b$ :
+	$$Q(u)(b) = Q(u)(U(u)P(u)(x)) = U(u)Q(u)P(u)(x) = U(u)(PQ)(u)(x) = U(u)(0) = 0$$
+	\2 Ainsi, $a \in \ker(P(u))$ et $b \in \ker(Q(u))$, ce qui implique que $x = a + b \in \ker(P(u)) + \ker(Q(u))$.
+	\2 Par conséquent, on a montré que :
+	$$\ker((PQ)(u)) \subset \ker(P(u)) + \ker(Q(u))$$
+	\2 Par double inclusion, on conclut que :
+	$$\ker((PQ)(u)) = \ker(P(u)) + \ker(Q(u))$$
+	\1 Il reste à montrer que la somme est directe, c'est-à-dire que $\ker(P(u)) \cap \ker(Q(u)) = \{0_E\}$.
+	\2 Soit $x \in \ker(P(u)) \cap \ker(Q(u))$. Alors $P(u)(x) = 0$ et $Q(u)(x) = 0$.
+	\2 En utilisant l'identité d'endomorphismes, on a :
+	$$x = U(u)P(u)(x) + V(u)Q(u)(x) = U(u)(0) + V(u)(0) = 0_E$$
+	\2 Ainsi, $\ker(P(u)) \cap \ker(Q(u)) = \{0_E\}$, ce qui montre que la somme est directe.
+	\1 Par conséquent, on a bien :
+	$$\ker((PQ)(u)) = \ker(P(u)) \oplus \ker(Q(u))$$
+\end{outline}
 \end{proof}
-\todo{recop}
 
 \begin{remark}[Généralisation du lemme de la décomposition des noyaux]
     Si $P$ n'est pas forcément annulateur de $f$, alors :
     $$\Ker(P(f)) = \Ker(P_1(f)) \oplus \Ker(P_2(f))$$
 
-    Si $P(f) = 0$, alors :
+    Si $P(f) = 0$, alors on retrouve le lemme de la décomposition des noyaux, et on a :
     $$\Ker(0_{\mathcal L(E)}) = E = \Ker(P_1(f)) \oplus \Ker(P_2(f))$$
 \end{remark}
 
