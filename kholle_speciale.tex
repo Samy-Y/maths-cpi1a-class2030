@@ -712,17 +712,25 @@ I = \{\text{card}(L) \text{ tel que } L \text{ est libre et } L_0 \subset L \sub
 \end{itemize}
 \end{tcolorbox}
 
-Soit $L$ une famille libre de $E$. Puisque $E$ est de dimension finie, il existe une famille génératrice finie $G_E$. La famille $L \cup G_E$ est alors génératrice de $E$ et vérifie trivialement l'inclusion $L \subset (L \cup G_E)$.
+\begin{tcolorbox}[methodstyle]
+	Il suffit simplement de connaître que toute famille libre $L$ de l'espace vectoriel $E$ incluse dans une famille génératrice $G$ peut être complétée en une base $B$ de $E$ telle que $L \subset B \subset G$. On applique alors ce résultat à la famille libre $L$ et à la famille génératrice $L \cup G$ pour le premier point, et à la famille libre $\{g\}$ (avec $g \in G$) et à la famille génératrice $G$ pour le second point.
+\end{tcolorbox}
 
-En appliquant la propriété énoncée et démontrée précédemment à la famille libre $L$ et à la famille génératrice $L \cup G_E$, il existe une base $B$ de $E$ telle que :
-\[ L \subset B \subset (L \cup G_E) \]
-L'inclusion $L \subset B$ montre que la famille libre $L$ a été complétée en une base $B$ de $E$.
-
-Soit $G$ une famille génératrice de $E$. Soit $L_0 = \emptyset$ la famille vide. Par convention algébrique, la famille vide est libre et vérifie l'inclusion initiale $L_0 \subset G$.
-
-En appliquant la propriété fondamentale à la famille libre $L_0$ et à la famille génératrice $G$, il existe une base $B$ de $E$ telle que :
-\[ \emptyset \subset B \subset G \]
-L'inclusion $B \subset G$ montre que la base $B$ est entièrement extraite de la famille génératrice $G$.
+\begin{itemize}
+    \item[\textbf{1)}] Puisque $E$ est de dimension finie, il admet une famille génératrice finie $G$. La famille $L_0 \cup G$ est alors trivialement génératrice de $E$.
+    
+    En appliquant le lemme d'existence d'une base intermédiaire à la famille libre $L_0$ et à la famille génératrice $L_0 \cup G$, il existe une base $B$ de $E$ qui s'intercale entre les deux :
+    \[ L_0 \subset B \subset L_0 \cup G \]
+    L'inclusion de gauche donne directement $L_0 \subset B$, ce qui montre que la famille libre $L_0$ a été complétée en une base de $E$.
+    
+    \item[\textbf{2)}] Par hypothèse, $E \neq \{0_E\}$. La famille génératrice $G$ contient donc nécessairement au moins un vecteur non nul, qu'on note $g$.
+    
+    On pose la famille $L_0 = \{g\}$. Le vecteur $g$ étant non nul, la famille $L_0$ est libre de $E$ et vérifie l'inclusion initiale $L_0 \subset G$.
+    
+    En appliquant le lemme d'existence d'une base intermédiaire à cette famille libre $L_0$ directement incluse dans la famille génératrice $G$, il existe une base $B$ de $E$ telle que :
+    \[ L_0 \subset B \subset G \]
+    L'inclusion de droite donne directement $B \subset G$, ce qui montre que la base $B$ est entièrement extraite de la famille génératrice $G$.
+\end{itemize}
 
 \clearpage
 
@@ -735,7 +743,7 @@ Dans un $\mathbb K$-espace vectoriel $E$ doté des sous-espaces $F_1,\dots,F_n$,
 \end{tcolorbox}
 
 \begin{remarque}
-La définition d'une somme direct de $F_k$ énonce que :
+La définition d'une somme directe de $F_k$ énonce que :
 \[
 \forall (x_1,\dots,x_n) \in \prod_{k=1}^n F_k, \quad \sum_{k=1}^n x_k = 0_E \implies x_k = 0_E, \forall k \in \dots
 \]
@@ -756,6 +764,11 @@ H \text{ est un hyperplan de } E \iff \forall b \in E \setminus H, \ E = H \oplu
 \]
 \end{tcolorbox}
 
+\begin{tcolorbox}[methodstyle]
+	Dans le sens indirect, la démonstration est immédiate par définition d'un hyperplan. Dans le sens direct, on utilise la définition d'un hyperplan pour construire une décomposition directe de $E$ en $H$ et une droite vectorielle engendrée par un vecteur $b \notin H$. On montre ensuite que cette décomposition est unique et que l'intersection est triviale.
+\end{tcolorbox}
+
+On décompose la démonstration selon le sens direct/indirect.
 \begin{itemize}
 \item \textbf{Sens indirect ($\impliedby$) :} - Trivial par définition : un hyperplan est un sous-espace qui admet au moins une droite vectorielle comme supplémentaire. La condition étant vraie pour tout $b \notin H$, l'existence est largement vérifiée.
 \item \textbf{Sens direct ($\implies$) :}
@@ -770,18 +783,14 @@ H \text{ est un hyperplan de } E \iff \forall b \in E \setminus H, \ E = H \oplu
 \begin{itemize}
 \item Tout vecteur $x \in E$ se décompose sous la forme $x = h_2 + \lambda_2 a$. En injectant l'expression de $a$, on obtient :
 \end{itemize}
-\end{itemize}
-\end{itemize}
-
 \[
 x = h_2 + \lambda_2 \lambda_1^{-1}(b - h_1) = \underbrace{(h_2 - \lambda_2 \lambda_1^{-1} h_1)}_{\in H} + \underbrace{(\lambda_2 \lambda_1^{-1})}_{\in \mathbb{K}} b
 \]
-
-\begin{itemize}
 \item \textbf{Tranchage de l'intersection ($H \cap \mathbb{K} \cdot b = \{0_E\}$) :}
 \begin{itemize}
 \item Soit $x \in H \cap \mathbb{K} \cdot b$. Il existe $\lambda \in \mathbb{K}$ tel que $x = \lambda b \in H$.
-\item Comme $b \notin H$ par hypothèse géométrique, la seule possibilité pour que le produit scalaire appartienne à $H$ est que $\lambda = 0$, d'où $x = 0_E$.
+\item Comme $b \notin H$ par hypothèse, la seule possibilité pour que le produit scalaire appartienne à $H$ est que $\lambda = 0$, d'où $x = 0_E$.
+\end{itemize}
 \end{itemize}
 \end{itemize}
 
@@ -843,11 +852,62 @@ D'où $E = H \oplus \mathbb{K} \cdot b$, ce qui montre que $H$ est un hyperplan 
 
 \clearpage
 
+\begin{tcolorbox}[instructionstyle]
+	\textbf{Lemme des noyaux :} Soit $u \in \mathcal L(E)$. Soient $P$ et $Q$ deux polynômes de $\mathbb K[X]$ premiers entre eux. Montrer que :
+	$$\ker((PQ)(u)) = \ker(P(u)) \oplus \ker(Q(u))$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+	On utilise le théorème de Bézout pour écrire $UP + VQ = 1$ pour certains polynômes $U, V \in \mathbb K[X]$. On obtient donc une identité d'endomorphismes $U(u)P(u) + V(u)Q(u) = \mathrm{Id}_E$. Cette identité est ensuite utilisée pour démontrer que $\ker(P(u)) + \ker(Q(u)) = \ker((PQ)(u))$ en utilisant une double-inclusion. Enfin, on montre que l'intersection $\ker(P(u)) \cap \ker(Q(u)) = \{0_E\}$ en évaluant l'identité précédente sur $x \in \ker(P(u)) \cap \ker(Q(u))$, et donc que la somme est directe, ce qui nous permet de conclure.
+\end{tcolorbox}
+
+Puisque $P$ et $Q$ sont premiers entre eux ($\mathrm{pgcd}(P,Q) = 1$), il existe $U,V \in \mathbb K[X]$ tels que $UP + VQ = 1$. En évaluant en $u$, on obtient l'identité d'endomorphismes :
+$$U(u)P(u) + V(u)Q(u) = \mathrm{Id}_E$$
+
+Pour montrer que $\ker(P(u)) + \ker(Q(u)) = \ker((PQ)(u))$, on procède par double inclusion.
+\begin{outline}
+	\1 \textbf{Montrons l'inclusion $\ker(P(u)) + \ker(Q(u)) \subset \ker((PQ)(u))$ :}
+	\2 Soit $x \in \ker(P(u))$ et $y \in \ker(Q(u))$. Alors $P(u)(x) = 0$ et $Q(u)(y) = 0$.
+	\2 Par commutativité des polynômes d'endomorphismes, on a :
+	$$\begin{cases}
+	(PQ)(u)(x) = (Q(u)\circ P(u))(x) = Q(u)(P(u)(x)) = Q(u)(0) = 0 \\
+	(PQ)(u)(y) = (P(u)\circ Q(u))(y) = P(u)(Q(u)(y)) = P(u)(0) = 0
+	\end{cases}$$
+	\2 Cela implique que :
+	$$\ker(P(u)) \subset \ker((PQ)(u)) \quad \text{et} \quad \ker(Q(u)) \subset \ker((PQ)(u))$$
+	\2 Par structure de sous-espace vectoriel, leur somme est également incluse dans le sous-espace de destination :
+	$$\ker(P(u)) + \ker(Q(u)) \subset \ker((PQ)(u))$$
+	\1 \textbf{Montrons l'inclusion $\ker((PQ)(u)) \subset \ker(P(u)) + \ker(Q(u))$ :}
+	\2 Soit $x \in \ker((PQ)(u))$. Alors $(PQ)(u)(x) = 0$.
+	\2 En utilisant l'identité d'endomorphismes, on a :
+	$$x = \mathrm{Id}_E(x) = U(u)P(u)(x) + V(u)Q(u)(x)$$
+	\2 Posons $a = V(u)Q(u)(x)$ et $b = U(u)P(u)(x)$. Alors $x = a + b$.
+	\2 Il reste à montrer que $a \in \ker(P(u))$ et $b \in \ker(Q(u))$.
+	\3 Pour $a$ :
+	$$P(u)(a) = P(u)(V(u)Q(u)(x)) = V(u)P(u)Q(u)(x) = V(u)(PQ)(u)(x) = V(u)(0) = 0$$
+	\3 Pour $b$ :
+	$$Q(u)(b) = Q(u)(U(u)P(u)(x)) = U(u)Q(u)P(u)(x) = U(u)(PQ)(u)(x) = U(u)(0) = 0$$
+	\2 Ainsi, $a \in \ker(P(u))$ et $b \in \ker(Q(u))$, ce qui implique que $x = a + b \in \ker(P(u)) + \ker(Q(u))$.
+	\2 Par conséquent, on a montré que :
+	$$\ker((PQ)(u)) \subset \ker(P(u)) + \ker(Q(u))$$
+	\2 Par double inclusion, on conclut que :
+	$$\ker((PQ)(u)) = \ker(P(u)) + \ker(Q(u))$$
+	\1 Il reste à montrer que la somme est directe, c'est-à-dire que $\ker(P(u)) \cap \ker(Q(u)) = \{0_E\}$.
+	\2 Soit $x \in \ker(P(u)) \cap \ker(Q(u))$. Alors $P(u)(x) = 0$ et $Q(u)(x) = 0$.
+	\2 En utilisant l'identité d'endomorphismes, on a :
+	$$x = U(u)P(u)(x) + V(u)Q(u)(x) = U(u)(0) + V(u)(0) = 0_E$$
+	\2 Ainsi, $\ker(P(u)) \cap \ker(Q(u)) = \{0_E\}$, ce qui montre que la somme est directe.
+	\1 Par conséquent, on a bien :
+	$$\ker((PQ)(u)) = \ker(P(u)) \oplus \ker(Q(u))$$
+\end{outline}
+
+\clearpage
+
 \section{Chapitre XIV-C et XIV-D --- Matrices et Déterminants}
 
 \begin{tcolorbox}[instructionstyle]
 
-Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$
+Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$ :
 \[
 A_1 \sim A_2 \iff \exists f \in \mathcal L(E), \exists B_1,B_2 \text{ bases de } E, A_2 = [f]_{B_2} \text{ et } A_1 = [f]_{B_1}
 \]
@@ -1007,6 +1067,13 @@ A \times \,^t\mathrm{Com}(A) = \det(A) \cdot I_n
 \begin{tcolorbox}[instructionstyle]
 Montrer que \( \varepsilon : \begin{matrix} (S_n,\circ) \to (\{-1, 1\},\times) \\ \sigma \mapsto \varepsilon(\sigma) \end{matrix} \) est un morphisme de groupes.
 \end{tcolorbox}
+
+\begin{rappel}
+	Un morphisme de groupe est une application $f : (G, \cdot) \to (H, *)$ entre deux groupes $(G, \cdot)$ et $(H, *)$ telle que pour tous $x, y \in G$, on a :
+	\[
+	f(x \cdot y) = f(x) * f(y)
+	\]
+\end{rappel}
 
 \begin{remarque}
     Il a été déjà démontré en amont que $\varepsilon$ est bien définie (carré de la définition).
