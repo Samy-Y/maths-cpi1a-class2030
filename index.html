@@ -1,316 +1,57 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MATHS CPI1A - Cours PDF</title>
+    <meta name="description"
+        content="Cours de Mathématiques CPI1A — Promo 2030 EMINES. Fiches PDF, résumés et code source LaTeX par chapitre.">
+    <title>MATHS CPI1A — Cours PDF · Promo 2030</title>
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Samy-Y/maths-cpi1a-class2030/main/favicon.ico">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Source Sans 3', Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            margin-top:10px;
-            margin-bottom:10px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        /* Styles pour la section commits (InfoContainer) modifiés pour l'élégance en haut de page */
-        .infoContainer {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 30px; /* Espace avant les chapitres */
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Légère ombre pour détacher du fond */
-            border-left: 5px solid #0066cc; /* Touche de couleur pour le design */
-        }
-        
-        .infoContainer h2 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #0066cc;
-        }
-
-        /* Nouveaux styles pour la barre de contrôle (tri) */
-        .controls {
-            display: flex;
-            justify-content: flex-end; /* Aligner le bouton à droite */
-            margin-bottom: 15px;
-            align-items: center;
-        }
-
-        .chapters {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .chapter {
-            background-color: white;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            border-radius: 4px; /* Coins légèrement arrondis */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        
-        .chapter:hover {
-            transform: translateY(-2px); /* Petit effet au survol */
-        }
-
-        .chapter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .quality-badge {
-            font-weight: bold;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 13px;
-            display: inline-block;
-            flex-shrink: 0;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            border: none;
-            cursor: help;
-            position: relative;
-        }
-
-        /* Infobulle personnalisée au survol */
-        .quality-badge[title]:hover::before {
-            content: attr(title);
-            position: absolute;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: normal;
-            white-space: nowrap;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            pointer-events: none;
-        }
-
-        /* Flèche pointant vers le badge */
-        .quality-badge[title]:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: #333;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        /* Modifiez la classe dans le HTML : badge-A, badge-B ou badge-C */
-        .badge-A { background-color: #28a745; } /* Vert : Complet/Bon */
-        .badge-B { background-color: #fd7e14; } /* Orange : Moyen/A relire */
-        .badge-C { background-color: #dc3545; } /* Rouge : Incomplet */
-        .badge-WIP { background-color: #6c757d; } /* Gris : En cours de travail */
-
-        .chapter-name {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .chapter-buttons {
-            display: flex;
-            gap: 8px;
-            align-items: stretch;
-        }
-
-        .btn-primary {
-            flex: 1;
-            padding: 10px 15px;
-            background-color: #0066cc;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            text-align: center;
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .btn-primary:hover {
-            background-color: #0052a3;
-        }
-
-        .btn-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            flex-shrink: 0;
-            transition: background 0.2s;
-        }
-
-        .btn-summary {
-            background-color: #d9610c;
-            color: white;
-            opacity: 0.75;
-        }
-
-        /* disabled btn-summary properties */
-
-        .btn-summary:disabled {
-            background-color: #b0b0b0;
-            color: white;
-            cursor: not-allowed;
-            opacity: 0.75;
-        }
-
-        .btn-source {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .btn-source:hover {
-            background-color: #5a6268;
-        }
-
-        button {
-            padding: 8px 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Source Sans 3', Arial, sans-serif;
-            font-size: 14px;
-            margin-right: 5px;
-            background-color: #fff;
-            color: #333;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* Style spécifique pour le bouton de tri */
-        #sort-btn {
-            background-color: #333;
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        #sort-btn:hover {
-            background-color: #555;
-        }
-
-        /* Pour le conteneur des commits */
-        #commits-container p {
-            font-size: 0.95rem;
-        }
-
-        .chapter.special-kholle {
-            background-color: #fff59d;
-            border: 3px solid #111;
-            box-shadow: 5px 5px 0px #111;
-            transform: rotate(-1deg);
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            font-family: 'Finger Paint', 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
-        }
-
-        .chapter.special-kholle:hover {
-            transform: translate(-2px, -2px) rotate(1deg);
-            box-shadow: 8px 8px 0px #111;
-        }
-
-        .chapter.special-kholle .chapter-name {
-            font-weight: 900;
-            text-transform: uppercase;
-            color: #c62828;
-            font-style: italic;
-        }
-
-        /* Style cartoony et asymétrique pour le badge WIP */
-        .chapter.special-kholle .quality-badge.badge-WIP {
-            background-color: #e040fb;
-            color: white;
-            border: 2px solid #111;
-            border-radius: 0px;
-            transform: rotate(6deg) translateY(-2px);
-            box-shadow: 2px 2px 0px #111;
-            font-weight: 900;
-        }
-
-        .chapter.special-kholle .btn-primary {
-            background-color: #ff1744;
-            border: 2px solid #111;
-            box-shadow: 2px 2px 0px #111;
-            border-radius: 2px;
-            font-family: 'Finger Paint', 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
-        }
-
-        .chapter.special-kholle .btn-primary:hover {
-            background-color: #ff5252;
-            box-shadow: 3px 3px 0px #111;
-        }
-    </style>
+    <link rel="icon" type="image/png"
+        href="https://raw.githubusercontent.com/Samy-Y/maths-cpi1a-class2030/main/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
 </head>
+<!-- i vibe coded ts so hard lol -->
+
 <body>
     <div class="container">
-        <h1>MATHS CPI1A - Cours PDF</h1>
-        
-        <!-- SECTION COMMITS DÉPLACÉE ICI -->
-        <div class="infoContainer">
-            <h2>Dernières modifications (GitHub)</h2>
-            <div id="commits-container">
-                <p>Chargement...</p>
-            </div>
-            <div style="margin-top: 15px;">
-                <button id="load-more-btn" onclick="fetchLastCommits(false)">Charger plus</button>
-                <button onclick="fetchLastCommits(true)">Rafraîchir</button>
-                <button onclick="window.open('https://github.com/Samy-Y/maths-cpi1a-class2030', '_blank')">Voir sur GitHub</button>
-            </div>
-        </div>
+        <h1>MATHS CPI1A &mdash; Cours PDF</h1>
+        <p class="page-subtitle">Promo 2030 &mdash; EMINES | <span id="chapter-count"></span></p>
+
+        <aside class="site-info">
+            <p>
+                <strong>Ces notes sont des transcriptions LaTeX</strong> quasi-complètes des cours de mathématiques de
+                la CPI-1A de l'UM6P-EMINES (promo 2030). Elles restituent fidèlement le contenu du tableau, avec les
+                précisions orales du professeur.
+            </p>
+            <p class="site-info-legend">
+                Chaque cours est noté selon sa qualité de transcription&nbsp;:
+                <span class="quality-badge badge-A inline-badge">A</span>&thinsp;complet (ou quasi-complet) &amp; relu
+                &middot;
+                <span class="quality-badge badge-B inline-badge">B</span>&thinsp;incomplet ou non relu &middot;
+                <span class="quality-badge badge-C inline-badge">C</span>&thinsp;premier jet — à utiliser avec prudence.
+            </p>
+            <p>
+                Si vous repérez des erreurs et des preuves manquantes, ou que vous voulez ajouter vos propres
+                transcriptions,
+                les contributions des prochaines promotions sont les bienvenues via&nbsp;<a
+                    href="https://github.com/Samy-Y/maths-cpi1a-class2030" target="_blank" rel="noopener">Pull Request
+                    sur GitHub&nbsp;↗</a>. Vous pouvez aussi forker ce répertoire et y travailler individuellement.
+            </p>
+        </aside>
+
 
         <!-- ZONE DE CONTRÔLES POUR LE TRI -->
         <div class="controls">
             <button id="sort-btn" onclick="toggleSortOrder()">
-                <span>⇅</span> Trier : Plus récents d'abord
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <polyline points="5 12 12 19 19 12" />
+                </svg>
+                <span id="sort-label">Plus récents d'abord</span>
             </button>
         </div>
 
@@ -318,241 +59,457 @@
             <!-- Les chapitres -->
             <div class="chapter" data-id="1">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
-                
-                <span class="quality-badge badge-C" title="Qualité C : Cours incomplet, premier jet">C</span>
-            </div>
+                    <span class="chapter-name">Chapitre 1 : Calcul algébrique</span>
+
+                    <span class="quality-badge badge-C" title="Qualité C : Cours incomplet, premier jet">C</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./250910 CH01.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./250910 CH01.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="2">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 2 : Nombres complexes</span>
-                
-                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
-            </div>
+                    <span class="chapter-name">Chapitre 2 : Nombres complexes</span>
+
+                    <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./250924 CH02.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./250924 CH02.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="3">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 3 : Nombres réels</span>
-                
-                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
-            </div>
+                    <span class="chapter-name">Chapitre 3 : Nombres réels</span>
+
+                    <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading">B</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251001 CH03.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251001 CH03.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="4">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 4 : Suites numériques</span>
-                
-                <span class="quality-badge badge-B" title="Qualité B : Cours sans proof-reading, mise en page expérimentale">B</span>
-            </div>
+                    <span class="chapter-name">Chapitre 4 : Suites numériques</span>
+
+                    <span class="quality-badge badge-B"
+                        title="Qualité B : Cours sans proof-reading, mise en page expérimentale">B</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251009 CH04.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251009 CH04.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="5">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 5 : Équations différentielles</span>
-                
-                <span class="quality-badge badge-B" title="Qualité B : Cours incomplet, mise en page expérimentale">B</span>
-            </div>
+                    <span class="chapter-name">Chapitre 5 : Équations différentielles</span>
+
+                    <span class="quality-badge badge-B"
+                        title="Qualité B : Cours incomplet, mise en page expérimentale">B</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251022 CH05.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251022 CH05.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="6">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 6 : Limites et continuité</span>
-                
-                <span class="quality-badge badge-C" title="Qualité C : Cours très incomplet, danger">!</span>
-            </div>
+                    <span class="chapter-name">Chapitre 6 : Limites et continuité</span>
+
+                    <span class="quality-badge badge-C" title="Qualité C : Cours très incomplet, danger">!</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251113 CH06.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251113 CH06.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="7">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 7 : Dérivation</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours complet">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 7 : Dérivation</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours complet">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251128 CH07.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251128 CH07.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="8">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 8 : Intégration</span>
-                
-                <span class="quality-badge badge-B" title="Qualité B : Cours incomplet">B</span>
-            </div>
+                    <span class="chapter-name">Chapitre 8 : Intégration</span>
+
+                    <span class="quality-badge badge-B" title="Qualité B : Cours incomplet">B</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251212 CH08.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251212 CH08.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="9">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 9 : Analyse asymptotique</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet, corrigé">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 9 : Analyse asymptotique</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet, corrigé">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./251219 CH09.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./251219 CH09.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="10">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 10 : Structures algébriques</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 10 : Structures algébriques</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./260109 CH10.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260109 CH10.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="11">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 11 : Arithmétiques</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 11 : Arithmétiques</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./260128 CH11.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260128 CH11.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="12">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 12 : Polynômes</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 12 : Polynômes</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./260206 CH12.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <a href="./ch12_fiche.pdf"><button class="btn-icon btn-summary" title="Résumé ALPHA">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
-                    </button></a>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                                <line x1="8" y1="18" x2="12" y2="18" />
+                                <polyline points="3 6 4 7 6 5" />
+                                <polyline points="3 12 4 13 6 11" />
+                                <polyline points="3 18 4 19 6 17" />
+                            </svg>
+                        </button></a>
                     <a href="./260206 CH12.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="13">
                 <div class="chapter-header">
-                <span class="chapter-name">Chapitre 13 : Fractions rationnelles</span>
-                
-                <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
-            </div>
+                    <span class="chapter-name">Chapitre 13 : Fractions rationnelles</span>
+
+                    <span class="quality-badge badge-A" title="Qualité A : Cours quasi-complet et corrigé">A</span>
+                </div>
                 <div class="chapter-buttons">
                     <a href="./260220 CH13.pdf" class="btn-primary" target="_blank">Voir cours</a>
-                    <a href="./ch13_fiche.html"><button class="btn-icon btn-summary" title="Fiche de révision BETA (web)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
-                    </button></a>
+                    <a href="./ch13_fiche.html"><button class="btn-icon btn-summary"
+                            title="Fiche de révision BETA (web)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                                <line x1="8" y1="18" x2="12" y2="18" />
+                                <polyline points="3 6 4 7 6 5" />
+                                <polyline points="3 12 4 13 6 11" />
+                                <polyline points="3 18 4 19 6 17" />
+                            </svg>
+                        </button></a>
                     <a href="./260220 CH13.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="14">
                 <div class="chapter-header">
                     <span class="chapter-name">Chapitre 14-A : Algèbre Linéaire</span>
-                    
+
                     <span class="quality-badge badge-A" title="Qualité A : Cours complet et corrigé">A</span>
                 </div>
                 <div class="chapter-buttons">
                     <a href="./260304 CH14.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260304 CH14.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="15">
                 <div class="chapter-header">
                     <span class="chapter-name">Chapitre 14-B : Applications Linéaires</span>
-                    
-                    <span class="quality-badge badge-B" title="Qualité B : Preuves manquantes/incomplètes, pas de proofreading">B</span>
+
+                    <span class="quality-badge badge-B"
+                        title="Qualité B : Preuves manquantes/incomplètes, pas de proofreading">B</span>
                 </div>
                 <div class="chapter-buttons">
                     <a href="./260410 CH14-B.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260410 CH14-B.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -564,150 +521,185 @@
                 <div class="chapter-buttons">
                     <a href="./260422 CH14-C.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260422 CH14-C.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
             <div class="chapter" data-id="17">
                 <div class="chapter-header">
                     <span class="chapter-name">Chapitre 14-D : Déterminants</span>
-                    <span class="quality-badge badge-WIP" title="Qualité WIP : En cours de transcription">WIP</span>
+                    <span class="quality-badge badge-A" title="Qualité A : Relu et corrigé">A</span>
                 </div>
                 <div class="chapter-buttons">
                     <a href="./260520 CH14-D.pdf" class="btn-primary" target="_blank">Voir cours</a>
                     <button class="btn-icon btn-summary" disabled title="Résumé non disponible">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="12" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="8" y1="18" x2="12" y2="18" />
+                            <polyline points="3 6 4 7 6 5" />
+                            <polyline points="3 12 4 13 6 11" />
+                            <polyline points="3 18 4 19 6 17" />
+                        </svg>
                     </button>
                     <a href="./260520 CH14-D.tex" class="btn-icon btn-source" target="_blank" title="Code source">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <polyline points="10 13 8 15 10 17" />
+                            <polyline points="14 13 16 15 14 17" />
+                        </svg>
                     </a>
                 </div>
             </div>
-            <div class="chapter special-kholle" data-id="999">
+            <!-- <div class="chapter special-kholle" data-id="999">
                 <div class="chapter-header">
                     <span class="chapter-name">⚠️ Document Spécial : "Khôlle Spéciale" !</span>
-                    <span class="quality-badge badge-WIP" title="Qualité WIP : (Ne sera jamais terminé)">WIP</span>
+                    <span class="quality-badge badge-B" title="Qualité B : Pas ouf quoi">B</span>
                 </div>
                 <div class="chapter-buttons">
                     <a href="./kholle_speciale.pdf" class="btn-primary" target="_blank">Voir le document</a>
                 </div>
-            </div>
-    </div>
+            </div> -->
+        </div>
 
 </body>
-    <script>
-        const GITHUB_USER = 'Samy-Y'; 
-        const GITHUB_REPO = 'maths-cpi1a-class2030';
-        let currentPage = 1; 
-        const PER_PAGE = 3; 
-        
-        // --- LOGIQUE DU TRI ---
-        let isAscending = false; // Ordre par défaut (1 vers 10)
+<script>
+    const GITHUB_USER = 'Samy-Y';
+    const GITHUB_REPO = 'maths-cpi1a-class2030';
+    let currentPage = 1;
+    const PER_PAGE = 3;
 
-        // make sure the list is sorted by most recent initially
+    // --- LOGIQUE DU TRI ---
+    let isAscending = false; // Plus récents d'abord par défaut
 
+    // Tri initial : plus récents en premier
+    const grid = document.getElementById('chapters-grid');
+    const chapters = Array.from(grid.children);
+    chapters.sort((a, b) => parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id')));
+    chapters.forEach(chapter => grid.appendChild(chapter));
+
+    // Compteur de chapitres
+    const chapterCount = document.getElementById('chapter-count');
+    if (chapterCount) {
+        const n = grid.children.length;
+        chapterCount.textContent = n + ' chapitre' + (n > 1 ? 's' : '');
+    }
+
+    function toggleSortOrder() {
         const grid = document.getElementById('chapters-grid');
         const chapters = Array.from(grid.children);
-        chapters.sort((a, b) => parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id')));
-        chapters.forEach(chapter => grid.appendChild(chapter));
+        const sortLabel = document.getElementById('sort-label');
 
-        function toggleSortOrder() {
-            const grid = document.getElementById('chapters-grid');
-            const chapters = Array.from(grid.children);
-            const sortBtn = document.getElementById('sort-btn');
+        // On inverse simplement la liste actuelle des enfants
+        chapters.reverse().forEach(chapter => grid.appendChild(chapter));
 
-            // On inverse simplement la liste actuelle des enfants
-            chapters.reverse().forEach(chapter => grid.appendChild(chapter));
+        isAscending = !isAscending;
 
-            isAscending = !isAscending;
+        // Mise à jour du label
+        if (isAscending) {
+            sortLabel.textContent = "Plus récents d'abord";
+        } else {
+            sortLabel.textContent = "Plus anciens d'abord";
+        }
+    }
 
-            // Mise à jour du texte du bouton
-            if (isAscending) {
-                sortBtn.innerHTML = '<span>⇅</span> Trier : Plus récents d\'abord';
-            } else {
-                sortBtn.innerHTML = '<span>⇅</span> Trier : Plus anciens d\'abord';
-            }
+
+    // ----------------------
+
+    async function fetchLastCommits(reset = true) {
+        const container = document.getElementById('commits-container');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+
+        if (reset) {
+            currentPage = 1;
+            container.innerHTML = '<p>Chargement des commits...</p>';
+            loadMoreBtn.style.display = 'inline-block';
+        } else {
+            loadMoreBtn.textContent = 'Chargement...';
+            loadMoreBtn.disabled = true;
         }
 
+        const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=${PER_PAGE}&page=${currentPage}`;
 
-        // ----------------------
-
-        async function fetchLastCommits(reset = true) {
-            const container = document.getElementById('commits-container');
-            const loadMoreBtn = document.getElementById('load-more-btn');
-
-            if (reset) {
-                currentPage = 1;
-                container.innerHTML = '<p>Chargement des commits...</p>';
-                loadMoreBtn.style.display = 'inline-block';
-            } else {
-                loadMoreBtn.textContent = 'Chargement...';
-                loadMoreBtn.disabled = true;
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
             }
 
-            const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/commits?per_page=${PER_PAGE}&page=${currentPage}`;
+            const commits = await response.json();
 
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
-                }
-                
-                const commits = await response.json();
-                
-                if (reset) {
-                    container.innerHTML = '';
-                }
+            if (reset) {
+                container.innerHTML = '';
+            }
 
-                if (commits && commits.length > 0) {
-                    commits.forEach((item, index) => {
-                        const commitData = item.commit;
-                        const date = new Date(commitData.author.date).toLocaleDateString('fr-FR', { 
-                            day: 'numeric', month: 'long', hour: '2-digit', minute:'2-digit'
-                        });
-                        const message = commitData.message;
-                        
-                        const commitElement = document.createElement('div');
-                        // Style inline pour les éléments de commit
-                        commitElement.style.borderLeft = '3px solid #ddd'; 
-                        commitElement.style.paddingLeft = '10px';
-                        commitElement.style.marginBottom = '12px';
-                        
-                        commitElement.innerHTML = `
+            if (commits && commits.length > 0) {
+                commits.forEach((item, index) => {
+                    const commitData = item.commit;
+                    const date = new Date(commitData.author.date).toLocaleDateString('fr-FR', {
+                        day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit'
+                    });
+                    const message = commitData.message;
+
+                    const commitElement = document.createElement('div');
+                    // Style inline pour les éléments de commit
+                    commitElement.style.borderLeft = '3px solid #ddd';
+                    commitElement.style.paddingLeft = '10px';
+                    commitElement.style.marginBottom = '12px';
+
+                    commitElement.innerHTML = `
                             <p style="margin-bottom: 2px; color: #333;"><strong>${message}</strong></p>
                             <p style="color: #888; font-size: 0.85em; margin: 0;">${date}</p>
                         `;
-                        container.appendChild(commitElement);
-                    });
-                    
-                    currentPage++; 
+                    container.appendChild(commitElement);
+                });
+
+                currentPage++;
+            } else {
+                if (reset) {
+                    container.textContent = 'Aucun commit trouvé.';
                 } else {
-                    if(reset) {
-                        container.textContent = 'Aucun commit trouvé.';
-                    } else {
-                        loadMoreBtn.style.display = 'none';
-                        const endMsg = document.createElement('p');
-                        endMsg.textContent = "Aucun autre commit ancien.";
-                        endMsg.style.fontStyle = "italic";
-                        endMsg.style.color = "#888";
-                        endMsg.style.fontSize = "0.9em";
-                        container.appendChild(endMsg);
-                    }
+                    loadMoreBtn.style.display = 'none';
+                    const endMsg = document.createElement('p');
+                    endMsg.textContent = "Aucun autre commit ancien.";
+                    endMsg.style.fontStyle = "italic";
+                    endMsg.style.color = "#888";
+                    endMsg.style.fontSize = "0.9em";
+                    container.appendChild(endMsg);
                 }
-
-            } catch (error) {
-                console.error("Error fetching commit data:", error);
-                if (reset) container.textContent = 'Impossible de charger l\'historique GitHub.';
-            } finally {
-                loadMoreBtn.textContent = 'Charger plus';
-                loadMoreBtn.disabled = false;
             }
-        }
 
-        // Appel initial avec reset = true
-        fetchLastCommits(true);
-    </script>
+        } catch (error) {
+            console.error("Error fetching commit data:", error);
+            if (reset) container.textContent = 'Impossible de charger l\'historique GitHub.';
+        } finally {
+            loadMoreBtn.textContent = 'Charger plus';
+            loadMoreBtn.disabled = false;
+        }
+    }
+
+    // Appel initial avec reset = true
+    fetchLastCommits(true);
+</script>
+
 </html>

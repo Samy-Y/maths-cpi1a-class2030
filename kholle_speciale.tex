@@ -1161,14 +1161,85 @@ $$\mathrm{Mat}(g \circ f, B, D) = \mathrm{Mat}(g, C, D) \times \mathrm{Mat}(f, B
 \clearpage
 
 \begin{tcolorbox}[instructionstyle]
-	Montrer que $\forall A_1, A_2 \in \mathcal M_n(\mathbb K)$ :
+	Montrer que $\forall A_1, A_2 \in \mathcal M_{n,p}(\mathbb K)$ :
 	
-	\begin{align*}
-		A_1 \text{ éq } A_2 \iff \exists f \in \mathcal L(E,F), \exists B_1,B_2 \text{ bases de } E, \exists C_1,C_2 \text{ bases de } F
+	\begin{gather*}
+		A_1 \text{ éq } A_2 \iff \exists f \in \mathcal L(E,F), \exists B_1,B_2 \text{ bases de } E, \exists C_1,C_2 \text{ bases de } F \text{ telles que }
 		\\
 		A_2 = \mathrm{Mat}(f,B_2,C_2) \text{ et } A_1 = \mathrm{Mat}(f,B_1,C_1)
-	\end{align*}
+	\end{gather*}
 \end{tcolorbox}
+
+\begin{tcolorbox}[methodstyle]
+    On procède par double implication. Dans le sens indirect, on part de l'existence d'une même application linéaire $f$ exprimée dans deux couples de bases distincts. L'application de la formule de changement de base génère immédiatement la relation algébrique $A_2 = P_{C_2}^{C_1} A_1 P_{B_1}^{B_2}$. L'inversibilité intrinsèque des matrices de passage valide l'équivalence des matrices. Dans le sens direct, on part de la relation $A_2 = P A_1 Q$ avec $P$ et $Q$ inversibles. On introduit l'application linéaire $f$ canoniquement associée à $A_1$ dans les bases canoniques. L'inversibilité de $Q$ implique que ses colonnes forment la nouvelle base de départ $B_2$. L'inversibilité de $P^{-1}$ implique que ses colonnes forment la nouvelle base d'arrivée $C_2$, ce qui permet d'identifier $P$ à la matrice de passage $P_{C_2}^{C_1}$.
+\end{tcolorbox}
+
+On procède par double implication.
+
+\paragraph{Sens indirect ($\Leftarrow$) : }
+Supposons qu'il existe un couple d'espaces vectoriels $(E,F)$ de dimensions respectives $p$ et $n$, une application linéaire $f \in \mathcal{L}(E,F)$, ainsi que deux bases $B_1, B_2$ de $E$ et deux bases $C_1, C_2$ de $F$ telles que $A_1 = \mathrm{Mat}(f, B_1, C_1)$ et $A_2 = \mathrm{Mat}(f, B_2, C_2)$.
+
+D'après la formule générale du changement de base pour une application linéaire, on a la relation :
+\[
+\mathrm{Mat}(f, B_2, C_2) = P_{C_2}^{C_1} \cdot \mathrm{Mat}(f, B_1, C_1) \cdot P_{B_1}^{B_2}
+\]
+Ce qui se réécrit avec les matrices données :
+\[
+A_2 = P_{C_2}^{C_1} \cdot A_1 \cdot P_{B_1}^{B_2}
+\]
+Puisque $P_{C_2}^{C_1} \in GL_n(\mathbb{K})$ et $P_{B_1}^{B_2} \in GL_p(\mathbb{K})$ sont des matrices inversibles (en tant que matrices de passage), il existe bien un couple de matrices inversibles $(P, Q)$ tel que $A_2 = P A_1 Q$. Par définition, $A_1$ et $A_2$ sont équivalentes ($A_1 \text{ éq } A_2$).
+
+\paragraph{Sens direct ($\Rightarrow$) : }
+Supposons que $A_1 \text{ éq } A_2$. Par définition de l'équivalence de matrices, il existe deux matrices inversibles $P \in GL_n(\mathbb{K})$ et $Q \in GL_p(\mathbb{K})$ telles que :
+\[
+A_2 = P \cdot A_1 \cdot Q
+\]
+Posons $E = \mathbb{K}^p$ et $F = \mathbb{K}^n$. On note $\mathcal{B}_{c_1}$ la base canonique de $\mathbb{K}^p$ et $\mathcal{B}_{c_2}$ la base canonique de $\mathbb{K}^n$.
+
+Soit $f \in \mathcal{L}(\mathbb{K}^p, \mathbb{K}^n)$ l'application linéaire canoniquement associée à la matrice $A_1$. Par construction, on a :
+\[
+A_1 = \mathrm{Mat}(f, \mathcal{B}_{c_1}, \mathcal{B}_{c_2})
+\]
+L'objectif est de construire deux nouvelles bases, $\mathcal{B}$ pour $\mathbb{K}^p$ et $\mathcal{D}$ pour $\mathbb{K}^n$, de sorte que les matrices de passage associées s'identifient à $Q$ et $P$. La formule du changement de base impose l'identification suivante :
+\[
+Q = P_{\mathcal{B}_{c_1}}^{\mathcal{B}} \quad \text{et} \quad P = P_{\mathcal{D}}^{\mathcal{B}_{c_2}}
+\]
+
+\begin{enumerate}
+    \item \textbf{Construction de la base de départ $\mathcal{B}$ :}
+    Soient $C_1, \dots, C_p$ les vecteurs colonnes de la matrice $Q$. Comme $Q \in GL_p(\mathbb{K})$, ses colonnes forment une famille libre. Cette famille libre comporte $p$ vecteurs dans un espace de dimension $p$, elle constitue donc une base de $\mathbb{K}^p$, notée $\mathcal{B} = (C_1, \dots, C_p)$.
+    
+    Par définition, la matrice de passage de la base canonique $\mathcal{B}_{c_1}$ à la base $\mathcal{B}$ s'obtient en écrivant les vecteurs de $\mathcal{B}$ dans $\mathcal{B}_{c_1}$. On a donc immédiatement :
+    \[
+    Q = \mathrm{Mat}_{\mathcal{B}_{c_1}}(\mathcal{B}) = P_{\mathcal{B}_{c_1}}^{\mathcal{B}}
+    \]
+
+    \item \textbf{Construction de la base d'arrivée $\mathcal{D}$ :}
+    L'identification exige $P = P_{\mathcal{D}}^{\mathcal{B}_{c_2}}$. Par propriété d'inversion des matrices de passage, cela équivaut à chercher $\mathcal{D}$ telle que :
+    \[
+    P^{-1} = P_{\mathcal{B}_{c_2}}^{\mathcal{D}}
+    \]
+    La matrice $P$ étant inversible, sa matrice inverse $P^{-1}$ appartient également à $GL_n(\mathbb{K})$. Soient $C'_1, \dots, C'_n$ les vecteurs colonnes de $P^{-1}$. Cette famille est libre et comporte $n$ vecteurs en dimension $n$ ; elle forme donc une base de $\mathbb{K}^n$, notée $\mathcal{D} = (C'_1, \dots, C'_n)$.
+    
+    Par définition, la matrice de passage de la base canonique $\mathcal{B}_{c_2}$ à la base $\mathcal{D}$ est constituée des colonnes de $P^{-1}$ :
+    \[
+    P^{-1} = \mathrm{Mat}_{\mathcal{B}_{c_2}}(\mathcal{D}) = P_{\mathcal{B}_{c_2}}^{\mathcal{D}}
+    \]
+    En inversant de nouveau cette relation, on obtient :
+    \[
+    P = \left( P_{\mathcal{B}_{c_2}}^{\mathcal{D}} \right)^{-1} = P_{\mathcal{D}}^{\mathcal{B}_{c_2}}
+    \]
+\end{enumerate}
+
+En substituant les expressions obtenues dans la relation algébrique initiale, on trouve :
+\[
+A_2 = P_{\mathcal{D}}^{\mathcal{B}_{c_2}} \cdot \mathrm{Mat}(f, \mathcal{B}_{c_1}, \mathcal{B}_{c_2}) \cdot P_{\mathcal{B}_{c_1}}^{\mathcal{B}}
+\]
+Le membre de droite correspond précisément à l'expression de l'application $f$ lue dans les bases $\mathcal{B}$ et $\mathcal{D}$. Par conséquent :
+\[
+A_2 = \mathrm{Mat}(f, \mathcal{B}, \mathcal{D})
+\]
+Les matrices $A_1$ et $A_2$ représentent bien la même application linéaire dans des bases différentes.
 
 \clearpage
 
